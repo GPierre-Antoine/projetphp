@@ -6,10 +6,13 @@
  * Time: 15:42
  */
 
+require_once("../view/View.php");
+require_once("../model/Model.php");
+
 trait Controller {
-    var $route;//String
-    Model $model;//Target model
-    View $view;//target View
+    private $route;//String
+    private $model;//Target model
+    private $view;//target View
 
     function getRoute() {
         return $this->route;
