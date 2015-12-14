@@ -6,8 +6,16 @@
  * Time: 15:42
  */
 
-trait controller {
+trait Controller {
     function getRoute() {
         return this->route;
-    }
+    }// getRoute
+
+    function getModel() {
+
+    }// getModel
+
+    function getView() {
+
+    }//getView
 }
