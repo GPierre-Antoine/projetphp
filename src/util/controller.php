@@ -7,15 +7,19 @@
  */
 
 trait Controller {
+    var $route;//String
+    Model $model;//Target model
+    View $view;//target View
+
     function getRoute() {
-        return this->route;
+        return $this->route;
     }// getRoute
 
     function getModel() {
-
+        return $this->model;
     }// getModel
 
     function getView() {
-
+        return $this->view;
     }//getView
 }
