@@ -13,6 +13,7 @@ class Router {
 
         $this->table['default'] =
             new Route ('DefaultModel','DefaultView','DefaultController');
+        $this->table['user'] = new Route ('UserModel','UserParamView','SingleUserController');
     }
 
     public function getRoute($name)
