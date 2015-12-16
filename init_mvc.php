@@ -4,11 +4,9 @@ include_once("src/Router.php");
 
 $router = new Router();
 $path = $_SERVER["REQUEST_URI"];
-echo $path;
+
 $matches = array();
 $task = preg_match("/^\/?([a-zA-Z0-9\-\_]+)(?\/(.*)/)",$path,$matches);
-
-echo "test $matches[1];";
 
 $route = $router->getRoute($matches[1]);
 
