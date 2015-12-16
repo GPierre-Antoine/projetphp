@@ -6,14 +6,16 @@
  * Time: 16:45
  */
 
-class ViewIndex {
+include_once("View.php");
+
+class ViewIndex extends View {
     private $model;
 
     public function __construct(ModelUnknowUser $mUU) {
         $this->model = $mUU;
     }// ViewIndex
 
-    public function render() {
+    public function display() {
         //script à kevin
     }// render
 }

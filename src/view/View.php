@@ -6,6 +6,17 @@
  * Time: 15:54
  */
 
-trait View {
+class View {
 
+    private $model;
+
+    function __construct($model)
+    {
+        $this->model = $model;
+    }
+
+
+
+    public function display() {
+    }
 }
