@@ -6,6 +6,6 @@
  * Time: 15:53
  */
 
-trait Model {
+class Model {
 
 }

@@ -7,8 +7,12 @@
  */
 
 
-trait Controller {
-    private $model;//Target model
+class Controller {
+    protected $model;//Target model
+
+    public function __construct(Model $model) {
+        $this->model = $model;
+    }
 
     function getModel() {
         return $this->model;
