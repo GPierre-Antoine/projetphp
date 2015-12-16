@@ -7,6 +7,7 @@ $path = $_SERVER["REQUEST_URI"];
 $matches = array();
 $task = preg_match("/^\/?([a-zA-Z0-9\-\_]+)\/(.*)/",$path,$matches);
 
+echo $matches[1];
 
 $route = $router->getRoute($matches[1]);
 
