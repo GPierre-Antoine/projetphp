@@ -14,3 +14,4 @@ $model = new $route->model;
 $controller = new $route->controller($model,$matches[2]);
 $view = new $route->view($model);
 
+$controller->update();

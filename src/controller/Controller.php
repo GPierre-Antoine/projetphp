@@ -17,4 +17,8 @@ class Controller {
     function getModel() {
         return $this->model;
     }// getModel
+
+    public function update() {
+
+    }
 }
