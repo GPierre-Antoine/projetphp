@@ -5,13 +5,14 @@
  * Date: 16/12/15
  * Time: 17:26
  */
-
+include_once("Route.php");
 class Router {
     private $table;
     public function __construct() {
         $this->table = array();
 
-        $this->table['default'] = new Route ('DefaultModel','DefaultView','DefaultController');
+        $this->table['default'] =
+            new Route ('DefaultModel','DefaultView','DefaultController');
     }
 
     public function getRoute($name)
