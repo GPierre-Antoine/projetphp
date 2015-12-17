@@ -1,4 +1,5 @@
 <?php
+$sessionStart = session_start();
 
 include_once("src/Router.php");
 include_once("src/util/db_wrap.php");
