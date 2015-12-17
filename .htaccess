@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule .* init_mvc.php
+RewriteRule .* index.php
