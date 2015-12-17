@@ -44,7 +44,7 @@ try {
     $controller->update();
     $view->display();
 } catch (exception $e) {
-
+    //TODO
 }
 
 //close db connexion
