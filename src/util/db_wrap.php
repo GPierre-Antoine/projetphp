@@ -18,14 +18,21 @@ namespace db {
             $param .= \db\configuration::$daba;
             $param .= ";host=";
             $param .= \db\configuration::$host;
+
+            $options = array(
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            );
+
+
             try {
                 self::$connection = new \PDO ($param,
                     \db\configuration::$name,
-                    \db\configuration::$pass);
+                    \db\configuration::$pass,
+                    $options);
             } catch (\PDOException $e) {
                 echo 'Connexion échouée : ' . $e->getMessage();
             }
-        self::$connection->set_charset('utf8');
     }// init
 
         public function __construct()
