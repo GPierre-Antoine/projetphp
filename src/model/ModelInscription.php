@@ -6,14 +6,14 @@
  * Time: 17:13
  */
 
-class ModelInscription extends ModelPDO {
-    public function __construct(PDO $pdo) {
-        parent::__construct($pdo);
-    }
+class ModelInscription extends ModelDBH {
+    public function __construct(\db\db_handler $dbh) {
+        parent::__construct($dbh);
+    }// ModelInscription
 
-    public function insert(/*do_it*/) {
-        $stmt = $this->pdo->prepare('SELECT * FROM *');
-        $stmt->execute();
-    }
+    public function insert($information1, $information2) {
+        $req = $this->pdo->prepare('INSERT INTO nom_de_la_table VALUES (\'' . $information1 . '\',\'' . $information2 .'\')');
+        $req->execute();
+    }// insert
 
 }

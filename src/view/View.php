@@ -13,10 +13,10 @@ class View {
     function __construct($model)
     {
         $this->model = $model;
-    }
+    }// View
 
 
 
     public function display() {
-    }
+    }// display
 }
