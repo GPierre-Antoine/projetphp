@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: g20901528
- * Date: 16/12/15
- * Time: 17:26
- */
+
+
 include_once("Route.php");
 class Router {
     private $table;
