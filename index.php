@@ -39,7 +39,8 @@ $model = new $route->model;
 $controller = new $route->controller($model,$matches[2]);
 $view = new $route->view($model);
 
-
+//let the controller update the model and the view display the model according to itself
+//interruption by exception, for instance, inscription -> user already exists
 try {
     $controller->update();
     $view->display();
