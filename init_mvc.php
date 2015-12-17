@@ -1,6 +1,8 @@
 <?php
 
 include_once("src/Router.php");
+include_once("src/util/db_wrap.php");
+\DB\db_handler::init();
 
 $router = new Router();
 $path = $_SERVER["REQUEST_URI"];
@@ -22,3 +24,5 @@ $view = new $route->view($model);
 $controller->update();
 $view->display();
 */
+
+\DB\db_handler::close();

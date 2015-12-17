@@ -31,6 +31,11 @@ namespace db {
         public function __construct()
         {
 
+        }
+
+        public static function close()
+        {
+            self::$connection=null;
         }// db_handler
 
         public function query ($query) {
@@ -40,7 +45,6 @@ namespace db {
         }// query
 
         public function __destruct() {
-            $this->connection->close();
         }// ~db_handler
     }
 }
