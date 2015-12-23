@@ -8,7 +8,7 @@
 
 class View {
 
-    private $model;
+    protected $model;
 
     function __construct($model)
     {

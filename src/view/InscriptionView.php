@@ -47,7 +47,7 @@ class InscriptionView extends View {
         		    	</div>
         		    </div>
         		    <div class='section' data-anchor='propos' id='propos'>
-        		    	caca mdrrr
+        		    	Coucou
         		    </div>
         		</div>
           </body>
