@@ -14,7 +14,7 @@ class ModelConnection extends ModelDBH {
 
     public function get($information1, $information2)
     {
-        $req =pdo('SELECT * FROM USERS');
+        $req = pdo('SELECT * FROM USERS');
         while($data = mysqli_fetch_array($req)) {
             if($data['NICKNAME'] == $information1 & $data['PASSWORD'] == $information2) {
                 //un bon test pour la connexion

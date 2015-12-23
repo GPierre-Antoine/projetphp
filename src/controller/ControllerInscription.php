@@ -14,6 +14,6 @@ class ControllerInscription extends Controller {
     }// ControllerInscription
 
     public function update(/*do_it*/) {
-        $this->model->inscription(/*do_it*/);
-    }// update
+    $this->model->insert(/*do_it*/);
+    }
 }

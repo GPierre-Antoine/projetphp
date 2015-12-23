@@ -1,13 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Pierre-Antoine
- * Date: 17/12/2015
- * Time: 22:23
+ * Created by Enzo.
+ * User: g13003750
+ * Date: 21/12/15
+ * Time: 21:01
  */
 
 include_once("View.php");
 
-class DefaultView extends View{
+class DefaultView extends View {
 
+    public function __construct($model) {
+        $this->model = $model;
+    }// ViewIndex
+
+    public function display() {
+        
+    }// render
 }

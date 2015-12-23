@@ -11,6 +11,7 @@ namespace db {
     class db_handler
     {
         private static $connection;
+        private $preparation;
 
 
         public static function init () {
@@ -38,12 +39,22 @@ namespace db {
         public function __construct()
         {
 
-        }
+        }// db_wrap
 
         public static function close()
         {
             self::$connection=null;
         }// db_handler
+
+        public function prepare($prepare)
+        {
+          $this->preparation = self::$connection->prepare($prepare);
+        }// prepare : use with execute
+
+        public function execute()
+        {
+          $this->preparation->execute();
+        }// execute
 
         public function query ($query) {
             //$this->connection->query($this->connection->real_escape_string($query));

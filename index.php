@@ -1,5 +1,10 @@
 <?php
-//$sessionStart = session_start();
+$sessionStart = session_start();
+if(!isset($_SESSION['logged'])) {
+  $_SESSION['logged'] = false;
+  $_SESSION['lang'] = 'fr';
+}
+
 
 //initialization of arrays containing pathname from classname
 include_once("src/util/mvc_catcher.php");
@@ -51,4 +56,3 @@ try {
 //close db connexion
 $connexion->close();
 $connexion = null;
-
