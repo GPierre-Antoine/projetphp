@@ -19,7 +19,7 @@ class InscriptionView extends View {
         <html>
           <head>
         		<title>Aaron</title>
-        		<link rel='stylesheet' type='text/css' href='index.css' />
+        		<link rel='stylesheet' type='text/css' href='../style/index.css' />
           </head>
           <body>
             <div id='fullpage'>
