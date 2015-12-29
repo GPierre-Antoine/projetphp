@@ -1,12 +1,16 @@
 <?php
 $sessionStart = session_start();
+
+
 if(!isset($_SESSION['logged'])) {
   $_SESSION['logged'] = false;
-  $_SESSION['lang'] = 'fr';
 }
 
+$models = array();
+$controllers = array();
+$views = array();
 
-//initialization of arrays containing pathname from classname
+//initialization of arrays containing pathname from classname aka : models, controllers, views
 include_once("src/util/mvc_catcher.php");
 
 //initialization of database
@@ -50,7 +54,7 @@ try {
     $controller->update();
     $view->display();
 } catch (exception $e) {
-    //TODO
+    $e->getMessage();
 }
 
 //close db connexion

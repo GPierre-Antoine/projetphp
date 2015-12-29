@@ -4,14 +4,20 @@
 include_once("Route.php");
 class Router {
     private $table;
+
+
     public function __construct() {
         $this->table = array();
 
 
         $this->table['default'] =
-            new Route ('IndexModel','InscriptionView','IndexController');
-        $this->table['user'] = new Route ('UserModel','UserParamView','SingleUserController');
+            new Route ('IndexModel','IndexView','IndexController');
+        $this->table['confirmation'] = new Route ('ConfirmationModel','ConfirmationView','ConfirmationController');   
+        $this->table['user'] = new Route ('UserModel','UserView','UserController');
         $this->table['defaultlogged'] = new Route ('DefaultModel','DefaultView','DefaultController');
+        $this->table['login'] = new Route ('UserModel','LoginView','LoginController');
+        $this->table['admin'] = new Route ('AdminModel','AdminView','AdminController');
+
     }
 
     public function getRoute($name)

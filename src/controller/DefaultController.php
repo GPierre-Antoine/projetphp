@@ -1,13 +1,19 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Pierre-Antoine
- * Date: 17/12/2015
- * Time: 22:22
+ * Created by Enzo.
+ * User: g13003750
+ * Date: 21/12/15
+ * Time: 21:05
  */
 
-include_once("Controller.php");
+include_once('Controller.php');
 
-class DefaultController extends Controller{
+class DefaultController extends Controller {
+    public function __construct(Model $model) {
+        parent::__construct($model);
+    }// ControllerInscription
 
+    public function update(/*do_it*/) {
+        
+    }
 }

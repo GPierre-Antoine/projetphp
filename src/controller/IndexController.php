@@ -15,6 +15,6 @@ class IndexController extends Controller {
     }// ControllerInscription
 
     public function update() {
-    $this->model->insert();
+      $this->model->get();
     }
 }

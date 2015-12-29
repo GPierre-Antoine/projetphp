@@ -9,11 +9,45 @@
 include_once('Model.php');
 include_once('src/util/db_wrap.php');
 
-class ModelPDO extends Model{
+abstract class ModelPDO extends Model{
     protected $pdo;
+
+    protected $table;
+
+    protected $request = "Select * FROM ";
+    private $option;
+    protected $spec;
+    protected $query;
+    protected $reupdate = true;
+
+    public function RowCount () {
+        return $this->query->rowCount();
+    }
 
     public function __construct() {
         $this->pdo = new \db\db_handler();
+    }
+
+    protected function change_option($newOption) {
+        $this->option = $newOption;
+        $this->reupdate = true;
+    }
+
+    protected function getOption() {
+        return $this->option;
+    }
+
+    protected abstract function getSpecific();
+
+    public function update () {
+        if ($this->reupdate === true) {
+
+            $final = $this->request . $this->table .PHP_EOL.$this->getSpecific().$this->getOption();
+            $this->pdo->prepare($final);
+            $this->reupdate = false;
+        }
+        $this->pdo->execute($this->spec);
+
     }
 
 

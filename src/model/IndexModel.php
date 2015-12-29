@@ -7,7 +7,6 @@
  */
 
  include_once('ModelPDO.php');
- include_once('LanguageModel.php');
 
 class IndexModel extends ModelPDO {
     public $inscription;
@@ -24,18 +23,10 @@ class IndexModel extends ModelPDO {
     }
 
     public function insert() {
-        $lm = new LanguageModel;
-        $lm->setLanguage($_SESSION['lang']);
-        $lm->insert();
-        $result = $lm->getData();
-        $this->inscription = $result[1];
-        $this->connection = $result[2];
-        $this->firstName = $result[3];
-        $this->name = $result[4];
-        $this->password = $result[5];
-        $this->repassword = $result[6];
-        $this->email = $result[7];
-        $this->submitation = $result[8];
+
+    }
+
+    public function get () {
 
     }
 

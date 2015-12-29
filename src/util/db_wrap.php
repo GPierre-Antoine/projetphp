@@ -48,16 +48,15 @@ namespace db {
 
         public function prepare($prepare)
         {
-          $this->preparation = self::$connection->prepare($prepare);
+            $this->preparation = self::$connection->prepare($prepare);
         }// prepare : use with execute
 
-        public function execute()
+        public function execute($spec)
         {
-          $this->preparation->execute();
+            $this->preparation->execute($spec);
         }// execute
 
         public function query ($query) {
-            //$this->connection->query($this->connection->real_escape_string($query));
             $answer = self::$connection->query($query);
             return $answer;
         }// query
