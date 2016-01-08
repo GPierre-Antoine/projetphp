@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by Enzo.
- * User: g13003750
- * Date: 29/12/15
- * Time: 14:48
- */
 
+include_once("/home/aaron-aaron/www/src/controller/"."Controller.php");
 
 class AdminController extends Controller {
     public function __construct(Model $model) {
@@ -14,5 +9,6 @@ class AdminController extends Controller {
     }// ControllerInscription
 
     public function update() {
+        //var_dump($this->options);
     }
 }

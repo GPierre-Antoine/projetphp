@@ -58,9 +58,11 @@ $controller = new $route->controller($model);
 $view = new $route->view($model);
 
 
-if (isset($task[2]) && !empty($task[2])) {
-    for ($i = 2;$i < sizeof($task);++$i);
-    $controller->addOption($task[$i]);
+//var_dump($task);
+for ($i = 2;$i < count($task) && !empty($task[$i]);++$i);
+{
+    echo "<br /> $i";
+    //$controller->addOption($task[$i]);
 }
 
 

@@ -1,11 +1,10 @@
 <?php
 
-
 class Controller {
     protected $model;//Target model
     protected $options = array();
 
-    public function addOptions () {
+    public function addOption () {
         $numarg = func_num_args();
         $args   = func_get_args();
         for ($i = 0;$i<$numarg;++$i)
@@ -23,6 +22,5 @@ class Controller {
     }// getModel
 
     public function update() {
-
     }
 }
