@@ -107,13 +107,22 @@ class DefaultView extends View {
 
 			    	<!-- PREFERENCE -->
 			    	<div id="userPreference" class="hide">
-			    		<a href="#" onclick="javascript:;" class="pref_close_btn"></a>
-			    		<button class="pref_option_btn" type="button">Options</button>
-			    		<button class="pref_deconnection_btn" type="button">Déconnexion</button>
+			    	    <div id="userPreference_top">
+                            <a href="#" onclick="javascript:;" class="pref_close_btn"></a>
+                        </div>
+                        <div id="userPreference_rest">
+                            <button class="pref_option_btn" type="button">Options</button>
+                            <button class="pref_deconnection_btn" type="button">Déconnexion</button>
+                        </div>
 			    	</div>
 
 			    	<div id="userInformation" class="hide">
-			    		User information here
+			    		<div id="userInformation_top">
+                            <img class="userInformation_top_img" src="src/images/account.png"><span class="userInformation_top_name">'.$this->model->getName().'</span>
+                        </div>
+			    		<div id="userInformation_rest">
+
+                        </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
 			    	
