@@ -1,0 +1,391 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	width: 100%;
+}
+
+body {
+	overflow: hidden;
+	width: 100%;
+	position: relative;
+}
+
+/*ACTION*/
+.hide {
+	visibility: hidden;
+	display: none;
+	background-color: green;
+}
+
+/*CALC IMAGE*/
+.imageButton {
+	border: none;
+	background-color: transparent;
+}
+
+/*TOP*/
+#top {
+	border-bottom: 2px solid #2980b9;
+	width: calc(100% - 5px);
+	height: 50px;
+	background-color: #2980b9; 
+	padding: 5px;
+}
+
+.logo {
+	float: left;
+	height: 100%;
+}
+
+#TUser {
+	position: absolute;
+	left: 50%;
+	line-height: 50px;
+}
+
+#TUserLogo {
+	float: left;
+}
+
+#TUserName {
+	float: left;
+}
+
+.btnClic {
+	background-color: #2980b9;
+}
+
+#userInformation {
+	width: 20%;
+	height: 300px;
+	background-color: #2980b9;
+	position: absolute;
+	top: 60px;
+	left: 50%;
+	padding: 3px;
+}
+
+#userPreference {
+	width: 15%;
+	height: 300px;
+	background-color: #bdc3c7;
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-bottom-left-radius: 10px;
+}
+
+/*LEFT*/
+
+/* LEFT TOP PANEL*/
+#LTBar {
+	height: 30px;
+	width: 100%;
+	border-right: 2px solid #2980b9;
+}
+
+#searchInput {
+    width: calc(100% - 30px);
+    height: 30px;
+    padding-left: 10px;
+    border: none;
+    float: left;
+    text-align: center;
+}
+
+/* LEFT BOT PANEL*/
+#LBBar {
+	width: calc(100% + 2px);
+	height: 50px;
+	position: absolute;
+	bottom: 0;
+	background-color: #f39c12;
+}
+
+/* LEFT BIG PANEL PANEL*/
+.choicePanel {
+	float: left;
+	border: none;
+	background-color: transparent;
+	margin-left: 20px;
+	margin-top: 15px;
+}
+
+
+/*PLACEHOLDER*/
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
+
+/* POP UP */
+#overlay {
+    position: fixed;
+    z-index: 10000;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    display: none;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    opacity: 0;
+    z-index: 11000;
+    left: 50%;
+    margin-left: -300px;
+    top: 150px;
+    width: 600px;
+    background: #FFF;
+    border-radius: 5px;
+    padding: 10px;
+
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+/*ADD FLUX*/
+.addLibrary {
+	width: 100%;
+	float: left;
+}
+
+.addFlux {
+	width: 100%;
+	float: left;
+}
+
+.sep {
+	width: 100%;
+	border-top: 1px solid black;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	float: left;
+}
+
+.smallInput {
+	float: left;
+	width: 50%;
+	height: 30px;
+}
+
+.bigInput {
+	width: 100%;
+	height: 30px;
+}
+
+/* LEFT MENU */
+#page {
+	position: relative;
+}
+
+#menu {
+	position: fixed;
+	background-color: #2980b9;
+	top: 62px; /* 60 -> TOP & 2 -> BORDER */
+	bottom: 0;
+	width: 25%;
+	left: 0;
+	z-index: 9999;
+}
+
+/* SMALL MENU LEFT */
+#leftSmallMenu {
+	border-right: 2px solid #2980b9;
+	height: 100%;
+	width: 52px;
+	position: fixed;
+	left: 25%;
+}
+
+/* CONTENT */
+#content {
+	padding: 25px;
+	position: fixed;
+	margin-left: 52px;
+	left: 25%;
+}
+
+/* TOP BAR BUTTON */
+.preference_btn {
+	background: url(../images/preference_btn.png) center center no-repeat;
+    height: 100%;
+    width: 48px;
+    float: right;
+}
+
+/* PREFERENCE BUTTON */
+.pref_close_btn {
+	background: url(../images/close_btn.png) center center no-repeat;
+	height: 36px;
+	width: 36px;
+	float: left;
+}
+
+.pref_option_btn {
+	height: 10%;
+	width: 100%;
+	border-bottom: 1px solid #ecf0f1;
+}
+
+.pref_deconnection_btn {
+	height: 10%;
+	width: 100%;
+	border-bottom: 1px solid #ecf0f1;
+}
+
+/* MENU BUTTON */
+.open_btn {
+	background: #f39c12 url(../images/showLeft_btn.png) center center no-repeat;
+	height:52px;
+	width:52px;
+	float: left;
+	border-bottom: 1px solid #2980b9;
+}
+
+.close_btn {
+	background: #f39c12 url(../images/hideLeft_btn.png) center center no-repeat;
+	height:52px;
+	width:52px;
+	float: left;
+	border-bottom: 1px solid #2980b9;
+}
+
+.all_btn {
+	background: #f39c12 url(../images/all_btn.png) center center no-repeat;
+	height:52px;
+	width:52px;
+	float: left;
+	border-bottom: 1px solid #2980b9;	
+}
+
+.favorite_btn {
+	background: #f39c12 url(../images/favorite_btn.png) center center no-repeat;
+	height:52px;
+	width:52px;
+	float: left;
+	border-bottom: 1px solid #2980b9;
+}
+
+.friend_btn {
+	background: #f39c12 url(../images/friends_btn.png) center center no-repeat;
+	height: 52px;
+	width: 52px;
+	float: left;
+	border-bottom: 1px solid #2980b9;
+}
+
+.search_btn {
+	background: #f39c12 url(../images/search_btn.png) center center no-repeat;
+	height:30px;
+	width:30px;
+	float: right;
+}
+
+.addF_btn {
+	background: #f39c12 url(../images/addF_btn.png) center center no-repeat;
+	float: left;
+	height: 100%;
+	width: 50px;
+}
+
+.lessF_btn {
+	background: #f39c12 url(../images/lessF_btn.png) center center no-repeat;
+	float: right;
+	height: 100%;
+	width: 50px;
+}
+
+/* PAGE BUTTON */
+
+/* FLUX */
+
+
+.flux {
+	float: left;
+	width: 100%;
+	height: 52px;
+	border-bottom: 1px solid black;
+}
+
+.backflux_btn {
+	background: transparent url(../images/hideLeft_btn.png) center center no-repeat;
+	float: left;
+	height: 52px;
+	width: 52px;
+}
+
+.back_flux {
+	float: left;
+	line-height: 52px;
+}
+
+.name_flux {
+	line-height: 52px;
+	margin-left: 10px;
+}
+
+/* LEFT PANELS */
+#categorie_panel {
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 100%;
+	height: calc( 100% - 80px ); /* 60 + 30 + 5*/
+	text-align: center;
+	border-right: 2px solid #2980b9;
+}
+
+.categorie {
+
+}
+
+#friend_panel {
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 100%;
+	height: calc( 100% - 80px ); /* 60 + 30 + 5*/
+	border-right: 2px solid #2980b9;	
+}
+
+.friend {
+
+}
+
+.default_block_panel {
+	width: 100%;
+	height: 8%;
+	border: none;
+	margin-top: 2px;
+}
+
+.flux_panel {
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 100%;
+	height: calc( 100% - 80px ); /* 60 + 30 + 5*/
+	border-right: 2px solid #2980b9;
+}
+
+.flux {
+	background-color: transparent;
+}

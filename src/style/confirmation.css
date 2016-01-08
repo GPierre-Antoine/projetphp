@@ -1,0 +1,75 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	width: 100%;
+}
+
+body {
+	background-color: #3498db;
+}
+
+.logo {
+	position: absolute;
+	left: 49%;
+	top: 39%;
+	width: 159px;
+	height: 159px;
+	margin-left: -79.5px;
+	margin-top: -79.5px;
+}
+
+.validation {
+	width: 25%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 50px;
+	margin-left: -12.5%;
+	margin-top: -25px;
+}
+
+.code {
+	height: 100%;
+	width: 75%;
+	text-align: center;
+	color: #f39c12;
+	border: none;
+	border-radius: 5px;
+}
+
+.submit {
+	height: 100%;
+	width: calc(25% - 6px); /* 6PX -> BORDER LEFT/RIGHT */
+	background-color: #f39c12;
+	border: none;
+	border-radius: 5px;
+}
+
+.help {
+	text-align: center;
+}
+
+.sendCode {
+	text-decoration: none;
+	color: #f39c12;
+}
+
+/*PLACEHOLDER*/
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}

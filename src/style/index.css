@@ -1,0 +1,85 @@
+body {
+	background-color: #3498db;
+}
+
+html * {
+	margin: 0;
+	padding: 0;
+	font-family: 'Fjalla One', sans-serif;
+}
+
+#index {
+	background-image: url('../images/c.jpeg');
+	background-repeat: no-repeat;
+}
+
+#signIndex {
+	width: 36%;
+	height: 25%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -18%;
+	margin-top: -10%;
+}
+
+.hide {
+	visibility: hidden;
+	display: none;
+}
+
+.form {
+	border: 1px solid white;
+	background-color: white;
+}
+
+.selected {
+	background-color: green;
+}
+
+.menu {
+	width: 100%;
+	height: 20%;
+}
+
+.buttonIndex {
+	float: left;
+	width: 50%;
+	height: 100%;
+	border: none;
+}
+
+.smallInput {
+	width: 50%;
+    height: 20%;
+    float: left;
+    text-align: center;
+}
+
+.bigInput {
+	width: 100%;
+    height: 20%;
+    text-align: center;
+}
+
+#submitIndex {
+	width: 100%;
+    height: 20%;
+}
+
+/*PLACEHOLDER*/
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;
+}
+
+:-ms-input-placeholder {
+   text-align: center;
+}
