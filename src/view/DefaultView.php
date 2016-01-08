@@ -7,6 +7,7 @@
  */
 
 include_once('View.php');
+include_once('src/util/regex.php');
 
 class DefaultView extends View {
 
@@ -65,10 +66,11 @@ class DefaultView extends View {
 						</div>';
 						foreach ($this->categories as $c) {
 						echo '<div id="'.$c->getName().'_panel" class="flux_Panel searchOn hide">
-							  		<button class="default_block_panel flux backflux_btn">Retour</button>';
+							  		<button class="default_block_panel backflux_btn"><span class="flux_name">Retour</span></button>';
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
-							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button">'.$in->getName().'<img src="src/images/favorite_'.$et.'.png"></button>';
+                                $rgb = hex2rgb($c->getColor());
+							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img class="flux_with_image" src="src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}

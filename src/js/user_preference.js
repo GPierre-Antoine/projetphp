@@ -3,25 +3,26 @@ $(function () {
 	var openU = false;
 
 	$(".preference_btn").click(function(e) {
-		if(!openP) { 
+		if(!openP) {
 			$("#userPreference").removeClass("hide");
 			$("#btnPref").addClass("btnClic");
-			openP = !openP; 
+			openP = !openP;
 		}
 		else if(openP) {
 			$("#userPreference").addClass("hide");
 			$("#btnPref").removeClass("btnClic");
 			openP = !openP;
 		}
+
 		e.stopPropagation(); // This is the preferred method.
-   		return false; 
+   		return false;
 	});
 
 	$("#btnUser").click(function(e) {
-		if(!openU) { 
+		if(!openU) {
 			$("#userInformation").removeClass("hide");
 			$("#btnUser").addClass("btnClic");
-			openU = !openU; 
+			openU = !openU;
 		}
 		else if(openU) {
 			$("#userInformation").addClass("hide");
@@ -29,7 +30,7 @@ $(function () {
 			openU = !openU;
 		}
 		e.stopPropagation(); // This is the preferred method.
-    	return false; 
+    	return false;
 	});
 
 	$(document).click(function() {

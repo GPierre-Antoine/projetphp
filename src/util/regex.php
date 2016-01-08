@@ -23,3 +23,8 @@ function strip_all($pattern,$field) {
         $result = preg_replace($pattern,'',$field,-1,$count);
     return $result;
 }
+
+function hex2rgb($colour) {
+    list($r, $g, $b) = sscanf($colour, "#%02x%02x%02x");
+    return array( 'red' => $r, 'green' => $g, 'blue' => $b );
+}
