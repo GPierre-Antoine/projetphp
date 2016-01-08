@@ -9,6 +9,5 @@ class AdminController extends Controller {
     }// ControllerInscription
 
     public function update() {
-        //var_dump($this->options);
     }
 }
