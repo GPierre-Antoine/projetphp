@@ -19,6 +19,7 @@ class Router {
         $this->table['settings'] = new Route ('DefaultModel','SettingsView','SettingsController');
         $this->table['admin'] = new Route ('AdminModel','AdminView','AdminController');
         $this->table['ajx'] = new Route ('CustomModel','EmptyView','AjaxController');
+        $this->table['register'] = new Route ('UserModel','EmptyView','ControllerInscription');
         
     }
 
