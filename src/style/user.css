@@ -55,13 +55,41 @@ body {
 }
 
 #userInformation {
-	width: 20%;
-	height: 300px;
-	background-color: #2980b9;
-	position: absolute;
-	top: 60px;
-	left: 50%;
-	padding: 3px;
+    width: 20%;
+    height: 300px;
+    background-color: #bdc3c7;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-left: -150px;
+}
+
+#userInformation_top {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #2980b9;
+}
+
+.userInformation_top_img {
+    width: 60px;
+    height: 100%;
+    float: left;
+}
+
+.userInformation_top_name {
+    display: block;
+    font-size: 28px;
+    float: left;
+    text-align: center;
+    width: calc(100% - 60px);
+    line-height: 60px;
+}
+
+#userInformation_rest {
+    width: 100%;
+    height: calc(100% - 60px);
 }
 
 #userPreference {
@@ -72,6 +100,33 @@ body {
 	right: 0;
 	top: 0;
 	border-bottom-left-radius: 10px;
+}
+
+#userPreference_top {
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #2980b9;
+}
+
+.userPreference_top_title {
+    display: block;
+    font-size: 28px;
+    float: left;
+    text-align: center;
+    width: calc(100% - 60px);
+    line-height: 60px;
+}
+
+.userPreference_top_close {
+    float: right;
+    background: url(../images/preference_btn.png) center center no-repeat;
+    height: 100%;
+    width: 48px;
+}
+
+#userPreference_rest {
+    width: 100%;
+    height: calc(100% - 60px);
 }
 
 /*LEFT*/
@@ -231,12 +286,6 @@ body {
 }
 
 /* PREFERENCE BUTTON */
-.pref_close_btn {
-	background: url(../images/close_btn.png) center center no-repeat;
-	height: 36px;
-	width: 36px;
-	float: left;
-}
 
 .pref_option_btn {
 	height: 10%;

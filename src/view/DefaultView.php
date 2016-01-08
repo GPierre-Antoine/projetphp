@@ -19,26 +19,26 @@ class DefaultView extends View {
 
         $this->categories = $this->model->getCategories();
         $this->friends = $this->model->getFriends();
-    }// UserView
+    }
 
     public function display() {
     	echo '
     		<html>
 				<head>
 					<title>Aaron</title>
-					<link rel="stylesheet" type="text/css" href="src/style/user.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-					<script type="text/javascript" src="src/js/popup.js" ></script>
-					<script type="text/javascript" src="src/js/aside.js"></script>
-					<script type="text/javascript" src="src/js/user_preference.js"></script>
-					<script type="text/javascript" src="src/js/switch_flux.js"></script>
-					<script type="text/javascript" src="src/js/search.js"></script>
+					<script type="text/javascript" src="/src/js/popup.js" ></script>
+					<script type="text/javascript" src="/src/js/aside.js"></script>
+					<script type="text/javascript" src="/src/js/user_preference.js"></script>
+					<script type="text/javascript" src="/src/js/switch_flux.js"></script>
+					<script type="text/javascript" src="/src/js/search.js"></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
 					<div id="top">
-						<img class="logo" src="src/images/aaron_logo.png">
-						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="src/images/account.png"></button></div><div id="TUserName"><strong>'.$this->model->getName().'</strong></div></div>
+						<img class="logo" src="/src/images/aaron_logo.png">
+						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="/src/images/account.png"></button></div><div id="TUserName"><strong>'.$this->model->getName().'</strong></div></div>
 						<a href="#" onclick="javascript:;" class="preference_btn"></a>
 					</div>
 
@@ -70,7 +70,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img class="flux_with_image" src="src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -107,13 +107,22 @@ class DefaultView extends View {
 
 			    	<!-- PREFERENCE -->
 			    	<div id="userPreference" class="hide">
-			    		<a href="#" onclick="javascript:;" class="pref_close_btn"></a>
-			    		<button class="pref_option_btn" type="button">Options</button>
-			    		<button class="pref_deconnection_btn" type="button">Déconnexion</button>
+			    	    <div id="userPreference_top">
+                            <span class="userPreference_top_title">Préférences</span><a href="#" onclick="javascript:;" class="userPreference_top_close"></a>
+                        </div>
+                        <div id="userPreference_rest">
+                            <button class="pref_option_btn" type="button">Options personnelles</button>
+                            <button class="pref_deconnection_btn" type="button">Déconnexion</button>
+                        </div>
 			    	</div>
 
 			    	<div id="userInformation" class="hide">
-			    		User information here
+			    		<div id="userInformation_top">
+                            <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->model->getName().'</span>
+                        </div>
+			    		<div id="userInformation_rest">
+
+                        </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
 			    	
