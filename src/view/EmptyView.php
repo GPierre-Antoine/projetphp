@@ -13,7 +13,6 @@ class EmptyView extends View {
     }// UserView
 
     public function display() {
-        echo 'Test ajax';
     }
 
 }

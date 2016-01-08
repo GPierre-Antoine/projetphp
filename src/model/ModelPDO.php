@@ -57,7 +57,6 @@ abstract class ModelPDO extends Model{
 
     public function next() {
         $this->query = ($this->pdo->fetch(PDO::FETCH_ASSOC));
-        var_dump($this->query);
         if ($this->query === false)
             return false;
         return true;

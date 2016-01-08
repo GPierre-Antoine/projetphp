@@ -12,10 +12,17 @@ class ControllerInscription extends Controller {
     }// ControllerInscription
 
     public function update() {
-        if (isset($_POST['mail']) && isset($_POST['pwd'])) {
+
+        if (isset($_POST['mail']) && isset($_POST['pwd0'])) {
 
             $mail = mail_strip($_POST['mail']);
-            $password = secure_strip($_POST['pwd']);
+            $password = secure_strip($_POST['pwd0']);
+            if ($password !== secure_strip($_POST['pwd1'])) {
+                //do not match
+
+
+                return;
+            }
             $name = secure_strip($_POST['fName']);
 
 
@@ -37,7 +44,7 @@ class ControllerInscription extends Controller {
 
                 $user = new User('0',$mail,$name,0);
 
-                $this->model->insert($user,encrypt($password,$bytes),$bytes);
+                $this->model->create_new_user($user,encrypt($password,$bytes),$bytes);
 
 
             }

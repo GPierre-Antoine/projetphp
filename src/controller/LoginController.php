@@ -37,6 +37,8 @@ class LoginController extends Controller
 
             }
             else {
+
+
                 $this->model->next();
                 //user exists
                 if (encrypt($password,$this->model->getData('TOKEN')) === $this->model->getData('PASSWORD')) {

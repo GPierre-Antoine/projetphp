@@ -13,13 +13,13 @@ class UserModel extends ModelPDO {
 
     public function create_new_user(User $user,$password,$token) {
         $this->pdo->prepare("INSERT INTO `USERS` (`EMAIL`,`NAME`,`ENABLE`) VALUES (?,?,0)");
-        $this->pdo->execute($user->getEmail(),$user->getName());
+        $this->pdo->execute(array($user->getEmail(),$user->getName()));
 
         $id = $this->pdo->lastInsertId();
 
         $passdb = new \db\db_handler();
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
-        $passdb->execute(\PDO::lastInsertId,encrypt($password,$token),$token);
+        $passdb->execute(array($passdb->lastInsertId(),encrypt($password,$token),$token));
     }
 
     public function select () {

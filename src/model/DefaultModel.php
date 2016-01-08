@@ -7,7 +7,7 @@
  */
 
 include_once('ModelPDO.php');
-include_once('src/class/user.php');
+include_once('src/class/User.php');
 
 class DefaultModel extends ModelPDO {
 
