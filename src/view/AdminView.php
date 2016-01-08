@@ -26,9 +26,9 @@ class AdminView extends View {
             echo '<a href="#" id="' . $u->getID() . '"onclick="javascript:;" class="myButton">Enable</a>';
          }
          else {
-          echo '<a href="#" onclick="javascript:;"  class="myButton" >Disable</a>';
+          echo '<a  onclick="javascript:;"  class="myButton" >Disable</a>';
          }
-         echo '<a href="#"  class="myButton"> Delete </a></div></div>';
+         echo '<a  class="myButton"> Delete </a></div></div>';
       }
     }
 
