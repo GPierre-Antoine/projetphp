@@ -4,13 +4,8 @@ class Controller {
     protected $model;//Target model
     protected $options = array();
 
-    public function addOption () {
-        $numarg = func_num_args();
-        $args   = func_get_args();
-        for ($i = 0;$i<$numarg;++$i)
-        {
-            $this->options[] = $args[$i];
-        }
+    public function addOption ($option) {
+        $this->options[] = $option;
     }
 
     public function __construct(Model $model) {

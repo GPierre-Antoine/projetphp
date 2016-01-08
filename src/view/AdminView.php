@@ -37,14 +37,14 @@ class AdminView extends View {
         <html>
         <head>
           <title>Admin</title>
-          <link rel="stylesheet" type="text/css" href="src/style/admin.css" />
+          <link rel="stylesheet" type="text/css" href="/src/style/admin.css" />
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-          <script type="text/javascript" src="src/js/admin.js"></script>
+          <script type="text/javascript" src="/src/js/admin.js"></script>
         </head>
         <body>
           <!-- TOP SIDE -->
           <div id="top">
-            <img class="logo" src="src/images/aaron_logo.png">
+            <img class="logo" src="/src/images/aaron_logo.png">
             <div id="TUser"><div id="TUserName"><strong> Panel Admin </strong></div></div>
           </div>
           <div id="content">';

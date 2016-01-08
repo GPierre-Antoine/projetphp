@@ -43,11 +43,7 @@ $router = new Router();
 
 
 //URL rewriting
-$path = $_SERVER["REQUEST_URI"];
-
-
-
-$task = explode ('/',$path);
+$task = explode ('/',$_SERVER["REQUEST_URI"]);
 
 //get the right route from the first parameter
 $route = $router->getRoute($task[1]);
@@ -59,11 +55,14 @@ $view = new $route->view($model);
 
 
 //var_dump($task);
-for ($i = 2;$i < count($task) && !empty($task[$i]);++$i);
-{
-    echo "<br /> $i";
-    //$controller->addOption($task[$i]);
+if (count($task) > 2) {
+$options = array_slice($task,2);
+    foreach ($options as $value)
+        if (empty($value) === false) {
+            $controller->addOption($value);
+        }
 }
+
 
 
 //let the controller update the model and the view display the model according to itself
