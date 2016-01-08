@@ -1,6 +1,5 @@
 <?php
 
-include_once("/home/aaron-aaron/www/src/controller/"."Controller.php");
 
 class AdminController extends Controller {
     public function __construct(Model $model) {

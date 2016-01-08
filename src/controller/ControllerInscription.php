@@ -16,6 +16,8 @@ class ControllerInscription extends Controller {
 
             $mail = mail_strip($_POST['mail']);
             $password = secure_strip($_POST['pwd']);
+            $name = secure_strip($_POST['fName']);
+
 
             $mail = $mail['mail'];
 
@@ -33,7 +35,7 @@ class ControllerInscription extends Controller {
                 $crypto_strong = true;
                 $bytes = openssl_random_pseudo_bytes(64,$crypto_strong);
 
-                $user = 0;// = new User(,,...);
+                $user = new User('0',$mail,$name,0);
 
                 $this->model->insert($user,encrypt($password,$bytes),$bytes);
 
