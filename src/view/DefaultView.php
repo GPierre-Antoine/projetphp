@@ -108,7 +108,7 @@ class DefaultView extends View {
 			    	<!-- PREFERENCE -->
 			    	<div id="userPreference" class="hide">
 			    	    <div id="userPreference_top">
-                            <a href="#" onclick="javascript:;" class="pref_close_btn"></a>
+                            <span class="userPreference_top_title">Préférences</span><a href="#" onclick="javascript:;" class="userPreference_top_close"></a>
                         </div>
                         <div id="userPreference_rest">
                             <button class="pref_option_btn" type="button">Options</button>
