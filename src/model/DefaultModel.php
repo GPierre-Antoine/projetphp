@@ -21,16 +21,8 @@ class DefaultModel extends ModelPDO {
         $this->user->initializeFlux();
     }
 
-    public function getName() {
-		return $this->user->getName();
-	}
-
-	public function getFriends() {
-		return $this->user->getFriends();
-	}
-
-    public function getCategories() {
-        return $this->user->getCategories();
+    public function getCurrentUser() {
+        return $this->user;
     }
 
 	public function getOption() {

@@ -11,14 +11,16 @@ include_once('src/util/regex.php');
 
 class DefaultView extends View {
 
+    private $user;
 	private $categories;
 	private $friends;
 
     public function __construct($model) {
         $this->model = $model;
 
-        $this->categories = $this->model->getCategories();
-        $this->friends = $this->model->getFriends();
+        $this->user = $this->model->getCurrentUser();
+        $this->categories = $this->user->getCategories();
+        $this->friends = $this->user->getFriends();
     }
 
     public function display() {
@@ -38,7 +40,7 @@ class DefaultView extends View {
 					<!-- TOP SIDE -->
 					<div id="top">
 						<img class="logo" src="/src/images/aaron_logo.png">
-						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="/src/images/account.png"></button></div><div id="TUserName"><strong>'.$this->model->getName().'</strong></div></div>
+						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="/src/images/account.png"></button></div><div id="TUserName"><strong>'.$this->user->getName().'</strong></div></div>
 						<a href="#" onclick="javascript:;" class="preference_btn"></a>
 					</div>
 
@@ -118,7 +120,7 @@ class DefaultView extends View {
 
 			    	<div id="userInformation" class="hide">
 			    		<div id="userInformation_top">
-                            <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->model->getName().'</span>
+                            <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div id="userInformation_rest">
 

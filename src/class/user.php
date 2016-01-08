@@ -26,16 +26,6 @@ class User
     public function initializeFriends() {
          //GET FRIENDS OF USER
         $this->friends = array();
-        /*$sqlFriends = "SELECT IDFRIEND FROM FRIEND WHERE IDUSER = ".$this->id;
-        $stmt = $this->pdo->query($sqlFriends);
-        while ($friend = $stmt->fetch())
-        {
-            $sqlInformationFriend = "SELECT * FROM USERS WHERE ID = ".$friend[0];
-            $stmt2 = $this->pdo->query($sqlInformationFriend);
-            $informationFriend = $stmt2->fetch();
-            $newFriend = build_user ($informationFriend['ID']);
-            array_push($this->friends, $newFriend);
-        }*/
 
         $sqlFriends = "SELECT IDFRIEND FROM FRIEND WHERE IDUSER = ".$this->id;
         $stmt = $this->pdo->query($sqlFriends);
