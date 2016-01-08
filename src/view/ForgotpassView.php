@@ -1,6 +1,6 @@
 <?php
 
-include_once('View.php')
+include_once('View.php');
 
 class ForgotpassView extends View {
 	public function __construct($model) {
