@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: g13003750
- * Date: 16/12/15
- * Time: 17:01
- */
 
 $base = $_SERVER['DOCUMENT_ROOT']."src/";
-
-include_once($base .'controller/Controller.php');
 
 include_once($base.'util/regex.php');
 
@@ -19,7 +11,7 @@ class ControllerInscription extends Controller {
         parent::__construct($model);
     }// ControllerInscription
 
-    public function update(/*do_it*/) {
+    public function update() {
         if (isset($_POST['mail']) && isset($_POST['pwd'])) {
 
             $mail = mail_strip($_POST['mail']);
@@ -38,9 +30,10 @@ class ControllerInscription extends Controller {
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
 
-                $bytes = openssl_random_pseudo_bytes(64,,);
+                $crypto_strong = true;
+                $bytes = openssl_random_pseudo_bytes(64,$crypto_strong);
 
-                $user = new User(,,...);
+                $user = 0;// = new User(,,...);
 
                 $this->model->insert($user,encrypt($password,$bytes),$bytes);
 
