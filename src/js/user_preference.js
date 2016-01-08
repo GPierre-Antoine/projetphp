@@ -38,6 +38,14 @@ $(function () {
 	});
 
 	$(document).click(function() {
+        $('#userPreference').click(function(event){
+            event.stopPropagation();
+        });
+
+        $('#userInformation').click(function(event){
+            event.stopPropagation();
+        });
+
         if (openU) {
             $("#userInformation").addClass("hide");
             openU = !openU;
