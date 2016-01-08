@@ -74,7 +74,6 @@ class IndexView extends View {
         		    	</div>
         		    </div>
         		    <div class='section' data-anchor='propos' id='propos'>
-        		    	Coucou
         		    </div>
         		</div>
           </body>
