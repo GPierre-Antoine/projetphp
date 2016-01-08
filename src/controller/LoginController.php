@@ -2,8 +2,6 @@
 
 $base = $_SERVER['DOCUMENT_ROOT']."src/";
 
-include_once($base .'controller/Controller.php');
-
 include_once($base.'util/regex.php');
 
 include_once($base.'util/encryption.php');

@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by Enzo.
- * User: g13003750
- * Date: 21/12/15
- * Time: 21:05
- */
-
-include_once('Controller.php');
 
 class DefaultController extends Controller {
 	
