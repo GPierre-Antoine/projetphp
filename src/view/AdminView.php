@@ -23,12 +23,12 @@ class AdminView extends View {
          echo $u->getName() . '<br/>';
          echo '</div><div class="user_Footer">';
          if($u->getEnable() == 1) {
-            echo '<a href="#" id="' . $u->getID() . '"onclick="javascript:;" class="myButton">Enable</a>';
+            echo '<a id="' . $u->getID() . '"onclick="javascript:;" class="myButton">Enable</a>';
          }
          else {
-          echo '<a  onclick="javascript:;"  class="myButton" >Disable</a>';
+          echo '<a onclick="javascript:;"  class="myButton" >Disable</a>';
          }
-         echo '<a  class="myButton"> Delete </a></div></div>';
+         echo '<a class="myButton"> Delete </a></div></div>';
       }
     }
 
