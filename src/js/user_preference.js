@@ -4,13 +4,15 @@ $(function () {
 
 	$(".preference_btn").click(function(e) {
 		if(!openP) {
+            if(openU) {
+                $("#userInformation").addClass("hide");
+                openU = !openU;
+            }
 			$("#userPreference").removeClass("hide");
-			$("#btnPref").addClass("btnClic");
 			openP = !openP;
 		}
 		else if(openP) {
 			$("#userPreference").addClass("hide");
-			$("#btnPref").removeClass("btnClic");
 			openP = !openP;
 		}
 
@@ -20,13 +22,15 @@ $(function () {
 
 	$("#btnUser").click(function(e) {
 		if(!openU) {
+            if(openP) {
+                $("#userPreference").addClass("hide");
+                openP = !openP;
+            }
 			$("#userInformation").removeClass("hide");
-			$("#btnUser").addClass("btnClic");
 			openU = !openU;
 		}
 		else if(openU) {
 			$("#userInformation").addClass("hide");
-			$("#btnUser").removeClass("btnClic");
 			openU = !openU;
 		}
 		e.stopPropagation(); // This is the preferred method.
@@ -34,13 +38,13 @@ $(function () {
 	});
 
 	$(document).click(function() {
-		if (openU) {
-    		$("#userInformation").addClass("hide");
-    		openU = !openU;
-    	}
-    	if (openP) {
-    		$("#userPreference").addClass("hide");
-    		openP = !openP;
-    	}
-	});
+        if (openU) {
+            $("#userInformation").addClass("hide");
+            openU = !openU;
+        }
+        if (openP) {
+            $("#userPreference").addClass("hide");
+            openP = !openP;
+        }
+    });
 });
