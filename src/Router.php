@@ -16,6 +16,7 @@ class Router {
         $this->table['user'] = new Route ('UserModel','UserView','UserController');
         $this->table['defaultlogged'] = new Route ('DefaultModel','DefaultView','DefaultController');
         $this->table['login'] = new Route ('UserModel','LoginView','LoginController');
+        $this->table['settings'] = new Route ('','','');
         $this->table['admin'] = new Route ('AdminModel','AdminView','AdminController');
         $this->table['ajx'] = new Route ('CustomModel','EmptyView','AjaxController');
         
