@@ -18,4 +18,10 @@ class ModelInscription extends ModelPDO {
         $stmt->execute();
     }
 
+    protected function getSpecific()
+    {
+        // TODO: Implement getSpecific() method.
+    }
+
+
 }

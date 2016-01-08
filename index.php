@@ -1,6 +1,7 @@
 <?php
 $sessionStart = session_start();
 
+include_once("src/util/error_handling.php");
 
 if(!isset($_SESSION['logged'])) {
   $_SESSION['logged'] = false;

@@ -9,9 +9,15 @@
 include_once('View.php');
 
 class DefaultView extends View {
-    
+
+	private $categories;
+	private $friends;
+
     public function __construct($model) {
         $this->model = $model;
+
+        $this->categories = $this->model->getCategories();
+        $this->friends = $this->model->getFriends();
     }// UserView
 
     public function display() {
@@ -21,15 +27,17 @@ class DefaultView extends View {
 					<title>Aaron</title>
 					<link rel="stylesheet" type="text/css" href="src/style/user.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-					<script type="text/javascript" src="src/js/jquery.magnific-popup.js" ></script>
+					<script type="text/javascript" src="src/js/popup.js" ></script>
 					<script type="text/javascript" src="src/js/aside.js"></script>
-					<script type="text/javascript" src="src/js/action.js"></script>
+					<script type="text/javascript" src="src/js/user_preference.js"></script>
+					<script type="text/javascript" src="src/js/switch_flux.js"></script>
+					<script type="text/javascript" src="src/js/search.js"></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
 					<div id="top">
 						<img class="logo" src="src/images/aaron_logo.png">
-						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="src/images/account.png"></button></div><div id="TUserName"><strong>Pierre</strong></div></div>
+						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="src/images/account.png"></button></div><div id="TUserName"><strong>'.$this->model->getName().'</strong></div></div>
 						<a href="#" onclick="javascript:;" class="preference_btn"></a>
 					</div>
 
@@ -39,19 +47,41 @@ class DefaultView extends View {
 							<input id="searchInput" name="search" type="search" placeholder="Recherche"/>
 							<a href="#" onclick="javascript:;" class="imageButton search_btn"></a>
 						</div>
-						<div id="LPanel">
-							<button class="choicePanel" type="button"><img height="100" width="100" src="src/images/apps.png"/></button>
-							<button class="choicePanel" type="button"><img height="100" width="100" src="src/images/apps.png"/></button>
-							<button class="choicePanel" type="button"><img height="100" width="100" src="src/images/apps.png"/></button>
+						<div id="categorie_panel" class="searchOn">';
+							foreach ($this->categories as $c) {
+							echo '
+								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'</button>
+							';
+							}
+						echo '
 						</div>
-						<div id="friendPanel" class="hide">
-							<div class="friend">
-								<img class="img_friend" src="src/images/friend_img.png"><span class="name_friend">Paul</span><a href="#" onclick="javascript:;" class="link_friend"></a>
-							</div>
-							<div class="friend">
-								<img class="img_friend" src="src/images/friend_img.png"><span class="name_friend">Olivier</span><a href="#" onclick="javascript:;" class="link_friend"></a>
-							</div>
-						</div>
+						<div id="friend_panel" class="searchOn hide"> ';
+							foreach ($this->friends as $f) {
+							echo '
+								<button class="friend default_block_panel" value="'.$f->getName().'" type="button">'.$f->getName().'</button>
+							';
+							}
+						echo '
+						</div>';
+						foreach ($this->categories as $c) {
+						echo '<div id="'.$c->getName().'_panel" class="flux_Panel searchOn hide">
+							  		<button class="default_block_panel flux backflux_btn">Retour</button>';
+							foreach($c->getFlux() as $in) {
+								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
+							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button">'.$in->getName().'<img src="src/images/favorite_'.$et.'.png"></button>';
+							}
+						echo '</div>';
+						}
+						echo '
+						<div id="favorite_panel" class="searchOn hide">';
+							foreach($this->categories as $c) {
+								foreach($c->getFlux() as $in) {
+									if ($in->isFavorite() == false) continue;
+									echo '<button class="default_block_panel flux" type="button" value="'.$in->getName().'">'.$in->getName().'</button>';
+								}
+							}
+
+						echo '</div>
 						<div id="LBBar">
 							<a href="#" onclick="javascript:;" class="addF_btn"></a><a href="#" onclick="javascript:;" class="lessF_btn"></a>			
 						</div>

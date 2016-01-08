@@ -30,4 +30,8 @@ class IndexModel extends ModelPDO {
 
     }
 
+    public function getSpecific() {
+
+    }
+
 }

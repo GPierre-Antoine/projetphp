@@ -61,7 +61,19 @@ namespace db {
             return $answer;
         }// query
 
+        public function fetch($fetch_style, $cursor_orientation = \PDO::FETCH_ORI_NEXT,$cursor_offset = 0) {
+            return $this->preparation->fetch($fetch_style,$cursor_orientation,$cursor_offset);
+        }
+
         public function __destruct() {
         }// ~db_handler
+
+        public function rowCount() {
+            return $this->preparation->rowCount();
+        }
+
+        public function lastInsertId() {
+            return self::$connection->lastinsertId();;
+        }
     }
 }

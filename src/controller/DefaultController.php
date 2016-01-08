@@ -9,7 +9,8 @@
 include_once('Controller.php');
 
 class DefaultController extends Controller {
-    public function __construct(Model $model) {
+	
+    public function __construct($model) {
         parent::__construct($model);
     }// ControllerInscription
 

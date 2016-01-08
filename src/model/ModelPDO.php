@@ -14,14 +14,16 @@ abstract class ModelPDO extends Model{
 
     protected $table;
 
-    protected $request = "Select * FROM ";
+    protected $request = "SELECT * FROM ";
     private $option;
     protected $spec;
     protected $query;
     protected $reupdate = true;
 
+    protected $data;
+
     public function RowCount () {
-        return $this->query->rowCount();
+        return $this->pdo->rowCount();
     }
 
     public function __construct() {
@@ -42,11 +44,26 @@ abstract class ModelPDO extends Model{
     public function update () {
         if ($this->reupdate === true) {
 
-            $final = $this->request . $this->table .PHP_EOL.$this->getSpecific().$this->getOption();
+            $final = $this->request . $this->table . PHP_EOL . $this->getSpecific() . $this->getOption();
             $this->pdo->prepare($final);
             $this->reupdate = false;
         }
         $this->pdo->execute($this->spec);
+    }
+
+    public function getData($field) {
+        return $this->query[$field];
+    }
+
+    public function next() {
+        $this->query = ($this->pdo->fetch(PDO::FETCH_ASSOC));
+        var_dump($this->query);
+        if ($this->query === false)
+            return false;
+        return true;
+    }
+
+    public function insert () {
 
     }
 

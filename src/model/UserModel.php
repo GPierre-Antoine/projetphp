@@ -11,20 +11,33 @@ class UserModel extends ModelPDO {
         $this->table = "USERS";
     }
 
-    public function insert(/*do_it*/) {
+    public function create_new_user(User $user,$password,$token) {
+        $this->pdo->prepare("INSERT INTO `USERS` () VALUES ()");
+        $this->pdo->execute($user->getMail(),$user->getName());
 
+        $id = $this->pdo->lastInsertId();
+
+        $passdb = new \db\db_handler();
+        $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
+        $passdb->execute(\PDO::lastInsertId,encrypt($password,$token),$token);
     }
 
-    public function select_user_by_id($uid) {
+    public function select () {
+        $numarg = func_num_args();
+        $args   = func_get_args();
+        for ($i = 0;$i<$numarg;++$i)
+        {
+            $this->spec[] = $args[$i];
+        }
+    }
+
+    public function select_user_by_id() {
         parent::change_option("WHERE ID = ?");
-        $this->spec = $uid;
     }
 
-    public function select_user_by_mail($mail) {
+    public function select_user_by_mail() {
         parent::change_option("WHERE EMAIL = ?");
-        $this->spec = $mail;
     }
-
     public function join ($list) {
         $numarg = func_num_args();
         $args   = func_get_args();

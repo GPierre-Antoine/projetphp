@@ -15,23 +15,10 @@ class DefaultModel extends ModelPDO {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User (1);
-
-        //SET FRIENDS OF USER
-        /**/
-        $friends = array();
-        $sqlFriends = "SELECT IDFRIEND FROM FRIEND WHERE IDUSER = ".$this->user->getID();
-        $stmt = $this->pdo->query($sqlFriends);
-        while ($friend = $stmt->fetch())
-        {
-        	$sqlInformationFriend = "SELECT * FROM USERS WHERE ID = ".$friend[0];
-        	$stmt2 = $this->pdo->query($sqlInformationFriend);
-        	$informationFriend = $stmt2->fetch();
-        	$newFriend = new User($informationFriend['ID'],$informationFriend['EMAIL'],$informationFriend['NAME']);
-        	array_push($friends, $newFriend);
-        }
-        $this->user->setFriends($friends);
-        /* */
+        $this->user = build_user (1);
+        $this->user->initializeFriends();
+        $this->user->initializeCategories();
+        $this->user->initializeFlux();
     }
 
     public function getName() {
@@ -41,6 +28,10 @@ class DefaultModel extends ModelPDO {
 	public function getFriends() {
 		return $this->user->getFriends();
 	}
+
+    public function getCategories() {
+        return $this->user->getCategories();
+    }
 
 	public function getOption() {
 
