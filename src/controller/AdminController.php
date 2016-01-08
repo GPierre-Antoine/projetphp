@@ -6,7 +6,6 @@
  * Time: 14:48
  */
 
-include_once('Controller.php');
 
 class AdminController extends Controller {
     public function __construct(Model $model) {

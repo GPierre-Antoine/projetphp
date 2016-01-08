@@ -5,7 +5,9 @@
  * Date: 17/12/15
  * Time: 16:51
  */
+$base = $_SERVER['DOCUMENT_ROOT']."src/";
 
+include_once($base .'controller/Controller.php');
 class ControllerConnection extends Controller {
     public function __construct(Model $model) {
         parent::__construct($model);

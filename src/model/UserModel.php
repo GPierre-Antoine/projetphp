@@ -13,7 +13,7 @@ class UserModel extends ModelPDO {
 
     public function create_new_user(User $user,$password,$token) {
         $this->pdo->prepare("INSERT INTO `USERS` () VALUES ()");
-        $this->pdo->execute($user->getMail(),$user->getName());
+        $this->pdo->execute($user->getEmail(),$user->getName());
 
         $id = $this->pdo->lastInsertId();
 

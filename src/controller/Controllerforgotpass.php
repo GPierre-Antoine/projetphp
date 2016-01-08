@@ -5,7 +5,9 @@
  * Date: 28/12/15
  * Time: 17:37
  */
+$base = $_SERVER['DOCUMENT_ROOT']."src/";
 
+include_once($base .'controller/Controller.php');
 class Controllerforgotpass extends Controller {
 	public function __construct(Model $model) {
 		parent::__construct($model);

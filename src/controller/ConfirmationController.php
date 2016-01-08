@@ -6,8 +6,9 @@
  * Time: 17:01
  */
 
-include_once('Controller.php');
+$base = $_SERVER['DOCUMENT_ROOT']."src/";
 
+include_once($base .'controller/Controller.php');
 class ConfirmationController extends Controller {
     public function __construct(Model $model) {
         parent::__construct($model);

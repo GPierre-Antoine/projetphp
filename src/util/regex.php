@@ -28,3 +28,10 @@ function hex2rgb($colour) {
     list($r, $g, $b) = sscanf($colour, "#%02x%02x%02x");
     return array( 'red' => $r, 'green' => $g, 'blue' => $b );
 }
+
+function blabla ($path)
+{
+    $task = preg_match("/^\/?([a-zA-Z0-9\-\_]+)\/?(.*)$/", $path, $matches);
+    return $matches;
+
+}
