@@ -25,3 +25,19 @@ body {
     float: left;
     height: 100%;
 }
+
+
+#body {
+    width: 100%;
+    height: calc(100% - 60px);
+}
+
+#param_account {
+
+}
+
+.param_box {
+    height: 50%;
+    width: 30%;
+    border: 1px solid black;
+}
