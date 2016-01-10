@@ -1,6 +1,6 @@
 <?php
 
-include_once('flux.php');
+include_once('Flux.php');
 
 class Categorie 
 {

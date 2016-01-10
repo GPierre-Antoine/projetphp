@@ -19,6 +19,7 @@ class DefaultModel extends ModelPDO {
         $this->user->initializeFriends();
         $this->user->initializeCategories();
         $this->user->initializeFlux();
+        $this->user->initializeArticles();
     }
 
     public function getCurrentUser() {

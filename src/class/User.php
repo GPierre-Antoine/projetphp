@@ -1,6 +1,6 @@
 <?php
 
-include_once('categorie.php');
+include_once('Categorie.php');
 
 class User
 {
@@ -11,7 +11,7 @@ class User
 
     private $friends;
     private $categories;
-    private $favorites;
+    private $articles;
 
     private $pdo;
 
@@ -52,6 +52,18 @@ class User
         foreach($this->categories as $cat) {
             $cat->initializeInside();
         }
+    }
+
+    public function initializeArticles() {
+        $this->articles = array();
+        $sqlArticles = "SELECT ID, CONTENT FROM ARTICLE WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sqlArticles);
+        while ($categorie = $stmt->fetch())
+        {
+            $newArticle = new Article($categorie[0],$categorie[1]);
+            array_push($this->articles,$newArticle);
+        }
+
     }
 
 	//GETTERS
