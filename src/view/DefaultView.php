@@ -94,11 +94,13 @@ class DefaultView extends View {
 			    	<!-- PAGE CONTENT -->
 			    	<div id="page">
 			    		<div id="leftSmallMenu">
-			    			<a href="#" onclick="javascript:;" class="close_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="open_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="all_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="favorite_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="friend_btn"></a>
+			    			<a href="#" onclick="javascript:;" class="menu_btn close_btn"></a>
+			    			<a href="#" onclick="javascript:;" class="menu_btn open_btn"></a>
+			    			<a href="#" onclick="javascript:;" class="menu_btn all_btn"></a>
+			    			<a href="#" onclick="javascript:;" class="menu_btn favorite_btn"></a>
+			    			<a href="#" onclick="javascript:;" class="menu_btn friend_btn"></a>
+			    			<div class="menu_btn"></div>
+			    			<a href="#" onclick="javascript:;" class="menu_btn blog_btn"></a>
 			    		</div>
 
 			    		<div id="content">
@@ -112,9 +114,10 @@ class DefaultView extends View {
 			    	    <div id="userPreference_top">
                             <span class="userPreference_top_title">Préférences</span><a href="#" onclick="javascript:;" class="userPreference_top_close"></a>
                         </div>
-                        <div id="userPreference_rest">
-                            <button class="pref_option_btn" type="button">Options personnelles</button>
-                            <button class="pref_deconnection_btn" type="button">Déconnexion</button>
+                    	   <div id="userPreference_rest">
+                            <button class="pref_btn" type="button">Options personnelles</button>
+                            <button class="pref_btn" type="button">Options Aaron</button>
+                            <button class="pref_btn" type="button">Déconnexion</button>
                         </div>
 			    	</div>
 
@@ -123,7 +126,7 @@ class DefaultView extends View {
                             <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div id="userInformation_rest">
-
+							<button class="user_btn" type="button">Mon blog</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
