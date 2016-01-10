@@ -24,7 +24,6 @@ class User
 	}
 
     public function initializeFriends() {
-         //GET FRIENDS OF USER
         $this->friends = array();
 
         $sqlFriends = "SELECT IDFRIEND FROM FRIEND WHERE IDUSER = ".$this->id;
@@ -37,7 +36,6 @@ class User
     }
 
     public function initializeCategories() {
-        //GET CATEGORIES OF USER
         $this->categories = array();
         $sqlCategories = "SELECT * FROM CATEGORIE WHERE IDUSER = ".$this->id;
         $stmt = $this->pdo->query($sqlCategories);
@@ -96,7 +94,6 @@ class User
 function build_user($uid) {
     $db = new \db\db_handler();
     $db = $db->query("SELECT * FROM USERS WHERE ID = " . $uid)->fetch();
-
 
     return new User ($db[0],$db[1],$db[2],$db[4]);
 }

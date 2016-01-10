@@ -132,6 +132,7 @@ class DefaultView extends View {
                             <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div id="userInformation_rest">
+			    			<button class="switch_content user_btn" type="button">Actualités</button>
 							<button class="switch_content user_btn" type="button">Mon blog</button>
                         </div>
 			    	</div>

@@ -8,11 +8,19 @@ $(function () {
     var contentBlog = false
 
     $(".switch_content").click(function() {
-        $("#content_blog").removeClass("hide");
-        $("#content_flux").addClass("hide");
+        if (contentFlux) {
+            $("#content_blog").removeClass("hide");
+            $("#content_flux").addClass("hide");
 
-        contentFlux = false;
-        contentBlog = true;
+            contentFlux = false;
+            contentBlog = true;
+        } else {
+            $("#content_blog").addClass("hide");
+            $("#content_flux").removeClass("hide");
+
+            contentFlux = true;
+            contentBlog = false;
+        }
     })
 
 
