@@ -34,6 +34,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/aside.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
 					<script type="text/javascript" src="/src/js/switch_flux.js"></script>
+					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 				</head>
 				<body>
@@ -103,9 +104,14 @@ class DefaultView extends View {
 			    			<a href="#" onclick="javascript:;" class="menu_btn blog_btn"></a>
 			    		</div>
 
-			    		<div id="content">
-			    			prout
-			    		</div>
+						<div id="content">
+							<div id="content_flux">
+								flux
+							</div>
+							<div id="content_blog" class="hide">
+								article
+							</div>
+						</div>
 			    	</div>
 			    	<!-- END PAGE CONTENT -->
 
@@ -126,7 +132,7 @@ class DefaultView extends View {
                             <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div id="userInformation_rest">
-							<button class="user_btn" type="button">Mon blog</button>
+							<button class="switch_content user_btn" type="button">Mon blog</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
