@@ -30,7 +30,6 @@ class DefaultView extends View {
 					<title>Aaron</title>
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-					<!--<script type="text/javascript" src="/src/js/popup.js" ></script>-->
 					<script type="text/javascript" src="/src/js/aside.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
 					<script type="text/javascript" src="/src/js/switch_flux.js"></script>
@@ -111,8 +110,22 @@ class DefaultView extends View {
 							<div id="content_flux">
 								flux
 							</div>
-							<div id="content_blog" class="hide">
-								article
+							<div id="content_blog" class="hide">';
+							$articles = $this->user->getArticles();
+							foreach($articles as $article) {
+							echo '
+								<div class="article" >
+									<div class="article_zone_img" >
+										<img class="article_img" src = "'.$article->getImgUrl().'" />
+									</div >
+									<div class="article_zone_content" >
+										<span class="article_content_inf"><span class="article_inf_title">'.$article->getTitle().'</span> dans <span class="article_inf_theme">'.$article->getTheme().'</span></span><br/>
+										<p class="article_content">'.$article->getContent().'</p>
+									</div>
+								</div >
+							';
+							}
+							echo '
 							</div>
 						</div>
 			    	</div>

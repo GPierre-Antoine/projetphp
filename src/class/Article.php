@@ -23,4 +23,20 @@ class Article
         $this->content = $content;
     }
 
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getTheme() {
+        return $this->theme;
+    }
+
+    public function getImgUrl() {
+        return $this->imgUrl;
+    }
+
+    public function getContent() {
+        return $this->content;
+    }
+
 }

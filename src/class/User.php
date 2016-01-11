@@ -89,6 +89,10 @@ class User
         return $this->categories;
     }
 
+    public function getArticles() {
+        return $this->articles;
+    }
+
 } // User
 
 function build_user($uid) {
