@@ -54,11 +54,11 @@ class User
 
     public function initializeArticles() {
         $this->articles = array();
-        $sqlArticles = "SELECT ID, CONTENT FROM ARTICLE WHERE IDUSER = ".$this->id;
+        $sqlArticles = "SELECT * FROM ARTICLE WHERE IDUSER = ".$this->id;
         $stmt = $this->pdo->query($sqlArticles);
         while ($categorie = $stmt->fetch())
         {
-            $newArticle = new Article($categorie[0],$categorie[1]);
+            $newArticle = new Article($categorie[0],$categorie[2],$categorie[3],$categorie[4],$categorie[5]);
             array_push($this->articles,$newArticle);
         }
 
