@@ -168,7 +168,7 @@ class DefaultView extends View {
 			        <div id="popup_blog" class="popup_blog">
 			        	<div id="writting_zone">
 			        		<div class="writting_zone_image">
-			        			<img id="preview_img_blog" src="#" />
+			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
 			        		</div>
 			        		<div class="writting_zone_text">
 			        			<form id="F_blog" action="" method="">

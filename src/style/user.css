@@ -457,10 +457,15 @@ body {
 }
 
 .writting_zone_image {
-	background-color: red;
+	background-color: white;
 	height: 100%;
 	width: 35%;
 	float: left;
+}
+
+.preview_img_blog {
+	width: 100%;
+	height: 100%;
 }
 
 .writting_zone_text {
