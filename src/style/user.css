@@ -184,7 +184,7 @@ body {
 }
 
 /* POP UP */
-#overlay {
+.overlay {
     position: fixed;
     z-index: 10000;
     top: 0px;
@@ -195,7 +195,7 @@ body {
     display: none;
 }
 
-.popup {
+.popup_flux {
     display: none;
     position: absolute;
     opacity: 0;
@@ -213,6 +213,26 @@ body {
     box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
     -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7);
     -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+.popup_blog {
+	display: none;
+	position: absolute;
+	opacity: 0;
+	z-index: 11000;
+	left: 50%;
+	margin-left: -300px;
+	top: 150px;
+	width: 800px;
+	height: 300px;
+	background: #FFF;
+	border-radius: 5px;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7);
+	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
 }
 
 /*ADD FLUX*/
@@ -332,8 +352,8 @@ body {
 	background: #f39c12 url(../images/friends_btn.png) center center no-repeat;
 }
 
-.blog_btn {
-	background: #f39c12 url(../images/blog_btn.png) center center no-repeat;
+.write_btn {
+	background: #f39c12 url(../images/write_btn.png) center center no-repeat;
 }
 
 .search_btn {
@@ -355,6 +375,14 @@ body {
 	float: right;
 	height: 100%;
 	width: 50px;
+}
+
+#leftSmallMenu .blog_btn {
+	background: #f39c12 url(../images/blog_btn.png) center center no-repeat;
+}
+
+#leftSmallMenu .actu_btn {
+	background: #f39c12 url(../images/actu_btn.png) center center no-repeat;
 }
 
 /* LEFT PANELS */
@@ -420,4 +448,48 @@ body {
     vertical-align: middle;
     float: right;
     margin-right: 10px;
+}
+
+/* BLOG FORM */
+#writting_zone {
+	width: 100%;
+	height: 100%;
+}
+
+.writting_zone_image {
+	background-color: red;
+	height: 100%;
+	width: 35%;
+	float: left;
+}
+
+.writting_zone_text {
+	height: 100%;
+	width: calc(100% - 35%);
+	float: right;
+}
+
+#F_blog input, #F_cancel_btn  {
+	font-size: 18px;
+	text-align: center;
+}
+
+.writting_zone_text .small_input {
+	width: calc(50% - 2px);
+	height: 15%;
+}
+
+.writting_zone_text .big_input {
+	width: 100%;
+	height: 15%;
+}
+
+.writting_zone_text .content_input {
+	width: 100%;
+	height: 55%;
+}
+
+.writting_zone_text .action_btn {
+	width: 50%;
+	height: 15%;
 }

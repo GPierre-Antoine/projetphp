@@ -101,7 +101,9 @@ class DefaultView extends View {
 			    			<a href="#" onclick="javascript:;" class="menu_btn favorite_btn"></a>
 			    			<a href="#" onclick="javascript:;" class="menu_btn friend_btn"></a>
 			    			<div class="menu_btn"></div>
+			    			<a href="#" onclick="javascript:;" class="menu_btn write_btn"></a>
 			    			<a href="#" onclick="javascript:;" class="menu_btn blog_btn"></a>
+			    			<a href="#" onclick="javascript:;" class="menu_btn actu_btn"></a>
 			    		</div>
 
 						<div id="content">
@@ -132,15 +134,15 @@ class DefaultView extends View {
                             <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div id="userInformation_rest">
-			    			<button class="switch_content user_btn" type="button">Actualités</button>
-							<button class="switch_content user_btn" type="button">Mon blog</button>
+			    			<button class="actu_btn user_btn" type="button">Actualités</button>
+							<button class="blog_btn user_btn" type="button">Mon blog</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
 			    	
-					<!-- POP-UP -->
-					<div id="overlay"></div>
-			        <div id="popup" class="popup">
+					<!-- POP-UP FLUX -->
+					<div id="overlay_flux" class="overlay"></div>
+			        <div id="popup_flux" class="popup_flux">
 			        	<div class="addLibrary">
 			        		<form id="F_library" action="" method="">
 								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
@@ -159,21 +161,58 @@ class DefaultView extends View {
 							</form>
 						</div>
 			        </div>
+
+			        <!-- POP-UP WRITTING ARTICLE -->
+			        <div id="overlay_blog" class="overlay"></div>
+			        <div id="popup_blog" class="popup_blog">
+			        	<div id="writting_zone">
+			        		<div class="writting_zone_image">
+			        		</div>
+			        		<div class="writting_zone_text">
+			        			<form id="F_blog" action="" method="">
+			        				<input class="small_input" type="text" name="title" placeholder="Titre" required/>
+			        				<input class="small_input" type="text" name="theme" placeholder="Theme" required/>
+			        				<input class="big_input" type="text" name="title" placeholder="Lien de l\'image" required/>
+			        				<textarea class="content_input" name="content" form="F_blog"></textarea>
+			        				<input class="action_btn" type="submit" name="submit" value="Publié"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
+			        			</form>
+			        		</div>
+			        	</div>
+			        </div>
+
 			        <script type="text/javascript">
 			        $(function() {
-				        var overlay = true;
+				        var overlay_flux = true;
+				        var overlay_blog = true;
+
 				        $(".addF_btn").click(function () {
-				            $("#overlay").css({"display":"block", opacity:0});
-				            $("#overlay").fadeTo(200,0.5);
-				            $("#popup").fadeTo(200,1);       
-				            overlay = !overlay;   
+				            $(".overlay").css({"display":"block", opacity:0});
+				            $("#overlay_flux").fadeTo(200,0.5);
+				            $(".popup_flux").fadeTo(200,1);
+				            overlay_flux = !overlay_flux;
 				        }); 
 
 				        $("#btnCancel").click(function () {
-				            $("#overlay").fadeOut(200);
-				            $(".popup").css("display", "none"); 
-				            overlay = !overlay;
+				            $("#overlay_flux").fadeOut(200);
+				            $(".popup_flux").css("display", "none");
+				            overlay_flux = !overlay_flux;
 				        });
+
+				        $(".write_btn").click(function () {
+				            $(".overlay").css({"display":"block", opacity:0});
+				            $("#overlay_blog").fadeTo(200,0.5);
+				            $(".popup_blog").fadeTo(200,1);
+				            overlay_blog = !overlay_blog;
+				        });
+
+				        $("#F_cancel_btn").click(function () {
+				            $("#overlay_blog").fadeOut(200);
+				            $(".popup_blog").css("display", "none");
+				            overlay_blog = !overlay_blog;
+				        });
+
+
+
 				    });
 			        </script>
 			        <!-- END POP-UP -->

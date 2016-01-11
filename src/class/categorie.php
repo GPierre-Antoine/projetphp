@@ -8,9 +8,7 @@ class Categorie
 	private $iduser;
 	private $name;
 	private $color;
-
 	private $flux;
-
 	private $pdo;
 
 	public function __construct($iduser,$name, $color) {
@@ -29,7 +27,7 @@ class Categorie
 		$stmt = $this->pdo->query($sqlFlux);
 		while ($flux = $stmt->fetch())
         {
-        	$newFlux = build_flux($flux[0]);
+			$newFlux = new Flux($flux[0],$flux[1],$flux[2],$flux[3]);
         	array_push($this->flux, $newFlux);
         }																				
 	}

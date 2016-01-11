@@ -7,14 +7,18 @@ $(function () {
     var contentFlux = true;
     var contentBlog = false
 
-    $(".switch_content").click(function() {
-        if (contentFlux) {
+    $(".blog_btn").click(function() {
+        if (!contentBlog) {
             $("#content_blog").removeClass("hide");
             $("#content_flux").addClass("hide");
 
             contentFlux = false;
             contentBlog = true;
-        } else {
+        }
+    })
+
+    $(".actu_btn").click(function() {
+        if (!contentFlux) {
             $("#content_blog").addClass("hide");
             $("#content_flux").removeClass("hide");
 
