@@ -475,7 +475,7 @@ body {
 }
 
 .writting_zone_text .small_input {
-	width: calc(50% - 2px);
+	width: 50%;
 	height: 15%;
 }
 

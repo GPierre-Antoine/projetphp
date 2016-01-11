@@ -30,12 +30,13 @@ class DefaultView extends View {
 					<title>Aaron</title>
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-					<script type="text/javascript" src="/src/js/popup.js" ></script>
+					<!--<script type="text/javascript" src="/src/js/popup.js" ></script>-->
 					<script type="text/javascript" src="/src/js/aside.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
 					<script type="text/javascript" src="/src/js/switch_flux.js"></script>
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
+					<script type="text/javascript" src="/src/js/readUrl.js"></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
@@ -167,12 +168,12 @@ class DefaultView extends View {
 			        <div id="popup_blog" class="popup_blog">
 			        	<div id="writting_zone">
 			        		<div class="writting_zone_image">
+			        			<img id="preview_img_blog" src="#" />
 			        		</div>
 			        		<div class="writting_zone_text">
 			        			<form id="F_blog" action="" method="">
-			        				<input class="small_input" type="text" name="title" placeholder="Titre" required/>
-			        				<input class="small_input" type="text" name="theme" placeholder="Theme" required/>
-			        				<input class="big_input" type="text" name="title" placeholder="Lien de l\'image" required/>
+			        				<input class="small_input" type="text" name="title" placeholder="Titre" required/><input class="small_input" type="text" name="theme" placeholder="Theme" required/>
+			        				<input id="imgSelection" class="big_input" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input" name="content" form="F_blog"></textarea>
 			        				<input class="action_btn" type="submit" name="submit" value="Publié"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
 			        			</form>
@@ -182,37 +183,27 @@ class DefaultView extends View {
 
 			        <script type="text/javascript">
 			        $(function() {
-				        var overlay_flux = true;
-				        var overlay_blog = true;
-
 				        $(".addF_btn").click(function () {
-				            $(".overlay").css({"display":"block", opacity:0});
+				            $("#overlay_flux").css({"display":"block", opacity:0});
 				            $("#overlay_flux").fadeTo(200,0.5);
-				            $(".popup_flux").fadeTo(200,1);
-				            overlay_flux = !overlay_flux;
-				        }); 
+				            $("#popup_flux").fadeTo(200,1);
+				        });
 
 				        $("#btnCancel").click(function () {
 				            $("#overlay_flux").fadeOut(200);
 				            $(".popup_flux").css("display", "none");
-				            overlay_flux = !overlay_flux;
 				        });
 
 				        $(".write_btn").click(function () {
-				            $(".overlay").css({"display":"block", opacity:0});
+				            $("#overlay_blog").css({"display":"block", opacity:0});
 				            $("#overlay_blog").fadeTo(200,0.5);
-				            $(".popup_blog").fadeTo(200,1);
-				            overlay_blog = !overlay_blog;
+				            $("#popup_blog").fadeTo(200,1);
 				        });
 
 				        $("#F_cancel_btn").click(function () {
 				            $("#overlay_blog").fadeOut(200);
 				            $(".popup_blog").css("display", "none");
-				            overlay_blog = !overlay_blog;
 				        });
-
-
-
 				    });
 			        </script>
 			        <!-- END POP-UP -->
