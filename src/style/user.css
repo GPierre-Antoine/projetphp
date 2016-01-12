@@ -295,6 +295,13 @@ body {
 	position: fixed;
 	margin-left: 52px;
 	left: 25%;
+	width: 100%;
+	height: 100%;
+}
+
+#content_blog {
+	width: 100%;
+	height: 100%;
 }
 
 /* TOP BAR BUTTON */
@@ -408,7 +415,9 @@ body {
 }
 
 .friend {
-
+	background-color: #34495e;
+	color: white;
+	font-size: 22px;
 }
 
 .default_block_panel {
@@ -463,6 +472,10 @@ body {
 	float: left;
 }
 
+img[src="#"] {
+	display: none;
+}
+
 .preview_img_blog {
 	width: 100%;
 	height: 100%;
@@ -502,14 +515,18 @@ body {
 /* ARTICLE ZONE */
 
 .article {
-	width: 30%;
-	height: 30%;
-	float: left;
-	margin-right: 20px;
+	width: 50%;
+	height: 25%;
+	margin: auto;
+	margin-bottom: 2%;
+	position: relative;
+	left: -25%;
+	background-color: #ecf0f1;
+	border-top-right-radius: 20px;
 }
 
 .article_zone_img {
-	width: 35%;
+	width: 30%;
 	height: 100%;
 	float: left;
 }
@@ -521,9 +538,9 @@ body {
 
 .article_zone_content {
 	height: 100%;
-	width: calc(65% - 5px);
-	float: right;
-	margin-left: 5px;
+	width: calc(70% - 25px);
+	float: left;
+	margin-left: 15px;
 }
 
 .article_content_inf {
@@ -547,4 +564,24 @@ body {
 	font-size: 18px;
 	margin-top: 3px;
 	overflow-y: auto;
+	padding-right: 10px;
+}
+
+
+/* CATEGORIE DELETE */
+
+.cancel_delete_btn {
+	background: #f39c12 url(../images/cancel_delete_btn.png) center center no-repeat;
+	float: right;
+	height: 100%;
+	width: 50px;
+	border: none;
+}
+
+.validate_btn {
+	background: #f39c12 url(../images/validate_btn.png) center center no-repeat;
+	float: right;
+	height: 100%;
+	width: 50px;
+	border: none;
 }

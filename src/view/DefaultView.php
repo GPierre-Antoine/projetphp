@@ -36,6 +36,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
+					<script type="text/javascript" src="/src/js/deleteCategories.js"></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
@@ -54,7 +55,7 @@ class DefaultView extends View {
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'</button>
+								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input class="hide" type="checkbox" name="categorie" value="'.$c->getName().'"></button>
 							';
 							}
 						echo '
@@ -88,7 +89,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a><a href="#" onclick="javascript:;" class="lessF_btn"></a>			
+							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" type="button"></button>
 						</div>
 			    	</div>
 
@@ -188,7 +189,7 @@ class DefaultView extends View {
 			        				<input class="small_input" type="text" name="title" placeholder="Titre" required/><input class="small_input" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input" name="content" form="F_blog"></textarea>
-			        				<input class="action_btn" type="submit" name="submit" value="Publié"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
+			        				<input class="action_btn" type="submit" name="submit" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>

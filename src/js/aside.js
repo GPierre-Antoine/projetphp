@@ -17,6 +17,9 @@ $(document).ready(function()
 			$("#content").clearQueue().animate({
 				left : '25%'
 			})
+			$(".article").clearQueue().animate({
+				left : '-25%'
+			})
 						
 			$(this).fadeOut(1);
 			$(".close_btn").fadeIn(1);
@@ -38,6 +41,10 @@ $(document).ready(function()
 			$("#content").clearQueue().animate({
 				left : '0'
 			})
+			$(".article").clearQueue().animate({
+				left : '0'
+			})
+
 
 			$(this).fadeOut(1);
 			$(".open_btn").fadeIn(1);
@@ -58,6 +65,9 @@ $(document).ready(function()
 			})
 			$("#content").clearQueue().animate({
 				left : '25%'
+			})
+			$(".article").clearQueue().animate({
+				left : '-25%'
 			})
 						
 			$(".open_btn").fadeOut(1);
@@ -88,6 +98,9 @@ $(document).ready(function()
 			$("#content").clearQueue().animate({
 				left : '25%'
 			})
+			$(".article").clearQueue().animate({
+				left : '-25%'
+			})
 						
 			$(".open_btn").fadeOut(1);
 			$(".close_btn").fadeIn(1);
@@ -116,6 +129,9 @@ $(document).ready(function()
 			})
 			$("#content").clearQueue().animate({
 				left : '25%'
+			})
+			$(".article").clearQueue().animate({
+				left : '-25%'
 			})
 						
 			$(".open_btn").fadeOut(1);
