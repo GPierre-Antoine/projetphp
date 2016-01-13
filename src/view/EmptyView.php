@@ -41,10 +41,12 @@ class EmptyView extends View {
             array_push($tab,$_POST['colorCategorie']);
             $this->model->addCategorie($tab);
         }
-        else if(isset($_POST['linkImgFavorite'])) {
-            //$this->model->changeFluxFavorite($_POST['linkImgFavorite']);
-            $value = substr($_POST['linkImgFavorite'],54,-5);
-            $this->model->switchFavoriteFlux($value);
+        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idImg'])) {
+            if($_POST['linkImgFavorite'] == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png")
+                $value = "off";
+            else
+                $value = "on";
+            $this->model->switchFavoriteFlux($value,$_POST['$idImg']);
         }
     }
 

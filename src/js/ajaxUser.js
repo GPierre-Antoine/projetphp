@@ -92,7 +92,7 @@ function addCategorie($object) {
     document.getElementById('categorie_panel').innerHTML += newCategorie;
 }
 
-function fluxFavorite($object) {
+function fluxFavorite($object,$id) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -113,7 +113,7 @@ function fluxFavorite($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                 alert(xhr.responseText);
             }
             else {
                 alert("probleme");
@@ -122,5 +122,5 @@ function fluxFavorite($object) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("linkImgFavorite="+$object.src);
+    xhr.send("linkImgFavorite="+$object.src+"&idImg="+$id);
 }
