@@ -4,6 +4,60 @@ $(document).ready(function()
 	$(".all_btn").css("background-color", "#2980b9"); // FIRST BUTTON IS ALL_BTN
 
 	var isMenuOpen = true;
+	var deletingSelected = false
+
+	// FUNCTION ABOUT DELETING CATEGORIE INTO MENU
+
+	function cancel_deleting() {
+		if (deletingSelected) {
+			$("#categorie_panel input").each(function () {
+				$(this).addClass("hide");
+			});
+
+			$("#cancel_deleting_cat").addClass("hide");
+			$("#validate_deleting_cat").addClass("hide");
+			$("#removeCategorie").removeClass("hide");
+
+			deletingSelected = false;
+		}
+	}
+
+	$("#removeCategorie").click(function() {
+		if (!deletingSelected) {
+			$("#categorie_panel input").each(function () {
+				$(this).removeClass("hide");
+			});
+
+			$("#cancel_deleting_cat").removeClass("hide");
+			$("#validate_deleting_cat").removeClass("hide");
+			$("#removeCategorie").addClass("hide");
+
+			deletingSelected = true;
+		}
+	});
+
+	$("#cancel_deleting_cat").click(function() {
+		cancel_deleting();
+	});
+
+	$(".backflux_btn").click(function(e) {
+		var targetPanel = $(this).parent();
+		$(targetPanel).addClass("hide");
+		$("#categorie_panel").removeClass("hide");
+		$("#removeCategorie").removeClass("hide");
+	});
+
+	$(".categorie").click(function(e) {
+		cancel_deleting();
+
+		var targetPanel = "#"+$(this).attr("value")+"_panel";
+		$(targetPanel).removeClass("hide");
+		$("#categorie_panel").addClass("hide");
+		$("#removeCategorie").addClass("hide");
+	});
+
+	// FUNCTION ABOUT SWITCH INTO MENU
+
 	function openMenu() {
 		$("#menu").clearQueue().animate({
 			left : '0'
@@ -32,6 +86,7 @@ $(document).ready(function()
 		$(".article").clearQueue().animate({
 			left : '0'
 		})
+		cancel_deleting();
 	}
 
 	$('.open_btn').click(function()
@@ -65,6 +120,8 @@ $(document).ready(function()
 			$(".close_btn").fadeIn(1);
 			isMenuOpen = true;
 		}
+
+		$("#removeCategorie").removeClass("hide");
 
 		$("#friend_panel").addClass("hide");
 		$("#favorite_panel").addClass("hide");

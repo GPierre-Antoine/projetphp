@@ -30,9 +30,8 @@ class DefaultView extends View {
 					<title>Aaron</title>
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-					<script type="text/javascript" src="/src/js/aside.js"></script>
+					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
-					<script type="text/javascript" src="/src/js/flux_categorie.js"></script>
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
