@@ -26,6 +26,8 @@ class ControllerInscription extends Controller {
             $name = secure_strip($_POST['fName']);
 
             $key = md5(microtime(TRUE)*100000);
+
+
             $mail = $mail['mail'];
 
             $this->model->select_user_by_mail();
@@ -35,17 +37,11 @@ class ControllerInscription extends Controller {
             $this->model->update();
 
 
-            $stmt = $this->pdo->prepare('UPDATE USERS SET KEY=:KEY WHERE NAME LIKE :NAME');
-            $stmt->bindParam(':KEY', $key);
-
-            $stmt ->execute();
-
             $destinataire = $mail;
             $sujet = "test validation lol";
             $entete = "From: test@aaron-aaron.com";
-            $message = "Salut je test si ca marche, http://aaron-aaron.alwaysdata.net/Confirmation?cle='.urlencode($key).'";
+            $message = "Salut je test si ca marche, <a href='http://aaron-aaron.alwaysdata.net/confirmation/".bin2hex($key)."'> lien </a>";
 
-            $mail($destinataire, $sujet, $message, $entete);
 
 
 
@@ -55,10 +51,14 @@ class ControllerInscription extends Controller {
                 $crypto_strong = true;
                 $bytes = openssl_random_pseudo_bytes(64,$crypto_strong);
 
+
                 $user = new User('0',$mail,$name,0);
 
-                $this->model->create_new_user($user,encrypt($password,$bytes),$bytes);
+                $this->model->create_new_user($user,encrypt($password,$bytes),$bytes,$key);
 
+
+
+                $mail($destinataire, $sujet, $message, $entete);
 
             }
             else {

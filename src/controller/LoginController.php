@@ -43,6 +43,7 @@ class LoginController extends Controller
 
                 $encoded = encrypt($password,$this->model->getData('TOKEN'));
 
+                echo "<br />".bin2hex($this->model->getData('TOKEN'));
 
                 echo "<br />".bin2hex($encoded);
                 echo "<br />".bin2hex($this->model->getData('PASSWORD'));
