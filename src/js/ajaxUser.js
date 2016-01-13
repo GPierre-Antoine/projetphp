@@ -47,3 +47,7 @@ function addArticle($object) {
     var newArticle = '<div class="article"> <div class="article_zone_img" > <img class="article_img" src="'+imgurl+'" /></div><div class="article_zone_content" ><span class="article_content_inf"><span class="article_inf_title">'+title+'</span> dans <span class="article_inf_theme">'+theme+'</span></span><br/><p class="article_content">'+content+'</p></div></div>'
     document.getElementById('content_blog').innerHTML += newArticle;
 }
+
+function addCategorie($object) {
+
+}

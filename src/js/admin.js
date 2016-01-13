@@ -10,35 +10,25 @@ $(function () {
             var sql = "UPDATE USERS SET ENABLE = 0 WHERE ID = " + $(this).attr('id');
             this.innerHTML = "Disable";
         }
-        else if(t == "Disable") {
-            var xhr = getXhr();
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState == 4 && xhr.status == 200){
-                    alert(xhr.responseText);
+        else if(t == "Delete") {
+            jQuery.ajax({
+                type: "POST",
+                url: "/ajx",
+                dataType: "json",
+                success: function(result){
+                    if(result.status == "Success"){
+                        console.log(result.value) // displays found value on console
+                    }
+                    else{
+                        console.log('Error: No such variable value present')
+                    }
+                },
+                error:function(){
+                    console.log("Error: Unknown Error")
                 }
-            }
-            xhr.open("POST","/ajx",true);
-            xhr.send(null);
+            })
         }
 
 
     });
 });
-
-function getXhr(){
-    var xhr = null;
-    if(window.XMLHttpRequest) // Firefox et autres
-        xhr = new XMLHttpRequest();
-    else if(window.ActiveXObject){ // Internet Explorer
-        try {
-            xhr = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-    }
-    else { // XMLHttpRequest non supporté par le navigateur
-        alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest...");
-        xhr = false;
-    }
-    return xhr
-}

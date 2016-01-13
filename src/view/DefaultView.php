@@ -90,7 +90,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" type="button"></button>
+							<a href="#" onclick="addCategorie(this)" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" type="button"></button>
 						</div>
 			    	</div>
 
