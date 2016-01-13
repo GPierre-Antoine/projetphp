@@ -77,7 +77,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this)" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button onclick="switchFlux(jQuery.parseJSON($in))" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,$in->getId())" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
