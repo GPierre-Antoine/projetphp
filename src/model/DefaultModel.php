@@ -12,6 +12,7 @@ include_once('src/class/User.php');
 class DefaultModel extends ModelPDO {
 
 	private $user;
+    private $param;
 
     public function __construct() {
         parent::__construct();
@@ -34,7 +35,20 @@ class DefaultModel extends ModelPDO {
 		
 	}
 
+    public function getParam() {
+        return $this->param;
+    }
+
     public function setActive($param) {
         //"blog"
+        if($param === "blog") {
+            $this->param = '
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("#content_blog").removeClass("hide");
+                    $("#content_flux").addClass("hide");
+                });
+            </script>';
+        }
     }
 }
