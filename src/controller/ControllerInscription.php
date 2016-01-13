@@ -17,7 +17,7 @@ class ControllerInscription extends Controller {
 
             $mail = mail_strip($_POST['mail']);
             $password = secure_strip($_POST['pwd0']);
-            if ($password !== secure_strip($_POST['pwd1'])) {
+            if ($password !== secure_strip($_POST['pwd1']) || strlen($mail) < 3) {
                 //do not match
 
 

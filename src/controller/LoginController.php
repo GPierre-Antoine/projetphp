@@ -37,7 +37,7 @@ class LoginController extends Controller
 
             }
             else {
-
+                echo "<div style=\"font-family:monospace;\">".PHP_EOL;
 
                 $this->model->next();
 
@@ -45,19 +45,23 @@ class LoginController extends Controller
 
                 $encoded = encrypt($password,$token);
 
-                echo "<br />Token : ".bin2hex($token);
-                echo "<br />of size : ". strlen($token);
+                echo "<br />Token-----: ".bin2hex($token).PHP_EOL;
+                echo "<br />of size---: ". strlen($token).PHP_EOL;
 
-                echo "<br />Encoded : ".bin2hex($encoded);
-                echo "<br /> of size : " .strlen($encoded);
-                echo "<br />Password : ".bin2hex($this->model->getData('PASSWORD'));
-                echo "<br /> of size : " .strlen(bin2hex($this->model->getData('PASSWORD')));
-                echo "<br />OpenSSL : ".     bin2hex(openssl_random_pseudo_bytes(64,$crypto_strong));
-                echo "<br /> of size : ".strlen(openssl_random_pseudo_bytes(64,$crypto_strong));
+                echo "<br />Encoded---: ".bin2hex($encoded).PHP_EOL;
+                echo "<br />of size---: ".strlen($encoded).PHP_EOL;
 
+
+                echo "<br />Password--: ".bin2hex($this->model->getData('PASSWORD')).PHP_EOL;
+                echo "<br />of size---: ".strlen(bin2hex($this->model->getData('PASSWORD'))).PHP_EOL;
+
+
+                echo "<br />OpenSSL---: ".bin2hex(openssl_random_pseudo_bytes(64,$crypto_strong)).PHP_EOL;
+                echo "<br />of size---: ".strlen(openssl_random_pseudo_bytes(64,$crypto_strong)).PHP_EOL;
+                echo "</div>";
 
                 //user exists
-                if ($encoded === $this->model->getData('PASSWORD')) {
+                if (hash_equals($encoded,$this->model->getData('PASSWORD'))) {
 
                     //password matches
                     //$_SESSION['user'] = build_user($this->model->getData("ID"));
