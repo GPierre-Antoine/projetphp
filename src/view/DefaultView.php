@@ -94,15 +94,15 @@ class DefaultView extends View {
 			    	<!-- PAGE CONTENT -->
 			    	<div id="page">
 			    		<div id="leftSmallMenu">
-			    			<a href="#" onclick="javascript:;" class="menu_btn close_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="menu_btn open_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="menu_btn all_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="menu_btn favorite_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="menu_btn friend_btn"></a>
+			    			<button class="menu_btn close_btn" type="button"></button>
+			    			<button class="menu_btn open_btn" type="button"></button>
+			    			<button class="menu_btn all_btn" type="button"></button>
+			    			<button class="menu_btn favorite_btn" type="button"></button>
+			    			<button class="menu_btn friend_btn" type="button"></button>
 			    			<div class="menu_btn"></div>
-			    			<a href="#" onclick="javascript:;" class="menu_btn write_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="menu_btn blog_btn"></a>
-			    			<a href="#" onclick="javascript:;" class="menu_btn actu_btn"></a>
+			    			<button class="menu_btn write_btn" type="button"></button>
+			    			<button class="menu_btn blog_btn" type="button"></button>
+			    			<button class="menu_btn actu_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">

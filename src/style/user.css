@@ -337,6 +337,7 @@ body {
 	width:52px;
 	float: left;
 	border-bottom: 1px solid #2980b9;
+	border: none;
 }
 
 .open_btn {
