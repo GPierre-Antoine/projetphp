@@ -41,6 +41,21 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     }
 
+    public function addCategorie($array) {
+        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('" . $array[0]."','" . $array[1]."','" . $array[2] . "')";
+        $this->pdo->query($sql);
+    }
+
+    public function switchFavoriteFlux($id, $value) {
+        if($value == "of") {
+            $sql = "UPDATE FLUX SET ISFAVORITE = 1 WHERE ID = " . $id;
+        }
+        else {
+            $sql = "UPDATE FLUX SET ISFAVORITE = 0 WHERE ID = " . $id;
+        }
+        $this->pdo->query($sql);
+    }
+
     public function getSpecific () {
 
     } // getSpecific

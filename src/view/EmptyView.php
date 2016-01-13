@@ -34,6 +34,18 @@ class EmptyView extends View {
                 $this->model->enableOrDisable($begin,$end);
             }
         }
+        else if(isset($_POST['idUserCategorie']) && isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
+            $tab = array();
+            array_push($tab,$_POST['idUserCategorie']);
+            array_push($tab,$_POST['nameCategorie']);
+            array_push($tab,$_POST['colorCategorie']);
+            $this->model->addCategorie($tab);
+        }
+        else if(isset($_POST['linkImgFavorite'])) {
+            //$this->model->changeFluxFavorite($_POST['linkImgFavorite']);
+            $value = substr($_POST['linkImgFavorite'],54,-5);
+            $this->model->switchFavoriteFlux($value);
+        }
     }
 
 }
