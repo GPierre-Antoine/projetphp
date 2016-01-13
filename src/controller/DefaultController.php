@@ -7,6 +7,22 @@ class DefaultController extends Controller {
     }// ControllerInscription
 
     public function update(/*do_it*/) {
-        
+        if (!empty($this->options)) {
+            if ($this->options[0] === "r")
+            {
+                switch ($this->options[1])
+                {
+                    case "flux":
+                        ;
+                    case "category":
+                        ;
+                    case "blog":
+                        ;
+                        $this->model->setActive($this->options[1]);
+                    default:break;
+                }
+            }
+
+        }
     }
 }
