@@ -185,9 +185,9 @@ class DefaultView extends View {
 			        		</div>
 			        		<div class="writting_zone_text">
 			        			<form id="F_blog" action="" method="post">
-			        				<input class="small_input" type="text" name="title" placeholder="Titre" required/><input class="small_input" type="text" name="theme" placeholder="Theme" required/>
-			        				<input id="imgSelection" class="big_input" type="text" name="title" placeholder="Lien de l\'image" required/>
-			        				<textarea class="content_input" name="content" form="F_blog"></textarea>
+			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
+			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
+			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
 			        				<input class="action_btn" type="buton" name="submit" onclick="addArticle(this)" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
