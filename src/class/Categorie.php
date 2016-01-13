@@ -5,14 +5,12 @@ include_once('Flux.php');
 class Categorie 
 {
 
-	private $iduser;
 	private $name;
 	private $color;
 	private $flux;
 	private $pdo;
 
-	public function __construct($iduser,$name, $color) {
-		$this->iduser = $iduser;
+	public function __construct($name, $color) {
 		$this->name = $name;
 		$this->color = $color;
 
@@ -21,7 +19,7 @@ class Categorie
 	}
 
 	public function initializeInside() {
-		$sqlFlux = 'SELECT * FROM FLUX WHERE ID IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDUSER = '.$this->iduser.'
+		$sqlFlux = 'SELECT * FROM FLUX WHERE ID IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDUSER = 1
 																				  AND CATNAME = \''.$this->name.'\')';
 
 		$stmt = $this->pdo->query($sqlFlux);

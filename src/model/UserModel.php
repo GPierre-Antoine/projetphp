@@ -11,7 +11,7 @@ class UserModel extends ModelPDO {
         $this->table = "USERS";
     }
 
-    public function create_new_user(User $user,$password,$token) {
+    public function create_new_user(User $user,$password,$token,$key) {
         $this->pdo->prepare("INSERT INTO `USERS` (`EMAIL`,`NAME`,`ENABLE`) VALUES (?,?,0)");
         $this->pdo->execute(array($user->getEmail(),$user->getName()));
 
@@ -20,6 +20,10 @@ class UserModel extends ModelPDO {
         $passdb = new \db\db_handler();
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
         $passdb->execute(array($passdb->lastInsertId(),encrypt($password,$token),$token));
+
+        $passdb->prepare("INSERT INTO `VERIFICATION` (`ID`,`TOKEN`) VALUES (?,?)");
+        $passdb->prepare(array($passdb->lastInsertId(),$key));
+
     }
 
     public function select () {

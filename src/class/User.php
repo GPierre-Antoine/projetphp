@@ -41,7 +41,7 @@ class User
         $stmt = $this->pdo->query($sqlCategories);
         while ($categorie = $stmt->fetch())
         {
-            $newCategorie = new categorie($this->id,$categorie['NAME'],$categorie['COLOR']);
+            $newCategorie = new categorie($categorie['NAME'],$categorie['COLOR']);
             array_push($this->categories, $newCategorie);
         }
     }
