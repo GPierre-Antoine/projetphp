@@ -15,8 +15,6 @@ class ForgotpassView extends View {
 					<link rel='stylesheet' type='text/css' href='src/style/user.css' />
 					<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
 					<script type='text/javascript' src='src/js/jquery.magnific-popup.js' ></script>
-					<script type='text/javascript' src='src/js/menu.js'></script>
-					<script type='text/javascript' src='src/js/action.js'></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
