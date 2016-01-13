@@ -35,7 +35,9 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
-					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
+					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>';
+                    echo $this->model->getParam();
+                    echo '
 				</head>
 				<body>
 					<!-- TOP SIDE -->
@@ -221,8 +223,6 @@ class DefaultView extends View {
 				        $("#add_article").click(function () {
 				            $("#overlay_blog").fadeOut(200);
 				            $(".popup_blog").css("display", "none");
-				            $("#content_blog").load(document.URL +  "/blog");
-
 				        });
 				    });
 			        </script>
