@@ -40,8 +40,15 @@ class LoginController extends Controller
 
 
                 $this->model->next();
+
+                $encoded = encrypt($password,$this->model->getData('TOKEN'));
+
+
+                echo "<br />".bin2hex($encoded);
+                echo "<br />".bin2hex($this->model->getData('PASSWORD'));
+
                 //user exists
-                if (encrypt($password,$this->model->getData('TOKEN')) === $this->model->getData('PASSWORD')) {
+                if ($encoded === $this->model->getData('PASSWORD')) {
 
                     //password matches
                     //$_SESSION['user'] = build_user($this->model->getData("ID"));
