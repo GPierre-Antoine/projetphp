@@ -45,7 +45,7 @@ class ControllerInscription extends Controller {
             $entete = "From: test@aaron-aaron.com";
             $message = "Salut je test si ca marche, http://aaron-aaron.alwaysdata.net/Confirmation?cle='.urlencode($key).'";
 
-            $mail($destinataire, $message,$entete);
+            $mail($destinataire, $sujet, $message, $entete);
 
 
 
