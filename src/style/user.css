@@ -415,8 +415,7 @@ body {
 }
 
 .friend {
-	background-color: #34495e;
-	color: white;
+	background-color: #34495e
 	font-size: 22px;
 }
 
@@ -425,6 +424,7 @@ body {
 	height: 8%;
 	border: none;
 	margin-top: 2px;
+	color: white;
 }
 
 .flux_panel {

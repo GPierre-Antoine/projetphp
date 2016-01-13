@@ -4,26 +4,43 @@ $(document).ready(function()
 	$(".all_btn").css("background-color", "#2980b9"); // FIRST BUTTON IS ALL_BTN
 
 	var isMenuOpen = true;
+	function openMenu() {
+		$("#menu").clearQueue().animate({
+			left : '0'
+		})
+		$("#leftSmallMenu").clearQueue().animate({
+			left : '25%'
+		})
+		$("#content").clearQueue().animate({
+			left : '25%'
+		})
+		$(".article").clearQueue().animate({
+			left : '-25%'
+		})
+	}
+
+	function closeMenu() {
+		$("#menu").clearQueue().animate({
+			left : '-25%'
+		})
+		$("#leftSmallMenu").clearQueue().animate({
+			left : '0'
+		})
+		$("#content").clearQueue().animate({
+			left : '0'
+		})
+		$(".article").clearQueue().animate({
+			left : '0'
+		})
+	}
+
 	$('.open_btn').click(function()
 	{
 		if (isMenuOpen == false)
 		{
-			$("#menu").clearQueue().animate({
-				left : '0'
-			})
-			$("#leftSmallMenu").clearQueue().animate({
-				left : '25%'
-			})
-			$("#content").clearQueue().animate({
-				left : '25%'
-			})
-			$(".article").clearQueue().animate({
-				left : '-25%'
-			})
-						
+			openMenu();
 			$(this).fadeOut(1);
 			$(".close_btn").fadeIn(1);
-
 			isMenuOpen = true;
 		} 
 	});
@@ -32,23 +49,9 @@ $(document).ready(function()
 	{
 		if (isMenuOpen == true)
 		{
-			$("#menu").clearQueue().animate({
-				left : '-25%'
-			})
-			$("#leftSmallMenu").clearQueue().animate({
-				left : '0'
-			})
-			$("#content").clearQueue().animate({
-				left : '0'
-			})
-			$(".article").clearQueue().animate({
-				left : '0'
-			})
-
-
+			closeMenu();
 			$(this).fadeOut(1);
 			$(".open_btn").fadeIn(1);
-			
 			isMenuOpen = false;
 		}
 	});
@@ -57,22 +60,9 @@ $(document).ready(function()
 	{
 		if (isMenuOpen == false)
 		{
-			$("#menu").clearQueue().animate({
-				left : '0'
-			})
-			$("#leftSmallMenu").clearQueue().animate({
-				left : '25%'
-			})
-			$("#content").clearQueue().animate({
-				left : '25%'
-			})
-			$(".article").clearQueue().animate({
-				left : '-25%'
-			})
-						
+			openMenu();
 			$(".open_btn").fadeOut(1);
 			$(".close_btn").fadeIn(1);
-
 			isMenuOpen = true;
 		}
 
@@ -89,19 +79,7 @@ $(document).ready(function()
 	{
 		if (isMenuOpen == false)
 		{
-			$("#menu").clearQueue().animate({
-				left : '0'
-			})
-			$("#leftSmallMenu").clearQueue().animate({
-				left : '25%'
-			})
-			$("#content").clearQueue().animate({
-				left : '25%'
-			})
-			$(".article").clearQueue().animate({
-				left : '-25%'
-			})
-						
+			openMenu();
 			$(".open_btn").fadeOut(1);
 			$(".close_btn").fadeIn(1);
 
@@ -121,22 +99,9 @@ $(document).ready(function()
 	{
 		if (isMenuOpen == false)
 		{
-			$("#menu").clearQueue().animate({
-				left : '0'
-			})
-			$("#leftSmallMenu").clearQueue().animate({
-				left : '25%'
-			})
-			$("#content").clearQueue().animate({
-				left : '25%'
-			})
-			$(".article").clearQueue().animate({
-				left : '-25%'
-			})
-						
+			openMenu();
 			$(".open_btn").fadeOut(1);
 			$(".close_btn").fadeIn(1);
-
 			isMenuOpen = true;
 		}
 
