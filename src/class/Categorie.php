@@ -19,7 +19,7 @@ class Categorie
 	}
 
 	public function initializeInside() {
-		$sqlFlux = 'SELECT * FROM FLUX WHERE ID IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDUSER = 1
+		$sqlFlux = 'SELECT * FROM FLUX WHERE ID IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDUSER = 3
 																				  AND CATNAME = \''.$this->name.'\')';
 
 		$stmt = $this->pdo->query($sqlFlux);

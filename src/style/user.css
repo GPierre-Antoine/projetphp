@@ -295,8 +295,9 @@ body {
 	position: fixed;
 	margin-left: 52px;
 	left: 25%;
-	width: 100%;
+	width: calc(100% - 60px);
 	height: 100%;
+	overflow-y: auto;
 }
 
 #content_blog {

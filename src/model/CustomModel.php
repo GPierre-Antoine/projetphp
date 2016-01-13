@@ -13,7 +13,7 @@ class CustomModel extends ModelPDO {
     } // CustomModel
 
     public function addArticle($array) {
-        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (1,'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
+        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (3,'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
         $this->pdo->query($sql);
     }
 

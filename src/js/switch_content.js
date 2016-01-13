@@ -27,5 +27,15 @@ $(function () {
         }
     })
 
+    $("#add_article").click(function () {
+        if (!contentBlog) {
+            $("#content_flux").addClass("hide");
+            $("#content_blog").removeClass("hide");
+
+            contentFlux = false;
+            contentBlog = true;
+        }
+    });
+
 
 })

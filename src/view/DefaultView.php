@@ -124,7 +124,7 @@ class DefaultView extends View {
 										<span class="article_content_inf"><span class="article_inf_title">'.$article->getTitle().'</span> dans <span class="article_inf_theme">'.$article->getTheme().'</span></span><br/>
 										<p class="article_content">'.$article->getContent().'</p>
 									</div>
-								</div >
+								</div>
 							';
 							}
 							echo '
@@ -190,7 +190,7 @@ class DefaultView extends View {
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
-			        				<input id="add_article" class="action_btn" type="button" name="submit" onclick="addArticle(this)" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
+			        				<button id="add_article" class="action_btn" type="button" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>
