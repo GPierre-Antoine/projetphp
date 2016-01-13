@@ -39,6 +39,6 @@ function display_rss($feed) {
         </div>
         ';
 
-        echo $display;
+        return $display;
     }
 }

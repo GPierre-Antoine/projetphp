@@ -40,6 +40,6 @@ $(function () {
 
 })
 
-function switchFlux($object) {
-    console.log($object.length);
+function switchFluxTo($url) {
+
 }
