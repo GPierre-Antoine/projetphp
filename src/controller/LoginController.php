@@ -41,12 +41,20 @@ class LoginController extends Controller
 
                 $this->model->next();
 
-                $encoded = encrypt($password,$this->model->getData('TOKEN'));
+                $token = $this->model->getData('TOKEN');
 
-                echo "<br />".bin2hex($this->model->getData('TOKEN'));
+                $encoded = encrypt($password,$token);
 
-                echo "<br />".bin2hex($encoded);
-                echo "<br />".bin2hex($this->model->getData('PASSWORD'));
+                echo "<br />Token : ".bin2hex($token);
+                echo "<br />of size : ". strlen($token);
+
+                echo "<br />Encoded : ".bin2hex($encoded);
+                echo "<br /> of size : " .strlen($encoded);
+                echo "<br />Password : ".bin2hex($this->model->getData('PASSWORD'));
+                echo "<br /> of size : " .strlen(bin2hex($this->model->getData('PASSWORD')));
+                echo "<br />OpenSSL : ".     bin2hex(openssl_random_pseudo_bytes(64,$crypto_strong));
+                echo "<br /> of size : ".strlen(openssl_random_pseudo_bytes(64,$crypto_strong));
+
 
                 //user exists
                 if ($encoded === $this->model->getData('PASSWORD')) {
