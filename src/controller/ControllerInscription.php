@@ -25,7 +25,8 @@ class ControllerInscription extends Controller {
             }
             $name = secure_strip($_POST['fName']);
 
-            $key = md5(microtime(TRUE)*100000);
+            $crypt = true;
+            $key = bin2hex(openssl_random_pseudo_bytes(20,$crypt));
 
 
             $mail = $mail['mail'];
