@@ -5,7 +5,7 @@ function secure_strip($field) {
 }
 
 function POST ($field) {
-
+    return htmlspecialchars($field);
 }
 
 function mail_strip($field) {

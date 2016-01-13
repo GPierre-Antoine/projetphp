@@ -35,6 +35,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
+					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
@@ -183,11 +184,11 @@ class DefaultView extends View {
 			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
 			        		</div>
 			        		<div class="writting_zone_text">
-			        			<form id="F_blog" action="" method="">
+			        			<form id="F_blog" action="" method="post">
 			        				<input class="small_input" type="text" name="title" placeholder="Titre" required/><input class="small_input" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input" name="content" form="F_blog"></textarea>
-			        				<input class="action_btn" type="submit" name="submit" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
+			        				<input class="action_btn" type="buton" name="submit" onclick="addArticle(this)" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>

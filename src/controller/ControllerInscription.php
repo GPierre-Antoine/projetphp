@@ -25,6 +25,8 @@ class ControllerInscription extends Controller {
             }
             $name = secure_strip($_POST['fName']);
 
+            $key = md5(microtime(TRUE)*100000);
+
 
             $mail = $mail['mail'];
 
@@ -35,6 +37,13 @@ class ControllerInscription extends Controller {
             $this->model->update();
 
 
+            $destinataire = $mail;
+            $sujet = "test validation lol";
+            $entete = "From: test@aaron-aaron.com";
+            $message = "Salut je test si ca marche, <a href='http://aaron-aaron.alwaysdata.net/confirmation/".bin2hex($key)."'> lien </a>";
+
+
+
 
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
@@ -42,10 +51,14 @@ class ControllerInscription extends Controller {
                 $crypto_strong = true;
                 $bytes = openssl_random_pseudo_bytes(64,$crypto_strong);
 
+
                 $user = new User('0',$mail,$name,0);
 
-                $this->model->create_new_user($user,encrypt($password,$bytes),$bytes);
+                $this->model->create_new_user($user,encrypt($password,$bytes),$bytes,$key);
 
+
+
+                $mail($destinataire, $sujet, $message, $entete);
 
             }
             else {
