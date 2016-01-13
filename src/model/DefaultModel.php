@@ -33,4 +33,8 @@ class DefaultModel extends ModelPDO {
 	public function getSpecific() {
 		
 	}
+
+    public function setActive($param) {
+        //"blog"
+    }
 }

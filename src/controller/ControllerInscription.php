@@ -42,7 +42,7 @@ class ControllerInscription extends Controller {
             $entete = "From: test@aaron-aaron.com";
             $message = "Salut je test si ca marche, <a href='http://aaron-aaron.alwaysdata.net/confirmation/".bin2hex($key)."'> lien </a>";
 
-
+            echo $mail;
 
 
             if ($this->model->rowCount() === 0) {
