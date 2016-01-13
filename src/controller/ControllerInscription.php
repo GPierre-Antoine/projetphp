@@ -57,9 +57,10 @@ class ControllerInscription extends Controller {
                 $this->model->create_new_user($user,encrypt($password,$bytes),$bytes,$key);
 
 
-
-                $mail($destinataire, $sujet, $message, $entete);
-
+                if (mail($destinataire, $sujet, $message, $entete))
+                    echo "sa marcje";
+                else
+                    echo "tes une bite romain";
             }
             else {
                 //mail already exists;
