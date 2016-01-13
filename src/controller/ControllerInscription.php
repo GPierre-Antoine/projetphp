@@ -17,7 +17,7 @@ class ControllerInscription extends Controller {
 
             $mail = mail_strip($_POST['mail']);
             $password = secure_strip($_POST['pwd0']);
-            if ($password !== secure_strip($_POST['pwd1'])) {
+            if ($password !== secure_strip($_POST['pwd1']) || strlen($mail) < 3) {
                 //do not match
 
 
@@ -42,7 +42,7 @@ class ControllerInscription extends Controller {
             $entete = "From: test@aaron-aaron.com";
             $message = "Salut je test si ca marche, <a href='http://aaron-aaron.alwaysdata.net/confirmation/".bin2hex($key)."'> lien </a>";
 
-
+            echo $mail;
 
 
             if ($this->model->rowCount() === 0) {
@@ -57,8 +57,7 @@ class ControllerInscription extends Controller {
                 $this->model->create_new_user($user,encrypt($password,$bytes),$bytes,$key);
 
 
-
-                $mail($destinataire, $sujet, $message, $entete);
+                mail($destinataire, $sujet, $message, $entete);
 
             }
             else {
