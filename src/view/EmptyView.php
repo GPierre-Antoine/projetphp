@@ -41,6 +41,11 @@ class EmptyView extends View {
             array_push($tab,$_POST['colorCategorie']);
             $this->model->addCategorie($tab);
         }
+        else if(isset($_POST['linkImgFavorite'])) {
+            //$this->model->changeFluxFavorite($_POST['linkImgFavorite']);
+            $value = substr($_POST['linkImgFavorite'],54,-5);
+            $this->model->switchFavoriteFlux($value);
+        }
     }
 
 }
