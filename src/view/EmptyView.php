@@ -13,7 +13,10 @@ class EmptyView extends View {
     }// UserView
 
     public function display() {
-        echo "coucou";
+        if(isset($_POST['addArticle'])) {
+            //$this->model->addArticle($_POST['addArticle']);
+            echo "fine";
+        }
     }
 
 }

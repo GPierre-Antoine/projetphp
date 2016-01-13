@@ -12,6 +12,11 @@ class CustomModel extends ModelPDO {
         parent::__construct();
     } // CustomModel
 
+    public function addArticle($array) {
+        $sql = "INSERT INTO ARTICLE VALUES (,1," . $array[0].", " . $array[1].", " . $array[2] . ")";
+        $this->pdo->query($sql);
+    }
+
     public function getSpecific () {
 
     } // getSpecific
