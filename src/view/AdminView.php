@@ -17,18 +17,18 @@ class AdminView extends View {
     private function affUsers() {
       $users = $this->model->getUsers();
       foreach($users as $u) {
-         echo '<div class="user"><div class="user_Content">';
+         echo '<div id="user'.$u->getID().'" class="user"><div class="user_Content">';
          echo $u->getID() . '<br/>';
          echo $u->getEmail() . '<br/>';
          echo $u->getName() . '<br/>';
-         echo '</div><div class="user_Footer">';
+         echo '</div><div id="user_Footer'.$u->getID() . '" class="user_Footer">';
          if($u->getEnable() == 1) {
-            echo '<a id="' . $u->getID() . '"onclick="javascript:;" class="myButton">Enable</a>';
+            echo '<a id="ena'.$u->getID().'" onclick="enableOrDisable(this)" class="myButton">Enable</a>';
          }
          else {
-          echo '<a href=" " onclick="able(this);"  class="myButton" >Disable</a>';
+          echo '<a id="dis'.$u->getID().'" onclick="enableOrDisable(this)"  class="myButton" >Disable</a>';
          }
-         echo '<a href=" " class="myButton"> Delete </a></div></div>';
+         echo '<a id="del'.$u->getID().'" onclick="deleteUser(this)" class="myButton"> Delete </a></div></div>';
       }
     }
 

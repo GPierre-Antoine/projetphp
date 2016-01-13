@@ -24,7 +24,15 @@ class EmptyView extends View {
 
         }
         else if(isset($_POST['enable'])) {
-            echo $_POST['enable'];
+            $begin = substr($_POST['enable'],0,3);
+            $end = substr($_POST['enable'],3);
+            if($begin == "del") {
+                $this->model->deleteUser($end);
+                echo "je passe ici : " . $end;
+            }
+            else {
+                $this->model->enableOrDisable($begin,$end);
+            }
         }
     }
 

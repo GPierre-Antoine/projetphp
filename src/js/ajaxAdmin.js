@@ -1,7 +1,7 @@
 /**
  * Created by g13003750 on 13/01/16.
  */
-function able($object) {
+function enableOrDisable($object) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -22,7 +22,7 @@ function able($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
             }
             else {
                 alert("probleme");
@@ -31,9 +31,41 @@ function able($object) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var tab = new Array();
-    $("#F_blog .actionnable_wr").each(function () {
-        tab.push($(this).val());
-    });
-    xhr.send("array1="+tab[0]+"&array2="+tab[1]+"&array3="+tab[2]+"&array4="+tab[3]);
+    xhr.send("enable="+$object.id);
+}
+
+
+
+function deleteUser($object) {
+    var xhr2;
+    try {
+        xhr2 = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr2 = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr2 = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr2 = false;
+            }
+        }
+    }
+    xhr2.onreadystatechange = function () {
+        if (xhr2.readyState == 4) {
+            if (xhr2.status == 200) {
+                alert(xhr2.responseText);
+                document.getElementById($object.parentNode.parentNode.id).remove();
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr2.open("POST","/ajx", true);
+    xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr2.send("enable="+$object.id);
 }

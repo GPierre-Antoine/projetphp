@@ -17,6 +17,30 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     }
 
+    public function enableOrDisable($value,$id) {
+        if($value == "ena") {
+            $sql = "UPDATE USERS SET ENABLE = 0 WHERE ID = " . $id;
+            $this->pdo->query($sql);
+        }
+        else {
+            $sql = "UPDATE USERS SET ENABLE = 1 WHERE ID = " . $id;
+            $this->pdo->query($sql);
+        }
+    }
+
+    public function deleteUser($valueOfId) {
+        $sql = 'DELETE FROM FRIEND WHERE IDUSER='.$valueOfId;
+        $this->pdo->query($sql);
+        $sql = 'DELETE FROM CATEGORIE WHERE IDUSER='.$valueOfId;
+        $this->pdo->query($sql);
+        $sql = 'DELETE FROM FLUX_ASSOC WHERE IDUSER='.$valueOfId;
+        $this->pdo->query($sql);
+        $sql = 'DELETE FROM ARTICLE WHERE IDUSER='.$valueOfId;
+        $this->pdo->query($sql);
+        $sql = 'DELETE FROM USERS WHERE ID='.$valueOfId;
+        $this->pdo->query($sql);
+    }
+
     public function getSpecific () {
 
     } // getSpecific
