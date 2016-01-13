@@ -184,7 +184,7 @@ class DefaultView extends View {
 			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
 			        		</div>
 			        		<div class="writting_zone_text">
-			        			<form id="F_blog" action="" method="post">
+			        			<form id="F_blog" method="post">
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
@@ -221,6 +221,8 @@ class DefaultView extends View {
 				        $("#add_article").click(function () {
 				            $("#overlay_blog").fadeOut(200);
 				            $(".popup_blog").css("display", "none");
+				            $("#content_blog").load(document.URL +  "/blog");
+
 				        });
 				    });
 			        </script>
