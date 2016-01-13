@@ -90,7 +90,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="addCategorie(this)" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" type="button"></button>
+							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" type="button"></button>
 						</div>
 			    	</div>
 
@@ -160,10 +160,10 @@ class DefaultView extends View {
 					<div id="overlay_flux" class="overlay"></div>
 			        <div id="popup_flux" class="popup_flux">
 			        	<div class="addLibrary">
-			        		<form id="F_library" action="" method="">
+			        		<form id="F_library"  method="post">
 								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput" name="color" type="color" placeholder="Couleur" required/>
-					    		<input class="smallInput" name="submit" type="submit" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
+					    		<input class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
 							</form>
 			        	</div>
 			        	<div class="sep"></div>
