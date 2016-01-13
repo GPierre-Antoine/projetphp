@@ -48,11 +48,11 @@ class CustomModel extends ModelPDO {
 
     public function switchFavoriteFlux($value, $idFlux) {
         if($value == "off") {
-            $sql = 'UPDATE FLUX SET ISFAVORITE = 1 WHERE ID ='.$idFlux;
+            $sql = 'UPDATE FLUX SET ISFAVORITE = 1 WHERE ID = ' . $idFlux;
             $this->pdo->query($sql);
         }
         else {
-            $sql = 'UPDATE FLUX SET ISFAVORITE = 0 WHERE ID ='.$idFlux;
+            $sql = 'UPDATE FLUX SET ISFAVORITE = 0 WHERE ID = ' . $idFlux;
             $this->pdo->query($sql);
         }
     }
