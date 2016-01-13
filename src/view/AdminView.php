@@ -26,7 +26,7 @@ class AdminView extends View {
             echo '<a id="' . $u->getID() . '"onclick="javascript:;" class="myButton">Enable</a>';
          }
          else {
-          echo '<a href=" " onclick="javascript:;"  class="myButton" >Disable</a>';
+          echo '<a href=" " onclick="able(this);"  class="myButton" >Disable</a>';
          }
          echo '<a href=" " class="myButton"> Delete </a></div></div>';
       }
@@ -40,6 +40,7 @@ class AdminView extends View {
           <link rel="stylesheet" type="text/css" href="/src/style/admin.css" />
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
           <script type="text/javascript" src="/src/js/admin.js"></script>
+          <script type="text/javascript" src="/src/js/ajaxAdmin.js"></script>
         </head>
         <body>
           <!-- TOP SIDE -->
