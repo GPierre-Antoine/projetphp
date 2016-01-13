@@ -109,8 +109,12 @@ class DefaultView extends View {
 			    		</div>
 
 						<div id="content">
-							<div id="content_flux">
-								flux
+							<div id="content_flux">';
+							$flux = $this->user->getArticles();
+							foreach($flux as $f) {
+								$feed = rss_feed($f);
+							}
+							echo '
 							</div>
 							<div id="content_blog" class="hide">';
 							$articles = $this->user->getArticles();
@@ -161,8 +165,8 @@ class DefaultView extends View {
 			        <div id="popup_flux" class="popup_flux">
 			        	<div class="addLibrary">
 			        		<form id="F_library"  method="post">
-								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
-								<input class="smallInput" name="color" type="color" placeholder="Couleur" required/>
+								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
+								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
 					    		<input class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
 							</form>
 			        	</div>

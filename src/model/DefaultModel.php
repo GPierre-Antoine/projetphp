@@ -49,6 +49,14 @@ class DefaultModel extends ModelPDO {
                     $("#content_flux").addClass("hide");
                 });
             </script>';
+        } else if($param === "flux") {
+            $this->param = '
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("#content_blog").addClass("hide");
+                    $("#content_flux").removeClass("hide");
+                });
+            </script>';
         }
     }
 }
