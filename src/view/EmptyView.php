@@ -13,12 +13,8 @@ class EmptyView extends View {
     }// UserView
 
     public function display() {
-        if(
-            isset($_POST['array1'])
-            && isset($_POST['array2'])
-            && isset($_POST['array3'])
-            && isset($_POST['array4'])
-        ) {
+        //For addArticle
+        if(isset($_POST['array1']) && isset($_POST['array2']) && isset($_POST['array3']) && isset($_POST['array4'])) {
             $tab = array();
             array_push($tab,$_POST['array1']);
             array_push($tab,$_POST['array2']);
@@ -26,6 +22,9 @@ class EmptyView extends View {
             array_push($tab,$_POST['array4']);
             $this->model->addArticle($tab);
 
+        }
+        else if(isset($_POST['enable'])) {
+            echo $_POST['enable'];
         }
     }
 
