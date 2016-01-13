@@ -1,0 +1,45 @@
+
+#content_flux .article {
+    width: 50%;
+    height: 10%;
+    margin: auto;
+    margin-bottom: 2%;
+    position: relative;
+    left: -25%;
+    background-color: #ecf0f1;
+    border-top-right-radius: 20px;
+}
+
+#content_flux .article .title {
+    display: block;
+    width: 100%;
+    height: 20%;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#content_flux .article .date {
+    display: block;
+    width: 100%;
+    height: 20%;
+    font-size: 15px;
+    font-style: italic;
+}
+
+#content_flux .article .content {
+    display: block;
+    width: 100%;
+    height: 40%;
+    font-size: 16px;
+    text-align: justify;
+}
+
+#content_flux .article .redirect {
+    display: block;
+    width: 100%;
+    height: 20%;
+    font-size: 16px;
+    text-align: right;
+}

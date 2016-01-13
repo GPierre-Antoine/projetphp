@@ -18,6 +18,10 @@ class Flux
 		return $this->name;
 	}
 
+	public function getUrl() {
+		return $this->url;
+	}
+
 	public function isFavorite() {
 		return $this->isFavorite;
 	}

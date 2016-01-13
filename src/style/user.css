@@ -519,7 +519,7 @@ img[src="#"] {
 
 /* ARTICLE ZONE */
 
-.article {
+#content_blog .article {
 	width: 50%;
 	height: 25%;
 	margin: auto;

@@ -29,8 +29,16 @@ function display_rss($feed) {
         $link = $feed[$x]['link'];
         $description = $feed[$x]['desc'];
         $date = date('l F d, Y', strtotime($feed[$x]['date']));
-        echo '<p><strong><a href="'.$link.'" title="'.$title.'">'.$title.'</a></strong><br />';
-        echo '<small><em>Posted on '.$date.'</em></small></p>';
-        echo '<p>'.$description.'</p>';
+
+        $display = '
+        <div class="article">
+            <span class="title">'.$title.'</span>
+            <span class="date">Publié le '.$date.'</span>
+            <span class="content">'.$description.'</span>
+            <span class="redirect"><a href="'.$link.'" target="_blank">Plus d\'information</a></span>
+        </div>
+        ';
+
+        echo $display;
     }
 }

@@ -8,6 +8,7 @@
 
 include_once('View.php');
 include_once('src/util/regex.php');
+include_once('src/util/rss_feed.php');
 
 class DefaultView extends View {
 
@@ -29,6 +30,7 @@ class DefaultView extends View {
 				<head>
 					<title>Aaron</title>
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/flux.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
@@ -75,7 +77,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this)" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -110,9 +112,11 @@ class DefaultView extends View {
 
 						<div id="content">
 							<div id="content_flux">';
-							$flux = $this->user->getArticles();
-							foreach($flux as $f) {
-								$feed = rss_feed($f);
+							foreach($this->categories as $category) {
+								foreach($category->getFlux() as $f) {
+									$feed = rss_feed($f->getUrl());
+									display_rss($feed);
+								}
 							}
 							echo '
 							</div>
