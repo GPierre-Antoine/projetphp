@@ -17,7 +17,7 @@ class ControllerInscription extends Controller {
 
             $mail = mail_strip($_POST['mail']);
             $password = secure_strip($_POST['pwd0']);
-            if ($password !== secure_strip($_POST['pwd1']) || strlen($mail) < 3) {
+            if ($password !== secure_strip($_POST['pwd1'])) {
                 //do not match
 
 
@@ -25,7 +25,8 @@ class ControllerInscription extends Controller {
             }
             $name = secure_strip($_POST['fName']);
 
-            $key = md5(microtime(TRUE)*100000);
+            $crypt = true;
+            $key = bin2hex(openssl_random_pseudo_bytes(20,$crypt));
 
 
             $mail = $mail['mail'];

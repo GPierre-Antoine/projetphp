@@ -22,7 +22,7 @@ class UserModel extends ModelPDO {
         $passdb->execute(array($passdb->lastInsertId(),encrypt($password,$token),$token));
 
         $passdb->prepare("INSERT INTO `VERIFICATION` (`ID`,`TOKEN`) VALUES (?,?)");
-        $passdb->prepare(array($passdb->lastInsertId(),$key));
+        $passdb->execute(array($passdb->lastInsertId(),$key));
 
     }
 
