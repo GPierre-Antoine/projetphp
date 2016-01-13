@@ -32,17 +32,16 @@ class DefaultView extends View {
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/aside.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
-					<script type="text/javascript" src="/src/js/switch_flux.js"></script>
+					<script type="text/javascript" src="/src/js/flux_categorie.js"></script>
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
-					<script type="text/javascript" src="/src/js/deleteCategories.js"></script>
 				</head>
 				<body>
 					<!-- TOP SIDE -->
 					<div id="top">
 						<img class="logo" src="/src/images/aaron_logo.png">
-						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="/src/images/account.png"></button></div><div id="TUserName"><strong>'.$this->user->getName().'</strong></div></div>
+						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="/src/images/account.png"></button></div><div id="TUserName"><strong>' .$this->user->getName().'</strong></div></div>
 						<a href="#" onclick="javascript:;" class="preference_btn"></a>
 					</div>
 
