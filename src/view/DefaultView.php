@@ -188,7 +188,7 @@ class DefaultView extends View {
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
-			        				<input class="action_btn" type="buton" name="submit" onclick="addArticle(this)" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
+			        				<input id="add_article" class="action_btn" type="button" name="submit" onclick="addArticle(this)" value="Publier"/><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>
@@ -214,6 +214,11 @@ class DefaultView extends View {
 				        });
 
 				        $("#F_cancel_btn").click(function () {
+				            $("#overlay_blog").fadeOut(200);
+				            $(".popup_blog").css("display", "none");
+				        });
+
+				        $("#add_article").click(function () {
 				            $("#overlay_blog").fadeOut(200);
 				            $(".popup_blog").css("display", "none");
 				        });
