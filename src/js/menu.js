@@ -150,6 +150,8 @@ $(document).ready(function()
 		$(".friend_btn").css("background-color", "#2980b9");
 		$(".all_btn").css("background-color", "#f39c12");
 		$(".favorite_btn").css("background-color", "#f39c12");
+
+		cancel_deleting();
 	});
 
 	$('.favorite_btn').click(function()
@@ -172,6 +174,8 @@ $(document).ready(function()
 		$(".friend_btn").css("background-color", "#f39c12");
 		$(".all_btn").css("background-color", "#f39c12");
 		$(".favorite_btn").css("background-color", "#2980b9");
+
+		cancel_deleting();
 	});
 });
 
