@@ -106,6 +106,9 @@ $(document).ready(function()
 		}
 
 		$("#categorie_panel").addClass("hide");
+		$("#menu div.flux_Panel").each(function () {
+			$(this).addClass("hide");
+		});
 		$("#favorite_panel").removeClass("hide");
 		$("#friend_panel").addClass("hide");
 

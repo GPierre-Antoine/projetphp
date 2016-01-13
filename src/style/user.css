@@ -415,8 +415,9 @@ body {
 }
 
 .friend {
-	background-color: #34495e
+	background-color: #34495e;
 	font-size: 22px;
+	color: black;
 }
 
 .default_block_panel {
@@ -425,6 +426,7 @@ body {
 	border: none;
 	margin-top: 2px;
 	color: white;
+	font-weight: bold;
 }
 
 .flux_panel {
@@ -437,6 +439,7 @@ body {
 
 .backflux_btn {
     background-color: #f39c12;
+	color: black;
 }
 
 .flux {
