@@ -53,6 +53,8 @@ $model = new $route->model;
 $controller = new $route->controller($model);
 $view = new $route->view($model);
 
+require_once("src/util/regex.php");
+
 
 //var_dump($task);
 if (count($task) > 2) {
