@@ -19,10 +19,10 @@ class UserModel extends ModelPDO {
 
         $passdb = new \db\db_handler();
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
-        $passdb->execute(array($passdb->lastInsertId(),encrypt($password,$token),$token));
+        $passdb->execute(array($id,encrypt($password,$token),$token));
 
         $passdb->prepare("INSERT INTO `VERIFICATION` (`ID`,`TOKEN`) VALUES (?,?)");
-        $passdb->execute(array($passdb->lastInsertId(),$key));
+        $passdb->execute(array($id,$key));
 
     }
 
