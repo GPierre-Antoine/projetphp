@@ -195,23 +195,23 @@ function addFlux($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                xhr.responseText;
+                alert(xhr.responseText);
             }
             else {
-                alert("probleme");
+                alert("probleme : "+xhr.responseText);
             }
         }
     };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var tab = new Array();
     $("#F_flux .actionnable_fl").each(function () {
         tab.push($(this).val());
     });
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var valeur = "Valeur :";
-    valeur += tab[0] + " fin";
-    alert(valeur);
-    xhr.send("nameFluxAdd=");
+    var var1 = tab[0];
+    var var2 = tab[1];
+    var var3 = tab[2];
+    xhr.send("nameFluxAdd="+var1+"&categorieFluxAdd"+var2+"&urlFluxAdd="+var3);
 }
 
 function inputButton($object) {
