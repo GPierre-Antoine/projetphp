@@ -6,6 +6,8 @@
  * Time: 14:09
  */
 
+include_once('src/util/rss_feed.php');
+
 class CustomModel extends ModelPDO {
 
     public function __construct() {
@@ -55,6 +57,11 @@ class CustomModel extends ModelPDO {
             $sql = 'UPDATE FLUX SET ISFAVORITE = 0 WHERE ID = ' . $id;
         }
             $this->pdo->query($sql);
+    }
+
+    public function createFluxAndDisplay($url) {
+        $f = rss_feed($url);
+        return display_rss($f);
     }
 
     public function getSpecific () {
