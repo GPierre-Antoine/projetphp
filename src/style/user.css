@@ -26,6 +26,14 @@ body {
 	background-color: transparent;
 }
 
+/* DEFAULT TAG */
+
+#popup_flux h1 {
+    text-align: center;
+    padding-bottom: 30px;
+    color: #27ae60;
+}
+
 /*TOP*/
 #top {
 	border-bottom: 2px solid #2980b9;

@@ -77,7 +77,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button onclick="switchFluxTo(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,'.$in->getId().','.$in->getName().')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button onclick="switchFluxTo(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,'.$in->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -169,6 +169,7 @@ class DefaultView extends View {
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
 			        <div id="popup_flux" class="popup_flux">
+			            <h1>Ajouter une catégorie</h1>
 			        	<div class="add_categorie">
 			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
@@ -177,6 +178,7 @@ class DefaultView extends View {
 							</form>
 			        	</div>
 			        	<div class="sep"></div>
+			        	<h1>Ajouter un flux</h1>
 			            <div class="addFlux">
 							<form id="F_flux" action="" method="">
 								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
