@@ -22,4 +22,8 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
+    protected function getSpecific()
+    {
+        // TODO: Implement getSpecific() method.
+    }
 }
