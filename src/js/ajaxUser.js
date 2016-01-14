@@ -77,7 +77,7 @@ function addCategorie($object) {
         }
     };
     var tab = new Array();
-    $("#F_library .actionnable_lb").each(function () {
+    $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
     xhr.open("POST","/ajx", true);
@@ -92,7 +92,7 @@ function addCategorie($object) {
     document.getElementById('categorie_panel').innerHTML += newCategorie;
 }
 
-function fluxFavorite($object,$id) {
+function fluxFavorite($object,$id,$name,$red,$green,$blue) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -113,7 +113,14 @@ function fluxFavorite($object,$id) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                 alert(xhr.responseText);
+                if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
+                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
+                    var newFavorite = '<button class="default_block_panel flux" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
+                    document.getElementById('favorite_panel').innerHTML += newFavorite;
+                }
+                else {
+                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
+                }
             }
             else {
                 alert("probleme");

@@ -47,6 +47,7 @@ class EmptyView extends View {
             else
                 $value = "on";
             $this->model->switchFavoriteFlux($value, $_POST['idImg']);
+            echo $value;
 
         }
     }
