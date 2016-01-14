@@ -19,7 +19,7 @@ class ConfirmationController extends Controller {
         $this->model->get();
         $key =$this->options[0];
 
-        $this->model->select($_SESSION['id'],$key);
+        $this->model->select($_SESSION['ID'],$key);
 
         $this->model->update();
 
