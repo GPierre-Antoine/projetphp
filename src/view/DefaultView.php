@@ -14,13 +14,15 @@ class DefaultView extends View {
     private $user;
 	private $categories;
 	private $friends;
+	private $articles;
 
-    public function __construct($model) {
+	public function __construct($model) {
         $this->model = $model;
 
         $this->user = $this->model->getCurrentUser();
         $this->categories = $this->user->getCategories();
         $this->friends = $this->user->getFriends();
+		$this->articles = $this->user->getArticles();
     }
 
     public function display() {
@@ -36,6 +38,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/switch_content.js"></script>
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
+					<script type="text/javascript" src="/src/js/popup.js"></script>
 					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>';
                     echo $this->model->getParam();
                     echo '
@@ -123,8 +126,7 @@ class DefaultView extends View {
 							echo '
 							</div>
 							<div id="content_blog" class="hide">';
-							$articles = $this->user->getArticles();
-							foreach($articles as $article) {
+							foreach($this->articles as $article) {
 							echo '
 								<div class="article" >
 									<div class="article_zone_img" >
@@ -169,17 +171,28 @@ class DefaultView extends View {
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
 			        <div id="popup_flux" class="popup_flux">
-			            <h1>Ajouter une catégorie</h1>
-			        	<div class="add_categorie">
+			        	<h1>Selectionner un type d\'import </h1>
+			        	<div class="pop_selector pop_add">
+			        		<select id="selector">
+			        			<option value="pop_add_categorie">Une catégorie</option>
+			        			<option value="pop_add_flux">Un flux</option>
+			        			<option value="pop_add_mail">Un compte mail</option>
+			        			<option value="pop_add_friend">Suivre une personne</option>
+			        		</select>
+			        		<div class="selector_button">
+			        			<button id="begin" type="button">Commencer</button><button id="end" type="button">Annuler</button>
+			        		</div>
+			        	</div>
+			        	<div class="pop_add pop_add_categorie hide">
+			        		<div class="sep"></div>
 			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
 					    		<input id="add_categorie" class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
 							</form>
 			        	</div>
-			        	<div class="sep"></div>
-			        	<h1>Ajouter un flux</h1>
-			            <div class="addFlux">
+			            <div class="pop_add pop_add_flux hide">
+			            	<div class="sep"></div>
 							<form id="F_flux" method="post">
 								<input class="smallInput actionnable_fl" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_fl" name="categorie" type="text" placeholder="Categorie" required/>
@@ -206,44 +219,6 @@ class DefaultView extends View {
 			        		</div>
 			        	</div>
 			        </div>
-
-			        <script type="text/javascript">
-			        $(function() {
-
-			            function closePopUp($overlay,$popup) {
-			                $($overlay).fadeOut(200);
-				            $($popup).css("display", "none");
-			            }
-
-				        $(".addF_btn").click(function () {
-				            $("#overlay_flux").css({"display":"block", opacity:0});
-				            $("#overlay_flux").fadeTo(200,0.5);
-				            $("#popup_flux").fadeTo(200,1);
-				        });
-
-				        $(".write_btn").click(function () {
-				            $("#overlay_blog").css({"display":"block", opacity:0});
-				            $("#overlay_blog").fadeTo(200,0.5);
-				            $("#popup_blog").fadeTo(200,1);
-				        });
-
-				        $("#add_categorie").click(function () {
-				            closePopUp("#overlay_flux",".popup_flux");
-				        })
-
-				        $("#btnCancel").click(function () {
-				            closePopUp("#overlay_flux",".popup_flux");
-				        });
-
-				        $("#F_cancel_btn").click(function () {
-				            closePopUp("#overlay_blog",".popup_blog");
-				        });
-
-				        $("#add_article").click(function () {
-				            closePopUp("#overlay_blog",".popup_blog");
-				        });
-				    });
-			        </script>
 			        <!-- END POP-UP -->
 
 				</body>

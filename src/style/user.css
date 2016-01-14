@@ -243,15 +243,33 @@ body {
 	-moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
 }
 
-/*ADD FLUX*/
-.addLibrary {
+/*POP ADD*/
+.pop_add {
 	width: 100%;
 	float: left;
 }
 
-.addFlux {
-	width: 100%;
-	float: left;
+.pop_selector {
+	text-align: center;
+}
+
+.selector {
+	display: block;
+}
+
+.selector_button button{
+	width: 100px;
+	height: 25px;
+	margin-top: 15px;
+	border: none;
+}
+
+.selector_button #begin {
+	background-color: #2980b9;
+}
+
+.selector_button #end {
+	background-color: #f39c12;
 }
 
 .sep {

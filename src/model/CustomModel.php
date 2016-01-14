@@ -43,6 +43,7 @@ class CustomModel extends ModelPDO {
     }
 
     public function addCategorie($array) {
+        if(!isset($array[1]))return;
         $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $array[1]."','" . $array[2] . "')";
         $this->pdo->query($sql);
     }
