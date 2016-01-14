@@ -305,7 +305,7 @@ body {
 	left: 25%;
 	width: calc(100% - 60px);
 	height: 100%;
-	overflow-y: auto;
+	overflow-y: visible;
 }
 
 #content_blog {
