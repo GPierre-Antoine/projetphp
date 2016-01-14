@@ -43,8 +43,10 @@ class ControllerInscription extends Controller {
             $destinataire = $mail;
             $sujet = "test validation lol";
             $entete = "From: test@aaron-aaron.com";
-            $message = "<body>Salut je test si ca marche,
-            <a href=\"http://aaron-aaron.alwaysdata.net/confirmation/".$id.$key."\">http://aaron-aaron.alwaysdata.net/confirmation/</a>,<body>";
+            $message = "Salut je test si ca marche,
+            http://aaron-aaron.alwaysdata.net/confirmation/$id/$key
+
+            kiwi Puissance Kakarot";
 
 
             if ($this->model->rowCount() === 0) {
