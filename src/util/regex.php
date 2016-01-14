@@ -5,7 +5,7 @@ function secure_strip($field) {
 }
 
 function POST ($field) {
-    return htmlspecialchars($field);
+    return htmlentities($field,ENT_QUOTES | ENT_SUBSTITUTE);
 }
 
 function mail_strip($field) {
