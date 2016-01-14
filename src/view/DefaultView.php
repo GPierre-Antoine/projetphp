@@ -116,8 +116,10 @@ class DefaultView extends View {
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									$feed = rss_feed($f->getUrl());
-									$display = display_rss($feed);
-									echo $display;
+									$displays = display_rss($feed);
+									foreach($displays as $d) {
+                                        echo $d;
+                                    }
 								}
 							}
 							echo '

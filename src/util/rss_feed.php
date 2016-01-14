@@ -24,6 +24,7 @@ function rss_feed($url) {
 
 function display_rss($feed) {
     $limit = 5;
+    $displays = array();
     for($x=0 ; $x<$limit ; $x++) {
         $title = str_replace(' & ', ' &amp; ', $feed[$x]['title']);
         $link = $feed[$x]['link'];
@@ -39,6 +40,8 @@ function display_rss($feed) {
         </div>
         ';
 
-        return $display;
+        array_push($displays,$display);
     }
+
+    return $displays;
 }
