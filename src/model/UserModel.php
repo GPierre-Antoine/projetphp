@@ -11,7 +11,12 @@ class UserModel extends ModelPDO {
         $this->table = "USERS";
     }
 
-    public function create_new_user(User $user,$password,$token,$key) {
+    public function create_new_user(User $user,$password,$key) {
+
+        $crypto_strong = true;
+        $token = openssl_random_pseudo_bytes(64,$crypto_strong);
+
+
         $this->pdo->prepare("INSERT INTO `USERS` (`EMAIL`,`NAME`,`ENABLE`) VALUES (?,?,0)");
         $this->pdo->execute(array($user->getEmail(),$user->getName()));
 
