@@ -19,7 +19,15 @@ class ConfirmationController extends Controller {
         $this->model->get();
         $key =$this->options[0];
 
-        if ($row = $this->model->recup_key_inscription()->fetch())
+        $this->model->select($_SESSION['id'],$key);
+
+        $this->model->update();
+
+        $this->model->next();
+
+        $this->model->getData('');
+
+       /* if ($row = $this->model->recup_key_inscription()->fetch() )
         {
             $keybdd = $row['TOKEN'];
             $actif = $row['ACTIF'];
@@ -41,6 +49,6 @@ class ConfirmationController extends Controller {
             {
                 echo "Votre ne peux être activé";
             }
-        }
+        } */
     }
 }

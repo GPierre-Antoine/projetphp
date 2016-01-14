@@ -12,7 +12,11 @@ class ConfirmationModel extends ModelPDO {
 
     public function __construct() {
         parent::__construct();
+        $this->table = "VERIFICATION";
+        $this->request = "UPDATE ";
+        parent::change_option("WHERE ID = ? AND TOKEN = ?");
     }
+
 
     public function insert() {
 
@@ -22,12 +26,12 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
-    public function recup_key_inscription () {
+    /*public function recup_key_inscription () {
         $this->pdo->prepare("SELECT TOKEN FROM VERIFICATION WHERE ID = ? AND ACTIF = 0");
-    }
+    }*/
 
-    public function exec_key_inscription() {
-        recup_key_inscripiton()->execute(array(":ID" => $id));
+    public function exec_key_inscription($id) {
+        $this->pdo->execute(array($id));
     }
 
     public function validate_inscription($id) {
@@ -37,6 +41,6 @@ class ConfirmationModel extends ModelPDO {
 
     protected function getSpecific()
     {
-        // TODO: Implement getSpecific() method.
+        return "SET ACTIF = 1 ";
     }
 }
