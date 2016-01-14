@@ -6,7 +6,6 @@
  * Time: 14:09
  */
 
-include_once('src/util/rss_feed.php');
 
 class CustomModel extends ModelPDO {
 
@@ -15,7 +14,7 @@ class CustomModel extends ModelPDO {
     } // CustomModel
 
     public function addArticle($array) {
-        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (3,'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
+        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
         $this->pdo->query($sql);
     }
 
@@ -44,7 +43,7 @@ class CustomModel extends ModelPDO {
     }
 
     public function addCategorie($array) {
-        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('" . $array[0]."','" . $array[1]."','" . $array[2] . "')";
+        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $array[1]."','" . $array[2] . "')";
         $this->pdo->query($sql);
     }
 
@@ -56,17 +55,46 @@ class CustomModel extends ModelPDO {
         else {
             $sql = 'UPDATE FLUX SET ISFAVORITE = 0 WHERE ID = ' . $id;
         }
-            $this->pdo->query($sql);
+        $this->pdo->query($sql);
     }
 
     public function createFluxAndDisplay($url) {
-        $f = rss_feed($url);
-        $array = display_rss($f);
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT ID FROM FLUX WHERE URL = \''.$url.'\')';
+        $stmt = $this->pdo->query($sql);
+        $array = array();
+        while($result = $stmt->fetch()) {
+            $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
+            array_push($array,$fluxArt->display_rss());
+        }
         return json_encode($array);
     }
 
     public function addFlux($name,$cat,$url) {
-        //to do
+        $sql = "SELECT ID FROM CATEGORIE WHERE IDUSER = ".$_SESSION['ID']." AND NAME = \"".$cat."\"";
+        $resultCate = $this->pdo->query($sql)->fetch();
+        $idCate = $resultCate[0];
+
+        $sql = "SELECT count(*) FROM FLUX WHERE URL = \"".$url."\"";
+        $resultVerif = $this->pdo->query($sql)->fetch();
+        if($resultVerif[0] == 0) {
+            $sql = "INSERT INTO FLUX(URL) VALUES(\"".$url."\")";
+            $this->pdo->query($sql);
+            $idFlux = $this->pdo->lastInsertId();
+
+            $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(".$idCate.",".$idFlux.",\"".$name."\",0)";
+            $this->pdo->query($sql);
+
+            $flux = new Flux($idFlux,$name,$url,0);
+            $flux->refresh();
+        } else {
+            $sql = "SELECT ID FROM FLUX WHERE URL = \"".$url."\"";
+            $resultFlux = $this->pdo->query($sql)->fetch();
+            $idFlux = $resultFlux[0];
+
+            $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(".$idCate.",".$idFlux.",\"".$name."\",0)";
+            $this->pdo->query($sql);
+        }
+
     }
 
     public function refresh() {

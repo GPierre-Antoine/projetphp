@@ -4,13 +4,15 @@ include_once('Flux.php');
 
 class Categorie
 {
-
+	private $id;
 	private $name;
 	private $color;
 	private $flux;
+
 	private $pdo;
 
-	public function __construct($name, $color) {
+	public function __construct($id, $name, $color) {
+		$this->id = $id;
 		$this->name = $name;
 		$this->color = $color;
 		$this->flux = array();
@@ -18,15 +20,19 @@ class Categorie
 	}
 
 	public function initializeInside() {
-		$sqlFlux = 'SELECT * FROM FLUX WHERE ID IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDUSER = 3
-																				  AND CATNAME = \''.$this->name.'\')';
-		$stmt = $this->pdo->query($sqlFlux);
-		while ($flux = $stmt->fetch())
-        {
-			$newFlux = new Flux($flux[0],$flux[1],$flux[2],$flux[3]);
-            $newFlux->initializeArticlesFlux();
-        	array_push($this->flux, $newFlux);
-        }																				
+		$sql = "SELECT * FROM FLUX_ASSOC WHERE IDCATE = ".$this->id;
+		$stmtFA = $this->pdo->query($sql);
+		while($resultFA = $stmtFA->fetch())
+		{
+			$idFlux = $resultFA['IDFLUX'];
+			$fluxName = $resultFA['NAME'];
+			$isFav = $resultFA['ISFAVORITE'];
+			$sql = "SELECT URL FROM FLUX WHERE ID = ".$idFlux;
+			$resultF = $this->pdo->query($sql)->fetch();
+			$newFlux = new Flux($idFlux,$fluxName,$resultF['URL'],$isFav);
+			$newFlux->initializeArticlesFlux();
+			array_push($this->flux, $newFlux);
+		}
 	}
 
 	public function setFlux($flux) {

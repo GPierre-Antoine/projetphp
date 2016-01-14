@@ -62,6 +62,7 @@ class Flux
             );
             array_push($this->feed, $item);
         }
+
         $this->extract_article();
     }
 
@@ -82,20 +83,14 @@ class Flux
         $this->rss_feed();
 
         foreach($this->fluxArticles as $artFl) {
-            $verif = 'SELECT count(*) FROM FLUX_INFORMATION WHERE URL = \''.$artFl->getUrl().'\'';
+            $verif = "SELECT count(*) FROM FLUX_INFORMATION WHERE URL = '".$artFl->getUrl()."'";
             $stmtVerif = $this->pdo->query($verif);
             $resultVerif = $stmtVerif->fetch();
             if($resultVerif[0] == 0) {
-                $sql = 'INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION) VALUES ('.$this->id.',\''.$artFl->getTitle().'\',\''.$artFl->getDate().'\',\''.$artFl->getContent().'\',\''.$artFl->getUrl().'\',\''.$artFl->getKey().'\')';
+                $sql = "INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION) VALUES (".$this->id.",\"".$artFl->getTitle()."\",\"".$artFl->getDate()."\",\"".$artFl->getContent()."\",\"".$artFl->getUrl()."\",\"".$artFl->getKey()."\")";
                 $this->pdo->query($sql);
             }
         }
 
-
-    }
-
-    protected function getSpecific()
-    {
-        // TODO: Implement getSpecific() method.
     }
 }

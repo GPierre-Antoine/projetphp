@@ -39,7 +39,7 @@ class User extends ModelPDO
         $stmt = $this->pdo->query($sqlCategories);
         while ($categorie = $stmt->fetch())
         {
-            $newCategorie = new categorie($categorie['NAME'],$categorie['COLOR']);
+            $newCategorie = new categorie($categorie['ID'], $categorie['NAME'], $categorie['COLOR']);
             array_push($this->categories, $newCategorie);
         }
     }
