@@ -169,6 +169,7 @@ class DefaultView extends View {
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
 			        <div id="popup_flux" class="popup_flux">
+			            <h1>Ajouter une catégorie</h1>
 			        	<div class="add_categorie">
 			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
@@ -177,6 +178,7 @@ class DefaultView extends View {
 							</form>
 			        	</div>
 			        	<div class="sep"></div>
+			        	<h1>Ajouter un flux</h1>
 			            <div class="addFlux">
 							<form id="F_flux" action="" method="">
 								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
