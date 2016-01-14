@@ -77,7 +77,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button onclick="switchFluxTo(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,'.$in->getId().')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button onclick="switchFluxTo(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,'.$in->getId().','.$in->getName().')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -86,7 +86,8 @@ class DefaultView extends View {
 							foreach($this->categories as $c) {
 								foreach($c->getFlux() as $in) {
 									if ($in->isFavorite() == false) continue;
-									echo '<button class="default_block_panel flux" type="button" value="'.$in->getName().'">'.$in->getName().'</button>';
+                                    $rgb = hex2rgb($c->getColor());
+									echo '<button class="default_block_panel flux" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
 								}
 							}
 
@@ -168,11 +169,11 @@ class DefaultView extends View {
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
 			        <div id="popup_flux" class="popup_flux">
-			        	<div class="addLibrary">
-			        		<form id="F_library"  method="post">
+			        	<div class="add_categorie">
+			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
-					    		<input class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
+					    		<input id="add_categorie" class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
 							</form>
 			        	</div>
 			        	<div class="sep"></div>
@@ -207,15 +208,16 @@ class DefaultView extends View {
 
 			        <script type="text/javascript">
 			        $(function() {
+
+			            function closePopUp($overlay,$popup) {
+			                $($overlay).fadeOut(200);
+				            $($popup).css("display", "none");
+			            }
+
 				        $(".addF_btn").click(function () {
 				            $("#overlay_flux").css({"display":"block", opacity:0});
 				            $("#overlay_flux").fadeTo(200,0.5);
 				            $("#popup_flux").fadeTo(200,1);
-				        });
-
-				        $("#btnCancel").click(function () {
-				            $("#overlay_flux").fadeOut(200);
-				            $(".popup_flux").css("display", "none");
 				        });
 
 				        $(".write_btn").click(function () {
@@ -224,14 +226,20 @@ class DefaultView extends View {
 				            $("#popup_blog").fadeTo(200,1);
 				        });
 
+				        $("#add_categorie").click(function () {
+				            closePopUp("#overlay_flux",".popup_flux");
+				        })
+
+				        $("#btnCancel").click(function () {
+				            closePopUp("#overlay_flux",".popup_flux");
+				        });
+
 				        $("#F_cancel_btn").click(function () {
-				            $("#overlay_blog").fadeOut(200);
-				            $(".popup_blog").css("display", "none");
+				            closePopUp("#overlay_blog",".popup_blog");
 				        });
 
 				        $("#add_article").click(function () {
-				            $("#overlay_blog").fadeOut(200);
-				            $(".popup_blog").css("display", "none");
+				            closePopUp("#overlay_blog",".popup_blog");
 				        });
 				    });
 			        </script>
