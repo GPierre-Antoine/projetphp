@@ -15,19 +15,13 @@ class ConfirmationController extends Controller {
     }// ControllerInscription
 
 
-    public function update() {
-        $this->model->get();
-        $key =$this->options[0];
+    public function validate_inscriptions($id, $key)
+    {
+        $dbb = new \db\db_handler();
+        $req = "SELECT TOKEN, ACTIVE FROM VERIFICATION Where ID = ?" ;
 
-        $this->model->select($_SESSION['ID'],$key);
 
-        $this->model->update();
-
-        $this->model->next();
-
-        $this->model->getData('');
-
-       /* if ($row = $this->model->recup_key_inscription()->fetch() )
+        if ($dbb->execute($req,(array($id))) && $row = $dbb->execute($req, array($id))->fetch() )
         {
             $keybdd = $row['TOKEN'];
             $actif = $row['ACTIF'];
@@ -43,12 +37,30 @@ class ConfirmationController extends Controller {
             if ($key == $keybdd)
             {
                 echo "Votre compte a bien été activé";
-                $this->model->validate_inscription();
+                $req = "UPDATE VERIFICATION SET ACTIF = 1 Where ID = ?";
+                $dbb->execute($req, array($id));
             }
             else
             {
-                echo "Votre ne peux être activé";
+                echo "Votre compte ne peux être activé";
             }
-        } */
+        }
+    }
+
+    public function update() {
+         $this->model->get();
+        /*$key =$this->options[0];
+
+        $this->model->select($_SESSION['ID'],$key);
+
+        $this->model->update();
+
+        $this->model->next();
+
+        $this->model->getData
+
+        $this->model->validate_inscriptions($id, $key);(''); */
+
+
     }
 }
