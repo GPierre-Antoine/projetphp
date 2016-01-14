@@ -198,13 +198,17 @@ function addFlux($object) {
                 alert(xhr.responseText);
             }
             else {
-                alert("probleme : "+xhr.responseText+ " - State: "+ xhr.readyState + " - Status: "+xhr.status);
+                alert("probleme");
             }
         }
     };
+    var tab = new Array();
+    $("#F_flux .actionnable_fl").each(function () {
+        tab.push($(this).val());
+    });
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send('cacapipi=test');
+    xhr.send("nameFluxAdd="+tab[0]+"&nameCategorieToAdd="+tab[1]+"&urlFluxAdd="+tab[2]);
 }
 
 function inputButton($object) {

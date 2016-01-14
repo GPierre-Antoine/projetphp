@@ -54,8 +54,8 @@ class EmptyView extends View {
             $rep = $this->model->createFluxAndDisplay($_POST['urlFlux']);
             echo $rep;
         }
-        else if(isset($_POST['cacapipi'])) {
-            echo $_POST['cacapipi'];
+        else if(isset($_POST['nameFluxAdd']) && isset($_POST['nameCategorieToAdd']) && isset($_POST['urlFluxAdd'])) {
+            $this->model->addFlux($_POST['nameFluxAdd'],$_POST['nameCategorieToAdd'],$_POST['urlFluxAdd']);
         }
     }
 
