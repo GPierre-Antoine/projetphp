@@ -202,9 +202,13 @@ function addFlux($object) {
             }
         }
     };
+    var tab = new Array();
+    $("#F_flux .actionnable_fl").each(function () {
+        tab.push($(this).val());
+    });
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("urlFlux="+$url);
+    xhr.send("nameFluxAdd="+tab[0]+"&categorieFluxAdd"+tab[1]+"&urlFluxAdd"+tab[2]);
 }
 
 function inputButton($object) {
