@@ -183,9 +183,9 @@ class DefaultView extends View {
 			        	<h1>Ajouter un flux</h1>
 			            <div class="addFlux">
 							<form id="F_flux" action="" method="">
-								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
-								<input class="smallInput" name="categorie" type="text" placeholder="Categorie" required/>
-					    		<input class="bigInput" name="urlFlux" type="text" placeholder="Url du flux" required/>
+								<input class="smallInput actionnable_fl" name="name" type="text" placeholder="Nom" required/>
+								<input class="smallInput actionnable_fl" name="categorie" type="text" placeholder="Categorie" required/>
+					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
 					    		<input class="smallInput" name="submit" type="submit" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
 							</form>
 						</div>
