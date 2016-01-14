@@ -44,16 +44,6 @@ class LoginController extends Controller
 
                 $encoded = encrypt($password,$token);
 
-                echo "<br />Token-----: ".($token).PHP_EOL;
-                echo "<br />of size---: ". strlen($token).PHP_EOL;
-
-                echo "<br />Encoded---: ".($encoded).PHP_EOL;
-                echo "<br />of size---: ".strlen($encoded).PHP_EOL;
-
-
-                echo "<br />Password--: ".($this->model->getData('PASSWORD')).PHP_EOL;
-                echo "<br />of size---: ".strlen($this->model->getData('PASSWORD')).PHP_EOL;
-
 
 
                 //user exists
