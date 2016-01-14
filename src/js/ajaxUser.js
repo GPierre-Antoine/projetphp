@@ -174,6 +174,10 @@ function switchFluxTo($url) {
     xhr.send("urlFlux="+$url);
 }
 
+function addFlux($object) {
+
+}
+
 function inputButton($object) {
     alert('Button was pressed;')
 }
