@@ -19,7 +19,7 @@ class ConfirmationController extends Controller {
         $this->model->get();
         $key =$_GET['code'] ;
 
-        if ($row = recup_key_inscription()->fetch())
+        if ($row = $this->model->recup_key_inscription()->fetch())
         {
             $keybdd = $row['TOKEN'];
             $actif = $row['ACTIF'];
@@ -35,7 +35,7 @@ class ConfirmationController extends Controller {
             if ($key == $keybdd)
             {
                 echo "Votre compte a bien été activé";
-                validate_inscription();
+                $this->model->validate_inscription();
             }
             else
             {
