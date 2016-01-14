@@ -54,6 +54,7 @@ class ControllerInscription extends Controller {
 
                 $this->model->create_new_user($user,$password,$key);
 
+
                 mail($destinataire, $sujet, $message, $entete);
 
             }

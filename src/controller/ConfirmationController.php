@@ -8,7 +8,6 @@
 
 $base = $_SERVER['DOCUMENT_ROOT']."src/";
 
-include_once($base .'controller/Controller.php');
 class ConfirmationController extends Controller {
     public function __construct(Model $model) {
         parent::__construct($model);
@@ -18,9 +17,9 @@ class ConfirmationController extends Controller {
 
     public function update() {
         $this->model->get();
-        $key =$_GET['code'] ;
+        $key =$this->options[0];
 
-        if ($row = recup_key_inscription()->fetch())
+        if ($row = $this->model->recup_key_inscription()->fetch())
         {
             $keybdd = $row['TOKEN'];
             $actif = $row['ACTIF'];
@@ -36,7 +35,7 @@ class ConfirmationController extends Controller {
             if ($key == $keybdd)
             {
                 echo "Votre compte a bien été activé";
-                validate_inscription();
+                $this->model->validate_inscription();
             }
             else
             {
