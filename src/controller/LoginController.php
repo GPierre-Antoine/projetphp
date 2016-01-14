@@ -40,28 +40,24 @@ class LoginController extends Controller
                 echo "<div style=\"font-family:monospace;\">".PHP_EOL;
 
                 $this->model->next();
-
                 $token = $this->model->getData('TOKEN');
 
                 $encoded = encrypt($password,$token);
 
-                echo "<br />Token-----: ".bin2hex($token).PHP_EOL;
+                echo "<br />Token-----: ".($token).PHP_EOL;
                 echo "<br />of size---: ". strlen($token).PHP_EOL;
 
-                echo "<br />Encoded---: ".bin2hex($encoded).PHP_EOL;
+                echo "<br />Encoded---: ".($encoded).PHP_EOL;
                 echo "<br />of size---: ".strlen($encoded).PHP_EOL;
 
 
-                echo "<br />Password--: ".bin2hex($this->model->getData('PASSWORD')).PHP_EOL;
-                echo "<br />of size---: ".strlen(bin2hex($this->model->getData('PASSWORD'))).PHP_EOL;
+                echo "<br />Password--: ".($this->model->getData('PASSWORD')).PHP_EOL;
+                echo "<br />of size---: ".strlen($this->model->getData('PASSWORD')).PHP_EOL;
 
 
-                echo "<br />OpenSSL---: ".bin2hex(openssl_random_pseudo_bytes(64,$crypto_strong)).PHP_EOL;
-                echo "<br />of size---: ".strlen(openssl_random_pseudo_bytes(64,$crypto_strong)).PHP_EOL;
-                echo "</div>";
 
                 //user exists
-                if (hash_equals($encoded,$this->model->getData('PASSWORD'))) {
+                if ($encoded === $this->model->getData('PASSWORD')) {
 
                     //password matches
                     //$_SESSION['user'] = build_user($this->model->getData("ID"));

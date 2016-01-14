@@ -1,7 +1,10 @@
 <?php
 
 function encrypt ($password,$token) {
-    $result = $password . bin2hex($token);
-    $result = hash('sha512',$result,true);
-    return bin2hex($result);
+    echo "<pre>";
+    var_dump(func_get_args());
+    echo "</pre>";
+    $result = $password . $token;
+    $result = hash('sha512',$result);
+    return $result;
 }
