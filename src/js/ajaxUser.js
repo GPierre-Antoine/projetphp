@@ -195,7 +195,7 @@ function addFlux($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
             }
             else {
                 alert("probleme");
@@ -208,7 +208,10 @@ function addFlux($object) {
     });
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("nameFluxAdd="+tab[0]+"&categorieFluxAdd"+tab[1]+"&urlFluxAdd"+tab[2]);
+    var valeur = "Valeur :";
+    valeur += tab[0] + " fin";
+    alert(valeur);
+    xhr.send("nameFluxAdd=");
 }
 
 function inputButton($object) {
