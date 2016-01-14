@@ -25,6 +25,14 @@ class DefaultView extends View {
     }
 
     public function display() {
+        $db = new \db\db_handler();
+        $sql = "SELECT * FROM FLUX";
+        $stmt = $db->query($sql);
+        while ($result = $stmt->fetch())
+        {
+            $newFlux = new Flux($result['ID'],$result['NAME'],$result['URL'],$result['ISFAVORITE']);
+            $newFlux->refresh();
+        }
     	echo '
     		<html>
 				<head>
@@ -115,10 +123,8 @@ class DefaultView extends View {
 							<div id="content_flux">';
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
-									$feed = rss_feed($f->getUrl());
-									$displays = display_rss($feed);
-									foreach($displays as $d) {
-                                        echo $d;
+									foreach($f->getFluxArticles() as $fa) {
+                                        $fa->display_rss();
                                     }
 								}
 							}

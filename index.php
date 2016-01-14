@@ -67,16 +67,6 @@ $options = array_slice($task,2);
 
 
 
-$sql = "SELECT * FROM FLUX";
-$stmt = $connexion->query($sql);
-while ($result = $stmt->fetch())
-{
-    $newFlux = new Flux($result['ID'],$result['NAME'],$result['URL'],$result['ISFAVORITE']);
-    $newFlux->refresh();
-}
-
-
-
 //let the controller update the model and the view display the model according to itself
 //interruption by exception, for instance, inscription -> user already exists
 try {

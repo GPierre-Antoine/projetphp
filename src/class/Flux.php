@@ -17,6 +17,7 @@ class Flux
 		$this->isFavorite = $isFavorite;
 
         $this->fluxArticles = array();
+        $this->feed = array();
 	}
 
 	public function getId() {
@@ -30,6 +31,10 @@ class Flux
 	public function getUrl() {
 		return $this->url;
 	}
+
+    public function getFluxArticles() {
+        return $this->fluxArticles;
+    }
 
 	public function isFavorite() {
 		return $this->isFavorite;
@@ -64,8 +69,8 @@ class Flux
     }
 
     public function refresh() {
-        rss_feed();
-        extract_article();
+        $this->rss_feed();
+        $this->extract_article();
         $db = new \db\db_handler();
 
         foreach($this->fluxArticles as $artFl) {
@@ -74,8 +79,8 @@ class Flux
             $stmtVerif = $db->query($verif);
             $resultVerif = $stmtVerif->fetch();
             if($resultVerif[0] == 0) {
-                $sql = 'INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL)
-                        VALUES ('.$this->id.',\''.$artFl->getTitle().'\',\''.$artFl->getDate().'\',\''.$artFl->getContent().'\',\''.$artFl->getUrl().'\')';
+                $sql = 'INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION)
+                        VALUES ('.$this->id.',\''.$artFl->getTitle().'\',\''.$artFl->getDate().'\',\''.$artFl->getContent().'\',\''.$artFl->getUrl().'\',\''.$artFl->getKey().'\')';
                 $stmtInsert = $db->query($sql);
             }
         }
