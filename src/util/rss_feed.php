@@ -22,6 +22,21 @@ function rss_feed($url) {
     return $feed;
 }
 
+function extract_article($feed) {
+    $limit = 5;
+    $flux_articles = array();
+    for($x=0 ; $x <$limit ; $x++) {
+        $title = str_replace(' & ', ' &amp; ', $feed[$x]['title']);
+        $link = $feed[$x]['link'];
+        $description = $feed[$x]['desc'];
+        $date = date('l F d, Y', strtotime($feed[$x]['date']));
+
+        //$flux_article = new FluxArticle();
+
+        array_push($flux_articles,$display);
+    }
+}
+
 function display_rss($feed) {
     $limit = 5;
     $displays = array();

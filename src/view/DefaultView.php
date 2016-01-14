@@ -182,7 +182,7 @@ class DefaultView extends View {
 			        	<div class="sep"></div>
 			        	<h1>Ajouter un flux</h1>
 			            <div class="addFlux">
-							<form id="F_flux" action="" method="">
+							<form id="F_flux" method="post">
 								<input class="smallInput actionnable_fl" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_fl" name="categorie" type="text" placeholder="Categorie" required/>
 					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
