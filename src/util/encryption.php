@@ -1,10 +1,9 @@
 <?php
 
 function encrypt ($password,$token) {
-    echo "<pre>";
+    echo "<br />encrypt :<pre>";
     var_dump(func_get_args());
     echo "</pre>";
-    $result = $password . $token;
-    $result = hash('sha512',$result);
+    $result = hash('sha512',$password.$token);
     return $result;
 }

@@ -48,15 +48,11 @@ namespace db {
 
         public function prepare($prepare)
         {
-            echo "<br />$prepare<br />";
             $this->preparation = self::$connection->prepare($prepare);
         }// prepare : use with execute
 
         public function execute($spec)
         {
-            echo "<pre>";
-            var_dump($spec);
-            echo "</pre>";
             $this->preparation->execute($spec);
         }// execute
 

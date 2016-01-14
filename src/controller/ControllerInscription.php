@@ -39,27 +39,18 @@ class ControllerInscription extends Controller {
 
 
             $destinataire = $mail;
-            $sujet = "Activer votre compte";
-            $entete = "From: inscription@aaron-aaron.com";
-            $message = "Bienvenue sur aaron-aaron,
-
-            Pour activer votre compte, veuillez cliquer sur le lien suivant http://aaron-aaron.alwaysdata.net/confirmation/
-
-            Votre code d'activation est : $key;
-            ******************************
-            Ceci est un mail automatique, merci de ne pas y répondre";
+            $sujet = "test validation lol";
+            $entete = "From: test@aaron-aaron.com";
+            $message = "Salut je test si ca marche, <a href='http://aaron-aaron.alwaysdata.net/confirmation/".bin2hex($key)."'> lien </a>";
 
 
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
 
-                $crypto_strong = true;
-                $bytes = openssl_random_pseudo_bytes(64,$crypto_strong);
-
 
                 $user = new User('0',$mail,$name,0);
 
-                $this->model->create_new_user($user,encrypt($password,$bytes),$bytes,$key);
+                $this->model->create_new_user($user,$password,$bytes,$key);
 
 
                 mail($destinataire, $sujet, $message, $entete);
