@@ -39,11 +39,15 @@ class ControllerInscription extends Controller {
 
 
             $destinataire = $mail;
-            $sujet = "test validation lol";
-            $entete = "From: test@aaron-aaron.com";
-            $message = "Salut je test si ca marche, <a href='http://aaron-aaron.alwaysdata.net/confirmation/".bin2hex($key)."'> lien </a>";
+            $sujet = "Activer votre compte";
+            $entete = "From: inscription@aaron-aaron.com";
+            $message = "Bienvenue sur aaron-aaron,
 
-            echo $mail;
+            Pour activer votre compte, veuillez cliquer sur le lien suivant <a href='http://aaron-aaron.alwaysdata.net/confirmation/".$key."'></a>
+
+
+            ******************************
+            Ceci est un mail automatique, merci de ne pas y répondre";
 
 
             if ($this->model->rowCount() === 0) {
