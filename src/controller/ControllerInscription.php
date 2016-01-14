@@ -46,7 +46,7 @@ class ControllerInscription extends Controller {
             $message = "Salut je test si ca marche,
             http://aaron-aaron.alwaysdata.net/confirmation/$id/$key
 
-            kiwi Puissance Kakarot" ;
+            kiwi Puissance Kakarot";
 
 
             if ($this->model->rowCount() === 0) {

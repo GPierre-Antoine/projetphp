@@ -15,7 +15,7 @@ class ConfirmationController extends Controller {
     }// ControllerInscription
 
 
-    public function validate_inscriptions($id, $key)
+    /*public function validate_inscriptions($id, $key)
     {
         $dbb = new \db\db_handler();
         $req = "SELECT TOKEN, ACTIVE FROM VERIFICATION Where ID = ?" ;
@@ -45,10 +45,41 @@ class ConfirmationController extends Controller {
                 echo "Votre compte ne peux être activé";
             }
         }
-    }
+    } */
 
     public function update() {
-         $this->model->get();
+
+        $this->model->get();
+
+        $key = $_POST['code'];
+        $id = $_SESSION['id'];
+        $req = "SELECT TOKEN, ACTIVE FROM VERIFICATION Where ID = ?" ;
+
+        if ($this->pdo->execute($req,(array($id))) && $row = $this->pdo->execute($req, array($id))->fetch() )
+        {
+            $keybdd = $row['TOKEN'];
+            $actif = $row['ACTIF'];
+        }
+
+
+        if ($actif = 1)
+        {
+            echo " Votre compte est déjà activé !";
+        }
+        else
+        {
+            if ($key == $keybdd)
+            {
+                echo "Votre compte a bien été activé";
+                $req = "UPDATE VERIFICATION SET ACTIF = 1 Where ID = ?";
+                $this->pdo->execute($req, array($id));
+            }
+            else
+            {
+                echo "Votre compte ne peux être activé";
+            }
+        }
+
         /*$key =$this->options[0];
 
         $this->model->select($_SESSION['ID'],$key);
