@@ -8,7 +8,6 @@
 
 $base = $_SERVER['DOCUMENT_ROOT']."src/";
 
-include_once($base .'controller/Controller.php');
 class ConfirmationController extends Controller {
     public function __construct(Model $model) {
         parent::__construct($model);
