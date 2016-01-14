@@ -57,6 +57,8 @@ class ControllerInscription extends Controller {
 
                 mail($destinataire, $sujet, $message, $entete);
 
+                echo "ok";
+
             }
             else {
                 //mail already exists;
