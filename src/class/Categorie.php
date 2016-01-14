@@ -26,6 +26,7 @@ class Categorie
 		while ($flux = $stmt->fetch())
         {
 			$newFlux = new Flux($flux[0],$flux[1],$flux[2],$flux[3]);
+            $newFlux->rss_feed();
         	array_push($this->flux, $newFlux);
         }																				
 	}

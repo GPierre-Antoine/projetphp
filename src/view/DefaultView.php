@@ -124,7 +124,7 @@ class DefaultView extends View {
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									foreach($f->getFluxArticles() as $fa) {
-                                        $fa->display_rss();
+                                        echo $fa->display_rss();
                                     }
 								}
 							}

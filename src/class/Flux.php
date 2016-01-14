@@ -52,29 +52,26 @@ class Flux
             );
             array_push($this->feed, $item);
         }
+        $this->extract_article();
     }
 
-    public function extract_article() {
+    private function extract_article() {
         for($x = 0 ; $x < count($this->feed) ; $x++) {
             $title = str_replace(' & ', ' &amp; ', $this->feed[$x]['title']);
             $link = $this->feed[$x]['link'];
             $description = $this->feed[$x]['desc'];
             $date = date('l F d, Y', strtotime($this->feed[$x]['date']));
-
             $key = md5($title.$link.$description.$date);
             $flux_article = new FluxArticle($title,$date,$description,$link,$key);
-
             array_push($this->fluxArticles,$flux_article);
         }
     }
 
     public function refresh() {
         $this->rss_feed();
-        $this->extract_article();
         $db = new \db\db_handler();
 
         foreach($this->fluxArticles as $artFl) {
-
             $verif = 'SELECT count(*) FROM FLUX_INFORMATION WHERE URL = \''.$artFl->getUrl().'\'';
             $stmtVerif = $db->query($verif);
             $resultVerif = $stmtVerif->fetch();
