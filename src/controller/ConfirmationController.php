@@ -15,7 +15,35 @@ class ConfirmationController extends Controller {
 
     }// ControllerInscription
 
+
     public function update() {
-      $this->model->get();
+        $this->model->get();
+        $key =$_GET['code'] ;
+
+        if ($row = recup_key_inscription()->fetch())
+        {
+            $keybdd = $row['TOKEN'];
+            $actif = $row['ACTIF'];
+        }
+
+
+        if ($actif = 1)
+        {
+            echo " Votre compte est déjà activé !";
+        }
+        else
+        {
+            if ($key == $keybdd)
+            {
+                echo "Votre compte a bien été activé";
+                validate_inscription();
+
+
+            }
+            else
+            {
+                echo "Votre ne peux être activé";
+            }
+        }
     }
 }
