@@ -66,7 +66,7 @@ class CustomModel extends ModelPDO {
     }
 
     public function addFlux($name,$cat,$url) {
-
+        //to do
     }
 
     public function getSpecific () {
