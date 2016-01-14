@@ -8,7 +8,6 @@
 
 include_once('View.php');
 include_once('src/util/regex.php');
-include_once('src/util/rss_feed.php');
 
 class DefaultView extends View {
 
@@ -25,14 +24,6 @@ class DefaultView extends View {
     }
 
     public function display() {
-        $db = new \db\db_handler();
-        $sql = "SELECT * FROM FLUX";
-        $stmt = $db->query($sql);
-        while ($result = $stmt->fetch())
-        {
-            $newFlux = new Flux($result['ID'],$result['NAME'],$result['URL'],$result['ISFAVORITE']);
-            $newFlux->refresh();
-        }
     	echo '
     		<html>
 				<head>
@@ -121,6 +112,7 @@ class DefaultView extends View {
 
 						<div id="content">
 							<div id="content_flux">';
+							//WHERE ANY FLUX SELECTED
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									foreach($f->getFluxArticles() as $fa) {

@@ -6,19 +6,29 @@ class Flux
 	private $name;
 	private $url;
 	private $isFavorite;
-
     private $feed;
     private $fluxArticles;
+    private $pdo;
 
 	public function __construct($id,$name,$url,$isFavorite) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->url = $url;
 		$this->isFavorite = $isFavorite;
-
         $this->fluxArticles = array();
         $this->feed = array();
+        $this->pdo = new \db\db_handler();
 	}
+
+    public function initializeArticlesFlux() {
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX = '. $this->id;
+        $stmt = $this->pdo->query($sql);
+        while($result = $stmt->fetch())
+        {
+            $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
+            array_push($this->fluxArticles,$fluxArt);
+        }
+    }
 
 	public function getId() {
 		return $this->id;
@@ -62,6 +72,7 @@ class Flux
             $description = $this->feed[$x]['desc'];
             $date = date('l F d, Y', strtotime($this->feed[$x]['date']));
             $key = md5($title.$link.$description.$date);
+
             $flux_article = new FluxArticle($title,$date,$description,$link,$key);
             array_push($this->fluxArticles,$flux_article);
         }
@@ -69,20 +80,22 @@ class Flux
 
     public function refresh() {
         $this->rss_feed();
-        $db = new \db\db_handler();
 
         foreach($this->fluxArticles as $artFl) {
             $verif = 'SELECT count(*) FROM FLUX_INFORMATION WHERE URL = \''.$artFl->getUrl().'\'';
-            $stmtVerif = $db->query($verif);
+            $stmtVerif = $this->pdo->query($verif);
             $resultVerif = $stmtVerif->fetch();
             if($resultVerif[0] == 0) {
-                $sql = 'INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION)
-                        VALUES ('.$this->id.',\''.$artFl->getTitle().'\',\''.$artFl->getDate().'\',\''.$artFl->getContent().'\',\''.$artFl->getUrl().'\',\''.$artFl->getKey().'\')';
-                $stmtInsert = $db->query($sql);
+                $sql = 'INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION) VALUES ('.$this->id.',\''.$artFl->getTitle().'\',\''.$artFl->getDate().'\',\''.$artFl->getContent().'\',\''.$artFl->getUrl().'\',\''.$artFl->getKey().'\')';
+                $this->pdo->query($sql);
             }
         }
 
 
     }
 
+    protected function getSpecific()
+    {
+        // TODO: Implement getSpecific() method.
+    }
 }

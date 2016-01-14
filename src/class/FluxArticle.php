@@ -20,6 +20,7 @@ class FluxArticle {
         $this->date = $date;
         $this->content = $content;
         $this->url = $url;
+        $this->key = $key;
     }
 
     public function getTitle() {

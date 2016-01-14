@@ -2,7 +2,7 @@
 
 include_once('Categorie.php');
 
-class User
+class User extends ModelPDO
 {
     private $id;
     private $email;
@@ -12,8 +12,6 @@ class User
     private $friends;
     private $categories;
     private $articles;
-
-    private $pdo;
 
 	public function __construct($id,$email,$name,$enable) {
 		$this->id = $id;
@@ -93,6 +91,10 @@ class User
         return $this->articles;
     }
 
+    protected function getSpecific()
+    {
+        // TODO: Implement getSpecific() method.
+    }
 } // User
 
 function build_user($uid) {

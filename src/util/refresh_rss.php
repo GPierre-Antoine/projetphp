@@ -8,7 +8,7 @@
 
 $db = new \db\db_handler();
 $sql = "SELECT * FROM FLUX";
-$stmt = $this->pdo->query($sql);
+$stmt = $db->query($sql);
 while ($result = $stmt->fetch())
 {
     $newFlux = new Flux($result['ID'],$result['NAME'],$result['URL'],$result['ISFAVORITE']);

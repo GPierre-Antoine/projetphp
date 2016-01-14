@@ -2,7 +2,7 @@
 
 include_once('Flux.php');
 
-class Categorie 
+class Categorie
 {
 
 	private $name;
@@ -13,7 +13,6 @@ class Categorie
 	public function __construct($name, $color) {
 		$this->name = $name;
 		$this->color = $color;
-
 		$this->flux = array();
 		$this->pdo = new \db\db_handler();
 	}
@@ -21,12 +20,11 @@ class Categorie
 	public function initializeInside() {
 		$sqlFlux = 'SELECT * FROM FLUX WHERE ID IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDUSER = 3
 																				  AND CATNAME = \''.$this->name.'\')';
-
 		$stmt = $this->pdo->query($sqlFlux);
 		while ($flux = $stmt->fetch())
         {
 			$newFlux = new Flux($flux[0],$flux[1],$flux[2],$flux[3]);
-            $newFlux->rss_feed();
+            $newFlux->initializeArticlesFlux();
         	array_push($this->flux, $newFlux);
         }																				
 	}
@@ -46,5 +44,4 @@ class Categorie
 	public function getColor() {
 		return $this->color;
 	}
-
 }
