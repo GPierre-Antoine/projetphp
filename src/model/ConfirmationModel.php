@@ -27,9 +27,9 @@ class ConfirmationModel extends ModelPDO {
         $this->pdo->execute(array(":ID" => $id));
     }
 
-    public function validate_inscription() {
+    public function validate_inscription($id) {
         $this->pdo->prepare("UPDATE VERIFICATION SET ACTIF = 1 WHERE ID LIKE :ID");
-        $this->pdo->execute(array());
+        $this->pdo->execute(array($id));
     }
 
     protected function getSpecific()
