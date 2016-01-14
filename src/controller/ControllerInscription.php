@@ -43,7 +43,7 @@ class ControllerInscription extends Controller {
             $entete = "From: inscription@aaron-aaron.com";
             $message = "Bienvenue sur aaron-aaron,
 
-            Pour activer votre compte, veuillez cliquer sur le lien suivant <a href='http://aaron-aaron.alwaysdata.net/confirmation/".$key."'></a>
+            Pour activer votre compte, veuillez cliquer sur le lien suivant http://aaron-aaron.alwaysdata.net/confirmation/".$key."
 
 
             ******************************
