@@ -50,15 +50,15 @@ class ConfirmationController extends Controller {
     public function update() {
 
         $this->model->get();
-
-        $key = $_POST['code'];
-        $id = $_SESSION['id'];
+        $key = $this->options[0];
+        $id = $_SESSION['ID'];
+        $dbb = new \db\db_handler();
         $req = "SELECT TOKEN, ACTIVE FROM VERIFICATION Where ID = ?" ;
 
-        if ($this->pdo->execute($req,(array($id))) && $row = $this->pdo->execute($req, array($id))->fetch() )
+        if ($dbb->execute($req,(array($id))) && $row = $dbb->execute($req, array($id))->fetch() )
         {
             $keybdd = $row['TOKEN'];
-            $actif = $row['ACTIF'];
+            $actif= $row['ACTIF'];
         }
 
 
@@ -72,7 +72,7 @@ class ConfirmationController extends Controller {
             {
                 echo "Votre compte a bien été activé";
                 $req = "UPDATE VERIFICATION SET ACTIF = 1 Where ID = ?";
-                $this->pdo->execute($req, array($id));
+                $dbb->execute($req, array($id));
             }
             else
             {
