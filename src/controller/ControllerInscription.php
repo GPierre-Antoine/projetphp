@@ -31,6 +31,8 @@ class ControllerInscription extends Controller {
 
             $mail = $mail['mail'];
 
+            $id = $_SESSION['ID'];
+
             $this->model->select_user_by_mail();
             $this->model->select($mail);
             $this->model->join('PASSWORD');
@@ -42,9 +44,8 @@ class ControllerInscription extends Controller {
             $sujet = "test validation lol";
             $entete = "From: test@aaron-aaron.com";
             $message = "<body>Salut je test si ca marche,
-            <a href=\"http://aaron-aaron.alwaysdata.net/confirmation/".$key."\">http://aaron-aaron.alwaysdata.net/confirmation/</a>,<body>";
+            <a href=\"http://aaron-aaron.alwaysdata.net/confirmation/".$id.$key."\">http://aaron-aaron.alwaysdata.net/confirmation/</a>,<body>";
 
-            echo "ok";
 
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
@@ -53,8 +54,6 @@ class ControllerInscription extends Controller {
                 $user = new User('0',$mail,$name,0);
 
                 $this->model->create_new_user($user,$password,$key);
-
-                echo $destinataire, $sujet, $message, $entete;
 
                 mail($destinataire, $sujet, $message, $entete);
 

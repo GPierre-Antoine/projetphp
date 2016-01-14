@@ -26,9 +26,10 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
-    /*public function recup_key_inscription () {
+
+    /* public function recup_key_inscription () {
         $this->pdo->prepare("SELECT TOKEN FROM VERIFICATION WHERE ID = ? AND ACTIF = 0");
-    }*/
+    }
 
     public function exec_key_inscription($id) {
         $this->pdo->execute(array($id));
@@ -37,10 +38,10 @@ class ConfirmationModel extends ModelPDO {
     public function validate_inscription($id) {
         $this->pdo->prepare("UPDATE VERIFICATION SET ACTIF = 1 WHERE ID LIKE :ID");
         $this->pdo->execute(array($id));
-    }
+    } */
 
     protected function getSpecific()
     {
-        return "SET ACTIF = 1 ";
+        /*return "SET ACTIF = 1 ";*/
     }
 }
