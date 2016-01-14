@@ -37,8 +37,6 @@ class ConfirmationController extends Controller {
             {
                 echo "Votre compte a bien été activé";
                 validate_inscription();
-
-
             }
             else
             {

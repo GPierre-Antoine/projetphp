@@ -58,7 +58,7 @@ class DefaultView extends View {
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input class="hide" type="checkbox" name="categorie" value="'.$c->getName().'"></button>
+								<button class="categorie default_block_panel" onclick="inputButton(this)" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input class="hide" onclick="inputCheckbox(this)" type="checkbox" name="categorie" value="'.$c->getName().'"></button>
 							';
 							}
 						echo '
@@ -186,7 +186,7 @@ class DefaultView extends View {
 								<input class="smallInput" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput" name="categorie" type="text" placeholder="Categorie" required/>
 					    		<input class="bigInput" name="flux" type="text" placeholder="Url du flux" required/>
-					    		<input class="smallInput" name="submit" type="submit" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
+					    		<input class="smallInput" name="submit" type="submit" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
 							</form>
 						</div>
 			        </div>
