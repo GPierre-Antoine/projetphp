@@ -22,6 +22,16 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
+    public function recup_key_inscription ($id) {
+        $this->pdo->prepare("SELECT TOKEN,ACTIF FROM VERIFICATION WHERE ID LIKE :ID");
+        $this->pdo->execute(array(":ID" => $id));
+    }
+
+    public function validate_inscription() {
+        $this->pdo->prepare("UPDATE VERIFICATION SET ACTIF = 1 WHERE ID LIKE :ID");
+        $this->pdo->execute(array());
+    }
+
     protected function getSpecific()
     {
         // TODO: Implement getSpecific() method.
