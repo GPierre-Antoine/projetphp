@@ -59,7 +59,7 @@ if (count($task) > 2) {
 $options = array_slice($task,2);
     foreach ($options as $value)
         if (empty($value) === false) {
-            $controller->addOption($value);
+            $controller->addOption(strip_all("/[^\w]/",$value));
         }
 }
 
