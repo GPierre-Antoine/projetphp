@@ -37,9 +37,4 @@ $(function () {
         }
     });
 
-
 })
-
-function switchFluxTo($url) {
-
-}
