@@ -28,9 +28,7 @@ class UserModel extends ModelPDO {
 
         $passdb->prepare("INSERT INTO `VERIFICATION` (`ID`,`TOKEN`) VALUES (?,?)");
         $passdb->execute(array($id,$key));
-
     }
-
 
     public function select () {
         $numarg = func_num_args();

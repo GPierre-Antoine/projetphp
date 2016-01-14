@@ -41,9 +41,10 @@ class ControllerInscription extends Controller {
             $destinataire = $mail;
             $sujet = "test validation lol";
             $entete = "From: test@aaron-aaron.com";
-            $message = "Salut je test si ca marche, http://aaron-aaron.alwaysdata.net/confirmation/,
+            $message = "<body>Salut je test si ca marche,
+            <a href=\"http://aaron-aaron.alwaysdata.net/confirmation/".$key."\">http://aaron-aaron.alwaysdata.net/confirmation/</a>,<body>";
 
-            votre code de connection : $key";
+            echo "ok";
 
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case

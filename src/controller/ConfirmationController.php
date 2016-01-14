@@ -17,7 +17,7 @@ class ConfirmationController extends Controller {
 
     public function update() {
         $this->model->get();
-        $key =$_GET['code'] ;
+        $key =$this->options[0];
 
         if ($row = $this->model->recup_key_inscription()->fetch())
         {

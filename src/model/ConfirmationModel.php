@@ -22,9 +22,12 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
-    public function recup_key_inscription ($id) {
-        $this->pdo->prepare("SELECT TOKEN,ACTIF FROM VERIFICATION WHERE ID LIKE :ID");
-        $this->pdo->execute(array(":ID" => $id));
+    public function recup_key_inscription () {
+        $this->pdo->prepare("SELECT TOKEN FROM VERIFICATION WHERE ID = ? AND ACTIF = 0");
+    }
+
+    public function exec_key_inscription() {
+        recup_key_inscripiton()->execute(array(":ID" => $id));
     }
 
     public function validate_inscription($id) {

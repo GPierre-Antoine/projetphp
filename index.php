@@ -53,13 +53,15 @@ $model = new $route->model;
 $controller = new $route->controller($model);
 $view = new $route->view($model);
 
+require_once("src/util/regex.php");
+
 
 //var_dump($task);
 if (count($task) > 2) {
 $options = array_slice($task,2);
     foreach ($options as $value)
         if (empty($value) === false) {
-            $controller->addOption($value);
+            $controller->addOption(strip_all("/[^\w]/",$value));
         }
 }
 
