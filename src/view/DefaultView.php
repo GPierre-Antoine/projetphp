@@ -153,7 +153,7 @@ class DefaultView extends View {
                     	   <div id="userPreference_rest">
                             <button class="pref_btn" type="button">Options personnelles</button>
                             <button class="pref_btn" type="button">Options Aaron</button>
-                            <button class="pref_btn" type="button">Déconnexion</button>
+                            <button id="user_deconnection" class="pref_btn" type="button">Déconnexion</button>
                         </div>
 			    	</div>
 
@@ -186,7 +186,7 @@ class DefaultView extends View {
 								<input class="smallInput actionnable_fl" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_fl" name="categorie" type="text" placeholder="Categorie" required/>
 					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
-					    		<input class="smallInput" name="submit" type="submit" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
+					    		<input class="smallInput" name="submit" type="button" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
 							</form>
 						</div>
 			        </div>

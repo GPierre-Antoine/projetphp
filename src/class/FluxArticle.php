@@ -8,14 +8,14 @@
 
 class FluxArticle {
 
-    private $id;
     private $title;
     private $date;
     private $content;
     private $url;
 
-    public function __construct($id,$title,$date,$content,$url) {
-        $this->id = $id;
+    private $key;
+
+    public function __construct($title,$date,$content,$url,$key) {
         $this->title = $title;
         $this->date = $date;
         $this->content = $content;
@@ -38,5 +38,20 @@ class FluxArticle {
         return $this->url;
     }
 
+    public function getKey() {
+        return $this->key;
+    }
+
+    function display_rss() {
+        $display = '
+            <div class="article">
+                <span class="title">'.$this->title.'</span>
+                <span class="date">Publié le '.$this->date.'</span>
+                <span class="content">'.$this->content.'</span>
+                <span class="redirect"><a href="'.$this->url.'" target="_blank">Plus d\'information</a></span>
+            </div>';
+
+        return $display;
+    }
 
 }

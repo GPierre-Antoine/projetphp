@@ -6,7 +6,7 @@
  * Time: 14:57
  */
 
-function rss_feed($url) {
+/*function rss_feed($url) {
     $rss = new DOMDocument();
     $rss->load($url);
     $feed = array();
@@ -37,7 +37,7 @@ function extract_article($feed) {
     }
 }
 
-function display_rss($feed) {
+function display_rss($articles) {
     $limit = 5;
     $displays = array();
     for($x=0 ; $x<$limit ; $x++) {
@@ -59,4 +59,4 @@ function display_rss($feed) {
     }
 
     return $displays;
-}
+}*/

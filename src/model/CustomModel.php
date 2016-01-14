@@ -69,7 +69,13 @@ class CustomModel extends ModelPDO {
         //to do
     }
 
+    public function refresh() {
+
+    }
+
     public function getSpecific () {
 
     } // getSpecific
+
+
 }
