@@ -61,7 +61,8 @@ class CustomModel extends ModelPDO {
 
     public function createFluxAndDisplay($url) {
         $f = rss_feed($url);
-        return display_rss($f);
+        $array = display_rss($f);
+        return json_encode($array);
     }
 
     public function getSpecific () {

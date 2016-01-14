@@ -158,7 +158,11 @@ function switchFluxTo($url) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                var displays =  JSON.parse(xhr.responseText);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function(entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
             }
             else {
                 alert("probleme");
@@ -168,4 +172,13 @@ function switchFluxTo($url) {
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("urlFlux="+$url);
+}
+
+function inputButton($object) {
+    alert('Button was pressed;')
+}
+
+function inputCheckbox($object){
+    event.stopPropagation();
+    alert('Input was pressed;')
 }
