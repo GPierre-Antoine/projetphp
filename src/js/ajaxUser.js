@@ -120,6 +120,11 @@ function fluxFavorite($object,$id,$name,$red,$green,$blue) {
                 }
                 else {
                     $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
+                    $("#favorite_panel .flux").each(function () {
+                        if($(this).val() === $name) {
+                            this.remove();
+                        }
+                    });
                 }
             }
             else {
@@ -130,4 +135,37 @@ function fluxFavorite($object,$id,$name,$red,$green,$blue) {
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("linkImgFavorite="+$object.src+"&idImg="+$id);
+}
+
+function switchFluxTo($url) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("urlFlux="+$url);
 }

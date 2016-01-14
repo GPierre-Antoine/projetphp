@@ -50,6 +50,10 @@ class EmptyView extends View {
             echo $value;
 
         }
+        else if(isset($_POST['urlFlux'])) {
+            //$this->model->createFluxAndDisplay($_POST['urlFlux']);
+            echo 'test';
+        }
     }
 
 }
