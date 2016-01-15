@@ -45,10 +45,16 @@ class DefaultView extends View {
 				</head>
 				<body>
 					<!-- TOP SIDE -->
+					';
+						if($this->user->avatarDefine())
+							$image = $this->user->getAvatar();
+						else
+							$image = "/src/images/account.png";
+					echo '
 					<div id="top">
-						<img class="logo" src="/src/images/aaron_logo.png">
-						<div id="TUser"><div id="TUserLogo"><button id="btnUser" class="imageButton" type="button"><img src="/src/images/account.png"></button></div><div id="TUserName"><strong>' .$this->user->getName().'</strong></div></div>
-						<a href="#" onclick="javascript:;" class="preference_btn"></a>
+						<img class="top_logo" src="/src/images/aaron_logo.png">
+						<div class="top_user"><button class="top_user_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
+						<button class="top_preference_btn" type="button"></button>
 					</div>
 
 					<!-- LEFT SIDE -->
@@ -146,24 +152,24 @@ class DefaultView extends View {
 			    	<!-- END PAGE CONTENT -->
 
 			    	<!-- PREFERENCE -->
-			    	<div id="userPreference" class="hide">
-			    	    <div id="userPreference_top">
-                            <span class="userPreference_top_title">Préférences</span><a href="#" onclick="javascript:;" class="userPreference_top_close"></a>
+			    	<div id="user_preference" class="hide">
+			    	    <div class="user_preference_top">
+                            <span class="user_preference_top_title">Préférences</span><button id="close_user_preference" class="user_preference_top_btn"></button>
                         </div>
-                    	   <div id="userPreference_rest">
-                            <button class="pref_btn" type="button">Options personnelles</button>
-                            <button class="pref_btn" type="button">Options Aaron</button>
-                            <button id="user_deconnection" class="pref_btn" type="button">Déconnexion</button>
+                    	   <div class="user_preference_rest">
+                            <button class="user_preference_rest_btn" type="button">Options personnelles</button>
+                            <button class="user_preference_rest_btn" type="button">Options Aaron</button>
+                            <button id="user_deconnection" class="user_preference_rest_btn" type="button">Déconnexion</button>
                         </div>
 			    	</div>
 
-			    	<div id="userInformation" class="hide">
-			    		<div id="userInformation_top">
-                            <img class="userInformation_top_img" src="/src/images/account.png"><span class="userInformation_top_name">'.$this->user->getName().'</span>
+			    	<div id="user_information" class="hide">
+			    		<div class="user_information_top">
+                            <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="user_information_top_name">'.$this->user->getName().'</span>
                         </div>
-			    		<div id="userInformation_rest">
-			    			<button class="actu_btn user_btn" type="button">Actualités</button>
-							<button class="blog_btn user_btn" type="button">Mon blog</button>
+			    		<div class="user_information_rest">
+			    			<button class="actu_btn user_information_rest_btn" type="button">Actualités</button>
+							<button class="blog_btn user_information_rest_btn" type="button">Mon blog</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
@@ -188,7 +194,7 @@ class DefaultView extends View {
 			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
-					    		<input id="add_categorie" class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_library">Annuler</button>
+					    		<input id="add_categorie" class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_categorie">Annuler</button>
 							</form>
 			        	</div>
 			            <div class="pop_add pop_add_flux hide">

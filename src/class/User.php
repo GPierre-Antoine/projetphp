@@ -8,6 +8,7 @@ class User extends ModelPDO
     private $email;
 	private $name;
     private $enable;
+    private $avatar;
 
     private $friends;
     private $categories;
@@ -94,6 +95,31 @@ class User extends ModelPDO
     protected function getSpecific()
     {
         // TODO: Implement getSpecific() method.
+    }
+
+    public function getAvatar() {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar) {
+        if (isImageURL($avatar)) {
+            $this->avatar = $avatar;
+            $sql = "UPDATE USER_INFORMATION SET AVATAR = \"" . $this->avatar . "\" WHERE ID = ".$this->id;
+            $this->pdo->query($sql);
+        }
+        else {
+            //To do error
+        }
+    }
+
+    public function avatarDefine() {
+        $sql = "SELECT AVATAR FROM USER_INFORMATION WHERE ID = ".$this->id;
+        $result = $this->pdo->query($sql)->fetch();
+        $this->avatar = $result[0];
+        if(!empty($this->avatar))
+            return true;
+        else
+            return false;
     }
 } // User
 

@@ -27,15 +27,17 @@ $(function() {
 
 	$("#end").click(function() {
 		closePopUp("#overlay_flux",".popup_flux");
+		$(".pop_add_flux").addClass("hide");
+		$(".pop_add_categorie").addClass("hide");
 	});
 
 	$("#begin").click(function() {
 		var impSelect = $("#selector :selected").val();
 		console.log(impSelect);
-		if (impSelect = "pop_add_categorie") {
+		if (impSelect == "pop_add_categorie") {
 			$(".pop_add_flux").addClass("hide");
 			$(".pop_add_categorie").removeClass("hide");
-		} else if (impSelect = "pop_add_flux") {
+		} else if (impSelect == "pop_add_flux") {
 			$(".pop_add_categorie").addClass("hide");
 			$(".pop_add_flux").removeClass("hide");
 		}

@@ -2,17 +2,17 @@ $(function () {
 	var openP = false;
 	var openU = false;
 
-	$(".preference_btn").click(function(e) {
+	$(".top_preference_btn").click(function(e) {
 		if(!openP) {
             if(openU) {
-                $("#userInformation").addClass("hide");
+                $("#user_information").addClass("hide");
                 openU = !openU;
             }
-			$("#userPreference").removeClass("hide");
+			$("#user_preference").removeClass("hide");
 			openP = !openP;
 		}
 		else if(openP) {
-			$("#userPreference").addClass("hide");
+			$("#user_preference").addClass("hide");
 			openP = !openP;
 		}
 
@@ -20,17 +20,17 @@ $(function () {
    		return false;
 	});
 
-	$("#btnUser").click(function(e) {
+	$(".top_user_btn").click(function(e) {
 		if(!openU) {
             if(openP) {
-                $("#userPreference").addClass("hide");
+                $("#user_preference").addClass("hide");
                 openP = !openP;
             }
-			$("#userInformation").removeClass("hide");
+			$("#user_information").removeClass("hide");
 			openU = !openU;
 		}
 		else if(openU) {
-			$("#userInformation").addClass("hide");
+			$("#user_information").addClass("hide");
 			openU = !openU;
 		}
 		e.stopPropagation(); // This is the preferred method.
@@ -38,21 +38,35 @@ $(function () {
 	});
 
 	$(document).click(function() {
-        $('#userPreference').click(function(event){
+        $('#user_preference').click(function(event){
             event.stopPropagation();
         });
 
-        $('#userInformation').click(function(event){
+        $('#user_information').click(function(event){
             event.stopPropagation();
         });
 
         if (openU) {
-            $("#userInformation").addClass("hide");
+            $("#user_information").addClass("hide");
             openU = !openU;
         }
         if (openP) {
-            $("#userPreference").addClass("hide");
+            $("#user_preference").addClass("hide");
             openP = !openP;
         }
     });
+
+	$("#close_user_information").click(function() {
+		if(openU) {
+			$("#user_information").addClass("hide");
+			openU = !openU;
+		}
+	})
+
+	$("#close_user_preference").click(function() {
+		if(openP) {
+			$("#user_preference").addClass("hide");
+			openP = !openP;
+		}
+	})
 });
