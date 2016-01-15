@@ -26,7 +26,6 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
-
     /* public function recup_key_inscription () {
         $this->pdo->prepare("SELECT TOKEN FROM VERIFICATION WHERE ID = ? AND ACTIF = 0");
     }
@@ -42,6 +41,6 @@ class ConfirmationModel extends ModelPDO {
 
     protected function getSpecific()
     {
-        /*return "SET ACTIF = 1 ";*/
+        return "SET ACTIF = 1 ";
     }
 }

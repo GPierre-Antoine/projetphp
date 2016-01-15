@@ -12,7 +12,7 @@ class Router {
 
         $this->table['default'] =
             new Route ('IndexModel','IndexView','IndexController');
-        $this->table['confirmation'] = new Route ('ConfirmationModel','EmptyView','ConfirmationController');
+        $this->table['confirmation'] = new Route ('ConfirmationModel','ConfirmationView','ConfirmationController');
         $this->table['user'] = new Route ('UserModel','UserView','UserController');
         $this->table['defaultlogged'] = new Route ('DefaultModel','DefaultView','DefaultController');
         $this->table['login'] = new Route ('UserModel','LoginView','LoginController');
