@@ -26,7 +26,7 @@ class IndexView extends View {
                 <meta name='google-signin-client_id' content='465981179540-rtkpb0od5g1op6edd11gjt5kq9bcpsfj.apps.googleusercontent.com'>
                 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
                 <script src='https://apis.google.com/js/platform.js?onload=renderButton' async defer></script>
-                <script type='text/javascript' src='/src/lib/fullpage/jquery.fullPage.js'></script>
+                <script type='text/javascript' src='/src/js/jquery.fullPage.js'></script>
                 <script type='text/javascript' src='/src/js/GoogleButton.js'></script>
                 <script type='text/javascript' src='/src/js/indexForm.js'></script>
                 <script type='text/javascript'>
