@@ -9,8 +9,10 @@ html * {
 }
 
 #index {
-	background-image: url('../images/c.jpeg');
+	background-image: url('../images/background.jpeg');
 	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
 }
 
 #signIndex {
