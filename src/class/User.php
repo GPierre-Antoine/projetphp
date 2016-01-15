@@ -9,6 +9,8 @@ class User extends ModelPDO
 	private $name;
     private $enable;
     private $avatar;
+    private $follows;
+    private $followers;
 
     private $friends;
     private $categories;
@@ -101,6 +103,14 @@ class User extends ModelPDO
         return $this->avatar;
     }
 
+    public function getNbFollows() {
+        return $this->follows;
+    }
+
+    public function getNbFollowers() {
+        return $this->followers;
+    }
+
     public function setAvatar($avatar) {
         if (isImageURL($avatar)) {
             $this->avatar = $avatar;
@@ -120,6 +130,15 @@ class User extends ModelPDO
             return true;
         else
             return false;
+    }
+
+    public function updateFollow() {
+        $sqlFollows = "SELECT count(*) FROM FRIEND WHERE IDUSER = ".$this->id;
+        $sqlFollowers = "SELECT count(*) FROM FRIEND WHERE IDFRIEND = ".$this->id;
+        $resultFollows = $this->pdo->query($sqlFollows)->fetch();
+        $resultFollowers = $this->pdo->query($sqlFollowers)->fetch();
+        $this->follows = $resultFollows[0];
+        $this->followers = $resultFollowers[0];
     }
 } // User
 

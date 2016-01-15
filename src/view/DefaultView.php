@@ -165,7 +165,7 @@ class DefaultView extends View {
 
 			    	<div id="user_information" class="hide">
 			    		<div class="user_information_top">
-                            <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="user_information_top_name">'.$this->user->getName().'</span>
+                            <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><div class="user_information_top_foll"><img alt="Personnes qui vous suit" src="/src/images/follower.png">'.$this->user->getNbFollowers().'<img alt="Personnes que vous suivez" src="/src/images/follow.png">'.$this->user->getNbFollows().'</div><span class="user_information_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div class="user_information_rest">
 			    			<button class="actu_btn user_information_rest_btn" type="button">Actualités</button>
