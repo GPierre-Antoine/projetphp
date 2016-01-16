@@ -48,13 +48,11 @@ class ControllerInscription extends Controller {
 
                 $this->model->create_new_user($user,$password,$key);
 
-                $id = $this->pdo->lastInsertId();
-
                 $destinataire = $mail;
                 $sujet = "test validation lol";
                 $entete = "From: test@aaron-aaron.com";
                 $message = "Salut je test si ca marche,
-                http://aaron-aaron.alwaysdata.net/confirmation/log=$id&key=$key
+                http://aaron-aaron.alwaysdata.net/confirmation/log=$user&key=$key
 
                 kiwi Puissance Kakarot";
 
