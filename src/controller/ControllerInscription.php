@@ -52,6 +52,7 @@ class ControllerInscription extends Controller {
                 $sujet = "test validation lol";
                 $entete = "From: test@aaron-aaron.com";
                 $message = "Salut je test si ca marche,
+                veuillez cliquer sur le lien pour continuer votre inscription
                 http://aaron-aaron.alwaysdata.net/confirmation/log=$user&key=$key
 
                 kiwi Puissance Kakarot";
