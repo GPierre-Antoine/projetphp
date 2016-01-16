@@ -85,7 +85,7 @@ class CustomModel extends ModelPDO {
             $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(".$idCate.",".$idFlux.",\"".$name."\",0)";
             $this->pdo->query($sql);
 
-            $flux = new Flux($idFlux,$name,$url,0);
+            $flux = new Flux($idFlux,$url);
             $flux->refresh();
         } else {
             $sql = "SELECT ID FROM FLUX WHERE URL = \"".$url."\"";

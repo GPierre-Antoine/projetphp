@@ -1,6 +1,6 @@
 <?php
 
-include_once('Flux.php');
+include_once('FluxUser.php');
 
 class Categorie
 {
@@ -29,7 +29,7 @@ class Categorie
 			$isFav = $resultFA['ISFAVORITE'];
 			$sql = "SELECT URL FROM FLUX WHERE ID = ".$idFlux;
 			$resultF = $this->pdo->query($sql)->fetch();
-			$newFlux = new Flux($idFlux,$fluxName,$resultF['URL'],$isFav);
+			$newFlux = new FluxUser($idFlux,$fluxName,$resultF['URL'],$isFav);
 			$newFlux->initializeArticlesFlux();
 			array_push($this->flux, $newFlux);
 		}

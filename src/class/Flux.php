@@ -2,40 +2,22 @@
 
 class Flux
 {
-	private $id;
-	private $name;
-	private $url;
-	private $isFavorite;
-    private $feed;
-    private $fluxArticles;
-    private $pdo;
+    protected $id;
+    protected $url;
+    protected $feed;
+    protected $fluxArticles;
+    protected $pdo;
 
-	public function __construct($id,$name,$url,$isFavorite) {
+	public function __construct($id,$url) {
 		$this->id = $id;
-		$this->name = $name;
 		$this->url = $url;
-		$this->isFavorite = $isFavorite;
         $this->fluxArticles = array();
         $this->feed = array();
         $this->pdo = new \db\db_handler();
 	}
 
-    public function initializeArticlesFlux() {
-        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX = '. $this->id;
-        $stmt = $this->pdo->query($sql);
-        while($result = $stmt->fetch())
-        {
-            $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
-            array_push($this->fluxArticles,$fluxArt);
-        }
-    }
-
 	public function getId() {
 		return $this->id;
-	}
-
-	public function getName() {
-		return $this->name;
 	}
 
 	public function getUrl() {
@@ -45,10 +27,6 @@ class Flux
     public function getFluxArticles() {
         return $this->fluxArticles;
     }
-
-	public function isFavorite() {
-		return $this->isFavorite;
-	}
 
     public function rss_feed() {
         $rss = new DOMDocument();
