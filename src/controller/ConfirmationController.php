@@ -32,7 +32,7 @@ class ConfirmationController extends Controller {
         echo $id;
 
         if($actif == 1)
-            $this->render("persists/mailValidation", array("message" => "Votre compte est déjà actif"));
+            echo "Votre compte est déjà activé.";
         else
         {
             if($key == $keybdd)
