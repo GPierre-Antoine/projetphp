@@ -39,7 +39,6 @@ class ControllerInscription extends Controller {
 
             $this->model->update();
 
-
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
 
