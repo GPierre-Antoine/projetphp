@@ -40,15 +40,6 @@ class ControllerInscription extends Controller {
             $this->model->update();
 
 
-            $destinataire = $mail;
-            $sujet = "test validation lol";
-            $entete = "From: test@aaron-aaron.com";
-            $message = "Salut je test si ca marche,
-            http://aaron-aaron.alwaysdata.net/confirmation/$key
-
-            kiwi Puissance Kakarot";
-
-
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
 
@@ -56,6 +47,16 @@ class ControllerInscription extends Controller {
                 $user = new User('0',$mail,$name,0);
 
                 $this->model->create_new_user($user,$password,$key);
+
+                $id = $this->pdo->lastInsertId();
+
+                $destinataire = $mail;
+                $sujet = "test validation lol";
+                $entete = "From: test@aaron-aaron.com";
+                $message = "Salut je test si ca marche,
+                http://aaron-aaron.alwaysdata.net/confirmation/log=$id&key=$key
+
+                kiwi Puissance Kakarot";
 
                 mail($destinataire, $sujet, $message, $entete);
 
