@@ -18,6 +18,33 @@ class ConfirmationController extends Controller {
 
     public function update() {
 
+        $id = $_GET['id'];
+        $key = $_GET['key'];
+        $req = "Select TOKEN, ACTIF FROM VERIFICATION WHERE ID = ?";
+        if($this->pdo>execute($req, array($id)) && $data = $this->pdo->execute($req, array($id))->fetch())
+        {
+            $keybdd = $data['TOKEN'];
+            $actif = $data['ACTIF'];
+        }
+        echo $keybdd;
+        echo $actif;
+        echo $key;
+        echo $id;
+
+        if($actif == 1)
+            $this->render("persists/mailValidation", array("message" => "Votre compte est déjà actif"));
+        else
+        {
+            if($key == $keybdd)
+            {
+                echo "Votre compte à bien été activé.";
+                $req = "UDATE VERIFICATION SET ACTIF = 1 WHERE ID = ?";
+                $this->execute($req, array($id));
+
+            }
+            else
+                echo "Votre compte ne peut être activé";
+        }
 
         $this->model->get();
         /* $key =$this->options[0];
@@ -31,7 +58,5 @@ class ConfirmationController extends Controller {
         $this->model->getData
 
         $this->model->validate_inscriptions($id, $key);(''); */
-
-
     }
 }

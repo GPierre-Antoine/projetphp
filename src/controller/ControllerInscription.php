@@ -26,7 +26,7 @@ class ControllerInscription extends Controller {
             $name = secure_strip($_POST['fName']);
 
             $crypt = true;
-            $key = bin2hex(openssl_random_pseudo_bytes(20,$crypt));
+            $key = bin2hex(openssl_random_pseudo_bytes(10,$crypt));
 
 
             $mail = $mail['mail'];
@@ -40,15 +40,6 @@ class ControllerInscription extends Controller {
             $this->model->update();
 
 
-            $destinataire = $mail;
-            $sujet = "test validation lol";
-            $entete = "From: test@aaron-aaron.com";
-            $message = "Salut je test si ca marche,
-            http://aaron-aaron.alwaysdata.net/confirmation/$id/$key
-
-            kiwi Puissance Kakarot";
-
-
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
 
@@ -56,6 +47,15 @@ class ControllerInscription extends Controller {
                 $user = new User('0',$mail,$name,0);
 
                 $this->model->create_new_user($user,$password,$key);
+
+                $destinataire = $mail;
+                $sujet = "test validation lol";
+                $entete = "From: test@aaron-aaron.com";
+                $message = "Salut je test si ca marche,
+                veuillez cliquer sur le lien pour continuer votre inscription
+                http://aaron-aaron.alwaysdata.net/confirmation/log=$user&key=$key
+
+                kiwi Puissance Kakarot";
 
                 mail($destinataire, $sujet, $message, $entete);
 

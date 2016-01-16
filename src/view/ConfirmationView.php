@@ -15,7 +15,7 @@ class ConfirmationView extends View {
     }// UserView
 
     public function display() {
-    	echo '
+    	/*echo '
 			<html>
 				<head>
 					<title>Aaron</title>
@@ -32,7 +32,7 @@ class ConfirmationView extends View {
 					</div>
 				</body>
 			</html>
-    	';
+    	';*/
     }
 
 }
