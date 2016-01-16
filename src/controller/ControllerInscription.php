@@ -43,7 +43,6 @@ class ControllerInscription extends Controller {
             if ($this->model->rowCount() === 0) {
                 //user not found -> good case
 
-
                 $user = new User('0',$mail,$name,0);
 
                 $this->model->create_new_user($user,$password,$key);
