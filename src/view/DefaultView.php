@@ -194,7 +194,7 @@ class DefaultView extends View {
 			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
-					    		<input id="add_categorie" class="smallInput" onclick ="addCategorie(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_categorie">Annuler</button>
+					    		<input id="add_categorie" class="smallInput" onclick ="addCategory(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_categorie">Annuler</button>
 							</form>
 			        	</div>
 			            <div class="pop_add pop_add_flux hide">
@@ -205,6 +205,16 @@ class DefaultView extends View {
 					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
 					    		<input class="smallInput" name="submit" type="button" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
 							</form>
+						</div>
+						<div class="pop_add pop_add_friend hide">
+			            	<div class="sep"></div>
+			            	<form id="F_friend" method="post">
+			            		<input class="actionnable_fr" name="name" type="text" placeholder="Qui souhaitez-vous suivre ?" required/>
+			            		<input name="submit" type="button" onclick="searchUser(this)" value="Chercher"/>
+			            	</form>
+			            	<div id="researchResult" class="hide">
+			            		<div class="researchResult_friend"><span class="researchResult_friend_name">LENOM</span><img class="researchResult_friend_img" src="LURL"><button id="researchResult_friend_add" onclick="addFriend(IDFRIEND)" type="button">Ajouter</button></div>
+			            	</div>
 						</div>
 			        </div>
 
