@@ -60,7 +60,8 @@ class EmptyView extends View {
         }
 
         else if(isset($_POST['userToFind'])) {
-            echo $_POST['userToFind'];
+            $rep = $this->model->userToDisplay($_POST['userToFind']);
+            echo $rep;
         }
     }
 

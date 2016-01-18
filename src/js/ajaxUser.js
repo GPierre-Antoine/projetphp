@@ -241,7 +241,16 @@ function searchUser($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                var displays =  JSON.parse(xhr.responseText);
+                document.getElementById('researchResult').innerHTML = "";
+                for(i = 0 ; i < displays.length ; ++i) {
+                    var string = '<div class="researchResult_friend"><span class="researchResult_friend_name">'+display[i+1];
+                    string += '</span><img class="researchResult_friend_img" src="'+display[i+2];
+                    string += '><button id="researchResult_friend_add" onclick="addFriend(IDFRIEND)" type="button">Ajouter</button></div>';
+                    $("#researchResult").removeClass("hide");
+                    document.getElementById('researchResult').innerHTML += string;
+                }
+
             }
             else {
                 alert("probleme");
@@ -250,5 +259,5 @@ function searchUser($object) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("userToFind"+document.getElementsByClassName("actionnable_fr").attr("value"));
+    xhr.send("userToFind="+$("#F_friend .actionnable_fr").val());
 }

@@ -100,6 +100,18 @@ class CustomModel extends ModelPDO {
 
     }
 
+    public function userToDisplay($userToFind) {
+        $sql = 'SELECT USERS.ID, NAME, AVATAR FROM USERS, USER_INFORMATION WHERE USERS.ID = USER_INFORMATION.ID AND ENABLE = 1 AND USERS.ID <> '.$_SESSION['ID'].' AND USERS.NAME = "'.$userToFind.'"';
+        $stmt = $this->pdo->query($sql);
+        $array = array();
+        while($result = $stmt->fetch()) {
+            array_push($array,$result['ID']);
+            array_push($array,$result['NAME']);
+            array_push($array,$result['AVATAR']);
+        }
+        return json_encode($array);
+    }
+
     public function refresh() {
 
     }
