@@ -43,11 +43,8 @@ class DefaultView extends View {
                     echo $this->model->getParam();
                     echo '
 				</head>
-				<body>
-					<!-- TOP SIDE -->
-					';
-						if($this->user->avatarDefine())
-							$image = $this->user->getAvatar();
+				<body>';
+						$image = $this->user->getAvatar();
 					echo '
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">

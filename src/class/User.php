@@ -62,7 +62,6 @@ class User extends ModelPDO
             $newArticle = new Article($categorie[0],$categorie[2],$categorie[3],$categorie[4],$categorie[5]);
             array_push($this->articles,$newArticle);
         }
-
     }
 
 	//GETTERS
@@ -100,6 +99,9 @@ class User extends ModelPDO
     }
 
     public function getAvatar() {
+        $sql = "SELECT AVATAR FROM USER_INFORMATION WHERE ID = ".$this->id;
+        $result = $this->pdo->query($sql)->fetch();
+        $this->avatar = $result[0];
         return $this->avatar;
     }
 
@@ -116,20 +118,9 @@ class User extends ModelPDO
             $this->avatar = $avatar;
             $sql = "UPDATE USER_INFORMATION SET AVATAR = \"" . $this->avatar . "\" WHERE ID = ".$this->id;
             $this->pdo->query($sql);
-        }
-        else {
+        } else {
             //To do error
         }
-    }
-
-    public function avatarDefine() {
-        $sql = "SELECT AVATAR FROM USER_INFORMATION WHERE ID = ".$this->id;
-        $result = $this->pdo->query($sql)->fetch();
-        $this->avatar = $result[0];
-        if(!empty($this->avatar))
-            return true;
-        else
-            return false;
     }
 
     public function updateFollow() {
