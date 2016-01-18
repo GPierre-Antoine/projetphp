@@ -48,8 +48,6 @@ class DefaultView extends View {
 					';
 						if($this->user->avatarDefine())
 							$image = $this->user->getAvatar();
-						else
-							$image = "/src/images/account.png";
 					echo '
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">

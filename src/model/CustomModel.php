@@ -101,15 +101,19 @@ class CustomModel extends ModelPDO {
     }
 
     public function userToDisplay($userToFind) {
-        $sql = 'SELECT USERS.ID, NAME, AVATAR FROM USERS, USER_INFORMATION WHERE USERS.ID = USER_INFORMATION.ID AND ENABLE = 1 AND USERS.ID <> '.$_SESSION['ID'].' AND USERS.NAME = "'.$userToFind.'"';
-        $stmt = $this->pdo->query($sql);
+        $sql = 'SELECT count(*) FROM FRIEND WHERE IDUSER = '.$_SESSION['ID'].' AND IDFRIEND IN (SELECT ID FROM USERS WHERE NAME = "'.$userToFind.'")';
+        $result = $this->pdo->query($sql)->fetch();
         $array = array();
-        while($result = $stmt->fetch()) {
-            array_push($array,$result['ID']);
-            array_push($array,$result['NAME']);
-            array_push($array,$result['AVATAR']);
+        if ($result[0] == 0) {
+            $sql = 'SELECT USERS.ID, NAME, AVATAR FROM USERS, USER_INFORMATION WHERE USERS.ID = USER_INFORMATION.ID AND ENABLE = 1 AND USERS.ID <> ' . $_SESSION['ID'] . ' AND USERS.NAME = "' . $userToFind . '"';
+            $stmt = $this->pdo->query($sql);
+            while ($result = $stmt->fetch()) {
+                array_push($array, $result['ID']);
+                array_push($array, $result['NAME']);
+                array_push($array, $result['AVATAR']);
+            }
+            return json_encode($array);
         }
-        return json_encode($array);
     }
 
     public function userToAddInFriend($idUserToAdd) {
