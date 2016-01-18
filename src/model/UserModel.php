@@ -17,8 +17,8 @@ class UserModel extends ModelPDO {
         $token = openssl_random_pseudo_bytes(64,$crypto_strong);
 
 
-        $this->pdo->prepare("INSERT INTO `USERS` (`EMAIL`,`NAME`,`ENABLE`) VALUES (?,?,0)");
-        $this->pdo->execute(array($user->getEmail(),$user->getName()));
+        $this->pdo->prepare("INSERT INTO `USERS` (`EMAIL`,`NAME`,`ENABLE`,`TOKEN`) VALUES (?,?,0,?)");
+        $this->pdo->execute(array($user->getEmail(),$user->getName(),$key));
 
         $id = $this->pdo->lastInsertId();
 
@@ -26,8 +26,8 @@ class UserModel extends ModelPDO {
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
         $passdb->execute(array($id,encrypt($password,$token),$token));
 
-        $passdb->prepare("INSERT INTO `USERS` (`TOKEN`) VALUES (?)");
-        $passdb->execute(array($key));
+        /*$passdb->prepare("INSERT INTO `USERS` (`TOKEN`) VALUES (?)");
+        $passdb->execute(array($key)); */
     }
 
     public function select () {
