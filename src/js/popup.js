@@ -37,15 +37,23 @@ $(function() {
 		if (impSelect == "pop_add_categorie") {
 			$(".pop_add_flux").addClass("hide");
 			$(".pop_add_friend").addClass("hide");
+			$(".pop_add_mail").addClass("hide");
 			$(".pop_add_categorie").removeClass("hide");
 		} else if (impSelect == "pop_add_flux") {
 			$(".pop_add_categorie").addClass("hide");
 			$(".pop_add_friend").addClass("hide");
+			$(".pop_add_mail").addClass("hide");
 			$(".pop_add_flux").removeClass("hide");
 		} else if (impSelect == "pop_add_friend") {
 			$(".pop_add_categorie").addClass("hide");
 			$(".pop_add_flux").addClass("hide");
+			$(".pop_add_mail").addClass("hide");
 			$(".pop_add_friend").removeClass("hide");
+		} else if (impSelect == "pop_add_mail") {
+			$(".pop_add_categorie").addClass("hide");
+			$(".pop_add_flux").addClass("hide");
+			$(".pop_add_friend").addClass("hide");
+			$(".pop_add_mail").removeClass("hide");
 		}
 	});
 

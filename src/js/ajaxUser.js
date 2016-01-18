@@ -242,15 +242,13 @@ function searchUser($object) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 var displays =  JSON.parse(xhr.responseText);
-                document.getElementById('researchResult').innerHTML = "";
+                $("#researchResult").removeClass("hide");
                 for(i = 0 ; i < displays.length ; i += 3) {
-                    var string = '<div class="researchResult_friend"><img class="researchResult_friend_img"  style="height:100%;width:100%" src="'+displays[i+2];
-                    string += '"/><span class="researchResult_friend_name">'+displays[i+1];
-                    string += '</span><button id="researchResult_friend_add" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
-                    $("#researchResult").removeClass("hide");
-                    document.getElementById('researchResult').innerHTML += string;
+                    var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="'+displays[i+2]+'">';
+                    elm += '<span class="researchResult_friend_name">'+displays[i+1]+'</span>';
+                    elm += '<button id="researchResult_friend_add" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
+                    document.getElementById('researchResult').innerHTML += elm;
                 }
-
             }
             else {
                 alert("probleme");

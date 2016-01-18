@@ -177,8 +177,8 @@ class DefaultView extends View {
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
 			        <div id="popup_flux" class="popup_flux">
-			        	<h1>Selectionner un type d\'import </h1>
 			        	<div class="pop_selector pop_add">
+			        		<h1>Selectionner un type d\'import </h1>
 			        		<select id="selector">
 			        			<option value="pop_add_categorie">Une catégorie</option>
 			        			<option value="pop_add_flux">Un flux</option>
@@ -206,15 +206,16 @@ class DefaultView extends View {
 					    		<input class="smallInput" name="submit" type="button" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
 							</form>
 						</div>
+						<div class="pop_add pop_add_mail hide">
+			            	<div class="sep"></div>
+						</div>
 						<div class="pop_add pop_add_friend hide">
 			            	<div class="sep"></div>
 			            	<form id="F_friend" method="post">
-			            		<input class="actionnable_fr" name="name" type="text" placeholder="Qui souhaitez-vous suivre ?" required/>
-			            		<input name="submit" type="button" onclick="searchUser(this)" value="Chercher"/>
+			            		<input class="smallInput actionnable_fr" name="name" type="text" placeholder="Qui souhaitez-vous suivre ?" required/>
+			            		<input class="smallInput" name="submit" type="button" onclick="searchUser(this)" value="Chercher"/>
 			            	</form>
-			            	<div id="researchResult" class="hide">
-			            		<div class="researchResult_friend"><span class="researchResult_friend_name">LENOM</span><img class="researchResult_friend_img" src="LURL"><button id="researchResult_friend_add" onclick="addFriend(IDFRIEND)" type="button">Ajouter</button></div>
-			            	</div>
+			            	<div id="researchResult" class="pop_add_friend_result hide"></div>
 						</div>
 			        </div>
 
