@@ -58,6 +58,10 @@ class EmptyView extends View {
         else if(isset($_POST['nameFluxAdd']) && isset($_POST['nameCategorieToAdd']) && isset($_POST['urlFluxAdd'])) {
             $this->model->addFlux($_POST['nameFluxAdd'],$_POST['nameCategorieToAdd'],$_POST['urlFluxAdd']);
         }
+
+        else if(isset($_POST['userToFind'])) {
+            echo $_POST['userToFind'];
+        }
     }
 
 }
