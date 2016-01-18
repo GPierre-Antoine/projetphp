@@ -243,6 +243,7 @@ function searchUser($object) {
             if (xhr.status == 200) {
                 var displays =  JSON.parse(xhr.responseText);
                 $("#researchResult").removeClass("hide");
+                document.getElementById('researchResult').innerHTML = "";
                 for(i = 0 ; i < displays.length ; i += 3) {
                     var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="'+displays[i+2]+'">';
                     elm += '<span class="researchResult_friend_name">'+displays[i+1]+'</span>';
