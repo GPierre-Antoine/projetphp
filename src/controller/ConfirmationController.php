@@ -18,10 +18,10 @@ class ConfirmationController extends Controller {
 
     public function update() {
 
-        $id = $_GET['id'];
+        $name = $_GET['name'];
         $key = $_GET['key'];
-        $req = "Select TOKEN, ACTIF FROM VERIFICATION WHERE ID = ?";
-        if($this->pdo>execute($req, array($id)) && $data = $this->pdo->execute($req, array($id))->fetch())
+        $req = "Select TOKEN, EMAIL FROM USERS WHERE NAME = ?";
+        if($this->pdo>execute($req, array($name)) && $data = $this->pdo->execute($req, array($name))->fetch())
         {
             $keybdd = $data['TOKEN'];
             $actif = $data['ACTIF'];
@@ -29,7 +29,7 @@ class ConfirmationController extends Controller {
         echo $keybdd;
         echo $actif;
         echo $key;
-        echo $id;
+        echo $name;
 
         if($actif == 1)
             echo "Votre compte est déjà activé.";
@@ -39,7 +39,7 @@ class ConfirmationController extends Controller {
             {
                 echo "Votre compte à bien été activé.";
                 $req = "UDATE VERIFICATION SET ACTIF = 1 WHERE ID = ?";
-                $this->execute($req, array($id));
+                $this->execute($req, array($name));
 
             }
             else

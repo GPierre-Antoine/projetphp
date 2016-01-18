@@ -51,7 +51,7 @@ class ControllerInscription extends Controller {
                 $entete = "From: test@aaron-aaron.com";
                 $message = "Salut je test si ca marche,
                 veuillez cliquer sur le lien pour continuer votre inscription
-                http://aaron-aaron.alwaysdata.net/confirmation/log=$id&key=$key
+                http://aaron-aaron.alwaysdata.net/confirmation/log=$name&key=$key
 
                 kiwi Puissance Kakarot";
 
