@@ -24,9 +24,10 @@ class ConfirmationView extends View {
 				<body>
 					<img class="logo" src="src/images/aaron_logo_1.png">
 					<div class="validation">
-						<form id="F_confirmation" action="" method="">
+						<form id="F_confirmation" action="confirmation" method="post">
+							<input class="code" name="mail" type="email" placeholder="Adresse Mail" required/>
 							<input class="code" name="code" type="text" placeholder="Code de validation" required/>
-						    <input class="submit" name="submit" type="submit" value="Vérifier"/>
+						    <input class="submit" name="action" type="submit" value="Vérifier"/>
 						</form>
 						<p class="help">Je n\'ai pas reçu mon code d\'activation : <a class="sendCode" href="#">Renvoyer le code</a></p>
 					</div>

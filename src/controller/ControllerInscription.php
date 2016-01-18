@@ -31,7 +31,6 @@ class ControllerInscription extends Controller {
 
             $mail = $mail['mail'];
 
-            $id = $_SESSION['ID'];
 
             $this->model->select_user_by_mail();
             $this->model->select($mail);
@@ -47,13 +46,19 @@ class ControllerInscription extends Controller {
                 $this->model->create_new_user($user,$password,$key);
 
                 $destinataire = $mail;
-                $sujet = "test validation lol";
+                $sujet = "Activation de votre compte";
                 $entete = "From: test@aaron-aaron.com";
-                $message = "Salut je test si ca marche,
-                veuillez cliquer sur le lien pour continuer votre inscription
-                http://aaron-aaron.alwaysdata.net/confirmation/log=$name&key=$key
+                $message = "Bienvenue sur VotreSite,
 
-                kiwi Puissance Kakarot";
+                Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
+                ou copier/coller dans votre navigateur internet.,
+                http://aaron-aaron.alwaysdata.net/confirmation/
+
+                Vos identifiants de vérifications sont les suivants :
+                mail : $mail;
+                code : $key;
+               ---------------
+               Ceci est un mail automatique, Merci de ne pas y répondre.";
 
                 mail($destinataire, $sujet, $message, $entete);
 
