@@ -27,21 +27,20 @@ class EmptyView extends View {
         } // if(isset($_POST['enableOrDisable'])
 
         // Ajouter
-        else if(isset($_POST['array1']) && isset($_POST['array2']) && isset($_POST['array3']) && isset($_POST['array4'])) {
-            $tab = array();
-            array_push($tab,$_POST['array1']);
-            array_push($tab,$_POST['array2']);
-            array_push($tab,$_POST['array3']);
-            array_push($tab,$_POST['array4']);
-            $this->model->addArticle($tab);
-
-        }
+        else if(isset($_POST['titreArticle']) && isset($_POST['themeArticle']) && isset($_POST['urlImgArticle']) && isset($_POST['contentArticle'])) {
+            $articleToAdd = array();
+            array_push($articleToAdd,$_POST['titreArticle']);
+            array_push($articleToAdd,$_POST['themeArticle']);
+            array_push($articleToAdd,$_POST['urlImgArticle']);
+            array_push($articleToAdd,$_POST['contentArticle']);
+            $this->model->addArticle($articleToAdd);
+        } // else if(isset($_POST['titreArticle']) && isset($_POST['themeArticle']) && isset($_POST['urlImgArticle']) && isset($_POST['contentArticle']))
         else if(isset($_POST['idUserCategorie']) && isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
             $tab = array();
             array_push($tab,$_POST['idUserCategorie']);
             array_push($tab,$_POST['nameCategorie']);
             array_push($tab,$_POST['colorCategorie']);
-            $this->model->addCategorie($tab);
+            $this->model->addCategory($tab);
         }
         else if(isset($_POST['linkImgFavorite']) && isset($_POST['idImg'])) {
             if($_POST['linkImgFavorite'] == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png")

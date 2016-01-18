@@ -38,17 +38,17 @@ class CustomModel extends ModelPDO {
     } // deleteUser()
     //////////////////////////ADMIN/////////////////////////////////
 
-
-    public function addArticle($array) {
-        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
+    //////////////////////////USER//////////////////////////////////
+    public function addArticle($articleToAdd) {
+        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $articleToAdd[0]."','" . $articleToAdd[1]."','" . $articleToAdd[2] . "', '". $articleToAdd[3] . "')";
         $this->pdo->query($sql);
-    }
+    } // addArticle()
 
-    public function addCategorie($array) {
-        if(!isset($array[1]))return;
-        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $array[1]."','" . $array[2] . "')";
+    public function addCategory($categorieToAdd) {
+        if(!isset($categorieToAdd[1]))return;
+        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[1]."','" . $categorieToAdd[2] . "')";
         $this->pdo->query($sql);
-    }
+    } // addCategory()
 
     public function switchFavoriteFlux($value, $id) {
         $sql = "null" ;

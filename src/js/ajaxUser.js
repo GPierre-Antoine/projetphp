@@ -36,7 +36,7 @@ function addArticle($object) {
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
-    xhr.send("array1="+tab[0]+"&array2="+tab[1]+"&array3="+tab[2]+"&array4="+tab[3]);
+    xhr.send("titreArticle="+tab[0]+"&themeArticle="+tab[1]+"&urlImgArticle="+tab[2]+"&contentArticle="+tab[3]);
 
     //AUTO REFRESH THE NEW ARTICLE
     var title = tab[0];
@@ -46,9 +46,9 @@ function addArticle($object) {
 
     var newArticle = '<div class="article"> <div class="article_zone_img" > <img class="article_img" src="'+imgurl+'" /></div><div class="article_zone_content" ><span class="article_content_inf"><span class="article_inf_title">'+title+'</span> dans <span class="article_inf_theme">'+theme+'</span></span><br/><p class="article_content">'+content+'</p></div></div>';
     document.getElementById('content_blog').innerHTML += newArticle;
-}
+} // addArticle()
 
-function addCategorie($object) {
+function addCategory($object) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -90,7 +90,7 @@ function addCategorie($object) {
 
     var newCategorie = '<button class="categorie default_block_panel" type="button" style="background-color:'+color+';" value="'+title+'">'+title+'<input class="hide" type="checkbox" name="categorie" value="'+title+'"></button>';
     document.getElementById('categorie_panel').innerHTML += newCategorie;
-}
+} // addCategory()
 
 function fluxFavorite($object,$id,$name,$red,$green,$blue) {
     var xhr;
