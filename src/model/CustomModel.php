@@ -112,6 +112,11 @@ class CustomModel extends ModelPDO {
         return json_encode($array);
     }
 
+    public function userToAddInFriend($idUserToAdd) {
+        $sql = 'INSERT INTO FRIEND (IDUSER,IDFRIEND) VALUES('.$_SESSION['ID'].','.$idUserToAdd.')';
+        $this->pdo->query($sql);
+    }
+
     public function refresh() {
 
     }

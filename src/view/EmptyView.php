@@ -63,6 +63,10 @@ class EmptyView extends View {
             $rep = $this->model->userToDisplay($_POST['userToFind']);
             echo $rep;
         }
+
+        else if(isset($_POST['userToAddInFriend'])) {
+            $this->model->userToAddInFriend($_POST['userToAddInFriend']);
+        }
     }
 
 }
