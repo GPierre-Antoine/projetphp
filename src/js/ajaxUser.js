@@ -90,7 +90,7 @@ function addCategory($object) {
 
     var newCategorie = '<button class="categorie default_block_panel" type="button" style="background-color:'+color+';" value="'+title+'">'+title+'<input class="hide" type="checkbox" name="categorie" value="'+title+'"></button>';
     document.getElementById('categorie_panel').innerHTML += newCategorie;
-} // addCategory()
+} // addCategory
 
 function fluxFavorite($object,$id,$name,$red,$green,$blue) {
     var xhr;
