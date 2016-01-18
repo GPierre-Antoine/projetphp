@@ -13,8 +13,21 @@ class EmptyView extends View {
     }// UserView
 
     public function display() {
-        //For addArticle
-        if(isset($_POST['array1']) && isset($_POST['array2']) && isset($_POST['array3']) && isset($_POST['array4'])) {
+        // Activation/Désactivation/Suppression d'un user par l'admin
+        if(isset($_POST['enableOrDisable'])) {
+            $task = substr($_POST['enableOrDisable'],0,3);  // ena ou dis
+            $idUser = substr($_POST['enableOrDisable'],3); // ex : 69
+            if($task == "del") {
+                $this->model->deleteUser($idUser);
+                echo "je passe ici : " . $idUser;
+            } // Si del alors je supprime l'user sinon je l'active ou je le désactive
+            else {
+                $this->model->enableOrDisableUser($task,$idUser);
+            }
+        } // if(isset($_POST['enableOrDisable'])
+
+        // Ajouter
+        else if(isset($_POST['array1']) && isset($_POST['array2']) && isset($_POST['array3']) && isset($_POST['array4'])) {
             $tab = array();
             array_push($tab,$_POST['array1']);
             array_push($tab,$_POST['array2']);
@@ -22,17 +35,6 @@ class EmptyView extends View {
             array_push($tab,$_POST['array4']);
             $this->model->addArticle($tab);
 
-        }
-        else if(isset($_POST['enable'])) {
-            $begin = substr($_POST['enable'],0,3);
-            $end = substr($_POST['enable'],3);
-            if($begin == "del") {
-                $this->model->deleteUser($end);
-                echo "je passe ici : " . $end;
-            }
-            else {
-                $this->model->enableOrDisable($begin,$end);
-            }
         }
         else if(isset($_POST['idUserCategorie']) && isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
             $tab = array();

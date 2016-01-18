@@ -13,32 +13,34 @@ class CustomModel extends ModelPDO {
         parent::__construct();
     } // CustomModel
 
-    public function addArticle($array) {
-        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
-        $this->pdo->query($sql);
-    }
-
-    public function enableOrDisable($value,$id) {
-        if($value == "ena") {
+    //////////////////////////ADMIN/////////////////////////////////
+    public function enableOrDisableUser($enableOrDisable,$id) {
+        // Active ou désactive l'utilisateur
+        if($enableOrDisable === "ena") {
             $sql = "UPDATE USERS SET ENABLE = 0 WHERE ID = " . $id;
-            $this->pdo->query($sql);
         }
         else {
             $sql = "UPDATE USERS SET ENABLE = 1 WHERE ID = " . $id;
-            $this->pdo->query($sql);
         }
-    }
+        $this->pdo->query($sql);
+    } // enableOrDisableUser()
 
-    public function deleteUser($valueOfId) {
-        $sql = 'DELETE FROM FRIEND WHERE IDUSER='.$valueOfId;
+    public function deleteUser($id) {
+        // Supprime un utilisateur
+        $sql = 'DELETE FROM FRIEND WHERE IDUSER='.$id.' AND IDFRIEND = '.$id;
         $this->pdo->query($sql);
-        $sql = 'DELETE FROM CATEGORIE WHERE IDUSER='.$valueOfId;
+        $sql = 'DELETE FROM CATEGORIE WHERE IDUSER='.$id;
         $this->pdo->query($sql);
-        $sql = 'DELETE FROM FLUX_ASSOC WHERE IDUSER='.$valueOfId;
+        $sql = 'DELETE FROM ARTICLE WHERE IDUSER='.$id;
         $this->pdo->query($sql);
-        $sql = 'DELETE FROM ARTICLE WHERE IDUSER='.$valueOfId;
+        $sql = 'DELETE FROM USERS WHERE ID='.$id;
         $this->pdo->query($sql);
-        $sql = 'DELETE FROM USERS WHERE ID='.$valueOfId;
+    } // deleteUser()
+    //////////////////////////ADMIN/////////////////////////////////
+
+
+    public function addArticle($array) {
+        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $array[0]."','" . $array[1]."','" . $array[2] . "', '". $array[3] . "')";
         $this->pdo->query($sql);
     }
 

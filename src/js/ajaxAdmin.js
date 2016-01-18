@@ -1,7 +1,7 @@
 /**
  * Created by g13003750 on 13/01/16.
  */
-function enableOrDisable($object) {
+function enableOrDisableUser($object) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -31,8 +31,8 @@ function enableOrDisable($object) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("enable="+$object.id);
-}
+    xhr.send("enableOrDisable="+$object.id);
+} // enableOrDisableUser()
 
 
 
@@ -57,7 +57,7 @@ function deleteUser($object) {
     xhr2.onreadystatechange = function () {
         if (xhr2.readyState == 4) {
             if (xhr2.status == 200) {
-                xhr2.responseText;
+                alert(xhr2.responseText);
                 document.getElementById($object.parentNode.parentNode.id).remove();
             }
             else {
@@ -67,5 +67,5 @@ function deleteUser($object) {
     };
     xhr2.open("POST","/ajx", true);
     xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr2.send("enable="+$object.id);
-}
+    xhr2.send("enableOrDisable="+$object.id);
+} // deleteUser()
