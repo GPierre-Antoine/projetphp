@@ -12,9 +12,9 @@ class ConfirmationModel extends ModelPDO {
 
     public function __construct() {
         parent::__construct();
-        $this->table = "VERIFICATION";
+        /*$this->table = "VERIFICATION";
         $this->request = "UPDATE ";
-        parent::change_option("WHERE ID = ? AND TOKEN = ?");
+        parent::change_option("WHERE ID = ? AND TOKEN = ?");*/
     }
 
 
@@ -41,6 +41,6 @@ class ConfirmationModel extends ModelPDO {
 
     protected function getSpecific()
     {
-        return "SET ACTIF = 1 ";
+        return " ";
     }
 }

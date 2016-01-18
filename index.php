@@ -1,7 +1,6 @@
 <?php
 $sessionStart = session_start();
 
-
 include_once ("src/util/auto_class_load.php");
 
 
