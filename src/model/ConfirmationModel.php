@@ -12,9 +12,6 @@ class ConfirmationModel extends ModelPDO {
 
     public function __construct() {
         parent::__construct();
-        /*$this->table = "VERIFICATION";
-        $this->request = "UPDATE ";
-        parent::change_option("WHERE ID = ? AND TOKEN = ?");*/
     }
 
 
@@ -26,18 +23,21 @@ class ConfirmationModel extends ModelPDO {
 
     }
 
-    /* public function recup_key_inscription () {
-        $this->pdo->prepare("SELECT TOKEN FROM VERIFICATION WHERE ID = ? AND ACTIF = 0");
+     public function recup_key_inscription ($mail) {
+        $sql = $this->pdo->prepare('SELECT TOKEN,ACTIF FROM USERS WHERE ACTIF = 0 AND EMAIL = \''.$mail.'\'');
+         $this->pdo->query($sql);
+
     }
 
-    public function exec_key_inscription($id) {
-        $this->pdo->execute(array($id));
+    public function data_elements() {
+        $this->pdo->prepare("SELECT TOKEN,ACTIF FROM USERS WHERE ACTIF = 0 AND EMAIL= ?");
+        $this->pdo->fetch();
     }
 
-    public function validate_inscription($id) {
-        $this->pdo->prepare("UPDATE VERIFICATION SET ACTIF = 1 WHERE ID LIKE :ID");
-        $this->pdo->execute(array($id));
-    } */
+    public function validate_inscription($mail) {
+        $this->pdo->prepare("UPDATE USERS SET ACTIF = 1 WHERE EMAIL= ?");
+        $this->pdo->execute(array($mail));
+    }
 
     protected function getSpecific()
     {

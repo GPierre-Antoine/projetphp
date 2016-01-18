@@ -26,8 +26,7 @@ class UserModel extends ModelPDO {
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
         $passdb->execute(array($id,encrypt($password,$token),$token));
 
-        /*$passdb->prepare("INSERT INTO `USERS` (`TOKEN`) VALUES (?)");
-        $passdb->execute(array($key)); */
+
     }
 
     public function select () {

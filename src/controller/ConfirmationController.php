@@ -14,22 +14,25 @@ class ConfirmationController extends Controller {
 
     }// ControllerInscription
 
-
-
     public function update() {
 
-        $name = $_GET['log'];
-        $key = $_GET['key'];
+        $key = $_POST['code'];
+        $mail = $_POST['mail'];
 
-        $pdo = new \db\db_handler();
+        $stmt = $this->model->recup_key_inscription($mail);
 
-        $stmt = $pdo->prepare("Select TOKEN, ACTIF FROM USERS WHERE NAME = 'romae' ");
-        var_dump($stmt->fetch()); //lecture de la requete
-        /*if($stmt->execute(array(':name'=>$name)) && $data = $stmt->fetch())
+        echo "test";
+
+        $stmt->fetch();
+
+        if($stmt && $data = $this->model->data_elements())
         {
             $keybdd = $data['TOKEN'];
             $actif = $data['ACTIF'];
         }
+        echo $keybdd;
+        echo $actif;
+        echo "2";
 
         if($actif == 1)
             echo "Votre compte est déjà activé.";
@@ -38,16 +41,13 @@ class ConfirmationController extends Controller {
             if($key == $keybdd)
             {
                 echo "Votre compte à bien été activé.";
-                $stmt = "UPDATE USERS SET ACTIF = 1 WHERE NAME LIKE :NAME";
-                $stmt->bindParam(':name',$name);
-                $stmt->execute();
-
+                $this->model->validate_inscription($mail);
             }
             else
                 echo "Votre compte ne peut être activé";
-        } *
-
-        /* $key =$this->options[0];
+        }
+        /*
+         $key =$this->options[0];
 
         $this->model->select($_SESSION['ID'],$key);
 
