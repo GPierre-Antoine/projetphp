@@ -152,6 +152,7 @@ $(document).ready(function()
 		$(".favorite_btn").css("background-color", "#f39c12");
 
 		cancel_deleting();
+		$("#removeCategorie").addClass("hide");
 	});
 
 	$('.favorite_btn').click(function()
@@ -176,6 +177,7 @@ $(document).ready(function()
 		$(".favorite_btn").css("background-color", "#2980b9");
 
 		cancel_deleting();
+		$("#removeCategorie").addClass("hide");
 	});
 });
 

@@ -584,8 +584,7 @@ img[src="#"] {
 }
 
 #F_blog input, #F_cancel_btn  {
-	font-size: 18px;
-	text-align: center;
+	background-color: #2980b9;
 }
 
 .writting_zone_text .small_input {
