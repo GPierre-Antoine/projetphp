@@ -61,7 +61,7 @@ class DefaultView extends View {
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" onclick="inputCheckbox()" value="'.$c->getName().'"></button>
+								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'</button>
 							';
 							}
 						echo '
@@ -91,13 +91,13 @@ class DefaultView extends View {
 								foreach($c->getFlux() as $in) {
 									if ($in->isFavorite() == false) continue;
                                     $rgb = hex2rgb($c->getColor());
-									echo '<button class="default_block_panel flux" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
+									echo '<button class="default_block_panel noborder flux" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
 								}
 							}
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn noborder" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn noborder" type="button"></button>
+							<a href="#" onclick="javascript:;" class="addF_btn"></a>
 						</div>
 			    	</div>
 
