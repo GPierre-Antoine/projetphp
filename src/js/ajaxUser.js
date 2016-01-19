@@ -82,8 +82,8 @@ function addCategory($object) {
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
-    if(!tab[0].match(/^[a-zA-Z0-9][a-zA-Z0-9 ]+/)) {
-        $("#popup_flux .pop_add_categorie").innerHTML = "test"
+    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+/)) {
+        document.querySelector('.pop_add_categorie').innerHTML += "Aide : Une catégorie ne contient pas d'espace au début et elle contient que des caractères alphanumériques";
     }
     else
     {
