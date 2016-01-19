@@ -342,11 +342,6 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
     } // Else no RSS Feed in my category
 } // deleteCategorie()
 
-
-function inputCheckbox(){
-    event.stopPropagation();
-} // inputCheckbox()
-
 function deleteCategorieRSSFeedIn($idCatDelete) {
     var xhr;
     try {
