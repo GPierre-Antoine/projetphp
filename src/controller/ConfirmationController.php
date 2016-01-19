@@ -18,9 +18,33 @@ class ConfirmationController extends Controller {
 
         $key = POST('code');
 
+        $other_key = $this->options[0];
+
+        $passdb = new \db\db_handler();
+        $passdb->prepare("SELECT COUNT(*) AS NUMBER FROM USERS WHERE TOKEN = ?");
+        $passdb->execute($other_key);
+
+        $query = $passdb->fetch(PDO::FETCH_ASSOC);
+
+        var_dump($query);
+
+        if ($query['NUMBER'] === 1) {
+            $passdb->prepare("UPDATE USERS SET ENABLE = 1, TOKEN = '' WHERE TOKEN = ?");
+            $passdb->execute($other_key);
+        }
+        else {
+
+        }
+
+        $passdb->execute(array($other_key));
+
+
+
+
+
+
         $this->model->test($key);
 
-        echo "2";
 
         /*
          $key =$this->options[0];
