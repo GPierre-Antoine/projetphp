@@ -18,8 +18,8 @@ class LoginController extends Controller
     {
         if (isset($_POST['mail']) && isset($_POST['pwd'])) {
 
-            $mail = mail_strip($_POST['mail']);
-            $password = secure_strip($_POST['pwd']);
+            $mail = mail_strip(POST('mail'));
+            $password = secure_strip(POST('pwd'));
 
             $mail = $mail['mail'];
 
@@ -37,8 +37,6 @@ class LoginController extends Controller
 
             }
             else {
-                echo "<div style=\"font-family:monospace;\">".PHP_EOL;
-
                 $this->model->next();
                 $token = $this->model->getData('TOKEN');
 
@@ -55,6 +53,7 @@ class LoginController extends Controller
                     $_SESSION['logged'] = true;
                     $_SESSION['ID'] = $this->model->getData('ID');
 
+                    header("Location : /");
                 }
                 else {
                     //password does not match

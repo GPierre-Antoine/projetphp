@@ -25,6 +25,10 @@ $(function() {
 		closePopUp("#overlay_blog",".popup_blog");
 	});
 
+	$("#F_cancel_btn").click(function () {
+		closePopUp("#overlay_blog",".popup_blog");
+	});
+
 	$("#end").click(function() {
 		closePopUp("#overlay_flux",".popup_flux");
 		$(".pop_add_flux").addClass("hide");

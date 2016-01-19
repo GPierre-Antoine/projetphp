@@ -17,35 +17,13 @@ class ConfirmationController extends Controller {
     public function update() {
 
         $key = $_POST['code'];
-        $mail = $_POST['mail'];
-
-        $stmt = $this->model->recup_key_inscription($mail);
-
         echo "test";
 
-        $stmt->fetch();
 
-        if($stmt && $data = $this->model->data_elements())
-        {
-            $keybdd = $data['TOKEN'];
-            $actif = $data['ACTIF'];
-        }
-        echo $keybdd;
-        echo $actif;
+        $this->model->test($key);
+
         echo "2";
 
-        if($actif == 1)
-            echo "Votre compte est déjà activé.";
-        else
-        {
-            if($key == $keybdd)
-            {
-                echo "Votre compte à bien été activé.";
-                $this->model->validate_inscription($mail);
-            }
-            else
-                echo "Votre compte ne peut être activé";
-        }
         /*
          $key =$this->options[0];
 
