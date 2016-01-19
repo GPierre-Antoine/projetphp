@@ -18,8 +18,8 @@ class LoginController extends Controller
     {
         if (isset($_POST['mail']) && isset($_POST['pwd'])) {
 
-            $mail = mail_strip($_POST['mail']);
-            $password = secure_strip($_POST['pwd']);
+            $mail = mail_strip(POST('mail'));
+            $password = secure_strip(POST('pwd'));
 
             $mail = $mail['mail'];
 

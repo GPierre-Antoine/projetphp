@@ -20,27 +20,47 @@ class ConfirmationModel extends ModelPDO {
     }
 
     public function get () {
-
     }
 
-     public function recup_key_inscription ($mail) {
-        $sql = $this->pdo->prepare('SELECT TOKEN,ACTIF FROM USERS WHERE ACTIF = 0 AND EMAIL = \''.$mail.'\'');
+     public function recup_key_inscription ($key) {
+        $sql = 'SELECT * FROM USERS WHERE ENABLE = 0';
          $this->pdo->query($sql);
+    }
+
+    public function data_elements($key) {
+        $sql='SELECT * FROM USERS WHERE ENABLE = 0';
+        $this->pdo->query($sql)->fetch();
 
     }
 
-    public function data_elements() {
-        $this->pdo->prepare("SELECT TOKEN,ACTIF FROM USERS WHERE ACTIF = 0 AND EMAIL= ?");
-        $this->pdo->fetch();
+    public function validate_inscription($key) {
+        $sql = 'UPDATE USERS SET ENABLE = 1 WHERE TOKEN = '. $key;
+        $this->pdo->query($sql);
     }
 
-    public function validate_inscription($mail) {
-        $this->pdo->prepare("UPDATE USERS SET ACTIF = 1 WHERE EMAIL= ?");
-        $this->pdo->execute(array($mail));
+    public function test($key){
+        if ($data = $this->data_elements($key))
+        {
+            $keybdd = $data['TOKEN'];
+            $enable = $data['ENABLE'];
+            echo $key;
+
+        }
+        if($enable == 1)
+            echo "Votre compte est déjà activé.";
+        else
+        {
+            if($key == $keybdd)
+            {
+                echo "Votre compte à bien été activé.";
+                $this->validate_inscription($key);
+            }
+            else
+                echo "Votre compte ne peut être activé";
+        }
     }
 
-    protected function getSpecific()
-    {
-        return " ";
+
+    protected function getSpecific(){
     }
 }
