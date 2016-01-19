@@ -76,7 +76,7 @@ class DefaultView extends View {
 						</div>';
 						foreach ($this->categories as $c) {
 						echo '<div id="'.$c->getName().'_panel" class="flux_Panel searchOn hide">
-									<button class="block_del_categorie noborder" onclick="deleteCategorie('.$c->getId().',"'.$c->getName().'")" type="button">Supprimer cette catégorie</button>
+									<button class="block_del_categorie noborder" onclick="deleteCategorie('.$c->getId().',\''.$c->getName().'\')" type="button">Supprimer cette catégorie</button>
 							  		<button class="default_block_panel backflux_btn noborder"><span class="flux_name">Retour</span></button>';
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
