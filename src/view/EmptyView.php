@@ -47,12 +47,12 @@ class EmptyView extends View {
         }
 
         // RSS feed favorite
-        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idFlux'])) {
+        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idRSSFeed'])) {
             if($_POST['linkImgFavorite'] == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png")
                 $value = "off";
             else
                 $value = "on";
-            $this->model->switchFavoriteFlux($value, $_POST['idFlux']);
+            $this->model->changeFavoriteRSSFeed($value, $_POST['idRSSFeed']);
             echo $value;
         }
 

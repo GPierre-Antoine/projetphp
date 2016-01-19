@@ -48,7 +48,7 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     } // addCategory()
 
-    public function switchFavoriteFlux($value, $idFlux) {
+    public function changeFavoriteRSSFeed($value, $idFlux) {
         $sql = "null" ;
         if ($value == "off") {
             $sql = 'UPDATE FLUX SET ISFAVORITE = 1 WHERE ID = ' . $idFlux;
