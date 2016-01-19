@@ -61,7 +61,7 @@ class DefaultView extends View {
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" value="'.$c->getName().'"></button>
+								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" onclick="inputCheckbox()" value="'.$c->getName().'"></button>
 							';
 							}
 						echo '

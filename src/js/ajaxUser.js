@@ -336,4 +336,11 @@ function deleteCategorie($object) {
     xhr.send("catToDelete="+JSON.stringify(tab));
 } // deleteCategorie()
 
+
+function inputCheckbox(){
+    event.stopPropagation();
+} // inputCheckbox()
+
+
 ///////////////////////~OPTIONS IN MENU////////////////////////
+
