@@ -49,14 +49,14 @@ class DefaultView extends View {
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
 						<div class="top_user"><button class="top_user_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
-						<button class="top_preference_btn noborder" type="button"></button>
+						<button class="top_deconnection_btn noborder" type="button"></button>
 					</div>
 
 					<!-- LEFT SIDE -->
 					<div id="menu">
 			        	<div id="LTBar">
 							<input id="searchInput" name="search" type="search" placeholder="Recherche"/>
-							<a href="#" onclick="javascript:;" class="imageButton search_btn"></a>
+							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
@@ -97,7 +97,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a>
+							<button class="addF_btn noborder" type="button"></button>
 						</div>
 			    	</div>
 
