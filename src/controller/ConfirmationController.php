@@ -16,9 +16,7 @@ class ConfirmationController extends Controller {
 
     public function update() {
 
-        $key = $_POST['code'];
-        echo "test";
-
+        $key = POST('code');
 
         $this->model->test($key);
 
