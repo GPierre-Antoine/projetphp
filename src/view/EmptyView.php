@@ -85,6 +85,10 @@ class EmptyView extends View {
             $res = $rep = $this->model->catToDelete($_POST['catToDelete']);
             echo $res;
         }
+
+        else if (isset($_POST['idRSSFeedToDeleteOfACategory']) && isset($_POST['idCategory'])) {
+            $this->model->RSSFeedToDeleteOfACategory($_POST['idRSSFeedToDeleteOfACategory'],$_POST['idCategory']);
+        }
         ////////////////////////////////////////////////////~DELETE//////////////////////////////////////////////////////
 
 

@@ -123,6 +123,11 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
         return $sql;
     } // catToDelete() : delete a category of current user
+
+    public function RSSFeedToDeleteOfACategory($idRSSFeed,$idCategory) {
+        $sql = 'DELETE FROM FLUX_ASSOC WHERE IDFLUX='.$idRSSFeed.' AND IDCATE='.$idCategory;
+        $this->pdo->query($sql);
+    } // RSSFeedToDeleteOfACategory() : delete a RSSFeed of a category of current user
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
     public function refresh() {
