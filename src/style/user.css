@@ -583,8 +583,12 @@ img[src="#"] {
 	float: right;
 }
 
-#F_blog input, #F_cancel_btn  {
+#F_blog #F_cancel_btn  {
 	background-color: #2980b9;
+}
+
+#F_blog #add_article  {
+	background-color: #f39c12;
 }
 
 .writting_zone_text .small_input {
