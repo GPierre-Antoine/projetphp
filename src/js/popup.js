@@ -37,7 +37,6 @@ $(function() {
 
 	$("#begin").click(function() {
 		var impSelect = $("#selector :selected").val();
-		console.log(impSelect);
 		if (impSelect == "pop_add_categorie") {
 			$(".pop_add_flux").addClass("hide");
 			$(".pop_add_friend").addClass("hide");

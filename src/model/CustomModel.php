@@ -44,7 +44,7 @@ class CustomModel extends ModelPDO {
 
     public function addCategory($categorieToAdd) {
         if(!isset($categorieToAdd[1]))return;
-        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[1]."','" . $categorieToAdd[2] . "')";
+        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[0]."','" . $categorieToAdd[1] . "')";
         $this->pdo->query($sql);
     } // addCategory() : add a category for the current user
 
@@ -118,12 +118,10 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     } // userToAddInFriend() : add a user in the current user friendlist
 
-    public function catToDelete($catToDelete) {
-        $sql = 'DELETE FROM ARTICLE WHERE IDUSER=' . $_SESSION['id'];
-        foreach($catToDelete as $value) {
-            $sql += ' AND NAME = "' . $value . '"';
-        }
+    public function catToDelete($idCatDelete) {
+        $sql = 'DELETE FROM CATEGORIE WHERE ID = '.$idCatDelete.' AND IDUSER=' . $_SESSION['ID'];
         $this->pdo->query($sql);
+        return $sql;
     } // catToDelete() : delete a category of current user
     //////////////////////////////////~FOR A USER//////////////////////////////////
 

@@ -38,9 +38,8 @@ class EmptyView extends View {
         }
 
         // Categorie
-        else if(isset($_POST['idUserCategorie']) && isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
+        else if(isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
             $tab = array();
-            array_push($tab,$_POST['idUserCategorie']);
             array_push($tab,$_POST['nameCategorie']);
             array_push($tab,$_POST['colorCategorie']);
             $this->model->addCategory($tab);
@@ -83,8 +82,8 @@ class EmptyView extends View {
 
         //////////////////////////////////////////////////////DELETE//////////////////////////////////////////////////////
         else if(isset($_POST['catToDelete'])) {
-            $data   =    json_decode($_POST['catToDelete']);
-            //$this->model->catToDelete($data);
+            $res = $rep = $this->model->catToDelete($_POST['catToDelete']);
+            echo $res;
         }
         ////////////////////////////////////////////////////~DELETE//////////////////////////////////////////////////////
 

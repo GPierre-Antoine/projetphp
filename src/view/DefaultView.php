@@ -49,19 +49,19 @@ class DefaultView extends View {
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
 						<div class="top_user"><button class="top_user_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
-						<button class="top_preference_btn noborder" type="button"></button>
+						<button class="top_deconnection_btn noborder" type="button"></button>
 					</div>
 
 					<!-- LEFT SIDE -->
 					<div id="menu">
 			        	<div id="LTBar">
 							<input id="searchInput" name="search" type="search" placeholder="Recherche"/>
-							<a href="#" onclick="javascript:;" class="imageButton search_btn"></a>
+							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" onclick="inputCheckbox()" value="'.$c->getName().'"></button>
+								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'</button>
 							';
 							}
 						echo '
@@ -76,7 +76,7 @@ class DefaultView extends View {
 						</div>';
 						foreach ($this->categories as $c) {
 						echo '<div id="'.$c->getName().'_panel" class="flux_Panel searchOn hide">
-									<button class="block_del_categorie noborder" onclick="deleteCategorie('.$c->getId().')" type="button">Supprimer cette catégorie</button>
+									<button class="block_del_categorie noborder" onclick="deleteCategorie('.$c->getId().',\''.$c->getName().'\')" type="button">Supprimer cette catégorie</button>
 							  		<button class="default_block_panel backflux_btn noborder"><span class="flux_name">Retour</span></button>';
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
@@ -91,13 +91,13 @@ class DefaultView extends View {
 								foreach($c->getFlux() as $in) {
 									if ($in->isFavorite() == false) continue;
                                     $rgb = hex2rgb($c->getColor());
-									echo '<button class="default_block_panel flux" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
+									echo '<button class="default_block_panel noborder flux" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
 								}
 							}
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn noborder" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn noborder" type="button"></button>
+							<button class="addF_btn noborder" type="button"></button>
 						</div>
 			    	</div>
 
@@ -148,24 +148,14 @@ class DefaultView extends View {
 			    	<!-- END PAGE CONTENT -->
 
 			    	<!-- PREFERENCE -->
-			    	<div id="user_preference" class="hide">
-			    	    <div class="user_preference_top">
-                            <span class="user_preference_top_title">Préférences</span><button id="close_user_preference" class="user_preference_top_btn"></button>
-                        </div>
-                    	   <div class="user_preference_rest">
-                            <button class="user_preference_rest_btn" type="button">Options personnelles</button>
-                            <button class="user_preference_rest_btn" type="button">Options Aaron</button>
-                            <button id="user_deconnection" class="user_preference_rest_btn" type="button">Déconnexion</button>
-                        </div>
-			    	</div>
-
 			    	<div id="user_information" class="hide">
 			    		<div class="user_information_top">
                             <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><div class="user_information_top_foll"><img alt="Personnes qui vous suit" src="/src/images/follower.png">'.$this->user->getNbFollowers().'<img alt="Personnes que vous suivez" src="/src/images/follow.png">'.$this->user->getNbFollows().'</div><span class="user_information_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div class="user_information_rest">
-			    			<button class="actu_btn user_information_rest_btn" type="button">Actualités</button>
-							<button class="blog_btn user_information_rest_btn" type="button">Mon blog</button>
+			    			<button class="actu_btn user_information_rest_btn noborder" type="button">Actualités</button>
+							<button class="blog_btn user_information_rest_btn noborder" type="button">Mon blog</button>
+							<button class="user_information_rest_btn noborder" type="button">Options personnelles</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
@@ -232,6 +222,17 @@ class DefaultView extends View {
 			        		</div>
 			        	</div>
 			        </div>
+
+			        <!-- POP-UP WARNING -->
+			        <div id="overlay_warning" class="overlay"></div>
+			        <div id="popup_warning" class="popup_warning">
+			        	<div id="warning_zone">
+			        		<h1>Attention, êtes-vous sur de ce que vous faites ?</h1>
+							<div class="warning_zone_categorie hide">
+							</div>
+			        	</div>
+			        </div>
+
 			        <!-- END POP-UP -->
 
 				</body>

@@ -71,6 +71,7 @@ function addCategory($object) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 xhr.responseText;
+                    location.reload();
             }
             else {
                 alert("probleme");
@@ -81,16 +82,15 @@ function addCategory($object) {
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("idUserCategorie=3&nameCategorie="+tab[0]+"&colorCategorie="+tab[1]);
-
-    //AUTO REFRESH THE NEW CATEGORIE
-    var title = tab[0];
-    var color = tab[1];
-
-    var newCategorie = '<button class="categorie default_block_panel" type="button" style="background-color:'+color+';" value="'+title+'">'+title+'<input class="hide" type="checkbox" name="categorie" value="'+title+'"></button>';
-    document.getElementById('categorie_panel').innerHTML += newCategorie;
+    if(!tab[0].match(/^[a-zA-Z0-9][a-zA-Z0-9 ]+/)) {
+        $("#popup_flux .pop_add_categorie").innerHTML = "test"
+    }
+    else
+    {
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("nameCategorie=" + tab[0] + "&colorCategorie=" + tab[1]);
+    }
 } // addCategory()
 
 function addRSSFeedCategoryUser($object) {
@@ -114,7 +114,9 @@ function addRSSFeedCategoryUser($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
+                location.reload();
+
             }
             else {
                 alert("probleme");
@@ -189,7 +191,7 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$name,$red,$green,$blue) {
             if (xhr.status == 200) {
                 if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
                     $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                    var newFavorite = '<button class="default_block_panel flux" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
+                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
                     document.getElementById('favorite_panel').innerHTML += newFavorite;
                 }
                 else {
@@ -293,7 +295,7 @@ function searchUser($object) {
 /////////////////////////~FRIEND/////////////////////////
 
 ////////////////////////OPTIONS IN MENU////////////////////////
-function deleteCategorie($object) {
+function deleteCategorie($idCatDelete,$nameCatDelete) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -314,33 +316,71 @@ function deleteCategorie($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
+                location.reload();
             }
             else {
                 alert("probleme");
             }
         }
     };
+    var idCateToDelete = $nameCatDelete+"_panel";
     var tab = new Array();
-    $("#categorie_panel .default_block_panel #checkbox").each(function () {
-            if($(this).is(':checked') == true)
-                tab.push($(this).val());
-            else
-                console.log("pas ok");
-
+    $("#"+idCateToDelete+" .flux").each(function () {
+        tab.push($(this).val());
     });
-    tab.push('test');
-    tab.push('test');
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("catToDelete="+JSON.stringify(tab));
+    if(tab.length != 0) {
+        $("#overlay_warning").css({"display":"block", opacity:0});
+        $("#overlay_warning").fadeTo(200,0.5);
+        $("#popup_warning").fadeTo(200,1);
+        //Affichage la zone ou tu vas écrire
+        $(".warning_zone_categorie").removeClass("hide");
+        document.getElementById("warning_zone").childNodes[3].innerHTML = "<h2>Vous êtes sur le point de supprimer les flux suivant contenus dans la catégorie "+$nameCatDelete+" : </h2><br/>";
+        for (i = 0; i < tab.length; ++i) {
+            document.getElementById("warning_zone").childNodes[3].innerHTML += " - " +tab[i]+"<br/>";
+        }
+        document.getElementById("warning_zone").innerHTML += '<button class="action_btn" type="button" onclick="deleteCategorieRSSFeedIn('+$idCatDelete+')">Je suis sûr(e)</button><button class="action_btn" type="button" >Euh non</button>';
+    } // If RSS Feed in my category
+    else {
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("catToDelete=" + $idCatDelete);
+    } // Else no RSS Feed in my category
 } // deleteCategorie()
 
-
-function inputCheckbox(){
-    event.stopPropagation();
-} // inputCheckbox()
-
+function deleteCategorieRSSFeedIn($idCatDelete) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                xhr.responseText;
+                location.reload();
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST", "/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("catToDelete=" + $idCatDelete);
+}
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
 
