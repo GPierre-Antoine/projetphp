@@ -691,5 +691,9 @@ img[src="#"] {
 /* MESSAGE AIDE */
 
 .error_categorie_name {
-
+	margin-top: 5px;
+	display: inline-block;
+	font-size: 15px;
+	color: chocolate;
+	font-weight: bold;
 }
