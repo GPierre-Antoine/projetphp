@@ -69,7 +69,7 @@ class DefaultView extends View {
 						<div id="friend_panel" class="searchOn hide"> ';
 							foreach ($this->friends as $f) {
 							echo '
-								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'</button>
+								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'<img onclick="deleteFriend('.$f->getId().')" class="flux_with_image" src="src/images/del_btn.png"></button>
 							';
 							}
 						echo '
@@ -81,7 +81,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button onclick="focusToThisRSSFeed(\''.$in->getUrl().'\')" class="default_block_panel flux noborder" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="changeFavoriteRSSFeed(this,'.$in->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button onclick="focusToThisRSSFeed(\''.$in->getUrl().'\')" class="default_block_panel flux noborder" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="deleteFlux('.$in->getId().','.$c->getId().')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,'.$in->getId().','.$c->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -172,7 +172,7 @@ class DefaultView extends View {
 			        			<option value="pop_add_friend">Suivre une personne</option>
 			        		</select>
 			        		<div class="selector_button">
-			        			<button id="begin" type="button">Commencer</button><button id="end" type="button">Annuler</button>
+			        			<button id="begin" type="button" class="noborder">Commencer</button><button id="end" type="button" class="noborder">Annuler</button>
 			        		</div>
 			        	</div>
 			        	<div class="pop_add pop_add_categorie hide">
@@ -180,7 +180,7 @@ class DefaultView extends View {
 			        		<form id="F_categorie"  method="post">
 								<input class="smallInput actionnable_lb" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
-					    		<input id="add_categorie" class="smallInput" onclick ="addCategory(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_categorie">Annuler</button>
+					    		<input id="add_categorie" class="smallInput" onclick ="addCategory(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_categorie">Effacer</button>
 							</form>
 			        	</div>
 			            <div class="pop_add pop_add_flux hide">
@@ -189,7 +189,7 @@ class DefaultView extends View {
 								<input class="smallInput actionnable_fl" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_fl" name="categorie" type="text" placeholder="Categorie" required/>
 					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
-					    		<input class="smallInput" name="submit" type="button" onclick="addRSSFeedCategoryUser(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
+					    		<input class="smallInput" name="submit" type="button" onclick="addRSSFeedCategoryUser(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Effacer</button>
 							</form>
 						</div>
 						<div class="pop_add pop_add_mail hide">
@@ -217,7 +217,7 @@ class DefaultView extends View {
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
-			        				<button id="add_article" class="action_btn noborder" type="button" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        				<button id="add_article" class="action_btn noborder" type="submit" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>
