@@ -71,7 +71,7 @@ function addCategory($object) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 xhr.responseText;
-                location.reload();
+                    location.reload();
             }
             else {
                 alert("probleme");
@@ -82,9 +82,15 @@ function addCategory($object) {
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("nameCategorie="+tab[0]+"&colorCategorie="+tab[1]);
+    if(!tab[0].match(/^[a-zA-Z0-9][a-zA-Z0-9 ]+/)) {
+        $("#popup_flux .pop_add_categorie").innerHTML = "test"
+    }
+    else
+    {
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("nameCategorie=" + tab[0] + "&colorCategorie=" + tab[1]);
+    }
 } // addCategory()
 
 function addRSSFeedCategoryUser($object) {
@@ -185,7 +191,7 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$name,$red,$green,$blue) {
             if (xhr.status == 200) {
                 if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
                     $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                    var newFavorite = '<button class="default_block_panel flux" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
+                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
                     document.getElementById('favorite_panel').innerHTML += newFavorite;
                 }
                 else {
