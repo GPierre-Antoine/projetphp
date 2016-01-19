@@ -20,8 +20,8 @@ body {
 	background-color: green;
 }
 
-/*CALC IMAGE*/
-button {
+/* NO BORDER BUTTON */
+.noborder {
 	border: none;
 }
 

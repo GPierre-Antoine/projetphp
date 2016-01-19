@@ -49,7 +49,7 @@ class DefaultView extends View {
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
 						<div class="top_user"><button class="top_user_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
-						<button class="top_preference_btn" type="button"></button>
+						<button class="top_preference_btn noborder" type="button"></button>
 					</div>
 
 					<!-- LEFT SIDE -->
@@ -61,7 +61,7 @@ class DefaultView extends View {
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" onclick="inputCheckbox()" value="'.$c->getName().'"></button>
+								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" onclick="inputCheckbox()" value="'.$c->getName().'"></button>
 							';
 							}
 						echo '
@@ -69,7 +69,7 @@ class DefaultView extends View {
 						<div id="friend_panel" class="searchOn hide"> ';
 							foreach ($this->friends as $f) {
 							echo '
-								<button class="friend default_block_panel" value="'.$f->getName().'" type="button">'.$f->getName().'</button>
+								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'</button>
 							';
 							}
 						echo '
@@ -103,15 +103,15 @@ class DefaultView extends View {
 			    	<!-- PAGE CONTENT -->
 			    	<div id="page">
 			    		<div id="leftSmallMenu">
-			    			<button class="menu_btn close_btn" type="button"></button>
-			    			<button class="menu_btn open_btn" type="button"></button>
-			    			<button class="menu_btn all_btn" type="button"></button>
-			    			<button class="menu_btn favorite_btn" type="button"></button>
-			    			<button class="menu_btn friend_btn" type="button"></button>
+			    			<button class="menu_btn noborder close_btn" type="button"></button>
+			    			<button class="menu_btn noborder open_btn" type="button"></button>
+			    			<button class="menu_btn noborder all_btn" type="button"></button>
+			    			<button class="menu_btn noborder favorite_btn" type="button"></button>
+			    			<button class="menu_btn noborder friend_btn" type="button"></button>
 			    			<div class="menu_btn"></div>
-			    			<button class="menu_btn write_btn" type="button"></button>
-			    			<button class="menu_btn blog_btn" type="button"></button>
-			    			<button class="menu_btn actu_btn" type="button"></button>
+			    			<button class="menu_btn noborder write_btn" type="button"></button>
+			    			<button class="menu_btn noborder blog_btn" type="button"></button>
+			    			<button class="menu_btn noborder actu_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">
@@ -226,7 +226,7 @@ class DefaultView extends View {
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
-			        				<button id="add_article" class="action_btn" type="button" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn" type="reset" form="F_blog">Annuler</button>
+			        				<button id="add_article" class="action_btn noborder" type="button" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>
