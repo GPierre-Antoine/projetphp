@@ -281,7 +281,7 @@ function deleteFlux($idRSSFeed,$idCategory) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("idRSSFeedToDeleteOfACategory="+$idRSSFeed+"&idCategory"+$idCategory);
+    xhr.send("idRSSFeedToDeleteOfACategory="+$idRSSFeed+"&idCategory="+$idCategory);
 } // deleteFlux()
 ////////////////////////////~FLUX//////////////////////////////
 
@@ -414,7 +414,7 @@ function deleteCategorieRSSFeedIn($idCatDelete) {
     xhr.open("POST", "/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("catToDelete=" + $idCatDelete);
-}
+} // deleteCategorieRSSFeedIn()
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
 
