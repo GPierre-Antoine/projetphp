@@ -320,10 +320,17 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
     var tab = new Array();
     $("#"+idCateToDelete+" .flux").each(function () {
         tab.push($(this).val());
-        alert("Je push ça : "+$(this).val())
     });
     if(tab.length != 0) {
-
+        $("#overlay_warning").css({"display":"block", opacity:0});
+        $("#overlay_warning").fadeTo(200,0.5);
+        $("#popup_warning").fadeTo(200,1);
+        //Affichage la zone ou tu vas écrire
+        $(".warning_zone_categorie").removeClass("hide");
+        $(".warning_zone_categorie").innerHTML = "";
+        for (i = 0; i < tab.length; i++) {
+            $(".warning_zone_categorie").innerHTML += " test : " +tab[i];
+        }
     } // If RSS Feed in my category
     else {
         xhr.open("POST", "/ajx", true);
@@ -339,12 +346,6 @@ function inputCheckbox(){
 
 function deleteCategorieRSSFeedIn() {
     //AFFICHE LA POP-UP
-    $("#overlay_warning").css({"display":"block", opacity:0});
-    $("#overlay_warning").fadeTo(200,0.5);
-    $("#popup_warning").fadeTo(200,1);
-
-    //Affichage la zone ou tu vas écrire
-    $(".warning_zone_categorie").removeClass("hide");
 
 }
 
