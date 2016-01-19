@@ -108,7 +108,9 @@ function addRSSFeedCategoryUser($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
+                location.reload();
+
             }
             else {
                 alert("probleme");
@@ -309,7 +311,7 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 xhr.responseText;
-                //location.reload();
+                location.reload();
             }
             else {
                 alert("probleme");
@@ -327,10 +329,11 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
         $("#popup_warning").fadeTo(200,1);
         //Affichage la zone ou tu vas écrire
         $(".warning_zone_categorie").removeClass("hide");
-        $(".warning_zone_categorie").innerHTML = "";
-        for (i = 0; i < tab.length; i++) {
-            $(".warning_zone_categorie").innerHTML += " test: " +tab[i];
+        document.getElementById("warning_zone").childNodes[3].innerHTML = "<h2>Vous êtes sur le point de supprimer les flux suivant contenus dans la catégorie "+$nameCatDelete+" : </h2><br/>";
+        for (i = 0; i < tab.length; ++i) {
+            document.getElementById("warning_zone").childNodes[3].innerHTML += " - " +tab[i]+"<br/>";
         }
+        document.getElementById("warning_zone").innerHTML += '<button class="action_btn" type="button" onclick="deleteCategorieRSSFeedIn('+$idCatDelete+')">Je suis sûr(e)</button><button class="action_btn" type="button" >Euh non</button>';
     } // If RSS Feed in my category
     else {
         xhr.open("POST", "/ajx", true);
@@ -344,9 +347,38 @@ function inputCheckbox(){
     event.stopPropagation();
 } // inputCheckbox()
 
-function deleteCategorieRSSFeedIn() {
-    //AFFICHE LA POP-UP
-
+function deleteCategorieRSSFeedIn($idCatDelete) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                xhr.responseText;
+                location.reload();
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST", "/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("catToDelete=" + $idCatDelete);
 }
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
