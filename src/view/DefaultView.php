@@ -61,7 +61,7 @@ class DefaultView extends View {
 						<div id="categorie_panel" class="searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
-								<button class="categorie default_block_panel" onclick="inputButton(this)" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input class="hide" onclick="inputCheckbox(this)" type="checkbox" name="categorie" value="'.$c->getName().'"></button>
+								<button class="categorie default_block_panel" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'<input id="checkbox" class="hide" type="checkbox" name="categorie" value="'.$c->getName().'"></button>
 							';
 							}
 						echo '
@@ -80,7 +80,7 @@ class DefaultView extends View {
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button onclick="switchFluxTo(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,'.$in->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button onclick="focusToThisRSSFeed(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="fluxFavorite(this,'.$in->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -96,7 +96,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" type="button"></button>
+							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" onclick="deleteCategorie(this)"type="button"></button>
 						</div>
 			    	</div>
 
@@ -198,7 +198,7 @@ class DefaultView extends View {
 								<input class="smallInput actionnable_fl" name="name" type="text" placeholder="Nom" required/>
 								<input class="smallInput actionnable_fl" name="categorie" type="text" placeholder="Categorie" required/>
 					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
-					    		<input class="smallInput" name="submit" type="button" onclick="addFlux(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
+					    		<input class="smallInput" name="submit" type="button" onclick="addRSSFeedCategoryUser(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Annuler</button>
 							</form>
 						</div>
 						<div class="pop_add pop_add_mail hide">

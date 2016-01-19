@@ -13,20 +13,21 @@ class EmptyView extends View {
     }// UserView
 
     public function display() {
-        // Activation/Désactivation/Suppression d'un user par l'admin
+        //////////////////////////////////////////////////////ADMIN//////////////////////////////////////////////////////
         if(isset($_POST['enableOrDisable'])) {
             $task = substr($_POST['enableOrDisable'],0,3);  // ena ou dis
             $idUser = substr($_POST['enableOrDisable'],3); // ex : 69
             if($task == "del") {
                 $this->model->deleteUser($idUser);
-                echo "je passe ici : " . $idUser;
-            } // Si del alors je supprime l'user sinon je l'active ou je le désactive
+            }
             else {
                 $this->model->enableOrDisableUser($task,$idUser);
             }
-        } // if(isset($_POST['enableOrDisable'])
+        }
+        /////////////////////////////////////////////////////~ADMIN//////////////////////////////////////////////////////
 
-        // Ajouter
+        //////////////////////////////////////////////////////ADD//////////////////////////////////////////////////////
+        //Article
         else if(isset($_POST['titreArticle']) && isset($_POST['themeArticle']) && isset($_POST['urlImgArticle']) && isset($_POST['contentArticle'])) {
             $articleToAdd = array();
             array_push($articleToAdd,$_POST['titreArticle']);
@@ -34,7 +35,9 @@ class EmptyView extends View {
             array_push($articleToAdd,$_POST['urlImgArticle']);
             array_push($articleToAdd,$_POST['contentArticle']);
             $this->model->addArticle($articleToAdd);
-        } // else if(isset($_POST['titreArticle']) && isset($_POST['themeArticle']) && isset($_POST['urlImgArticle']) && isset($_POST['contentArticle']))
+        }
+
+        // Categorie
         else if(isset($_POST['idUserCategorie']) && isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
             $tab = array();
             array_push($tab,$_POST['idUserCategorie']);
@@ -42,31 +45,50 @@ class EmptyView extends View {
             array_push($tab,$_POST['colorCategorie']);
             $this->model->addCategory($tab);
         }
-        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idImg'])) {
+
+        // RSS feed favorite
+        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idFlux'])) {
             if($_POST['linkImgFavorite'] == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png")
                 $value = "off";
             else
                 $value = "on";
-            $this->model->switchFavoriteFlux($value, $_POST['idImg']);
+            $this->model->switchFavoriteFlux($value, $_POST['idFlux']);
             echo $value;
+        }
 
-        }
-        else if(isset($_POST['urlFlux'])) {
-            $rep = $this->model->createFluxAndDisplay($_POST['urlFlux']);
-            echo $rep;
-        }
+        // Add a RSS feed to a category for a user
         else if(isset($_POST['nameFluxAdd']) && isset($_POST['nameCategorieToAdd']) && isset($_POST['urlFluxAdd'])) {
-            $this->model->addFlux($_POST['nameFluxAdd'],$_POST['nameCategorieToAdd'],$_POST['urlFluxAdd']);
+            $this->model->addRSSFeedCategoryUser($_POST['nameFluxAdd'],$_POST['nameCategorieToAdd'],$_POST['urlFluxAdd']);
         }
 
-        else if(isset($_POST['userToFind'])) {
-            $rep = $this->model->userToDisplay($_POST['userToFind']);
-            echo $rep;
-        }
-
+        // Add a user in friendlist
         else if(isset($_POST['userToAddInFriend'])) {
             $this->model->userToAddInFriend($_POST['userToAddInFriend']);
         }
+        /////////////////////////////////////////////////////~ADD//////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////OPTIONS//////////////////////////////////////////////////////
+        //Focus to the specific rss feed
+        else if(isset($_POST['urlToFocus'])) {
+            $rep = $this->model->focusToThisRSSFeed($_POST['urlToFocus']);
+            echo $rep;
+        }
+
+        //Find the user
+        else if(isset($_POST['userToFind'])) {
+            $rep = $this->model->userToFindAndToDisplay($_POST['userToFind']);
+            echo $rep;
+        }
+        /////////////////////////////////////////////////////~OPTIONS//////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////DELETE//////////////////////////////////////////////////////
+        else if(isset($_POST['catToDelete'])) {
+            $data   =    json_decode($_POST['catToDelete']);
+            //$this->model->catToDelete($data);
+        }
+        ////////////////////////////////////////////////////~DELETE//////////////////////////////////////////////////////
+
+
     }
 
 }

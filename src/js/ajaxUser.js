@@ -2,6 +2,7 @@
  * Created by g13003750 on 13/01/16.
  */
 
+//////////////////////////////ADD//////////////////////////////
 function addArticle($object) {
     var xhr;
     try {
@@ -90,9 +91,82 @@ function addCategory($object) {
 
     var newCategorie = '<button class="categorie default_block_panel" type="button" style="background-color:'+color+';" value="'+title+'">'+title+'<input class="hide" type="checkbox" name="categorie" value="'+title+'"></button>';
     document.getElementById('categorie_panel').innerHTML += newCategorie;
-} // addCategory
+} // addCategory()
 
-function fluxFavorite($object,$id,$name,$red,$green,$blue) {
+function addRSSFeedCategoryUser($object) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    var tab = new Array();
+    $("#F_flux .actionnable_fl").each(function () {
+        tab.push($(this).val());
+    });
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("nameFluxAdd="+tab[0]+"&nameCategorieToAdd="+tab[1]+"&urlFluxAdd="+tab[2]);
+}// addRSSFeedCategoryUser()
+
+function addFriend($idFriend) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                alert(xhr.responseText);
+
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("userToAddInFriend="+$idFriend);
+} // addFriend()
+/////////////////////////////~ADD//////////////////////////////
+
+/////////////////////////////FLUX//////////////////////////////
+function fluxFavorite($object,$idFlux,$name,$red,$green,$blue) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -134,10 +208,10 @@ function fluxFavorite($object,$id,$name,$red,$green,$blue) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("linkImgFavorite="+$object.src+"&idImg="+$id);
-}
+    xhr.send("linkImgFavorite="+$object.src+"&idFlux="+$idFlux);
+} // fluxFavorite()
 
-function switchFluxTo($url) {
+function focusToThisRSSFeed($url) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -171,55 +245,11 @@ function switchFluxTo($url) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("urlFlux="+$url);
-}
+    xhr.send("urlToFocus="+$url);
+} // focusToThisRSSFeed()
+////////////////////////////~FLUX//////////////////////////////
 
-function addFlux($object) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    var tab = new Array();
-    $("#F_flux .actionnable_fl").each(function () {
-        tab.push($(this).val());
-    });
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("nameFluxAdd="+tab[0]+"&nameCategorieToAdd="+tab[1]+"&urlFluxAdd="+tab[2]);
-}
-
-function inputButton($object) {
-    alert('Button was pressed;')
-}
-
-function inputCheckbox($object){
-    event.stopPropagation();
-    alert('Input was pressed;')
-}
-
+/////////////////////////FRIEND/////////////////////////
 function searchUser($object) {
     var xhr;
     try {
@@ -259,9 +289,11 @@ function searchUser($object) {
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("userToFind="+$("#F_friend .actionnable_fr").val());
-}
+} // searchUser()
+/////////////////////////~FRIEND/////////////////////////
 
-function addFriend($idFriend) {
+////////////////////////OPTIONS IN MENU////////////////////////
+function deleteCategorie($object) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -283,14 +315,25 @@ function addFriend($idFriend) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 alert(xhr.responseText);
-
             }
             else {
                 alert("probleme");
             }
         }
     };
+    var tab = new Array();
+    $("#categorie_panel .default_block_panel #checkbox").each(function () {
+            if($(this).is(':checked') == true)
+                tab.push($(this).val());
+            else
+                console.log("pas ok");
+
+    });
+    tab.push('test');
+    tab.push('test');
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("userToAddInFriend="+$idFriend);
-}
+    xhr.send("catToDelete="+JSON.stringify(tab));
+} // deleteCategorie()
+
+///////////////////////~OPTIONS IN MENU////////////////////////
