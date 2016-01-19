@@ -517,9 +517,18 @@ body {
 .default_block_panel {
 	width: 100%;
 	height: 8%;
-	margin-top: 2px;
+	margin-bottom: 2px;
 	color: white;
 	font-weight: bold;
+}
+
+.block_del_categorie {
+	width: 100%;
+	height: 5%;
+	color: red;
+	font-weight: bold;
+	border-bottom: 5px solid #c0392b;
+	border-top: 3px solid #c0392b;
 }
 
 .flux_panel {
@@ -533,6 +542,8 @@ body {
 .backflux_btn {
     background-color: #f39c12;
 	color: black;
+	height: 5%;
+	border-bottom: 5px solid #c0392b
 }
 
 .flux {

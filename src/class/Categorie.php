@@ -50,4 +50,8 @@ class Categorie
 	public function getColor() {
 		return $this->color;
 	}
+
+	public function getId() {
+		return $this->id;
+	}
 }

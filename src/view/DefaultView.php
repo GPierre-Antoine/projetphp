@@ -76,11 +76,12 @@ class DefaultView extends View {
 						</div>';
 						foreach ($this->categories as $c) {
 						echo '<div id="'.$c->getName().'_panel" class="flux_Panel searchOn hide">
-							  		<button class="default_block_panel backflux_btn"><span class="flux_name">Retour</span></button>';
+									<button class="block_del_categorie noborder" onclick="deleteCategorie('.$c->getId().')" type="button">Supprimer cette catégorie</button>
+							  		<button class="default_block_panel backflux_btn noborder"><span class="flux_name">Retour</span></button>';
 							foreach($c->getFlux() as $in) {
 								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
                                 $rgb = hex2rgb($c->getColor());
-							  echo '<button onclick="focusToThisRSSFeed(\''.$in->getUrl().'\')" class="default_block_panel flux" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="changeFavoriteRSSFeed(this,'.$in->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
+							  echo '<button onclick="focusToThisRSSFeed(\''.$in->getUrl().'\')" class="default_block_panel flux noborder" value="'.$in->getName().'" type="button" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);"><span class="flux_name">'.$in->getName().'</span><img onclick="changeFavoriteRSSFeed(this,'.$in->getId().',\''.$in->getName().'\','.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].')" class="flux_with_image" src="/src/images/favorite_'.$et.'.png"></button>';
 							}
 						echo '</div>';
 						}
@@ -96,7 +97,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn" onclick="deleteCategorie(this)"type="button"></button>
+							<a href="#" onclick="javascript:;" class="addF_btn"></a><a id="removeCategorie" href="#" onclick="javascript:;" class="lessF_btn"></a><button id="cancel_deleting_cat" class="hide cancel_delete_btn noborder" type="button"></button><button id="validate_deleting_cat" class="hide validate_btn noborder" type="button"></button>
 						</div>
 			    	</div>
 
