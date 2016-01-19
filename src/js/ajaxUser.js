@@ -208,7 +208,7 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$name,$red,$green,$blue) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idFlux);
+    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idRSSFeed);
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {
@@ -336,4 +336,11 @@ function deleteCategorie($object) {
     xhr.send("catToDelete="+JSON.stringify(tab));
 } // deleteCategorie()
 
+
+function inputCheckbox(){
+    event.stopPropagation();
+} // inputCheckbox()
+
+
 ///////////////////////~OPTIONS IN MENU////////////////////////
+
