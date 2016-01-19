@@ -71,6 +71,7 @@ function addCategory($object) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 xhr.responseText;
+                location.reload();
             }
             else {
                 alert("probleme");
@@ -84,13 +85,6 @@ function addCategory($object) {
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("idUserCategorie=3&nameCategorie="+tab[0]+"&colorCategorie="+tab[1]);
-
-    //AUTO REFRESH THE NEW CATEGORIE
-    var title = tab[0];
-    var color = tab[1];
-
-    var newCategorie = '<button class="categorie default_block_panel" type="button" style="background-color:'+color+';" value="'+title+'">'+title+'<input class="hide" type="checkbox" name="categorie" value="'+title+'"></button>';
-    document.getElementById('categorie_panel').innerHTML += newCategorie;
 } // addCategory()
 
 function addRSSFeedCategoryUser($object) {
@@ -293,7 +287,7 @@ function searchUser($object) {
 /////////////////////////~FRIEND/////////////////////////
 
 ////////////////////////OPTIONS IN MENU////////////////////////
-function deleteCategorie($object) {
+function deleteCategorie($idCatDelete,$nameCatDelete) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -314,26 +308,28 @@ function deleteCategorie($object) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
+                //location.reload();
             }
             else {
                 alert("probleme");
             }
         }
     };
+    var idCateToDelete = $nameCatDelete+"_panel";
     var tab = new Array();
-    $("#categorie_panel .default_block_panel #checkbox").each(function () {
-            if($(this).is(':checked') == true)
-                tab.push($(this).val());
-            else
-                console.log("pas ok");
-
+    $("#"+idCateToDelete+" .flux").each(function () {
+        tab.push($(this).val());
+        alert("Je push ça : "+$(this).val())
     });
-    tab.push('test');
-    tab.push('test');
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("catToDelete="+JSON.stringify(tab));
+    if(tab.length != 0) {
+
+    } // If RSS Feed in my category
+    else {
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("catToDelete=" + $idCatDelete);
+    } // Else no RSS Feed in my category
 } // deleteCategorie()
 
 
@@ -341,6 +337,9 @@ function inputCheckbox(){
     event.stopPropagation();
 } // inputCheckbox()
 
+function deleteCategorieRSSFeedIn() {
+
+}
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
 

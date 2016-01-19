@@ -118,12 +118,10 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     } // userToAddInFriend() : add a user in the current user friendlist
 
-    public function catToDelete($catToDelete) {
-        $sql = 'DELETE FROM ARTICLE WHERE IDUSER=' . $_SESSION['id'];
-        foreach($catToDelete as $value) {
-            $sql += ' AND NAME = "' . $value . '"';
-        }
+    public function catToDelete($idCatDelete) {
+        $sql = 'DELETE FROM CATEGORIE WHERE ID = '.$idCatDelete.' AND IDUSER=' . $_SESSION['ID'];
         $this->pdo->query($sql);
+        return $sql;
     } // catToDelete() : delete a category of current user
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
