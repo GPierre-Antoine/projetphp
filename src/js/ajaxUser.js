@@ -169,7 +169,7 @@ function addFriend($idFriend) {
 /////////////////////////////~ADD//////////////////////////////
 
 /////////////////////////////FLUX//////////////////////////////
-function changeFavoriteRSSFeed($object,$idRSSFeed,$name,$red,$green,$blue) {
+function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,$blue) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -211,7 +211,7 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$name,$red,$green,$blue) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idRSSFeed);
+    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idRSSFeed+"&idCategory="+$idCategory);
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {

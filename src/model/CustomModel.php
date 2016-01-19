@@ -48,13 +48,13 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     } // addCategory() : add a category for the current user
 
-    public function changeFavoriteRSSFeed($value, $idRSSFeed) {
+    public function changeFavoriteRSSFeed($value, $idRSSFeed, $idCategory) {
         $sql = "null" ;
-        if ($value == "off") {
-            $sql = 'UPDATE FLUX SET ISFAVORITE = 1 WHERE ID = ' . $idRSSFeed;
+        if ($value == "on") {
+            $sql = 'UPDATE FLUX_ASSOC SET ISFAVORITE = 1 WHERE IDFLUX = ' . $idRSSFeed . ' AND IDCATE = '.$idCategory;
         }
         else {
-            $sql = 'UPDATE FLUX SET ISFAVORITE = 0 WHERE ID = ' . $idRSSFeed;
+            $sql = 'UPDATE FLUX_ASSOC SET ISFAVORITE = 0 WHERE IDFLUX = ' . $idRSSFeed . ' AND IDCATE = '.$idCategory;
         }
         $this->pdo->query($sql);
     } // changeFavoriteRSSFeed() : add or delete the current user list of his rss feed

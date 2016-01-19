@@ -46,13 +46,12 @@ class EmptyView extends View {
         }
 
         // RSS feed favorite
-        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idRSSFeed'])) {
-            if($_POST['linkImgFavorite'] == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png")
+        else if(isset($_POST['linkImgFavorite']) && isset($_POST['idRSSFeed']) && isset($_POST['idCategory'])) {
+            if($_POST['linkImgFavorite'] == "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png")
                 $value = "off";
             else
                 $value = "on";
-            $this->model->changeFavoriteRSSFeed($value, $_POST['idRSSFeed']);
-            echo $value;
+            $this->model->changeFavoriteRSSFeed($value,$_POST['idRSSFeed'],$_POST['idCategory']);
         }
 
         // Add a RSS feed to a category for a user
