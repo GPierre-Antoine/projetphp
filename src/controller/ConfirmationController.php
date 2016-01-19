@@ -16,21 +16,20 @@ class ConfirmationController extends Controller {
 
     public function update() {
 
-        $key = POST('code');
-
         $other_key = $this->options[0];
 
         $passdb = new \db\db_handler();
         $passdb->prepare("SELECT COUNT(*) AS NUMBER FROM USERS WHERE TOKEN = ?");
-        $passdb->execute($other_key);
+        $passdb->execute(array($other_key));
 
         $query = $passdb->fetch(PDO::FETCH_ASSOC);
 
-        var_dump($query);
 
-        if ($query['NUMBER'] === 1) {
+
+        if ($query['NUMBER'] === '1') {
             $passdb->prepare("UPDATE USERS SET ENABLE = 1, TOKEN = '' WHERE TOKEN = ?");
-            $passdb->execute($other_key);
+            $passdb->execute(array($other_key));
+            echo "ok !";
         }
         else {
 
@@ -43,7 +42,7 @@ class ConfirmationController extends Controller {
 
 
 
-        $this->model->test($key);
+        //$this->model->test($key);
 
 
         /*
