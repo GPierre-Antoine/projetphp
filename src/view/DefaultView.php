@@ -217,7 +217,7 @@ class DefaultView extends View {
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
-			        				<button id="add_article" class="action_btn noborder" type="button" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        				<button id="add_article" class="action_btn noborder" type="submit" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>

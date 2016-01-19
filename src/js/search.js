@@ -1,6 +1,6 @@
  $(function() {
     $("#searchInput").on('input', function() {
-        var temp = $(this).val();
+        var temp = $(this).val().toLowerCase();
         $("#menu div.searchOn button").each(function() {
             var value = $(this).attr("value");
             $(this).removeClass("hide");

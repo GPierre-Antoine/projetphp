@@ -17,9 +17,9 @@ $(function() {
 		$("#popup_blog").fadeTo(200,1);
 	});
 
-	$("#add_categorie").click(function () {
+	/*$("#add_categorie").click(function () {
 		closePopUp("#overlay_flux",".popup_flux");
-	})
+	})*/
 
 	$("#add_article").click(function () {
 		closePopUp("#overlay_blog",".popup_blog");
