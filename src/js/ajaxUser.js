@@ -82,8 +82,8 @@ function addCategory($object) {
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
-    if(!tab[0].match(/^[a-zA-Z0-9][a-zA-Z0-9 ]+/)) {
-        $("#popup_flux .pop_add_categorie").innerHTML = "test"
+    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+        document.querySelector('.pop_add_categorie').innerHTML += "<span class='error_categorie_name'>Aide : Une catégorie ne contient pas d'espace au début et elle contient que des caractères alphanumériques</span>";
     }
     else
     {
@@ -153,7 +153,8 @@ function addFriend($idFriend) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                alert(xhr.responseText);
+                xhr.responseText;
+                location.reload();
 
             }
             else {
@@ -249,6 +250,40 @@ function focusToThisRSSFeed($url) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("urlToFocus="+$url);
 } // focusToThisRSSFeed()
+
+function deleteFlux($idRSSFeed,$idCategory) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                xhr.responseText;
+                location.reload();
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("idRSSFeedToDeleteOfACategory="+$idRSSFeed+"&idCategory="+$idCategory);
+} // deleteFlux()
 ////////////////////////////~FLUX//////////////////////////////
 
 /////////////////////////FRIEND/////////////////////////
@@ -279,7 +314,7 @@ function searchUser($object) {
                 for(i = 0 ; i < displays.length ; i += 3) {
                     var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="'+displays[i+2]+'">';
                     elm += '<span class="researchResult_friend_name">'+displays[i+1]+'</span>';
-                    elm += '<button id="researchResult_friend_add" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
+                    elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
                     document.getElementById('researchResult').innerHTML += elm;
                 }
             }
@@ -292,6 +327,40 @@ function searchUser($object) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("userToFind="+$("#F_friend .actionnable_fr").val());
 } // searchUser()
+
+function deleteFriend($idFriendDelete) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                xhr.responseText;
+                location.reload();
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("idFriendDelete="+$idFriendDelete);
+} // deleteFriend()
 /////////////////////////~FRIEND/////////////////////////
 
 ////////////////////////OPTIONS IN MENU////////////////////////
@@ -380,7 +449,7 @@ function deleteCategorieRSSFeedIn($idCatDelete) {
     xhr.open("POST", "/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("catToDelete=" + $idCatDelete);
-}
+} // deleteCategorieRSSFeedIn()
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
 

@@ -38,12 +38,18 @@ class ConfirmationModel extends ModelPDO {
         $this->pdo->query($sql);
     }
 
+
+
+
     public function test($key){
         if ($data = $this->data_elements($key))
         {
+            echo "<pre>";
             $keybdd = $data['TOKEN'];
+            var_dump($keybdd);
             $enable = $data['ENABLE'];
-            echo $key;
+            var_dump($enable);
+            echo "</pre>";
 
         }
         if($enable == 1)
