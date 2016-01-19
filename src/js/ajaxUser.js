@@ -338,6 +338,13 @@ function inputCheckbox(){
 } // inputCheckbox()
 
 function deleteCategorieRSSFeedIn() {
+    //AFFICHE LA POP-UP
+    $("#overlay_warning").css({"display":"block", opacity:0});
+    $("#overlay_warning").fadeTo(200,0.5);
+    $("#popup_warning").fadeTo(200,1);
+
+    //Affichage la zone ou tu vas écrire
+    $(".warning_zone_categorie").removeClass("hide");
 
 }
 

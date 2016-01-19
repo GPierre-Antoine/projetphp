@@ -237,7 +237,7 @@ class DefaultView extends View {
 			        <div id="overlay_warning" class="overlay"></div>
 			        <div id="popup_warning" class="popup_warning">
 			        	<div id="warning_zone">
-
+							<div class="warning_zone_categorie hide"></div>
 			        	</div>
 			        </div>
 
