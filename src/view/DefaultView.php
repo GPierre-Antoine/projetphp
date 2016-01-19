@@ -148,24 +148,14 @@ class DefaultView extends View {
 			    	<!-- END PAGE CONTENT -->
 
 			    	<!-- PREFERENCE -->
-			    	<div id="user_preference" class="hide">
-			    	    <div class="user_preference_top">
-                            <span class="user_preference_top_title">Préférences</span><button id="close_user_preference" class="user_preference_top_btn"></button>
-                        </div>
-                    	   <div class="user_preference_rest">
-                            <button class="user_preference_rest_btn" type="button">Options personnelles</button>
-                            <button class="user_preference_rest_btn" type="button">Options Aaron</button>
-                            <button id="user_deconnection" class="user_preference_rest_btn" type="button">Déconnexion</button>
-                        </div>
-			    	</div>
-
 			    	<div id="user_information" class="hide">
 			    		<div class="user_information_top">
                             <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><div class="user_information_top_foll"><img alt="Personnes qui vous suit" src="/src/images/follower.png">'.$this->user->getNbFollowers().'<img alt="Personnes que vous suivez" src="/src/images/follow.png">'.$this->user->getNbFollows().'</div><span class="user_information_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div class="user_information_rest">
-			    			<button class="actu_btn user_information_rest_btn" type="button">Actualités</button>
-							<button class="blog_btn user_information_rest_btn" type="button">Mon blog</button>
+			    			<button class="actu_btn user_information_rest_btn noborder" type="button">Actualités</button>
+							<button class="blog_btn user_information_rest_btn noborder" type="button">Mon blog</button>
+							<button class="user_information_rest_btn noborder" type="button">Options personnelles</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->

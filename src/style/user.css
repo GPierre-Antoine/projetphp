@@ -166,7 +166,7 @@ body {
     height: calc(100% - 60px);
 }
 
-.user_preference_rest_btn {
+.user_information_rest_btn {
 	height: 25%;
 	width: 100%;
 	border-bottom: 1px solid #ecf0f1;
