@@ -89,6 +89,10 @@ class EmptyView extends View {
         else if (isset($_POST['idRSSFeedToDeleteOfACategory']) && isset($_POST['idCategory'])) {
             $this->model->RSSFeedToDeleteOfACategory($_POST['idRSSFeedToDeleteOfACategory'],$_POST['idCategory']);
         }
+
+        else if(isset($_POST['idFriendDelete'])) {
+            $this->model->deleteOneFriend($_POST['idFriendDelete']);
+        }
         ////////////////////////////////////////////////////~DELETE//////////////////////////////////////////////////////
 
 

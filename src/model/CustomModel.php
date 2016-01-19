@@ -128,6 +128,11 @@ class CustomModel extends ModelPDO {
         $sql = 'DELETE FROM FLUX_ASSOC WHERE IDFLUX='.$idRSSFeed.' AND IDCATE='.$idCategory;
         $this->pdo->query($sql);
     } // RSSFeedToDeleteOfACategory() : delete a RSSFeed of a category of current user
+
+    public function deleteOneFriend($idFriend) {
+        $sql = 'DELETE FROM FRIEND WHERE IDUSER ='.$_SESSION['ID'].' AND IDFRIEND ='.$idFriend;
+        $this->pdo->query($sql);
+    } // deleteOneFriend() : delete a friend of current user
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
     public function refresh() {
