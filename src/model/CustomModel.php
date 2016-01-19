@@ -44,7 +44,7 @@ class CustomModel extends ModelPDO {
 
     public function addCategory($categorieToAdd) {
         if(!isset($categorieToAdd[1]))return;
-        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[1]."','" . $categorieToAdd[2] . "')";
+        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[0]."','" . $categorieToAdd[1] . "')";
         $this->pdo->query($sql);
     } // addCategory() : add a category for the current user
 

@@ -84,7 +84,7 @@ function addCategory($object) {
     });
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("idUserCategorie=3&nameCategorie="+tab[0]+"&colorCategorie="+tab[1]);
+    xhr.send("nameCategorie="+tab[0]+"&colorCategorie="+tab[1]);
 } // addCategory()
 
 function addRSSFeedCategoryUser($object) {
