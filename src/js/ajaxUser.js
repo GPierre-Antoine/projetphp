@@ -329,7 +329,7 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
         $(".warning_zone_categorie").removeClass("hide");
         $(".warning_zone_categorie").innerHTML = "";
         for (i = 0; i < tab.length; i++) {
-            $(".warning_zone_categorie").innerHTML += " test : " +tab[i];
+            $(".warning_zone_categorie").innerHTML += " test: " +tab[i];
         }
     } // If RSS Feed in my category
     else {
