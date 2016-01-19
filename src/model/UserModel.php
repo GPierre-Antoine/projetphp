@@ -22,9 +22,12 @@ class UserModel extends ModelPDO {
 
         $id = $this->pdo->lastInsertId();
 
+
+        $new_password = encrypt($password,$token);
+
         $passdb = new \db\db_handler();
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
-        $passdb->execute(array($id,encrypt($password,$token),$token));
+        $passdb->execute(array($id,$new_password,$token));
 
 
     }
