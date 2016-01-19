@@ -208,7 +208,7 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$name,$red,$green,$blue) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idRSSFeed);
+    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idFlux);
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {

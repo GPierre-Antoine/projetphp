@@ -22,7 +22,7 @@ class CustomModel extends ModelPDO {
             $sql = "UPDATE USERS SET ENABLE = 1 WHERE ID = " . $idUser;
         }
         $this->pdo->query($sql);
-    } // enableOrDisableUser()
+    } // enableOrDisableUser() : enable or disable a user of the database
 
     public function deleteUser($idUser) {
         $sql = 'DELETE FROM FRIEND WHERE IDUSER='.$idUser.' AND IDFRIEND = '.$idUser;
@@ -33,20 +33,20 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
         $sql = 'DELETE FROM USERS WHERE ID='.$idUser;
         $this->pdo->query($sql);
-    } // deleteUser()
+    } // deleteUser() : delete a user of the database
     //////////////////////////ADMIN/////////////////////////////////
 
     //////////////////////////////////FOR A USER//////////////////////////////////
     public function addArticle($articleToAdd) {
         $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $articleToAdd[0]."','" . $articleToAdd[1]."','" . $articleToAdd[2] . "', '". $articleToAdd[3] . "')";
         $this->pdo->query($sql);
-    } // addArticle()
+    } // addArticle() : add a article for the current user
 
     public function addCategory($categorieToAdd) {
         if(!isset($categorieToAdd[1]))return;
         $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[1]."','" . $categorieToAdd[2] . "')";
         $this->pdo->query($sql);
-    } // addCategory()
+    } // addCategory() : add a category for the current user
 
     public function changeFavoriteRSSFeed($value, $idFlux) {
         $sql = "null" ;
@@ -57,7 +57,7 @@ class CustomModel extends ModelPDO {
             $sql = 'UPDATE FLUX SET ISFAVORITE = 0 WHERE ID = ' . $idFlux;
         }
         $this->pdo->query($sql);
-    } // switchFavoriteFlux()
+    } // changeFavoriteRSSFeed() : add or delete the current user list of his rss feed
 
     public function focusToThisRSSFeed($url) {
         $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT ID FROM FLUX WHERE URL = \''.$url.'\')';
