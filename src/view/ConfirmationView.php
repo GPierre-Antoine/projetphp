@@ -23,16 +23,12 @@ class ConfirmationView extends View {
 				</head>
 				<body>
 					<img class="logo" src="src/images/aaron_logo_1.png">
-					<div class="validation">
-						<form id="F_confirmation" action="confirmation" method="post">
-							<input class="code" name="code" type="text" placeholder="Code de validation" required/>
-						    <input class="submit" name="action" type="submit" value="Vérifier"/>
-						</form>
-						<p class="help">Je n\'ai pas reçu mon code d\'activation : <a class="sendCode" href="#">Renvoyer le code</a></p>
-					</div>
+					<p></p>
 				</body>
 			</html>
     	';
+
+        parent::redirect($_SERVER["SERVER_NAME"],1);
     }
 
 }

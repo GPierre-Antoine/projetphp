@@ -53,7 +53,6 @@ class LoginController extends Controller
                     $_SESSION['logged'] = true;
                     $_SESSION['ID'] = $this->model->getData('ID');
 
-                    header("Location : /");
                 }
                 else {
                     //password does not match

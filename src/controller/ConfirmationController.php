@@ -17,7 +17,7 @@ class ConfirmationController extends Controller {
     public function update() {
 
         $this->model->validate_inscription ($this->options[0]);
+        $this->model->redirect($_SERVER["SERVER_NAME"],5);
 
-        $this->model->redirect("http://aaron-aaron.alwaysdata.net/",5);
     }
 }

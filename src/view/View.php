@@ -19,4 +19,11 @@ class View {
 
     public function display() {
     }
+
+    public function redirect ($url, $time = 5)
+    {
+        header("Refresh:$time;URL=$url");
+        die();
+    }
+
 }
