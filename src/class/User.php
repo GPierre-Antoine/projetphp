@@ -74,7 +74,7 @@ class User extends ModelPDO
             $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD'],$result['SERVER'],$result['PORT']);
             $mail->connect();
             $mail->read();
-            array_push($mailbox,$mail);
+            array_push($this->mailbox,$mail);
         }
     }
 
