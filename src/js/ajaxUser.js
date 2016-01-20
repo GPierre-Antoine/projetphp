@@ -31,23 +31,85 @@ function addArticle($object) {
             }
         }
     };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
     var tab = new Array();
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
-    xhr.send("titreArticle="+tab[0]+"&themeArticle="+tab[1]+"&urlImgArticle="+tab[2]+"&contentArticle="+tab[3]);
 
-    //AUTO REFRESH THE NEW ARTICLE
-    var title = tab[0];
-    var theme = tab[1];
-    var imgurl = tab[2];
-    var content = tab[3];
+    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        !tab[2].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        !tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]$/)) {
+        if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+            document.getElementById('F_blog').childNodes[1].value = "";
+            document.getElementById('F_blog').childNodes[1].placeholder = "Mauvais format pour le titre";
+        }
+        if(!tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+            document.getElementById('F_blog').childNodes[2].value = "";
+            document.getElementById('F_blog').childNodes[2].placeholder = "Mauvais format pour le theme";
+        }
+        if(!tab[2].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+            var test = isAImage(document.getElementById('F_blog').childNodes[4].value);
+            if(!test) {
+                alert("pas ok");
+            }
 
-    var newArticle = '<div class="article"> <div class="article_zone_img" > <img class="article_img" src="'+imgurl+'" /></div><div class="article_zone_content" ><span class="article_content_inf"><span class="article_inf_title">'+title+'</span> dans <span class="article_inf_theme">'+theme+'</span></span><br/><p class="article_content">'+content+'</p></div></div>';
-    document.getElementById('content_blog').innerHTML += newArticle;
+        }
+        if(!tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]$/)) {
+            document.getElementById('F_blog').childNodes[6].value = "";
+            document.getElementById('F_blog').childNodes[6].placeholder = "tu pues * 4";
+        }
+    }
+    else {
+        xhr.open("POST","/ajx", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("titreArticle="+tab[0]+"&themeArticle="+tab[1]+"&urlImgArticle="+tab[2]+"&contentArticle="+tab[3]);
+
+        //AUTO REFRESH THE NEW ARTICLE
+        var title = tab[0];
+        var theme = tab[1];
+        var imgurl = tab[2];
+        var content = tab[3];
+
+        var newArticle = '<div class="article"> <div class="article_zone_img" > <img class="article_img" src="'+imgurl+'" /></div><div class="article_zone_content" ><span class="article_content_inf"><span class="article_inf_title">'+title+'</span> dans <span class="article_inf_theme">'+theme+'</span></span><br/><p class="article_content">'+content+'</p></div></div>';
+        document.getElementById('content_blog').innerHTML += newArticle;
+    }
 } // addArticle()
+
+function isAImage($url) {
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                return xhr.responseText;
+
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("imgToTest="+$url);
+}
 
 function addCategory($object) {
     var xhr;
