@@ -155,7 +155,7 @@ body {
 
 .user_preference_top_btn {
     float: right;
-    background: url(../images/preference_btn.png) center center no-repeat;
+    background: url('../images/preference_btn.png') center center no-repeat;
     height: 100%;
     width: 48px;
 	margin-right: 5px;
