@@ -33,6 +33,9 @@ $(document).ready(function()
 		$(".article").clearQueue().animate({
 			left : '-25%'
 		})
+		$(".content_mail_display").clearQueue().animate({
+			left : '-25%'
+		})
 	}
 
 	function closeMenu() {
@@ -46,6 +49,9 @@ $(document).ready(function()
 			left : '0'
 		})
 		$(".article").clearQueue().animate({
+			left : '0'
+		})
+		$(".content_mail_display").clearQueue().animate({
 			left : '0'
 		})
 	}

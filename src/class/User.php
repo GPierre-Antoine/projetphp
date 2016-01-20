@@ -67,11 +67,12 @@ class User extends ModelPDO
 
     public function initializeMailBox() {
         $this->mailbox = array();
-        $sql = "SELECT * FROM EMAIL WHERE IDUSER = ".$this->id;
+        $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = ".$this->id;
         $stmt = $this->pdo->query($sql);
         while ($result = $stmt->fetch())
         {
             $mailB = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD']);
+            $mailB->setServer($result['SERVER'],$result['PORT']);
             $mailB->refresh();
             $mailB->initializeMailsInside();
             array_push($this->mailbox,$mailB);

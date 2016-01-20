@@ -40,25 +40,4 @@ class DefaultModel extends ModelPDO {
     public function getParam() {
         return $this->param;
     }
-
-    public function setActive($param) {
-        //"blog"
-        if($param === "blog") {
-            $this->param = '
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $("#content_blog").removeClass("hide");
-                    $("#content_flux").addClass("hide");
-                });
-            </script>';
-        } else if($param === "flux") {
-            $this->param = '
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $("#content_blog").addClass("hide");
-                    $("#content_flux").removeClass("hide");
-                });
-            </script>';
-        }
-    }
 }

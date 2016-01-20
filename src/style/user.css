@@ -692,6 +692,61 @@ img[src="#"] {
 	padding-right: 10px;
 }
 
+/* MAIL DISPLAY */
+#content_mail {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
+
+#content_mail h1 {
+
+}
+
+.content_mail_display {
+	width: 50%;
+	height: 25%;
+	margin: auto;
+	margin-bottom: 2%;
+	position: relative;
+	left: -25%;
+	background-color: #ecf0f1;
+	border-top-right-radius: 20px;
+}
+
+.content_mail_addressfrom {
+	font-weight: bold;
+	color: #2980b9;
+}
+
+.content_mail_addressfrom a {
+	text-decoration: none;
+	color: #2980b9;
+}
+
+.content_mail_date {
+	float: right;
+	font-weight: bold;
+	margin-right: 15px;
+	color: #f39c12;
+}
+
+.content_mail_subject {
+	display: block;
+	width: 100%;
+	margin-top: 5px;
+	text-align: center;
+	font-size: 20px;
+	text-decoration: underline;
+}
+
+.content_mail_body {
+	width: 100%;
+	display: block;
+	overflow-y: auto;
+	text-align: justify;
+}
+
 /* MESSAGE AIDE */
 
 .error_categorie_name {

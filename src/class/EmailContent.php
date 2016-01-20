@@ -21,7 +21,14 @@ class EmailContent {
     }
 
     public function display() {
-        echo 'Address : '.$this->fromaddress.' |Subject : '.$this->subject.' |date : '.$this->date.' |body : '.$this->body;
+        $display = '
+            <div class="content_mail_display">
+                <span class="content_mail_addressfrom">Envoyé par : <a href="mailto:'.$this->fromaddress.'">'.$this->fromaddress.'</a></span><span class="content_mail_date"> le '.$this->date.'</span><br>
+                <span class="content_mail_subject">'.$this->subject.'</span><br>
+                <span class="content_mail_body">'.$this->body.'</span>
+            </div>
+        ';
+        return $display;
     }
 
 }
