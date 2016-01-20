@@ -46,6 +46,7 @@ class ConfirmationModel extends ModelPDO {
     public function redirect ($url, $time = 5)
     {
         header("Refresh:$time;URL=$url");
+        die();
     }
 
     protected function getSpecific(){

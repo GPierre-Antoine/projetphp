@@ -22,15 +22,18 @@ class Email {
     private $mails;
     private $pdo;
 
-    public function __construct($id,$address,$pass,$server,$port) {
+    public function __construct($id,$address,$pass) {
         $this->id = $id;
         $this->address = $address;
         $this->pass = $pass;
-        $this->server = $server;
-        $this->port = $port;
 
         $this->mails = array();
         $this->pdo = new \db\db_handler();
+    }
+
+    public function setServer($server,$port) {
+        $this->server = $server;
+        $this->port = $port;
     }
 
     public function connect() {
@@ -69,6 +72,16 @@ class Email {
 
     public function getMails() {
         return $this->mails;
+    }
+
+    public function initializeMailsInside() {
+        $sql = "SELECT * FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id;
+        $stmt = $this->pdo->query($sql);
+        while($result = $stmt->fetch())
+        {
+            $mail = new EmailContent($result['FROMADDRESS'],$result['SUBJECT'],$result['DATE'],$result['BODY']);
+            array_push($this->mails,$mail);
+        }
     }
 
 }
