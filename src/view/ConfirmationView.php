@@ -27,6 +27,8 @@ class ConfirmationView extends View {
 				</body>
 			</html>
     	';
+
+        redirect($_SERVER["SERVER_NAME"]);
     }
 
 }
