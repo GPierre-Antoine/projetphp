@@ -22,50 +22,31 @@ class ConfirmationModel extends ModelPDO {
     public function get () {
     }
 
-     public function recup_key_inscription ($key) {
-        $sql = 'SELECT * FROM USERS WHERE ENABLE = 0';
-         $this->pdo->query($sql);
-    }
+    public function validate_inscription($param){
+        $other_key = $param;
 
-    public function data_elements($key) {
-        $sql='SELECT * FROM USERS WHERE ENABLE = 0';
-        $this->pdo->query($sql)->fetch();
+        $passdb = new \db\db_handler();
+        $passdb->prepare("SELECT COUNT(*) AS NUMBER FROM USERS WHERE TOKEN = ?");
+        $passdb->execute(array($other_key));
 
-    }
+        $query = $passdb->fetch(PDO::FETCH_ASSOC);
 
-    public function validate_inscription($key) {
-        $sql = 'UPDATE USERS SET ENABLE = 1 WHERE TOKEN = '. $key;
-        $this->pdo->query($sql);
-    }
-
-
-
-
-    public function test($key){
-        if ($data = $this->data_elements($key))
-        {
-            echo "<pre>";
-            $keybdd = $data['TOKEN'];
-            var_dump($keybdd);
-            $enable = $data['ENABLE'];
-            var_dump($enable);
-            echo "</pre>";
-
+        if ($query['NUMBER'] === '1') {
+            $passdb->prepare("UPDATE USERS SET ENABLE = 1, TOKEN = '' WHERE TOKEN = ?");
+            $passdb->execute(array($other_key));
+            echo "Votre compte a bien été crée !";
         }
-        if($enable == 1)
-            echo "Votre compte est déjà activé.";
-        else
-        {
-            if($key == $keybdd)
-            {
-                echo "Votre compte à bien été activé.";
-                $this->validate_inscription($key);
-            }
-            else
-                echo "Votre compte ne peut être activé";
+        else {
+            echo "Votre compte ne peut être crée ! ";
         }
+
+        $passdb->execute(array($other_key));
     }
 
+    public function redirect ($url, $time = 5)
+    {
+        header("Refresh:$time;URL=$url");
+    }
 
     protected function getSpecific(){
     }
