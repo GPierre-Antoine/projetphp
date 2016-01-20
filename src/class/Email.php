@@ -67,4 +67,8 @@ class Email {
         }
     }
 
+    public function getMails() {
+        return $this->mails;
+    }
+
 }

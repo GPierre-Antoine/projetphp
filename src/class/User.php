@@ -15,6 +15,7 @@ class User extends ModelPDO
     private $friends;
     private $categories;
     private $articles;
+    private $mailbox;
 
 	public function __construct($id,$email,$name,$enable) {
 		$this->id = $id;
@@ -53,6 +54,19 @@ class User extends ModelPDO
         }
     }
 
+    public function initializeMails() {
+        $this->articles = array();
+        $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sql);
+        while ($result = $stmt->fetch())
+        {
+            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASS'],$result['SERVER'],$result['PORT']);
+            $mail->connect();
+            $mail->read();
+            array_push($mailBox,$mail);
+        }
+    }
+
     public function initializeArticles() {
         $this->articles = array();
         $sqlArticles = "SELECT * FROM ARTICLE WHERE IDUSER = ".$this->id;
@@ -69,8 +83,8 @@ class User extends ModelPDO
 		return $this->id;
 	}
 
-    public function getEmail() {
-        return $this->email;
+    public function getEmailBox() {
+        return $this->mailbox;
     }
 
     public function getName() {

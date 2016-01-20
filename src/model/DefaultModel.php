@@ -16,12 +16,12 @@ class DefaultModel extends ModelPDO {
 
     public function __construct() {
         parent::__construct();
-        $this->user = build_user ($_SESSION['ID']);
+        $this->user = build_user($_SESSION['ID']);
         $this->user->initializeFriends();
         $this->user->initializeCategories();
         $this->user->initializeFlux();
         $this->user->initializeArticles();
-
+        $this->user->initializeMails();
         $this->user->updateFollow();
     }
 

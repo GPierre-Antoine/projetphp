@@ -142,8 +142,11 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
-							<div id="content_mail" class="hide">
-
+							<div id="content_mail" class="hide">';
+                                foreach($this->user->getEmailBox() as $mailbox)
+                                    foreach($mailbox->getMails() as $mail)
+                                        $mail->display();
+                            echo '
 							</div>
 						</div>
 			    	</div>
