@@ -25,6 +25,7 @@ function addArticle($object) {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 xhr.responseText;
+                closePopUpAddArticle("#overlay_blog",".popup_blog");
             }
             else {
                 alert("probleme");
@@ -36,32 +37,33 @@ function addArticle($object) {
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
-
+    alert(document.getElementById('F_blog').childNodes[4].value);
+    var testImg = isAImage(document.getElementById('F_blog').childNodes[4].value);
+    alert("Test imgg : "+testImg);
     if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
-        !tab[2].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        testImg == "false" ||
         !tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]$/)) {
         if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[1].value = "";
-            document.getElementById('F_blog').childNodes[1].placeholder = "Mauvais format pour le titre";
+            document.getElementById('F_blog').childNodes[1].placeholder = "Mauvais format pour le titre 1";
         }
         if(!tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[2].value = "";
-            document.getElementById('F_blog').childNodes[2].placeholder = "Mauvais format pour le theme";
+            document.getElementById('F_blog').childNodes[2].placeholder = "Mauvais format pour le theme 2";
         }
-        if(!tab[2].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
-            var test = isAImage(document.getElementById('F_blog').childNodes[4].value);
-            if(!test) {
-                alert("pas ok");
-            }
+        if(testImg == "false") {
+            document.getElementById('F_blog').childNodes[4].value = "";
+            document.getElementById('F_blog').childNodes[4].placeholder = "Mauvais lien de l'image";
+        }
 
-        }
-        if(!tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]$/)) {
+        if(!tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[6].value = "";
-            document.getElementById('F_blog').childNodes[6].placeholder = "tu pues * 4";
+            document.getElementById('F_blog').childNodes[6].placeholder = "Mauvais commentary";
         }
     }
     else {
+        alert('je passe');
         xhr.open("POST","/ajx", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send("titreArticle="+tab[0]+"&themeArticle="+tab[1]+"&urlImgArticle="+tab[2]+"&contentArticle="+tab[3]);
@@ -77,7 +79,7 @@ function addArticle($object) {
     }
 } // addArticle()
 
-function isAImage($url) {
+function isAImage(url) {
     var xhr;
     try {
         xhr = new ActiveXObject('Msxml2.XMLHTTP');
@@ -98,7 +100,7 @@ function isAImage($url) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                return xhr.responseText;
+                return(""+xhr.responseText);
 
             }
             else {
@@ -108,8 +110,13 @@ function isAImage($url) {
     };
     xhr.open("POST","/ajx", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("imgToTest="+$url);
+    xhr.send("imgToTest="+url);
 }
+
+function closePopUpAddArticle(overlay,popup) {
+    $(overlay).fadeOut(200);
+    $(popup).css("display", "none");
+} // closePopUpAddArticle()
 
 function addCategory($object) {
     var xhr;
