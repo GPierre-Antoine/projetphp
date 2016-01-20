@@ -3,7 +3,44 @@
  */
 
 //////////////////////////////ADD//////////////////////////////
-var testImg;
+function isAImage(url) {
+    var test = "";
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                test = xhr.responseText;
+
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST","/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("imgToTest="+url);
+    if(test != "") {
+        return "true"
+    }
+}
+
 function addArticle($object) {
     var xhr;
     try {
@@ -29,7 +66,7 @@ function addArticle($object) {
                 closePopUpAddArticle("#overlay_blog",".popup_blog");
             }
             else {
-                alert("probleme");
+                alert("problemee");
             }
         }
     };
@@ -38,9 +75,8 @@ function addArticle($object) {
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
-    alert(document.getElementById('F_blog').childNodes[4].value);
-    isAImage(document.getElementById('F_blog').childNodes[4].value);
-    alert("Test imgg : "+testImg);
+    var pouet = isAImage(document.getElementById('F_blog').childNodes[4].value);
+    alert("pouet : "+pouet);
     if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         testImg == "false" ||
@@ -79,41 +115,6 @@ function addArticle($object) {
         document.getElementById('content_blog').innerHTML += newArticle;
     }
 } // addArticle()
-
-function isAImage(url) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                testImg = xhr.responseText;
-
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("imgToTest="+url);
-}
-delete testImg;
 
 function closePopUpAddArticle(overlay,popup) {
     $(overlay).fadeOut(200);
