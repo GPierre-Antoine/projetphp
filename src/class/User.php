@@ -54,19 +54,6 @@ class User extends ModelPDO
         }
     }
 
-    public function initializeMails() {
-        $this->articles = array();
-        $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE IDUSER = ".$this->id;
-        $stmt = $this->pdo->query($sql);
-        while ($result = $stmt->fetch())
-        {
-            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASS'],$result['SERVER'],$result['PORT']);
-            $mail->connect();
-            $mail->read();
-            array_push($mailBox,$mail);
-        }
-    }
-
     public function initializeArticles() {
         $this->articles = array();
         $sqlArticles = "SELECT * FROM ARTICLE WHERE IDUSER = ".$this->id;
@@ -75,6 +62,19 @@ class User extends ModelPDO
         {
             $newArticle = new Article($categorie[0],$categorie[2],$categorie[3],$categorie[4],$categorie[5]);
             array_push($this->articles,$newArticle);
+        }
+    }
+
+    public function initializeMails() {
+        $this->mailbox = array();
+        $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sql);
+        while ($result = $stmt->fetch())
+        {
+            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASS'],$result['SERVER'],$result['PORT']);
+            $mail->connect();
+            $mail->read();
+            array_push($mailbox,$mail);
         }
     }
 
