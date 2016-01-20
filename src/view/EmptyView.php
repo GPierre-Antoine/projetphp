@@ -6,6 +6,8 @@
  * Time: 16:35
  */
 
+include_once('src/util/regex.php');
+
 class EmptyView extends View {
 
     public function __construct($model) {
@@ -76,6 +78,10 @@ class EmptyView extends View {
         else if(isset($_POST['userToFind'])) {
             $rep = $this->model->userToFindAndToDisplay($_POST['userToFind']);
             echo $rep;
+        }
+
+        else if(isset($_POST['imgToTest'])) {
+            return isImageURL($_POST['imgToTest']);
         }
         /////////////////////////////////////////////////////~OPTIONS//////////////////////////////////////////////////////
 

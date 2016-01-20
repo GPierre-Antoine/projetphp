@@ -1,4 +1,5 @@
-$(function() {
+$(function() {document.getElementById('F_blog').childNodes[2].value = "";
+            document.getElementById('F_blog').childNodes[2].placeholder = "Mauvais format pour le theme";
 
 	function closePopUp($overlay,$popup) {
 		$($overlay).fadeOut(200);
