@@ -22,7 +22,6 @@ class AdminView extends View {
          echo $u->getEmail() . '<br/>';
          echo $u->getName() . '<br/>';
          echo '</div><div id="user_Footer'.$u->getID() . '" class="user_Footer">';
-          echo 'test ici : '+$u->getEnable();
          if($u->getEnable() == 1) {
             echo '<a id="ena'.$u->getID().'" onclick="enableOrDisableUser(this)" class="myButton">Disable</a>';
          }

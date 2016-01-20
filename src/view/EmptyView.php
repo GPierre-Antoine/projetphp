@@ -23,9 +23,8 @@ class EmptyView extends View {
                 $this->model->deleteUser($idUser);
             }
             else {
-                $test = $this->model->enableOrDisableUser($task,$idUser);
+                $this->model->enableOrDisableUser($task,$idUser);
             }
-            echo $test;
         }
         /////////////////////////////////////////////////////~ADMIN//////////////////////////////////////////////////////
 
