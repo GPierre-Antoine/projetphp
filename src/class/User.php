@@ -65,7 +65,19 @@ class User extends ModelPDO
         }
     }
 
-    public function initializeMails() {
+    public function initializeMailBox() {
+        $this->mailbox = array();
+        $sql = "SELECT * FROM EMAIL WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sql);
+        while ($result = $stmt->fetch())
+        {
+            $mailB = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD']);
+            $mailB->initializeMailsInside();
+            array_push($this->mailbox,$mailB);
+        }
+    }
+
+    /*public function initializeMails() {
         $this->mailbox = array();
         $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE IDUSER = ".$this->id;
         $stmt = $this->pdo->query($sql);
@@ -76,7 +88,7 @@ class User extends ModelPDO
             $mail->read();
             array_push($this->mailbox,$mail);
         }
-    }
+    }*/
 
 	//GETTERS
 	public function getID() {

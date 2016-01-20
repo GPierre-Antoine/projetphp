@@ -497,6 +497,10 @@ body {
 	background: #f39c12 url(../images/actu_btn.png) center center no-repeat;
 }
 
+#leftSmallMenu .mail_btn {
+    background: #f39c12 url(../images/mail_btn.png) center center no-repeat;
+}
+
 /* LEFT PANELS */
 #categorie_panel {
 	overflow-y: auto;
