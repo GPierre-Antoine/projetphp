@@ -32,6 +32,7 @@ $(function() {
 		closePopUp("#overlay_flux",".popup_flux");
 		$(".pop_add_flux").addClass("hide");
 		$(".pop_add_categorie").addClass("hide");
+		$(".pop_add_mail").addClass("hide");
 	});
 
 	$("#begin").click(function() {

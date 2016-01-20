@@ -56,7 +56,7 @@ class DefaultView extends View {
 							<input id="searchInput" name="search" type="search" placeholder="Recherche"/>
 							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
-						<div id="categorie_panel" class="searchOn">';
+						<div id="categorie_panel" class="panel searchOn">';
 							foreach ($this->categories as $c) {
 							echo '
 								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'</button>
@@ -64,7 +64,7 @@ class DefaultView extends View {
 							}
 						echo '
 						</div>
-						<div id="friend_panel" class="searchOn hide"> ';
+						<div id="friend_panel" class="panel searchOn hide"> ';
 							foreach ($this->friends as $f) {
 							echo '
 								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'<img onclick="deleteFriend('.$f->getId().')" class="flux_with_image" src="/src/images/del_btn.png"></button>
@@ -73,7 +73,7 @@ class DefaultView extends View {
 						echo '
 						</div>';
 						foreach ($this->categories as $c) {
-						echo '<div id="'.$c->getName().'_panel" class="flux_Panel searchOn hide">
+						echo '<div id="'.$c->getName().'_panel" class="panel flux_Panel searchOn hide">
 									<button class="block_del_categorie noborder" onclick="deleteCategorie('.$c->getId().',\''.$c->getName().'\')" type="button">Supprimer cette catégorie</button>
 							  		<button class="default_block_panel backflux_btn noborder"><span class="flux_name">Retour</span></button>';
 							foreach($c->getFlux() as $in) {
@@ -84,12 +84,12 @@ class DefaultView extends View {
 						echo '</div>';
 						}
 						echo '
-						<div id="favorite_panel" class="searchOn hide">';
+						<div id="favorite_panel" class="panel searchOn hide">';
 							foreach($this->categories as $c) {
 								foreach($c->getFlux() as $in) {
 									if ($in->isFavorite() == false) continue;
                                     $rgb = hex2rgb($c->getColor());
-									echo '<button class="default_block_panel noborder flux" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
+									echo '<button onclick="focusToThisRSSFeed(\''.$in->getUrl().'\')" class="default_block_panel noborder" type="button" value="'.$in->getName().'" style="background-color:rgba('.$rgb['red'].','.$rgb['green'].','.$rgb['blue'].',0.5);">'.$in->getName().'</button>';
 								}
 							}
 
@@ -201,6 +201,13 @@ class DefaultView extends View {
 						</div>
 						<div class="pop_add pop_add_mail hide">
 			            	<div class="sep"></div>
+			            	<form id="F_mail" method="post">
+								<input class="smallInput actionnable_ma" name="mail" type="email" placeholder="Email" required/>
+								<input class="smallInput actionnable_ma" name="pass" type="password" placeholder="Mot de passe" required/>
+								<input class="smallInput actionnable_ma" name="server" type="text" placeholder="Serveur email" required/>
+								<input class="smallInput actionnable_ma" name="port" type="number" placeholder="Port email" required/>
+					    		<input class="smallInput" name="submit" type="button" onclick="addEmail(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_mail">Effacer</button>
+							</form>
 						</div>
 						<div class="pop_add pop_add_friend hide">
 			            	<div class="sep"></div>
