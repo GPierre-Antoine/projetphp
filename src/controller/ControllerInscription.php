@@ -52,15 +52,15 @@ class ControllerInscription extends Controller {
 
                 Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
                 ou copier/coller dans votre navigateur internet.,
-                http://aaron-aaron.alwaysdata.net/confirmation/
+                http://aaron-aaron.alwaysdata.net/confirmation/$key
 
-                Vos identifiants de vérifications sont les suivants :
-                mail : $mail;
-                code : $key;
                ---------------
                Ceci est un mail automatique, Merci de ne pas y répondre.";
 
                 mail($destinataire, $sujet, $message, $entete);
+
+                echo "Un mail vous a été envoyé sur votre adresse mail, veuillez suivre les indications pour
+                continuer votre inscription.";
 
             }
             else {

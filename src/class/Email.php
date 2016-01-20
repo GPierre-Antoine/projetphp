@@ -34,11 +34,11 @@ class Email {
     }
 
     public function connect() {
-        $this->conn = imap_open('{'.$this->server.':'.$this->port.'}', $this->$address, $this->pass) or die(imap_last_error());
+        $this->conn = imap_open('{'.$this->server.':'.$this->port.'/imap/ssl}', $this->address, $this->pass) or die(imap_last_error());
     }
 
     public function read() {
-        $this->$nb_msg = imap_num_msg($this->conn);
+        $this->nb_msg = imap_num_msg($this->conn);
 
         if($this->nb_msg > 0) {
             //get from, date and subject
@@ -51,7 +51,7 @@ class Email {
             $subject = $header->subject;
             $date = $header->date;
             //read the body
-            $body = imap_body($this->conn, $this->nb_msg);
+            $body = imap_fetchbody($this->conn, $this->nb_msg, 1);
 
             //save to MySQL
             $query = "INSERT INTO EMAIL_INFORMATION (IDMAIL,FROMADDRESS,SUBJECT,DATE,BODY) VALUES (".$this->id.",\"".$fromaddress."\", \"".$subject."\",\"".$date."\",\"".$body."\")";
