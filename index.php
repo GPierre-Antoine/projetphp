@@ -1,6 +1,9 @@
 <?php
 $sessionStart = session_start();
 
+include_once ("src/util/auto_class_load.php");
+
+
 if(!isset($_SESSION['logged'])) {
   $_SESSION['logged'] = false;
 }
