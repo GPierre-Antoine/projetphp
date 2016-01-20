@@ -57,8 +57,8 @@ function deleteUser($object) {
     xhr2.onreadystatechange = function () {
         if (xhr2.readyState == 4) {
             if (xhr2.status == 200) {
-                alert(xhr2.responseText);
-                document.getElementById($object.parentNode.parentNode.id).remove();
+                xhr2.responseText;
+                location.reload();
             }
             else {
                 alert("probleme");
