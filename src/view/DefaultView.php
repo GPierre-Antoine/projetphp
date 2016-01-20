@@ -39,9 +39,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/search.js"></script>
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
 					<script type="text/javascript" src="/src/js/popup.js"></script>
-					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>';
-                    echo $this->model->getParam();
-                    echo '
+					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
 				</head>
 				<body>';
 						$image = $this->user->getAvatar();
@@ -69,7 +67,7 @@ class DefaultView extends View {
 						<div id="friend_panel" class="searchOn hide"> ';
 							foreach ($this->friends as $f) {
 							echo '
-								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'<img onclick="deleteFriend('.$f->getId().')" class="flux_with_image" src="src/images/del_btn.png"></button>
+								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'<img onclick="deleteFriend('.$f->getId().')" class="flux_with_image" src="/src/images/del_btn.png"></button>
 							';
 							}
 						echo '
@@ -145,9 +143,9 @@ class DefaultView extends View {
 							</div>
 							<div id="content_mail" class="hide">';
                                 foreach($this->user->getEmailBox() as $mailbox)
-                                    echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>>';
+                                    echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>';
                                     foreach($mailbox->getMails() as $mail)
-                                        $mail->display();
+                                        echo $mail->display();
                             echo '
 							</div>
 						</div>
