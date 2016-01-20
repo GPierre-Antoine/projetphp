@@ -44,27 +44,14 @@ body {
 }
 
 /* USERS */
-
-.user {
-	margin-left: 2%;
-	margin-top: 2%;
-	width:150px;
-	height:200px;
-	float :left;
+table {
+	width : 100%;
 }
 
-.user_Content {
-	padding : 2%;
-	height: calc(100% - 30px);
-	background-color: #2980b9;
+td {
+	text-align: center;
+	width : 20%;
 }
-
-.user_Footer {	
-	height:30px;
-	width: 100%;
-	background-color: red;
-}
-
 .myButton {
 	line-height: 30px;
 	text-align: center;

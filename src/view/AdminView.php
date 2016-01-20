@@ -16,20 +16,25 @@ class AdminView extends View {
 
     private function affUsers() {
       $users = $this->model->getUsers();
+        echo'<table>';
       foreach($users as $u) {
-         echo '<div id="user'.$u->getID().'" class="user"><div class="user_Content">';
-         echo $u->getID() . '<br/>';
-         echo $u->getEmail() . '<br/>';
-         echo $u->getName() . '<br/>';
-         echo '</div><div id="user_Footer'.$u->getID() . '" class="user_Footer">';
+
+          echo'<tr>';
+         echo '<td>'.$u->getID() . '</td>';
+         echo '<td>'.$u->getEmail() . '</td>';
+         echo '<td>'.$u->getName() . '</td>';
          if($u->getEnable() == 1) {
-            echo '<a id="ena'.$u->getID().'" onclick="enableOrDisableUser(this)" class="myButton">Disable</a>';
+            echo '<td><a id="ena'.$u->getID().'" onclick="enableOrDisableUser(this)" class="myButton">Disable</a></td>';
          }
          else {
-          echo '<a id="dis'.$u->getID().'" onclick="enableOrDisableUser(this)"  class="myButton" >Enable</a>';
+          echo '<td><a id="dis'.$u->getID().'" onclick="enableOrDisableUser(this)"  class="myButton" >Enable</a></td>';
          }
-         echo '<a id="del'.$u->getID().'" onclick="deleteUser(this)" class="myButton"> Delete </a></div></div>';
+         echo '<td><a id="del'.$u->getID().'" onclick="deleteUser(this)" class="myButton"> Delete </a></td>';
+
+          echo'</tr>';
       }
+
+        echo'<table>';
     }
 
     public function display() {
