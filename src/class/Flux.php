@@ -49,7 +49,7 @@ class Flux
             $title = str_replace(' & ', ' &amp; ', $this->feed[$x]['title']);
             $link = $this->feed[$x]['link'];
             $description = $this->feed[$x]['desc'];
-            $date = date('l F d, Y', strtotime($this->feed[$x]['date']));
+            $date = date('Y-m-d H:i:s',strtotime($this->feed[$x]["date"]));
             $key = md5($title.$link.$description.$date);
 
             $flux_article = new FluxArticle($title,$date,$description,$link,$key);
@@ -65,8 +65,8 @@ class Flux
             $stmtVerif = $this->pdo->query($verif);
             $resultVerif = $stmtVerif->fetch();
             if($resultVerif[0] == 0) {
-                $sql = "INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION) VALUES (".$this->id.",\"".$artFl->getTitle()."\",\"".$artFl->getDate()."\",\"".$artFl->getContent()."\",\"".$artFl->getUrl()."\",\"".$artFl->getKey()."\")";
-                $this->pdo->query($sql);
+                $this->pdo->prepare("INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION) VALUES (?,?,?,?,?,?)");
+                $this->pdo->execute(array($this->id,$artFl->getTitle(),$artFl->getDate(),$artFl->getContent(),$artFl->getUrl(),$artFl->getKey()));
             }
         }
 
