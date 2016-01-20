@@ -72,6 +72,7 @@ class User extends ModelPDO
         while ($result = $stmt->fetch())
         {
             $mailB = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD']);
+            $mailB->refresh();
             $mailB->initializeMailsInside();
             array_push($this->mailbox,$mailB);
         }

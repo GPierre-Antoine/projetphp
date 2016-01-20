@@ -145,6 +145,7 @@ class DefaultView extends View {
 							</div>
 							<div id="content_mail" class="hide">';
                                 foreach($this->user->getEmailBox() as $mailbox)
+                                    echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>>';
                                     foreach($mailbox->getMails() as $mail)
                                         $mail->display();
                             echo '

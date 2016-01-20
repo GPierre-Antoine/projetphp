@@ -36,11 +36,16 @@ class Email {
         $this->port = $port;
     }
 
-    public function connect() {
+    public function refresh() {
+        $this->connect();
+        $this->read();
+    }
+
+    private function connect() {
         $this->conn = imap_open('{'.$this->server.':'.$this->port.'/imap/ssl}', $this->address, $this->pass) or die(imap_last_error());
     }
 
-    public function read() {
+    private function read() {
         $this->nb_msg = imap_num_msg($this->conn);
 
         if($this->nb_msg > 0) {
@@ -53,25 +58,33 @@ class Email {
             }
             $subject = $header->subject;
             $date = $header->date;
+
             //read the body
             $body = imap_fetchbody($this->conn, $this->nb_msg, 1);
 
+            //make check
+            $key = md5($fromaddress.$subject.$date.$body);
+
             //save to MySQL
-            $query = "INSERT INTO EMAIL_INFORMATION (IDMAIL,FROMADDRESS,SUBJECT,DATE,BODY) VALUES (".$this->id.",\"".$fromaddress."\", \"".$subject."\",\"".$date."\",\"".$body."\")";
-            $this->pdo->query($query);
+            $sql = "SELECT count(*) FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id." AND CHECKVERS = \"".$key."\"";
+            $resul = $this->pdo->query($sql)->fetch();
+            if ($resul[0] == 0) {
+                $query = "INSERT INTO EMAIL_INFORMATION (IDMAIL,FROMADDRESS,SUBJECT,DATE,BODY,CHECKVERS) VALUES (".$this->id.",\"".$fromaddress."\", \"".$subject."\",\"".$date."\",\"".$body."\",\"".$key."\")";
+                $this->pdo->query($query);
 
-            //save to array
-            $newMail = new EmailContent($fromaddress,$subject,$date,$body);
-            array_push($this->mails,$newMail);
-
-            //delete email
-            imap_delete($this->conn, 1);
-            imap_expunge($this->conn);
+                //save to array
+                $newMail = new EmailContent($fromaddress,$subject,$date,$body);
+                array_push($this->mails,$newMail);
+            }
         }
     }
 
     public function getMails() {
         return $this->mails;
+    }
+
+    public function getAddress() {
+        return $this->address;
     }
 
     public function initializeMailsInside() {
