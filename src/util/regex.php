@@ -29,13 +29,6 @@ function hex2rgb($colour) {
     return array( 'red' => $r, 'green' => $g, 'blue' => $b );
 }
 
-function blabla ($path)
-{
-    $task = preg_match("/^\/?([a-zA-Z0-9\-\_]+)\/?(.*)$/", $path, $matches);
-    return $matches;
-
-}
-
 function isImageURL($url) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$url);

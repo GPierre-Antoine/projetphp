@@ -3,6 +3,7 @@
  */
 
 //////////////////////////////ADD//////////////////////////////
+var testImg;
 function addArticle($object) {
     var xhr;
     try {
@@ -38,7 +39,7 @@ function addArticle($object) {
         tab.push($(this).val());
     });
     alert(document.getElementById('F_blog').childNodes[4].value);
-    var testImg = isAImage(document.getElementById('F_blog').childNodes[4].value);
+    isAImage(document.getElementById('F_blog').childNodes[4].value);
     alert("Test imgg : "+testImg);
     if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
@@ -100,7 +101,7 @@ function isAImage(url) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                return(""+xhr.responseText);
+                testImg = xhr.responseText;
 
             }
             else {
@@ -112,6 +113,7 @@ function isAImage(url) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("imgToTest="+url);
 }
+delete testImg;
 
 function closePopUpAddArticle(overlay,popup) {
     $(overlay).fadeOut(200);
@@ -519,6 +521,41 @@ function deleteCategorieRSSFeedIn($idCatDelete) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("catToDelete=" + $idCatDelete);
 } // deleteCategorieRSSFeedIn()
+
+function disconnect() {
+
+    var xhr;
+    try {
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    }
+    catch (e) {
+        try {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        catch (e2) {
+            try {
+                xhr = new XMLHttpRequest();
+            }
+            catch (e3) {
+                xhr = false;
+            }
+        }
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                xhr.responseText;
+                window.location.replace("http://aaron-aaron.alwaysdata.net/");
+            }
+            else {
+                alert("probleme");
+            }
+        }
+    };
+    xhr.open("POST", "/ajx", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("disconnectUser=ok");
+} // disconnect()
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
 
