@@ -59,6 +59,9 @@ class ControllerInscription extends Controller {
 
                 mail($destinataire, $sujet, $message, $entete);
 
+                echo "Un mail vous a été envoyé sur votre adresse mail, veuillez suivre les indications pour
+                continuer votre inscription.";
+
             }
             else {
                 //mail already exists;
