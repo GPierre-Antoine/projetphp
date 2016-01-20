@@ -21,7 +21,7 @@ class DefaultModel extends ModelPDO {
         $this->user->initializeCategories();
         $this->user->initializeFlux();
         $this->user->initializeArticles();
-        $this->user->initializeMails();
+        $this->user->initializeMailBox();
         $this->user->updateFollow();
     }
 
