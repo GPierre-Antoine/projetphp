@@ -17,7 +17,6 @@ class Email {
     private $port;
 
     private $conn;
-    private $nb_msg;
 
     private $mails;
     private $pdo;
@@ -39,6 +38,7 @@ class Email {
     public function refresh() {
         $this->connect();
         $this->read();
+        $this->close();
     }
 
     private function connect() {
@@ -46,45 +46,48 @@ class Email {
     }
 
     private function read() {
-        $this->nb_msg = imap_num_msg($this->conn);
+        $allMails = imap_search($this->conn,'ALL');
 
-        if($this->nb_msg > 0) {
-            //get from, date and subject
-            $header = imap_headerinfo($this->conn, 1);
-            $from = $header->from;
-            $fromaddress = "";
-            foreach($from as $id=>$object) {
-                $fromaddress = $object->mailbox . "@" . $object->host;
-            }
-            $subject = $header->subject;
-            $date = $header->date;
+        if($allMails) {
+            rsort($allMails);
 
-            //read the body
-            $body = imap_fetchbody($this->conn, $this->nb_msg, 1);
+            foreach($allMails as $email_number) {
+                $overview = imap_fetch_overview($this->conn,$email_number,0);
+                $structure = imap_fetchstructure($this->conn, $email_number);
 
-            //make check
-            $key = md5($fromaddress.$subject.$date.$body);
+                $body = '';
+                if(isset($structure->parts) && is_array($structure->parts) && isset($structure->parts[1])) {
+                    $part = $structure->parts[1];
+                    $body = imap_fetchbody($this->conn,$email_number,2);
 
-            //save to MySQL
-            $sql = "SELECT count(*) FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id." AND CHECKVERS = \"".$key."\"";
-            $resul = $this->pdo->query($sql)->fetch();
-            if ($resul[0] == 0) {
-                $query = "INSERT INTO EMAIL_INFORMATION (IDMAIL,FROMADDRESS,SUBJECT,DATE,BODY,CHECKVERS) VALUES (".$this->id.",\"".$fromaddress."\", \"".$subject."\",\"".$date."\",\"".$body."\",\"".$key."\")";
-                $this->pdo->query($query);
+                    if($part->encoding == 3) {
+                        $body = imap_base64($body);
+                    } else if($part->encoding == 1) {
+                        $body = imap_8bit($body);
+                    } else {
+                        $body = imap_qprint($body);
+                    }
+                }
+                $body = utf8_decode($body);
+                $fromaddress = utf8_decode(imap_utf7_encode($overview[0]->from));
+                $subject = mb_decode_mimeheader($overview[0]->subject);
+                $date = utf8_decode(imap_utf8($overview[0]->date));
+                $key = md5($fromaddress.$subject.$body);
 
-                //save to array
-                $newMail = new EmailContent($fromaddress,$subject,$date,$body);
-                array_push($this->mails,$newMail);
+                //save to MySQL
+                $sql = "SELECT count(*) FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id." AND CHECKVERS = \"".$key."\"";
+                $resul = $this->pdo->query($sql)->fetch();
+                if ($resul[0] == 0) {
+                    $this->pdo->prepare("INSERT INTO EMAIL_INFORMATION (IDMAIL,FROMADDRESS,SUBJECT,DATE,BODY,CHECKVERS) VALUES (?,?,?,?,?,?)");
+                    $this->pdo->execute(array($this->id,$fromaddress,$subject,$date,$body,$key));
+                }
+
             }
         }
     }
 
-    public function getMails() {
-        return $this->mails;
-    }
-
-    public function getAddress() {
-        return $this->address;
+    private function close() {
+        imap_close($this->conn);
     }
 
     public function initializeMailsInside() {
@@ -95,6 +98,14 @@ class Email {
             $mail = new EmailContent($result['FROMADDRESS'],$result['SUBJECT'],$result['DATE'],$result['BODY']);
             array_push($this->mails,$mail);
         }
+    }
+
+    public function getMails() {
+        return $this->mails;
+    }
+
+    public function getAddress() {
+        return $this->address;
     }
 
 }
