@@ -117,7 +117,6 @@ class DefaultView extends View {
 
 						<div id="content">
 							<div id="content_flux">';
-							//WHERE ANY FLUX SELECTED
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									foreach($f->getFluxArticles() as $fa) {
@@ -142,6 +141,9 @@ class DefaultView extends View {
 							';
 							}
 							echo '
+							</div>
+							<div id="content_mail" class="hide">
+
 							</div>
 						</div>
 			    	</div>
@@ -217,7 +219,7 @@ class DefaultView extends View {
 			        				<input class="small_input actionnable_wr" type="text" name="title" placeholder="Titre" required/><input class="small_input actionnable_wr" type="text" name="theme" placeholder="Theme" required/>
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
 			        				<textarea class="content_input actionnable_wr" name="content" form="F_blog"></textarea>
-			        				<button id="add_article" class="action_btn noborder" type="submit" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        				<button id="add_article" class="action_btn noborder" type="button" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
 			        	</div>

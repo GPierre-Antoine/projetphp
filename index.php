@@ -8,6 +8,10 @@ if(!isset($_SESSION['logged'])) {
   $_SESSION['logged'] = false;
 }
 
+//KEVIN
+$_SESSION['logged'] = true;
+$_SESSION['ID'] = 69;
+
 
 //initialization of database
 include_once("src/util/db_wrap.php");

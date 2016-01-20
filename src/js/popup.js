@@ -21,9 +21,9 @@ $(function() {
 		closePopUp("#overlay_flux",".popup_flux");
 	})*/
 
-	$("#add_article").click(function () {
+	/*$("#add_article").click(function () {
 		closePopUp("#overlay_blog",".popup_blog");
-	});
+	});*/
 
 	$("#F_cancel_btn").click(function () {
 		closePopUp("#overlay_blog",".popup_blog");
