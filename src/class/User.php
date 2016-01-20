@@ -125,8 +125,7 @@ class User extends ModelPDO
         return $this->mailbox;
     }
 
-    protected function getSpecific()
-    {
+    protected function getSpecific() {
         // TODO: Implement getSpecific() method.
     }
 
