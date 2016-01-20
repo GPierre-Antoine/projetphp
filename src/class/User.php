@@ -71,7 +71,7 @@ class User extends ModelPDO
         $stmt = $this->pdo->query($sql);
         while ($result = $stmt->fetch())
         {
-            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASS'],$result['SERVER'],$result['PORT']);
+            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD'],$result['SERVER'],$result['PORT']);
             $mail->connect();
             $mail->read();
             array_push($mailbox,$mail);
@@ -83,8 +83,8 @@ class User extends ModelPDO
 		return $this->id;
 	}
 
-    public function getEmailBox() {
-        return $this->mailbox;
+    public function getEmail() {
+        return $this->email;
     }
 
     public function getName() {
@@ -105,6 +105,10 @@ class User extends ModelPDO
 
     public function getArticles() {
         return $this->articles;
+    }
+
+    public function getEmailBox() {
+        return $this->mailbox;
     }
 
     protected function getSpecific()
