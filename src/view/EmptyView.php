@@ -81,7 +81,10 @@ class EmptyView extends View {
         }
 
         else if(isset($_POST['imgToTest'])) {
-            return isImageURL($_POST['imgToTest']);
+            if(isImageURL($_POST['imgToTest']))
+                echo "true";
+            else
+                echo "false";
         }
         /////////////////////////////////////////////////////~OPTIONS//////////////////////////////////////////////////////
 
