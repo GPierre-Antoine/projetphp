@@ -46,7 +46,7 @@ class DefaultView extends View {
 					echo '
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
-						<div class="top_user"><button class="top_user_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
+						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
 						<button onclick="disconnect()" class="top_deconnection_btn noborder" type="button"></button>
 					</div>
 
