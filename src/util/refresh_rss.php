@@ -6,12 +6,21 @@
  * Time: 11:28
  */
 
+include_once('db_wrap.php');
 
-$db = new PDO('mysql:host=mysql-aaron-aaron.alwaysdata.net;dbname=aaron-aaron_iut','116440_naga','rpekgggh');
+include ("/home/aaron-aaron/www/src/class/Flux.php");
+include ("/home/aaron-aaron/www/src/class/FluxArticle.php");
+include ("/home/aaron-aaron/www/src/class/FluxUser.php");
+
+$bd = new \db\db_handler();
+$bd->init();
+
 $sql = "SELECT * FROM FLUX";
-$stmt = $db->query($sql);
+$stmt = $bd->query($sql);
 while ($result = $stmt->fetch())
 {
     $newFlux = new Flux($result['ID'],$result['URL']);
     $newFlux->refresh();
 }
+
+$bd->close();
