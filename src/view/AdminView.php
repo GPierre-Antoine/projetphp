@@ -22,11 +22,12 @@ class AdminView extends View {
          echo $u->getEmail() . '<br/>';
          echo $u->getName() . '<br/>';
          echo '</div><div id="user_Footer'.$u->getID() . '" class="user_Footer">';
+          echo 'test ici : '+$u->getEnable();
          if($u->getEnable() == 1) {
-            echo '<a id="ena'.$u->getID().'" onclick="enableOrDisableUser(this)" class="myButton">Enable</a>';
+            echo '<a id="ena'.$u->getID().'" onclick="enableOrDisableUser(this)" class="myButton">Disable</a>';
          }
          else {
-          echo '<a id="dis'.$u->getID().'" onclick="enableOrDisableUser(this)"  class="myButton" >Disable</a>';
+          echo '<a id="dis'.$u->getID().'" onclick="enableOrDisableUser(this)"  class="myButton" >Enable</a>';
          }
          echo '<a id="del'.$u->getID().'" onclick="deleteUser(this)" class="myButton"> Delete </a></div></div>';
       }

@@ -16,12 +16,15 @@ class CustomModel extends ModelPDO {
     //////////////////////////ADMIN/////////////////////////////////
     public function enableOrDisableUser($enableOrDisable,$idUser) {
         if($enableOrDisable === "ena") {
-            $sql = "UPDATE USERS SET ENABLE = 0 WHERE ID = " . $idUser;
+            $sql = "UPDATE USERS SET ENABLE = 1 WHERE ID = " . $idUser;
+            $here = 1;
         }
         else {
-            $sql = "UPDATE USERS SET ENABLE = 1 WHERE ID = " . $idUser;
+            $sql = "UPDATE USERS SET ENABLE = 0 WHERE ID = " . $idUser;
+            $here = 0;
         }
         $this->pdo->query($sql);
+        return $here;
     } // enableOrDisableUser() : enable or disable a user of the database
 
     public function deleteUser($idUser) {
