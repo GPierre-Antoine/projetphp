@@ -61,7 +61,7 @@ class Flux
         $this->rss_feed();
 
         foreach($this->fluxArticles as $artFl) {
-            $verif = "SELECT count(*) FROM FLUX_INFORMATION WHERE URL = '".$artFl->getUrl()."'";
+            $verif = "SELECT count(*) FROM FLUX_INFORMATION WHERE MD5VERSION = '".$artFl->getKey()."'";
             $stmtVerif = $this->pdo->query($verif);
             $resultVerif = $stmtVerif->fetch();
             if($resultVerif[0] == 0) {
