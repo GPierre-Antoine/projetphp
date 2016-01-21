@@ -70,11 +70,11 @@ class IndexView extends View {
         			    			<input id='submitIndex' name='action' type='submit' value='Rentrer sur Aaron'/>
         			    		</form>
                                 <a href='forgotpass.php' > Mot de Passe Perdu ? </a>
-                                <div id='my-signin2'></div>
         			    	</div>
         		    	</div>
         		    </div>
         		    <div class='section' data-anchor='propos' id='propos'>
+
         		    </div>
         		</div>
           </body>

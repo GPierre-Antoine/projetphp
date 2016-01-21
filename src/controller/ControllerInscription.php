@@ -47,8 +47,8 @@ class ControllerInscription extends Controller {
 
                 $destinataire = $mail;
                 $sujet = "Activation de votre compte";
-                $entete = "From: test@aaron-aaron.com";
-                $message = "Bienvenue sur VotreSite,
+                $entete = "From: Equipe@aaron-aaron.com";
+                $message = "Bienvenue sur Aaron,
 
                 Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
                 ou copier/coller dans votre navigateur internet.,
