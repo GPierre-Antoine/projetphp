@@ -69,7 +69,7 @@ class CustomModel extends ModelPDO {
         $resultCate = $this->pdo->query($sql)->fetch();
         $idCate = $resultCate[0];
 
-        $sql = "SELECT count(*) FROM FLUX WHERE URL = \"".$urlFluxAdd."\"";
+        $sql = "SELECT COUNT(*) FROM FLUX WHERE URL = \"".$urlFluxAdd."\"";
         $resultVerif = $this->pdo->query($sql)->fetch();
         if($resultVerif[0] == 0) {
             $sql = "INSERT INTO FLUX(URL) VALUES(\"".$urlFluxAdd."\")";
