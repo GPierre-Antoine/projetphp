@@ -15,8 +15,6 @@ class View {
         $this->model = $model;
     }
 
-
-
     public function display() {
     }
 

@@ -38,6 +38,9 @@ class LoginController extends Controller
             }
             else {
                 $this->model->next();
+
+                if ($this->model->getData('ENABLE') === '0')
+                    return;
                 $token = $this->model->getData('TOKEN');
 
                 $encoded = encrypt($password,$token);
