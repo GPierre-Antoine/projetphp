@@ -123,7 +123,7 @@ function addEmail($object){
     $.ajax({
         url: '/ajx',
         type: 'POST',
-        data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort =' + tab[3],
+        data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3],
         success: function (data) {
             location.reload();
         }
@@ -239,7 +239,10 @@ function focusThisFriend($idFriendFocus) {
         type: 'POST',
         data: 'idFriendFocus='+$idFriendFocus,
         success: function (data) {
-            location.reload();
+            var displays =  JSON.parse(data);
+            displays.forEach(function(entry) {
+                document.getElementById('content_friend_blog').innerHTML += entry;
+            });
         }
     });
 }
