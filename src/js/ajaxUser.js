@@ -233,6 +233,22 @@ function deleteFlux($idRSSFeed,$idCategory) {
         }
     });
 } // deleteFlux()
+
+function loadMail() {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST', // Le type de la requête HTTP, ici devenu POST
+        data: 'loadMail=true',
+        dataType: 'html',
+        success: function (data) {
+            var displays =  JSON.parse(data);
+            displays.forEach(function(entry) {
+                document.getElementById('content_mail').innerHTML += entry;
+            });
+
+        }
+    });
+} // loadMail()
 ////////////////////////////~FLUX//////////////////////////////
 
 /////////////////////////FRIEND/////////////////////////
