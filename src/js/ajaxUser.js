@@ -239,7 +239,10 @@ function focusThisFriend($idFriendFocus) {
         type: 'POST',
         data: 'idFriendFocus='+$idFriendFocus,
         success: function (data) {
-            location.reload();
+            var displays =  JSON.parse(data);
+            displays.forEach(function(entry) {
+                document.getElementById('content_friend_blog').innerHTML += entry;
+            });
         }
     });
 }

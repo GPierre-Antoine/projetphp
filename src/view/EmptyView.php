@@ -82,7 +82,8 @@ class EmptyView extends View {
         }
 
         else if(isset($_POST['idFriendFocus'])) {
-            $this->model->friendBlog($_POST['idFriendFocus']);
+            $rep = $this->model->friendBlog($_POST['idFriendFocus']);
+            echo $rep;
         }
 
         else if(isset($_POST['imgToTest'])) {
