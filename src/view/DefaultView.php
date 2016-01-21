@@ -30,9 +30,11 @@ class DefaultView extends View {
     		<html>
 				<head>
 					<title>Aaron</title>
-					<link rel="stylesheet" type="text/css" href="/src/style/user/user.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/user/flux.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/user/blog.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/flux.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/blog.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/mail.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
@@ -114,7 +116,7 @@ class DefaultView extends View {
 			    		</div>
 
 						<div id="content">
-							<div id="content_flux">';
+							<div id="content_flux" class="content">';
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									foreach($f->getFluxArticles() as $fa) {
@@ -124,13 +126,13 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
-							<div id="content_blog" class="hide">';
+							<div id="content_blog" class="content hide">';
 							foreach($this->articles as $article) {
 								echo $article->display();
 							}
 							echo '
 							</div>
-							<div id="content_mail" class="hide">';
+							<div id="content_mail" class="content hide">';
 							foreach($this->user->getEmailBox() as $mailbox) {
 								echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>';
 								foreach ($mailbox->getMails() as $mail) {
