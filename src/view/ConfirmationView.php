@@ -28,7 +28,7 @@ class ConfirmationView extends View {
 			</html>
     	';
 
-        parent::redirect($_SERVER["SERVER_NAME"],5);
+        parent::redirect("/",1);
     }
 
 }
