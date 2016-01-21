@@ -237,18 +237,14 @@ function deleteFlux($idRSSFeed,$idCategory) {
 function loadMail() {
     $.ajax({
         url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
+        type: 'POST',
         data: 'loadMail=true',
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);
-            alert('cc');
             displays.forEach(function(entry) {
-                alert(entry);
                 document.getElementById('content_mail').innerHTML += entry;
             });
-
-            alert('cc1');
         }
     });
 } // loadMail()
