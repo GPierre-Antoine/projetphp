@@ -4,13 +4,13 @@ $(function() {
 		$($popup).css("display", "none");
 	}
 
-	$(".addF_btn").click(function () {
+	$(".add_source_btn").click(function () {
 		$("#overlay_flux").css({"display":"block", opacity:0});
 		$("#overlay_flux").fadeTo(200,0.5);
 		$("#popup_flux").fadeTo(200,1);
 	});
 
-	$(".write_btn").click(function () {
+	$(".add_article_btn").click(function () {
 		$("#overlay_blog").css({"display":"block", opacity:0});
 		$("#overlay_blog").fadeTo(200,0.5);
 		$("#popup_blog").fadeTo(200,1);

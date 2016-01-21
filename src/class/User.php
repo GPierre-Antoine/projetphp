@@ -35,6 +35,7 @@ class User extends ModelPDO
         while ($friend = $stmt->fetch())
         {
             $newFriend = build_user ($friend['IDFRIEND']);
+            $newFriend->initializeArticles();
             array_push($this->friends, $newFriend);
         }
     }
@@ -56,7 +57,7 @@ class User extends ModelPDO
         $stmt = $this->pdo->query($sqlArticles);
         while ($categorie = $stmt->fetch())
         {
-            $newArticle = new Article($categorie[0],$categorie[2],$categorie[3],$categorie[4],$categorie[5],$categorie[6]);
+            $newArticle = new Article($categorie[0],$categorie[2],$categorie[3],$categorie[4],$categorie[5],$categorie[6],$this->email);
             array_push($this->articles,$newArticle);
         }
     }
