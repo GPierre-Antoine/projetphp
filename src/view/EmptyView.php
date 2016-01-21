@@ -99,6 +99,10 @@ class EmptyView extends View {
             $res = $this->model->loadMail();
             echo $res;
         }
+
+        else if(isset($_POST['emailName']) && isset($_POST['emailPassword']) && isset($_POST['emailServer']) && isset($_POST['emailPort'])) {
+            $this->model->addMail($_POST['emailName'],$_POST['emailPassword'],$_POST['emailServer'],$_POST['emailPort']);
+        }
         //////////////////////////////////////////////////////~MAIL///////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////DELETE//////////////////////////////////////////////////////
