@@ -30,8 +30,9 @@ class DefaultView extends View {
     		<html>
 				<head>
 					<title>Aaron</title>
-					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/flux.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/user/user.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/user/flux.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/user/blog.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
@@ -44,7 +45,7 @@ class DefaultView extends View {
 				<body>
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
-						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="'.$this->user->getAvatar().'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
+						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="' .$this->user->getAvatar().'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
 						<button onclick="disconnect()" class="top_deconnection_btn noborder" type="button"></button>
 					</div>
 
@@ -130,12 +131,12 @@ class DefaultView extends View {
 							echo '
 							</div>
 							<div id="content_mail" class="hide">';
-                                foreach($this->user->getEmailBox() as $mailbox) {
-									echo '<h1>Boite de reception : ' . $mailbox->getAddress() . '</h1>';
-									foreach ($mailbox->getMails() as $mail) {
-										echo $mail->display();
-									}
+							foreach($this->user->getEmailBox() as $mailbox) {
+								echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>';
+								foreach ($mailbox->getMails() as $mail) {
+									echo $mail->display();
 								}
+							}
                             echo '
 							</div>
 						</div>
