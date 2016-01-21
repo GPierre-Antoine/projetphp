@@ -11,13 +11,13 @@ class FluxUser extends Flux
     private $name;
     private $isFavorite;
 
-    public function __construct($id,$name,$url,$isFavorite) {
+    public function __construct($id,$url,$name,$isFavorite) {
         parent::__construct($id,$url);
         $this->name = $name;
         $this->isFavorite = $isFavorite;
     }
 
-    public function initializeArticlesFlux() {
+    public function initializeArticles() {
         $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX = '. $this->id;
         $stmt = $this->pdo->query($sql);
         while($result = $stmt->fetch())

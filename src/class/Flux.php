@@ -1,6 +1,6 @@
 <?php
 
-class Flux
+abstract class Flux
 {
     protected $id;
     protected $url;
@@ -11,9 +11,9 @@ class Flux
 	public function __construct($id,$url) {
 		$this->id = $id;
 		$this->url = $url;
-        $this->fluxArticles = array();
-        $this->feed = array();
         $this->pdo = new \db\db_handler();
+        $this->feed = array();
+        $this->fluxArticles = array();
 	}
 
 	public function getId() {
@@ -28,7 +28,7 @@ class Flux
         return $this->fluxArticles;
     }
 
-    public function rss_feed() {
+    private function rss_feed() {
         $rss = new DOMDocument();
         $rss->load($this->url);
         foreach ($rss->getElementsByTagName('item') as $node) {
@@ -40,7 +40,6 @@ class Flux
             );
             array_push($this->feed, $item);
         }
-
         $this->extract_article();
     }
 
@@ -52,23 +51,21 @@ class Flux
             $date = date('Y-m-d H:i:s',strtotime($this->feed[$x]["date"]));
             $key = md5($title.$link.$description.$date);
 
-            $flux_article = new FluxArticle($title,$date,$description,$link,$key);
-            array_push($this->fluxArticles,$flux_article);
+            $fluxArticle = new FluxArticle($title,$date,$description,$link,$key);
+            array_push($this->fluxArticles,$fluxArticle);
         }
     }
 
     public function refresh() {
         $this->rss_feed();
-
-        foreach($this->fluxArticles as $artFl) {
-            $verif = "SELECT count(*) FROM FLUX_INFORMATION WHERE MD5VERSION = '".$artFl->getKey()."'";
-            $stmtVerif = $this->pdo->query($verif);
-            $resultVerif = $stmtVerif->fetch();
-            if($resultVerif[0] == 0) {
+        foreach($this->fluxArticles as $art) {
+            $sql = "SELECT COUNT(*) FROM FLUX_INFORMATION WHERE MD5VERSION = '".$art->getKey()."'";
+            $stmt = $this->pdo->query($sql);
+            $result = $stmt->fetch();
+            if($result[0] == 0) {
                 $this->pdo->prepare("INSERT INTO FLUX_INFORMATION(IDFLUX,TITLE,POSTED,CONTENT,URL,MD5VERSION) VALUES (?,?,?,?,?,?)");
-                $this->pdo->execute(array($this->id,$artFl->getTitle(),$artFl->getDate(),$artFl->getContent(),$artFl->getUrl(),$artFl->getKey()));
+                $this->pdo->execute(array($this->id,$art->getTitle(),$art->getDate(),$art->getContent(),$art->getUrl(),$art->getKey()));
             }
         }
-
     }
 }

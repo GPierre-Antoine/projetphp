@@ -19,7 +19,7 @@ class DefaultView extends View {
 	public function __construct($model) {
         $this->model = $model;
 
-        $this->user = $this->model->getCurrentUser();
+        $this->user = $this->model->getUser();
         $this->categories = $this->user->getCategories();
         $this->friends = $this->user->getFriends();
 		$this->articles = $this->user->getArticles();
@@ -41,12 +41,10 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/popup.js"></script>
 					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
 				</head>
-				<body>';
-						$image = $this->user->getAvatar();
-					echo '
+				<body>
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
-						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="'.$image.'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
+						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="'.$this->user->getAvatar().'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
 						<button onclick="disconnect()" class="top_deconnection_btn noborder" type="button"></button>
 					</div>
 
@@ -157,7 +155,7 @@ class DefaultView extends View {
 			    	<!-- PREFERENCE -->
 			    	<div id="user_information" class="hide">
 			    		<div class="user_information_top">
-                            <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$image.'"></button><div class="user_information_top_foll"><img alt="Personnes qui vous suit" src="/src/images/follower.png">'.$this->user->getNbFollowers().'<img alt="Personnes que vous suivez" src="/src/images/follow.png">'.$this->user->getNbFollows().'</div><span class="user_information_top_name">'.$this->user->getName().'</span>
+                            <button id="close_user_information" class="user_information_top_btn" type="button"><img width="100%" height="100%" src="'.$this->user->getAvatar().'"></button><div class="user_information_top_foll"><img alt="Personnes qui vous suit" src="/src/images/follower.png">'.$this->user->getNbFollowers().'<img alt="Personnes que vous suivez" src="/src/images/follow.png">'.$this->user->getNbFollows().'</div><span class="user_information_top_name">'.$this->user->getName().'</span>
                         </div>
 			    		<div class="user_information_rest">
 			    			<button class="actu_btn user_information_rest_btn noborder" type="button">Actualités</button>

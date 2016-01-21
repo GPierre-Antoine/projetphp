@@ -23,13 +23,15 @@ class User extends ModelPDO
         $this->name = $name;
         $this->enable = $enable;
         $this->pdo = new \db\db_handler();
+
+        $this->updateFollow();
+        $this->updateAvatar();
 	}
 
     public function initializeFriends() {
         $this->friends = array();
-
-        $sqlFriends = "SELECT IDFRIEND FROM FRIEND WHERE IDUSER = ".$this->id;
-        $stmt = $this->pdo->query($sqlFriends);
+        $sql = "SELECT IDFRIEND FROM FRIEND WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sql);
         while ($friend = $stmt->fetch())
         {
             $newFriend = build_user ($friend['IDFRIEND']);
@@ -39,18 +41,12 @@ class User extends ModelPDO
 
     public function initializeCategories() {
         $this->categories = array();
-        $sqlCategories = "SELECT * FROM CATEGORIE WHERE IDUSER = ".$this->id;
-        $stmt = $this->pdo->query($sqlCategories);
+        $sql = "SELECT * FROM CATEGORIE WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sql);
         while ($categorie = $stmt->fetch())
         {
             $newCategorie = new categorie($categorie['ID'], $categorie['NAME'], $categorie['COLOR']);
             array_push($this->categories, $newCategorie);
-        }
-    }
-
-    public function initializeFlux() {
-        foreach($this->categories as $cat) {
-            $cat->initializeInside();
         }
     }
 
@@ -79,20 +75,21 @@ class User extends ModelPDO
         }
     }
 
-    /*public function initializeMails() {
-        $this->mailbox = array();
-        $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE IDUSER = ".$this->id;
-        $stmt = $this->pdo->query($sql);
-        while ($result = $stmt->fetch())
-        {
-            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD'],$result['SERVER'],$result['PORT']);
-            $mail->connect();
-            $mail->read();
-            array_push($this->mailbox,$mail);
-        }
-    }*/
+    private function updateFollow() {
+        $sqlFollows = "SELECT count(*) FROM FRIEND WHERE IDUSER = ".$this->id;
+        $sqlFollowers = "SELECT count(*) FROM FRIEND WHERE IDFRIEND = ".$this->id;
+        $resultFollows = $this->pdo->query($sqlFollows)->fetch();
+        $resultFollowers = $this->pdo->query($sqlFollowers)->fetch();
+        $this->follows = $resultFollows[0];
+        $this->followers = $resultFollowers[0];
+    }
 
-	//GETTERS
+    private function updateAvatar() {
+        $sql = "SELECT AVATAR FROM USER_INFORMATION WHERE ID = ".$this->id;
+        $result = $this->pdo->query($sql)->fetch();
+        $this->avatar = $result[0];
+    }
+
 	public function getID() {
 		return $this->id;
 	}
@@ -125,14 +122,7 @@ class User extends ModelPDO
         return $this->mailbox;
     }
 
-    protected function getSpecific() {
-        // TODO: Implement getSpecific() method.
-    }
-
     public function getAvatar() {
-        $sql = "SELECT AVATAR FROM USER_INFORMATION WHERE ID = ".$this->id;
-        $result = $this->pdo->query($sql)->fetch();
-        $this->avatar = $result[0];
         return $this->avatar;
     }
 
@@ -144,31 +134,14 @@ class User extends ModelPDO
         return $this->followers;
     }
 
-    public function setAvatar($avatar) {
-        if (isImageURL($avatar)) {
-            $this->avatar = $avatar;
-            $sql = "UPDATE USER_INFORMATION SET AVATAR = \"" . $this->avatar . "\" WHERE ID = ".$this->id;
-            $this->pdo->query($sql);
-        } else {
-            //To do error
-        }
+    protected function getSpecific() {
+        // TODO: Implement getSpecific() method.
     }
 
-    public function updateFollow() {
-        $sqlFollows = "SELECT count(*) FROM FRIEND WHERE IDUSER = ".$this->id;
-        $sqlFollowers = "SELECT count(*) FROM FRIEND WHERE IDFRIEND = ".$this->id;
-        $resultFollows = $this->pdo->query($sqlFollows)->fetch();
-        $resultFollowers = $this->pdo->query($sqlFollowers)->fetch();
-        $this->follows = $resultFollows[0];
-        $this->followers = $resultFollowers[0];
-    }
 } // User
 
 function build_user($uid) {
     $db = new \db\db_handler();
     $db = $db->query("SELECT * FROM USERS WHERE ID = " . $uid)->fetch();
-
     return new User ($db[0],$db[1],$db[2],$db[3]);
 }
-
-?>

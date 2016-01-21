@@ -8,7 +8,6 @@ class Categorie
 	private $name;
 	private $color;
 	private $flux;
-
 	private $pdo;
 
 	public function __construct($id, $name, $color) {
@@ -17,26 +16,19 @@ class Categorie
 		$this->color = $color;
 		$this->flux = array();
 		$this->pdo = new \db\db_handler();
+
+		$this->initializeFlux();
 	}
 
-	public function initializeInside() {
-		$sql = "SELECT * FROM FLUX_ASSOC WHERE IDCATE = ".$this->id;
-		$stmtFA = $this->pdo->query($sql);
-		while($resultFA = $stmtFA->fetch())
+	private function initializeFlux() {
+		$sql = "SELECT * FROM FLUX_ASSOC, FLUX WHERE ID = IDFLUX AND IDCATE = ".$this->id;
+		$stmt = $this->pdo->query($sql);
+		while($result = $stmt->fetch())
 		{
-			$idFlux = $resultFA['IDFLUX'];
-			$fluxName = $resultFA['NAME'];
-			$isFav = $resultFA['ISFAVORITE'];
-			$sql = "SELECT URL FROM FLUX WHERE ID = ".$idFlux;
-			$resultF = $this->pdo->query($sql)->fetch();
-			$newFlux = new FluxUser($idFlux,$fluxName,$resultF['URL'],$isFav);
-			$newFlux->initializeArticlesFlux();
+			$newFlux = new FluxUser($result['IDFLUX'],$result['URL'],$result['NAME'],$result['ISFAVORITE']);
+			$newFlux->initializeArticles();
 			array_push($this->flux, $newFlux);
 		}
-	}
-
-	public function setFlux($flux) {
-		$this->flux = $flux;
 	}
 
 	public function getFlux() {

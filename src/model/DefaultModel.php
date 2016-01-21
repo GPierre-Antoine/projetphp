@@ -12,20 +12,17 @@ include_once('src/class/User.php');
 class DefaultModel extends ModelPDO {
 
 	private $user;
-    private $param;
 
     public function __construct() {
         parent::__construct();
         $this->user = build_user($_SESSION['ID']);
         $this->user->initializeFriends();
         $this->user->initializeCategories();
-        $this->user->initializeFlux();
         $this->user->initializeArticles();
-        $this->user->initializeMailBox();
-        $this->user->updateFollow();
+        //$this->user->initializeMailBox();
     }
 
-    public function getCurrentUser() {
+    public function getUser() {
         return $this->user;
     }
 
@@ -36,8 +33,4 @@ class DefaultModel extends ModelPDO {
 	public function getSpecific() {
 		
 	}
-
-    public function getParam() {
-        return $this->param;
-    }
 }
