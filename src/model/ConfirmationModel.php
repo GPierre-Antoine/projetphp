@@ -42,8 +42,11 @@ class ConfirmationModel extends ModelPDO {
 
         $passdb->execute(array($other_key));
     }
-
-
+    public function redirect ($url, $time = 5)
+    {
+        header("Refresh:$time;URL=$url");
+        die();
+    }
 
     protected function getSpecific(){
     }
