@@ -52,7 +52,7 @@ class User extends ModelPDO
 
     public function initializeArticles() {
         $this->articles = array();
-        $sqlArticles = "SELECT * FROM ARTICLE WHERE IDUSER = ".$this->id." ORDER BY POSTED ASC";
+        $sqlArticles = "SELECT * FROM ARTICLE WHERE IDUSER = ".$this->id." ORDER BY POSTED DESC";
         $stmt = $this->pdo->query($sqlArticles);
         while ($categorie = $stmt->fetch())
         {

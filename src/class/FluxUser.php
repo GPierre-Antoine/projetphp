@@ -18,7 +18,7 @@ class FluxUser extends Flux
     }
 
     public function initializeArticles() {
-        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX = '. $this->id;
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX = '. $this->id .' ORDER BY POSTED DESC';
         $stmt = $this->pdo->query($sql);
         while($result = $stmt->fetch())
         {
