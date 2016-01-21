@@ -74,6 +74,16 @@ class IndexView extends View {
         		    	</div>
         		    </div>
         		    <div class='section' data-anchor='propos' id='propos'>
+                        <div class='section-right' data-ancor='propos' id='propos'>
+                            <p> Bienvenue sur Aaron-aaron, un site communautaire permettant de suivre, partager
+                            ou ajouter ses actuels et celles de ses amis grâce à des flux.</p>
+
+
+                        </div>
+                        <div class='section-left' data-ancor='propos' id='propos'>
+
+
+                        </div>
 
         		    </div>
         		</div>
