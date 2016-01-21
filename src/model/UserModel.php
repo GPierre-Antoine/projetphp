@@ -77,7 +77,7 @@ class UserModel extends ModelPDO {
             $token = random_string_token(64,$loop);
 
         $this->pdo->prepare("SELECT * FROM USERS WHERE ID=(SELECT REPLACE_USER_PASSWORD(?,?,?) AS ID_P)");
-        $this->pdo->execute(array($validation,$password,$token));
+        $this->pdo->execute(array($validation,encrypt($password,$token),$token));
 
         $stmt = $this->pdo->fetch(\PDO::FETCH_ASSOC);
         if ($this->pdo->rowCount() !== 1) {
