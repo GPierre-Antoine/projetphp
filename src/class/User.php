@@ -61,6 +61,7 @@ class User extends ModelPDO
         }
     }
 
+    /*
     public function initializeMailBox() {
         $this->mailbox = array();
         $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = ".$this->id;
@@ -73,7 +74,7 @@ class User extends ModelPDO
             $mailB->initializeMailsInside();
             array_push($this->mailbox,$mailB);
         }
-    }
+    }*/
 
     private function updateFollow() {
         $sqlFollows = "SELECT count(*) FROM FRIEND WHERE IDUSER = ".$this->id;

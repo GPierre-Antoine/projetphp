@@ -112,7 +112,7 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder write_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder actu_btn" type="button"></button>
-			    			<button class="menu_btn noborder mail_btn" type="button"></button>
+			    			<button onclick="loadMail()" class="menu_btn noborder mail_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">
@@ -133,12 +133,12 @@ class DefaultView extends View {
 							echo '
 							</div>
 							<div id="content_mail" class="content hide">';
-							foreach($this->user->getEmailBox() as $mailbox) {
+							/*foreach($this->user->getEmailBox() as $mailbox) {
 								echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>';
 								foreach ($mailbox->getMails() as $mail) {
 									echo $mail->display();
 								}
-							}
+							}*/
                             echo '
 							</div>
 						</div>

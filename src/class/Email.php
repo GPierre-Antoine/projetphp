@@ -42,7 +42,7 @@ class Email {
     }
 
     private function connect() {
-        $this->conn = imap_open('{'.$this->server.':'.$this->port.'/imap/ssl}', $this->address, $this->pass) or die(imap_last_error());
+        $this->conn = imap_open("{".$this->server.":".$this->port."/imap/ssl}", $this->address, $this->pass) or die(imap_last_error());
     }
 
     private function read() {
@@ -91,7 +91,7 @@ class Email {
         imap_close($this->conn);
     }
 
-    public function initializeMailsInside() {
+    public function initializeMails() {
         $sql = "SELECT * FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id;
         $stmt = $this->pdo->query($sql);
         while($result = $stmt->fetch())
