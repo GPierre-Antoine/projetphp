@@ -137,6 +137,22 @@ function addFriend($idFriend) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("userToAddInFriend="+$idFriend);
 } // addFriend()
+
+function addEmail($object){
+    var tab = new Array();
+    $("#F_mail .actionnable_ma").each(function () {
+        tab.push($(this).val());
+    });
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort =' + tab[3],
+        success: function (data) {
+            location.reload();
+        }
+    });
+
+}
 /////////////////////////////~ADD//////////////////////////////
 
 /////////////////////////////FLUX//////////////////////////////

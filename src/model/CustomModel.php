@@ -128,6 +128,18 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sql);
     } // deleteOneFriend() : delete a friend of current user
 
+    public function addMail($nameE,$passwordE,$serverE,$portE) {
+        $sqlInsertEmail = 'INSERT INTO EMAIL (IDUSER,ADDRESS,PASSWORD) VALUES('.$_SESSION['ID'].',"'.$nameE.'","'.$passwordE.'")';
+        $this->pdo->query($sqlInsertEmail);
+        $id = "";
+        $stmt = $sql = 'SELECT ID FROM EMAIL WHERE ADDRESS = "'.$nameE.'"';
+        while ($result = $stmt->fetch()) {
+            $id = $result['ID'];
+        }
+        $sqlInsertEmailConnection = 'INSERT INTO EMAIL_CONNECTION (IDMAIL,SERVER,PORT) VALUES ('.$id.',"'.$serverE.'",'.$portE.')' ;
+        $this->pdo->query($sqlInsertEmailConnection);
+    }
+
     public function loadMail() {
         $sql = 'SELECT EMAIL.ID, ADDRESS, PASSWORD, SERVER, PORT FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = '.$_SESSION['ID'];
         $stmt = $this->pdo->query($sql);
@@ -143,7 +155,7 @@ class CustomModel extends ModelPDO {
 
         }
         return json_encode($array);
-    }
+    } // loadMail() : huge function where it load all mails
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
     public function refresh() {
