@@ -81,6 +81,10 @@ class EmptyView extends View {
             echo $rep;
         }
 
+        else if(isset($_POST['idFriendFocus'])) {
+            $this->model->friendBlog($_POST['idFriendFocus']);
+        }
+
         else if(isset($_POST['imgToTest'])) {
             if(isImageURL($_POST['imgToTest']))
                 echo "true";
