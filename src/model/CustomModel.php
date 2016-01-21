@@ -161,10 +161,10 @@ class CustomModel extends ModelPDO {
 
     public function friendBlog($idFriend) {
         $array = array();
-        $sql = 'SELECT * FROM ARTICLE WHERE IDUSER = '.$idFriend;
+        $sql = 'SELECT ARTICLE.*,EMAIL FROM ARTICLE, USERS WHERE IDUSER = '.$idFriend.' AND IDUSER = USERS.ID';
         $stmt = $this->pdo->query($sql);
         while ($result = $stmt->fetch()) {
-            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['URL'],$result['CONTENT'],$result['POSTED']);
+            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['URL'],$result['CONTENT'],$result['POSTED'],$result['EMAIL']);
             array_push($array, $article->display());
         }
         return json_encode($array);

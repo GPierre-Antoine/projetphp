@@ -193,6 +193,7 @@ function loadMail() {
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);
+            document.getElementById('content_mail').innerHTML = "";
             displays.forEach(function(entry) {
                 document.getElementById('content_mail').innerHTML += entry;
             });
@@ -240,6 +241,7 @@ function focusThisFriend($idFriendFocus) {
         data: 'idFriendFocus='+$idFriendFocus,
         success: function (data) {
             var displays =  JSON.parse(data);
+            document.getElementById('content_friend_blog').innerHTML ="";
             displays.forEach(function(entry) {
                 document.getElementById('content_friend_blog').innerHTML += entry;
             });
