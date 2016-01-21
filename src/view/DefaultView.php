@@ -133,12 +133,12 @@ class DefaultView extends View {
 							echo '
 							</div>
 							<div id="content_mail" class="content hide">
-								<select onchange="loadMail(this)" id="selector_mailbox">';
+								<select id="selector_mailbox">';
 									foreach($this->user->getMailBox() as $mailBox) {
 										echo '<option value="'.$mailBox->getAddress().'">'.$mailBox->getAddress().'</option>';
 									}
 								echo '
-								</select>
+								</select><button onclick="loadMail()" type="button">Charger</button>
 							</div>
 						</div>
 			    	</div>
