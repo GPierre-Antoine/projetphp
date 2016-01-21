@@ -232,6 +232,17 @@ function deleteFriend($idFriendDelete) {
         }
     });
 } // deleteFriend()
+
+function focusThisFriend($idFriendFocus) {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'idFriendFocus='+$idFriendFocus,
+        success: function (data) {
+            location.reload();
+        }
+    });
+}
 /////////////////////////~FRIEND/////////////////////////
 
 ////////////////////////OPTIONS IN MENU////////////////////////

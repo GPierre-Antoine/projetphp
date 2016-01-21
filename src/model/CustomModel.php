@@ -151,10 +151,18 @@ class CustomModel extends ModelPDO {
             foreach($mail->getMails() as $value)  {
                 array_push($array, $value->display());
             }
-
         }
         return json_encode($array);
     } // loadMail() : huge function where it load all mails
+
+    public function friendBlog($idFriend) {
+        $sql = 'SELECT * FROM ARTICLE WHERE IDUSER = '.$idFriend;
+        $stmt = $this->pdo->query($sql);
+        while ($result = $stmt->fetch()) {
+            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['CONTENT'],$result['POSTED']);
+            array_push($array, $article->display());
+        }
+    } // friendBlog() : display friend blog
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
     public function refresh() {
