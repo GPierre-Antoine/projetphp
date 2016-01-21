@@ -365,6 +365,12 @@ body {
 	height: calc(100% - 85px);
 }
 
+.content {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
+
 /* TOP BAR BUTTON */
 .top_deconnection_btn {
 	background: url(../images/logout_btn.png) center center no-repeat;
