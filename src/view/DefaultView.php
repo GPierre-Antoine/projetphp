@@ -96,7 +96,7 @@ class DefaultView extends View {
 
 						echo '</div>
 						<div id="LBBar">
-							<button class="addF_btn noborder" type="button"></button>
+							<button class="add_source_btn LBBar_btn noborder" type="button"></button><button class="add_article_btn LBBar_btn noborder" type="button"></button>
 						</div>
 			    	</div>
 
@@ -109,9 +109,9 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder favorite_btn" type="button"></button>
 			    			<button class="menu_btn noborder friend_btn" type="button"></button>
 			    			<div class="menu_btn"></div>
-			    			<button class="menu_btn noborder write_btn" type="button"></button>
-			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder actu_btn" type="button"></button>
+			    			<button class="menu_btn noborder blog_btn" type="button"></button>
+			    			<button class="menu_btn noborder blog_friend_btn" type="button"></button>
 			    			<button class="menu_btn noborder mail_btn" type="button"></button>
 			    		</div>
 
@@ -142,6 +142,14 @@ class DefaultView extends View {
 									echo '
 									</select><button onclick="loadMail()" class="content_mail_load noborder" type="button">Charger</button>
 								</div>
+							</div>
+							<div id="content_friend_blog" class="content hide">';
+							foreach($this->friends as $friend) {
+								foreach($friend->getArticles() as $article) {
+									echo $article->display();
+								}
+							}
+							echo '
 							</div>
 						</div>
 			    	</div>

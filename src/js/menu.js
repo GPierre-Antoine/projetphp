@@ -1,7 +1,8 @@
 $(document).ready(function() 
 {
 	$(".open_btn").css("display", "none");
-	$(".all_btn").css("background-color", "#2980b9"); // FIRST BUTTON IS ALL_BTN
+	$(".all_btn").css("background-color", "#2980b9");
+	$("#leftSmallMenu .actu_btn").css("background-color", "#2980b9");
 
 	var isMenuOpen = true;
 	var deletingSelected = false;
@@ -138,5 +139,33 @@ $(document).ready(function()
 		$(".all_btn").css("background-color", "#f39c12");
 		$(".favorite_btn").css("background-color", "#2980b9");
 	});
+
+	$('.actu_btn').click(function () {
+		$("#leftSmallMenu .actu_btn").css("background-color", "#2980b9");
+		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+	})
+
+	$('.blog_btn').click(function () {
+		$("#leftSmallMenu .blog_btn").css("background-color", "#2980b9");
+		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+	})
+
+	$('.mail_btn').click(function () {
+		$("#leftSmallMenu .mail_btn").css("background-color", "#2980b9");
+		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+	})
+
+	$('.blog_friend_btn').click(function () {
+		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#2980b9");
+		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
+	})
 });
 

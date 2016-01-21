@@ -132,10 +132,14 @@ class CustomModel extends ModelPDO {
         $sqlInsertEmail = 'INSERT INTO EMAIL (IDUSER,ADDRESS,PASSWORD) VALUES('.$_SESSION['ID'].',"'.$nameE.'","'.$passwordE.'")';
         $this->pdo->query($sqlInsertEmail);
         $id = "";
-        $stmt = $sql = 'SELECT ID FROM EMAIL WHERE ADDRESS = "'.$nameE.'"';
+        $sql = 'SELECT * FROM EMAIL';
+        $stmt = $this->pdo->query($sql);
         while ($result = $stmt->fetch()) {
-            $id = $result['ID'];
+            if($result['ADDRESS'] === $nameE) {
+                $id = $result['ID'];
+            }
         }
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
         $sqlInsertEmailConnection = 'INSERT INTO EMAIL_CONNECTION (IDMAIL,SERVER,PORT) VALUES ('.$id.',"'.$serverE.'",'.$portE.')' ;
         $this->pdo->query($sqlInsertEmailConnection);
     }
@@ -157,10 +161,10 @@ class CustomModel extends ModelPDO {
 
     public function friendBlog($idFriend) {
         $array = array();
-        $sql = 'SELECT * FROM ARTICLE WHERE IDUSER = '.$idFriend;
+        $sql = 'SELECT ARTICLE.*,EMAIL FROM ARTICLE, USERS WHERE IDUSER = '.$idFriend.' AND IDUSER = USERS.ID';
         $stmt = $this->pdo->query($sql);
         while ($result = $stmt->fetch()) {
-            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['URL'],$result['CONTENT'],$result['POSTED']);
+            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['URL'],$result['CONTENT'],$result['POSTED'],$result['EMAIL']);
             array_push($array, $article->display());
         }
         return json_encode($array);
