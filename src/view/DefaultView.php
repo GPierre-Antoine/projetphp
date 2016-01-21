@@ -117,7 +117,7 @@ class DefaultView extends View {
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									foreach($f->getFluxArticles() as $fa) {
-                                        echo $fa->display_rss();
+                                        echo $fa->display();
                                     }
 								}
 							}
@@ -125,17 +125,7 @@ class DefaultView extends View {
 							</div>
 							<div id="content_blog" class="hide">';
 							foreach($this->articles as $article) {
-							echo '
-								<div class="article" >
-									<div class="article_zone_img" >
-										<img class="article_img" src = "'.$article->getImgUrl().'" />
-									</div >
-									<div class="article_zone_content" >
-										<span class="article_content_inf"><span class="article_inf_title">'.$article->getTitle().'</span> dans <span class="article_inf_theme">'.$article->getTheme().'</span></span><br/>
-										<p class="article_content">'.$article->getContent().'</p>
-									</div>
-								</div>
-							';
+								echo $article->display();
 							}
 							echo '
 							</div>

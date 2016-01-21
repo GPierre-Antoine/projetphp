@@ -675,6 +675,10 @@ img[src="#"] {
 	font-style: italic;
 }
 
+.article_inf_date {
+	float: right;
+}
+
 .article_content {
 	width: 100%;
 	height: calc(90% - 3px);
