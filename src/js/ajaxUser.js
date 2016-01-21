@@ -17,37 +17,32 @@ function addArticle($object) {
         data : 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'html',
         success:function(data) {
-            if(data == "true") {
-                continueArticle($object,tab,data);
-            }
-            else{
-                alert('fail');
-            }
+            continueArticle($object,tab,data);
         }
     });
 }
 
 function continueArticle($object,tab,data) {
-    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
-        !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
-        data == "false" ||
-        !tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]$/)) {
-        if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        data != "true" ||
+        !tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+        if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[1].value = "";
-            document.getElementById('F_blog').childNodes[1].placeholder = "Mauvais format pour le titre 1";
+            document.getElementById('F_blog').childNodes[1].placeholder = "Mauvaise syntaxe (2 carac mini.)";
         }
-        if(!tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+        if(!tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[2].value = "";
-            document.getElementById('F_blog').childNodes[2].placeholder = "Mauvais format pour le theme 2";
+            document.getElementById('F_blog').childNodes[2].placeholder = "Mauvaise syntaxe (2 carac mini.)";
         }
-        if(data == "false") {
+        if(data != "true") {
             document.getElementById('F_blog').childNodes[4].value = "";
-            document.getElementById('F_blog').childNodes[4].placeholder = "Mauvais lien de l'image";
+            document.getElementById('F_blog').childNodes[4].placeholder = "Lien invalide";
         }
 
-        if(!tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+        if(!tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[6].value = "";
-            document.getElementById('F_blog').childNodes[6].placeholder = "Mauvais commentary";
+            document.getElementById('F_blog').childNodes[6].placeholder = "Commentaire mal rédigé";
         }
     }
     else {
@@ -228,80 +223,37 @@ function focusToThisRSSFeed($url) {
 } // focusToThisRSSFeed()
 
 function deleteFlux($idRSSFeed,$idCategory) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    $.ajax({
+        url: '/ajx',
+        type: 'POST', // Le type de la requête HTTP, ici devenu POST
+        data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+        dataType: 'html',
+        success: function (data) {
+            location.reload();
         }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                location.reload();
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("idRSSFeedToDeleteOfACategory="+$idRSSFeed+"&idCategory="+$idCategory);
+    });
 } // deleteFlux()
 ////////////////////////////~FLUX//////////////////////////////
 
 /////////////////////////FRIEND/////////////////////////
 function searchUser($object) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                var displays =  JSON.parse(xhr.responseText);
-                $("#researchResult").removeClass("hide");
-                document.getElementById('researchResult').innerHTML = "";
-                for(i = 0 ; i < displays.length ; i += 3) {
-                    var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="'+displays[i+2]+'">';
-                    elm += '<span class="researchResult_friend_name">'+displays[i+1]+'</span>';
-                    elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
-                    document.getElementById('researchResult').innerHTML += elm;
-                }
-            }
-            else {
-                alert("probleme");
+    $.ajax({
+        url: '/ajx',
+        type: 'POST', // Le type de la requête HTTP, ici devenu POST
+        data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
+        dataType: 'html',
+        success: function (data) {
+            var displays =  JSON.parse(data);
+            $("#researchResult").removeClass("hide");
+            document.getElementById('researchResult').innerHTML = "";
+            for(i = 0 ; i < displays.length ; i += 3) {
+                var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="'+displays[i+2]+'">';
+                elm += '<span class="researchResult_friend_name">'+displays[i+1]+'</span>';
+                elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
+                document.getElementById('researchResult').innerHTML += elm;
             }
         }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("userToFind="+$("#F_friend .actionnable_fr").val());
+    });
 } // searchUser()
 
 function deleteFriend($idFriendDelete) {
