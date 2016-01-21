@@ -28,7 +28,6 @@ class IndexView extends View {
                 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
                 <script src='https://apis.google.com/js/platform.js?onload=renderButton' async defer></script>
                 <script type='text/javascript' src='/src/js/jquery.fullPage.js'></script>
-                <script type='text/javascript' src='/src/js/GoogleButton.js'></script>
                 <script type='text/javascript' src='/src/js/indexForm.js'></script>
                 <script type='text/javascript'>
                 $(document).ready(function() {
@@ -75,14 +74,33 @@ class IndexView extends View {
         		    	</div>
         		    </div>
         		    <div class='section' data-anchor='propos' id='propos'>
-                        <div class='section-right' data-ancor='propos' id='propos'>
-                            <p> Bienvenue sur Aaron-aaron, un site communautaire permettant de suivre, partager
-                            ou ajouter ses actuels et celles de ses amis grâce à des flux.</p>
+                        <div class='section-left' data-ancor='propos' id='propos'>
+                            <p> Bienvenue sur Aaron-aaron, un site de suivis regroupant actualités,
+                            blogs, mails, tout un contenu accesible et modifiable par tous.
+                            </br></br>
 
+                            Vous avez aimé un article sur un site, mais il n'est pas présent sur Aaron,
+                            ajoutez-le et partagez-le afin que tous le monde puisse le voir.
+                            </br></br>
+
+                             Vous souhaitez suivre une célébrité ou une personne en particulier sur Twitter
+                             et connaître ses activités ? Ajoutez son twitter.</p>
 
                         </div>
-                        <div class='section-left' data-ancor='propos' id='propos'>
+                        <div class='section-right' data-ancor='propos' id='propos'>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td align='center'>
+                                            <img src='src/view/picturesIndex/picture_01.jpg'>
+                                        </td>
+                                        <td align='center'>
+                                            <img src='src/view/picturesIndex/picture_02.jpg'>
+                                        </td>
+                                    </tr>
 
+                                </tbody>
+                            </table>
 
                         </div>
 
