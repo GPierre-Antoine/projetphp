@@ -12,37 +12,21 @@ class Email {
 
     private $id;
     private $address;
-    private $pass;
-    private $server;
-    private $port;
-
     private $conn;
-
     private $mails;
     private $pdo;
 
-    public function __construct($id,$address,$pass) {
+    public function __construct($id,$address) {
         $this->id = $id;
         $this->address = $address;
-        $this->pass = $pass;
-
         $this->mails = array();
         $this->pdo = new \db\db_handler();
     }
 
-    public function setServer($server,$port) {
-        $this->server = $server;
-        $this->port = $port;
-    }
-
-    public function refresh() {
-        $this->connect();
+    public function connect($server,$port,$password) {
+        $this->conn = imap_open("{".$server.":".$port."/imap/ssl}", $this->address, $password) or die(imap_last_error());
         $this->read();
         $this->close();
-    }
-
-    private function connect() {
-        $this->conn = imap_open("{".$this->server.":".$this->port."/imap/ssl}", $this->address, $this->pass) or die(imap_last_error());
     }
 
     private function read() {

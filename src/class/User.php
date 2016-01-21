@@ -61,20 +61,16 @@ class User extends ModelPDO
         }
     }
 
-    /*
     public function initializeMailBox() {
         $this->mailbox = array();
-        $sql = "SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = ".$this->id;
+        $sql = "SELECT ID, ADDRESS FROM EMAIL WHERE IDUSER = ".$this->id;
         $stmt = $this->pdo->query($sql);
-        while ($result = $stmt->fetch())
+        while($result = $stmt->fetch())
         {
-            $mailB = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD']);
-            $mailB->setServer($result['SERVER'],$result['PORT']);
-            $mailB->refresh();
-            $mailB->initializeMailsInside();
-            array_push($this->mailbox,$mailB);
+            $newBox = new Email($result[0],$result[1]);
+            array_push($this->mailbox,$newBox);
         }
-    }*/
+    }
 
     private function updateFollow() {
         $sqlFollows = "SELECT count(*) FROM FRIEND WHERE IDUSER = ".$this->id;
@@ -119,7 +115,7 @@ class User extends ModelPDO
         return $this->articles;
     }
 
-    public function getEmailBox() {
+    public function getMailBox() {
         return $this->mailbox;
     }
 

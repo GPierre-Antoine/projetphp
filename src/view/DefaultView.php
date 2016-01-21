@@ -68,7 +68,7 @@ class DefaultView extends View {
 						<div id="friend_panel" class="panel searchOn hide"> ';
 							foreach ($this->friends as $f) {
 							echo '
-								<button class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'<img onclick="deleteFriend('.$f->getId().')" class="flux_with_image" src="/src/images/del_btn.png"></button>
+								<button onclick="" class="friend default_block_panel noborder" value="'.$f->getName().'" type="button">'.$f->getName().'<img onclick="deleteFriend('.$f->getId().')" class="flux_with_image" src="/src/images/del_btn.png"></button>
 							';
 							}
 						echo '
@@ -112,7 +112,7 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder write_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder actu_btn" type="button"></button>
-			    			<button onclick="loadMail()" class="menu_btn noborder mail_btn" type="button"></button>
+			    			<button class="menu_btn noborder mail_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">
@@ -132,14 +132,13 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
-							<div id="content_mail" class="content hide">';
-							/*foreach($this->user->getEmailBox() as $mailbox) {
-								echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>';
-								foreach ($mailbox->getMails() as $mail) {
-									echo $mail->display();
-								}
-							}*/
-                            echo '
+							<div id="content_mail" class="content hide">
+								<select onchange="loadMail(this)" id="selector_mailbox">';
+									foreach($this->user->getMailBox() as $mailBox) {
+										echo '<option value="'.$mailBox->getAddress().'">'.$mailBox->getAddress().'</option>';
+									}
+								echo '
+								</select>
 							</div>
 						</div>
 			    	</div>
