@@ -104,38 +104,15 @@ function addRSSFeedCategoryUser($object) {
 }// addRSSFeedCategoryUser()
 
 function addFriend($idFriend) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    $.ajax({
+        url: '/ajx',
+        type: 'POST', // Le type de la requête HTTP, ici devenu POST
+        data: 'userToAddInFriend=' + $idFriend,
+        dataType: 'html',
+        success: function (data) {
+            location.reload();
         }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                location.reload();
-
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("userToAddInFriend="+$idFriend);
+    });
 } // addFriend()
 
 function addEmail($object){
@@ -157,48 +134,27 @@ function addEmail($object){
 
 /////////////////////////////FLUX//////////////////////////////
 function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,$blue) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
-                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
-                    document.getElementById('favorite_panel').innerHTML += newFavorite;
-                }
-                else {
-                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
-                    $("#favorite_panel .flux").each(function () {
-                        if($(this).val() === $name) {
-                            this.remove();
-                        }
-                    });
-                }
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory,
+        success: function (data) {
+            if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
+                $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
+                var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
+                document.getElementById('favorite_panel').innerHTML += newFavorite;
             }
             else {
-                alert("probleme");
+                $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
+                $("#favorite_panel .flux").each(function () {
+                    if($(this).val() === $name) {
+                        this.remove();
+                    }
+                });
             }
         }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("linkImgFavorite="+$object.src+"&idRSSFeed="+$idRSSFeed+"&idCategory="+$idCategory);
+    });
+
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {

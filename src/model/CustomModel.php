@@ -59,7 +59,7 @@ class CustomModel extends ModelPDO {
         $array = array();
         while($result = $stmt->fetch()) {
             $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
-            array_push($array,$fluxArt->display_rss());
+            array_push($array,$fluxArt->display());
         }
         return json_encode($array);
     } // focusToThisRSSFeed() : focus the current page user to the rss feed
