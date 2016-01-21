@@ -210,7 +210,7 @@ function loadMail() {
     $.ajax({
         url: '/ajx',
         type: 'POST',
-        data: 'loadMail=true',
+        data: 'loadMail='+$("#selector_mailbox option:selected" ).text(),
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);

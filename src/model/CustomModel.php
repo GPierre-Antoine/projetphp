@@ -140,14 +140,13 @@ class CustomModel extends ModelPDO {
         $this->pdo->query($sqlInsertEmailConnection);
     }
 
-    public function loadMail() {
-        $sql = 'SELECT EMAIL.ID, ADDRESS, PASSWORD, SERVER, PORT FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = '.$_SESSION['ID'];
+    public function loadMail($mail) {
+        $sql = 'SELECT EMAIL.ID, ADDRESS, PASSWORD, SERVER, PORT FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = '.$_SESSION['ID'] .' AND ADDRESS = "'.$mail.'"';
         $stmt = $this->pdo->query($sql);
         $array = array();
         while ($result = $stmt->fetch()) {
-            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD']);
-            $mail->setServer($result['SERVER'],$result['PORT']);
-            $mail->refresh();
+            $mail = new Email($result['ID'],$result['ADDRESS']);
+            $mail->connect($result['SERVER'],$result['PORT'],$result['PASSWORD']);
             $mail->initializeMails();
             foreach($mail->getMails() as $value)  {
                 array_push($array, $value->display());

@@ -96,7 +96,7 @@ class EmptyView extends View {
 
         ///////////////////////////////////////////////////////MAIL///////////////////////////////////////////////////////
         else if(isset($_POST['loadMail'])) {
-            $res = $this->model->loadMail();
+            $res = $this->model->loadMail($_POST['loadMail']);
             echo $res;
         }
 
