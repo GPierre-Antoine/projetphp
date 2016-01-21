@@ -23,6 +23,7 @@ class IndexView extends View {
         		<title>Aaron</title>
                 <meta name='google-signin-scope' content='profile email'>
         		<link rel='stylesheet' type='text/css' href='/src/style/index.css' />
+        		<link rel='stylesheet' type='text/css' href='/src/style/general.css' />
                 <meta name='google-signin-client_id' content='465981179540-rtkpb0od5g1op6edd11gjt5kq9bcpsfj.apps.googleusercontent.com'>
                 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
                 <script src='https://apis.google.com/js/platform.js?onload=renderButton' async defer></script>

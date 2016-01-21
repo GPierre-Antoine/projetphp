@@ -32,6 +32,9 @@ class DefaultView extends View {
 					<title>Aaron</title>
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/flux.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/blog.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/mail.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
@@ -44,7 +47,7 @@ class DefaultView extends View {
 				<body>
 					<div id="top">
 						<img class="top_logo" src="/src/images/aaron_logo.png">
-						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="'.$this->user->getAvatar().'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
+						<div class="top_user"><button class="top_user_btn noborder" type="button"><img width="100%" height="100%" src="' .$this->user->getAvatar().'"></button><span class="top_user_name">' .$this->user->getName().'</span></div>
 						<button onclick="disconnect()" class="top_deconnection_btn noborder" type="button"></button>
 					</div>
 
@@ -113,39 +116,29 @@ class DefaultView extends View {
 			    		</div>
 
 						<div id="content">
-							<div id="content_flux">';
+							<div id="content_flux" class="content">';
 							foreach($this->categories as $category) {
 								foreach($category->getFlux() as $f) {
 									foreach($f->getFluxArticles() as $fa) {
-                                        echo $fa->display_rss();
+                                        echo $fa->display();
                                     }
 								}
 							}
 							echo '
 							</div>
-							<div id="content_blog" class="hide">';
+							<div id="content_blog" class="content hide">';
 							foreach($this->articles as $article) {
-							echo '
-								<div class="article" >
-									<div class="article_zone_img" >
-										<img class="article_img" src = "'.$article->getImgUrl().'" />
-									</div >
-									<div class="article_zone_content" >
-										<span class="article_content_inf"><span class="article_inf_title">'.$article->getTitle().'</span> dans <span class="article_inf_theme">'.$article->getTheme().'</span></span><br/>
-										<p class="article_content">'.$article->getContent().'</p>
-									</div>
-								</div>
-							';
+								echo $article->display();
 							}
 							echo '
 							</div>
-							<div id="content_mail" class="hide">';
-                                foreach($this->user->getEmailBox() as $mailbox) {
-									echo '<h1>Boite de reception : ' . $mailbox->getAddress() . '</h1>';
-									foreach ($mailbox->getMails() as $mail) {
-										echo $mail->display();
-									}
+							<div id="content_mail" class="content hide">';
+							foreach($this->user->getEmailBox() as $mailbox) {
+								echo '<h1>Boite de reception : '.$mailbox->getAddress().'</h1>';
+								foreach ($mailbox->getMails() as $mail) {
+									echo $mail->display();
 								}
+							}
                             echo '
 							</div>
 						</div>

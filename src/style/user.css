@@ -1,3 +1,5 @@
+/********************** DEFAULT **********************/
+
 * {
 	margin: 0;
 	padding: 0;
@@ -13,14 +15,12 @@ body {
 	position: relative;
 }
 
-/*ACTION*/
+/********************** GENERAL **********************/
 .hide {
 	visibility: hidden;
 	display: none;
-	background-color: green;
 }
 
-/* NO BORDER BUTTON */
 .noborder {
 	border: none;
 }
@@ -33,7 +33,7 @@ body {
     color: #27ae60;
 }
 
-/*TOP*/
+/********************** TOP SIDE **********************/
 #top {
 	border-bottom: 2px solid #2980b9;
 	height: 50px;
@@ -68,6 +68,7 @@ body {
 	font-size: 24px;
 }
 
+/* USER INFORMATION PANEL */
 #user_information {
     width: 20%;
     height: 240px;
@@ -128,51 +129,8 @@ body {
 	background-color: #ecf0f1;
 }
 
-#user_preference {
-	width: 15%;
-	height: 240px;
-	background-color: #bdc3c7;
-	position: absolute;
-	right: 0;
-	top: 0;
-	border-bottom-left-radius: 10px;
-}
 
-.user_preference_top {
-    width: 100%;
-    height: 25%;
-    border-bottom: 1px solid #2980b9;
-}
-
-.user_preference_top_title {
-    display: block;
-    font-size: 28px;
-    float: left;
-    text-align: center;
-    width: calc(100% - 53px);
-    line-height: 60px;
-}
-
-.user_preference_top_btn {
-    float: right;
-    background: url('../images/preference_btn.png') center center no-repeat;
-    height: 100%;
-    width: 48px;
-	margin-right: 5px;
-}
-
-.user_preference_rest {
-    width: 100%;
-    height: calc(100% - 60px);
-}
-
-.user_information_rest_btn {
-	height: 25%;
-	width: 100%;
-	border-bottom: 1px solid #ecf0f1;
-}
-
-/*LEFT*/
+/********************** LEFT SIDE **********************/
 
 /* LEFT TOP PANEL*/
 #LTBar {
@@ -206,24 +164,6 @@ body {
 	background-color: transparent;
 	margin-left: 20px;
 	margin-top: 15px;
-}
-
-
-/*PLACEHOLDER*/
-::-webkit-input-placeholder {
-   text-align: center;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   text-align: center;  
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   text-align: center;  
-}
-
-:-ms-input-placeholder {  
-   text-align: center; 
 }
 
 /* POP UP */
@@ -425,13 +365,7 @@ body {
 	height: calc(100% - 85px);
 }
 
-#content_blog {
-	width: 100%;
-	height: 100%;
-	overflow-y: auto;
-}
-
-#content_flux {
+.content {
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
@@ -630,115 +564,7 @@ img[src="#"] {
 	height: 15%;
 }
 
-/* ARTICLE ZONE */
 
-#content_blog .article {
-	width: 50%;
-	height: 25%;
-	margin: auto;
-	margin-bottom: 2%;
-	position: relative;
-	left: -25%;
-	background-color: #ecf0f1;
-	border-top-right-radius: 20px;
-}
-
-.article_zone_img {
-	width: 30%;
-	height: 100%;
-	float: left;
-}
-
-.article_img {
-	width: 100%;
-	height: 100%;
-}
-
-.article_zone_content {
-	height: 100%;
-	width: calc(70% - 25px);
-	float: left;
-	margin-left: 15px;
-}
-
-.article_content_inf {
-	font-size: 20px;
-	width: 100%;
-	height: 10%;
-}
-
-.article_content_inf .article_inf_title {
-	font-weight: bold;
-}
-
-.article_content_inf .article_inf_theme {
-	font-style: italic;
-}
-
-.article_content {
-	width: 100%;
-	height: calc(90% - 3px);
-	text-align: justify;
-	font-size: 18px;
-	margin-top: 3px;
-	overflow-y: auto;
-	padding-right: 10px;
-}
-
-/* MAIL DISPLAY */
-#content_mail {
-	width: 100%;
-	height: 100%;
-	overflow-y: auto;
-}
-
-#content_mail h1 {
-
-}
-
-.content_mail_display {
-	width: 50%;
-	height: 25%;
-	margin: auto;
-	margin-bottom: 2%;
-	position: relative;
-	left: -25%;
-	background-color: #ecf0f1;
-	border-top-right-radius: 20px;
-}
-
-.content_mail_addressfrom {
-	font-weight: bold;
-	color: #2980b9;
-}
-
-.content_mail_addressfrom a {
-	text-decoration: none;
-	color: #2980b9;
-}
-
-.content_mail_date {
-	float: right;
-	font-weight: bold;
-	margin-right: 15px;
-	color: #f39c12;
-}
-
-.content_mail_subject {
-	display: block;
-	width: 100%;
-	margin-top: 5px;
-	text-align: center;
-	font-size: 20px;
-	text-decoration: underline;
-}
-
-.content_mail_body {
-	width: 100%;
-	display: block;
-	overflow-y: auto;
-	text-align: justify;
-}
 
 /* MESSAGE AIDE */
 

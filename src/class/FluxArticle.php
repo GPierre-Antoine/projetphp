@@ -43,7 +43,7 @@ class FluxArticle {
         return $this->key;
     }
 
-    function display_rss() {
+    function display() {
         $display = '
             <div class="article">
                 <span class="title">'.$this->title.'</span>

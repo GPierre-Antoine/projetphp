@@ -14,29 +14,30 @@ class Article
     private $theme;
     private $imgUrl;
     private $content;
+    private $date;
 
-    public function __construct($id, $title, $theme, $imgUrl, $content) {
+    public function __construct($id, $title, $theme, $imgUrl, $content, $date) {
         $this->id = $id;
         $this->title = $title;
         $this->theme = $theme;
         $this->imgUrl = $imgUrl;
         $this->content = $content;
+        $this->date = $date;
     }
 
-    public function getTitle() {
-        return $this->title;
-    }
-
-    public function getTheme() {
-        return $this->theme;
-    }
-
-    public function getImgUrl() {
-        return $this->imgUrl;
-    }
-
-    public function getContent() {
-        return $this->content;
+    public function display() {
+        $display = '
+            <div class="article" >
+                <div class="article_zone_img" >
+                    <img class="article_img" src = "'.$this->imgUrl.'" />
+                </div >
+                <div class="article_zone_content" >
+                    <span class="article_content_inf"><span class="article_inf_title">'.$this->title.'</span> dans <span class="article_inf_theme">'.$this->theme.'</span></span><span class="article_inf_date">le '.$this->date.'</span><br/>
+                    <p class="article_content">'.$this->content.'</p>
+                </div>
+            </div>
+        ';
+        return $display;
     }
 
 }
