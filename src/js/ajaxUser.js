@@ -158,41 +158,20 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'urlToFocus='+$url,
+        success: function (data) {
+            var displays =  JSON.parse(data);
+            document.getElementById('content_flux').innerHTML = "";
+            displays.forEach(function(entry) {
+                document.getElementById('content_flux').innerHTML += entry;
+            });
         }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                var displays =  JSON.parse(xhr.responseText);
-                document.getElementById('content_flux').innerHTML = "";
-                displays.forEach(function(entry) {
-                    document.getElementById('content_flux').innerHTML += entry;
-                });
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("urlToFocus="+$url);
+    });
 } // focusToThisRSSFeed()
+
 
 function deleteFlux($idRSSFeed,$idCategory) {
     $.ajax({
@@ -244,70 +223,19 @@ function searchUser($object) {
 } // searchUser()
 
 function deleteFriend($idFriendDelete) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'idFriendDelete='+$idFriendDelete,
+        success: function (data) {
+            location.reload();
         }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                location.reload();
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("idFriendDelete="+$idFriendDelete);
+    });
 } // deleteFriend()
 /////////////////////////~FRIEND/////////////////////////
 
 ////////////////////////OPTIONS IN MENU////////////////////////
 function deleteCategorie($idCatDelete,$nameCatDelete) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                location.reload();
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
     var idCateToDelete = $nameCatDelete+"_panel";
     var tab = new Array();
     $("#"+idCateToDelete+" .flux").each(function () {
@@ -326,79 +254,38 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
         document.getElementById("warning_zone").innerHTML += '<button class="action_btn" type="button" onclick="deleteCategorieRSSFeedIn('+$idCatDelete+')">Je suis sûr(e)</button><button class="action_btn" type="button" >Euh non</button>';
     } // If RSS Feed in my category
     else {
-        xhr.open("POST", "/ajx", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("catToDelete=" + $idCatDelete);
-    } // Else no RSS Feed in my category
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'catToDelete=' + $idCatDelete,
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
 } // deleteCategorie()
 
 function deleteCategorieRSSFeedIn($idCatDelete) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'catToDelete='+$idCatDelete,
+        success: function (data) {
+            location.reload();
         }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                location.reload();
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST", "/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("catToDelete=" + $idCatDelete);
+    });
+
 } // deleteCategorieRSSFeedIn()
 
 function disconnect() {
-
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'disconnectUser=ok',
+        success: function (data) {
+            window.location.replace("http://aaron-aaron.alwaysdata.net/");
         }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                window.location.replace("http://aaron-aaron.alwaysdata.net/");
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST", "/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("disconnectUser=ok");
+    });
 } // disconnect()
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
