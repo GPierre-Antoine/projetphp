@@ -242,10 +242,13 @@ function loadMail() {
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);
+            alert('cc');
             displays.forEach(function(entry) {
+                alert(entry);
                 document.getElementById('content_mail').innerHTML += entry;
             });
 
+            alert('cc1');
         }
     });
 } // loadMail()

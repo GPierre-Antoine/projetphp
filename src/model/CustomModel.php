@@ -129,10 +129,11 @@ class CustomModel extends ModelPDO {
     } // deleteOneFriend() : delete a friend of current user
 
     public function loadMail() {
-        $sql = 'SELECT * FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = '.$_SESSION['ID'];
+        $sql = 'SELECT EMAIL.ID, ADDRESS, PASSWORD, SERVER, PORT FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = '.$_SESSION['ID'];
         $stmt = $this->pdo->query($sql);
+        $array = array();
         while ($result = $stmt->fetch()) {
-            $mail = new Email($result['EMAIL.ID'],$result['ADDRESS'],$result['PASSWORD']);
+            $mail = new Email($result['ID'],$result['ADDRESS'],$result['PASSWORD']);
             $mail->setServer($result['SERVER'],$result['PORT']);
             $mail->refresh();
             $mail->initializeMails();
@@ -141,7 +142,7 @@ class CustomModel extends ModelPDO {
             }
 
         }
-        return $array;
+        return json_encode($array);
     }
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
