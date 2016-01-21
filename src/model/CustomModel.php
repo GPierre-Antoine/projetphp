@@ -32,7 +32,7 @@ class CustomModel extends ModelPDO {
 
     //////////////////////////////////FOR A USER//////////////////////////////////
     public function addArticle($articleToAdd) {
-        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT) VALUES (".$_SESSION['ID'].",'" . $articleToAdd[0]."','" . $articleToAdd[1]."','" . $articleToAdd[2] . "', '". $articleToAdd[3] . "')";
+        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT,POSTED) VALUES (".$_SESSION['ID'].",'" . $articleToAdd[0]."','" . $articleToAdd[1]."','" . $articleToAdd[2] . "', '". $articleToAdd[3] ."','" . date('Y-m-d H:i:s'). "')";
         $this->pdo->query($sql);
     } // addArticle() : add a article for the current user
 

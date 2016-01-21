@@ -3,83 +3,34 @@
  */
 
 //////////////////////////////ADD//////////////////////////////
-function isAImage(url) {
-    var test = "";
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                test = xhr.responseText;
-
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("imgToTest="+url);
-    if(test != "") {
-        return "true"
-    }
-}
-
 function addArticle($object) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                closePopUpAddArticle("#overlay_blog",".popup_blog");
-            }
-            else {
-                alert("problemee");
-            }
-        }
-    };
 
+    var url = document.getElementById('F_blog').childNodes[4].value;
     var tab = new Array();
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
-    var pouet = isAImage(document.getElementById('F_blog').childNodes[4].value);
-    alert("pouet : "+pouet);
+
+    $.ajax({
+        url : '/ajx',
+        type : 'POST', // Le type de la requête HTTP, ici devenu POST
+        data : 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+        dataType : 'html',
+        success:function(data) {
+            if(data == "true") {
+                continueArticle($object,tab,data);
+            }
+            else{
+                alert('fail');
+            }
+        }
+    });
+}
+
+function continueArticle($object,tab,data) {
     if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
-        testImg == "false" ||
+        data == "false" ||
         !tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]$/)) {
         if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[1].value = "";
@@ -89,7 +40,7 @@ function addArticle($object) {
             document.getElementById('F_blog').childNodes[2].value = "";
             document.getElementById('F_blog').childNodes[2].placeholder = "Mauvais format pour le theme 2";
         }
-        if(testImg == "false") {
+        if(data == "false") {
             document.getElementById('F_blog').childNodes[4].value = "";
             document.getElementById('F_blog').childNodes[4].placeholder = "Mauvais lien de l'image";
         }
@@ -100,19 +51,16 @@ function addArticle($object) {
         }
     }
     else {
-        alert('je passe');
-        xhr.open("POST","/ajx", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("titreArticle="+tab[0]+"&themeArticle="+tab[1]+"&urlImgArticle="+tab[2]+"&contentArticle="+tab[3]);
-
-        //AUTO REFRESH THE NEW ARTICLE
-        var title = tab[0];
-        var theme = tab[1];
-        var imgurl = tab[2];
-        var content = tab[3];
-
-        var newArticle = '<div class="article"> <div class="article_zone_img" > <img class="article_img" src="'+imgurl+'" /></div><div class="article_zone_content" ><span class="article_content_inf"><span class="article_inf_title">'+title+'</span> dans <span class="article_inf_theme">'+theme+'</span></span><br/><p class="article_content">'+content+'</p></div></div>';
-        document.getElementById('content_blog').innerHTML += newArticle;
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
+            dataType: 'html',
+            success: function (data) {
+                closePopUpAddArticle("#overlay_blog",".popup_blog");
+                location.reload();
+            }
+        });
     }
 } // addArticle()
 
@@ -122,86 +70,42 @@ function closePopUpAddArticle(overlay,popup) {
 } // closePopUpAddArticle()
 
 function addCategory($object) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                    location.reload();
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
     var tab = new Array();
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
+
     if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
         document.querySelector('.pop_add_categorie').innerHTML += "<span class='error_categorie_name'>Aide : Une catégorie ne contient pas d'espace au début et elle contient que des caractères alphanumériques</span>";
     }
-    else
-    {
-        xhr.open("POST", "/ajx", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("nameCategorie=" + tab[0] + "&colorCategorie=" + tab[1]);
+    else {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'nameCategorie=' + tab[0] + '&colorCategorie=' + tab[1], // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
     }
 } // addCategory()
 
 function addRSSFeedCategoryUser($object) {
-    var xhr;
-    try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-    }
-    catch (e) {
-        try {
-            xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-        catch (e2) {
-            try {
-                xhr = new XMLHttpRequest();
-            }
-            catch (e3) {
-                xhr = false;
-            }
-        }
-    }
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                xhr.responseText;
-                location.reload();
-
-            }
-            else {
-                alert("probleme");
-            }
-        }
-    };
     var tab = new Array();
     $("#F_flux .actionnable_fl").each(function () {
         tab.push($(this).val());
     });
-    xhr.open("POST","/ajx", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("nameFluxAdd="+tab[0]+"&nameCategorieToAdd="+tab[1]+"&urlFluxAdd="+tab[2]);
+
+    $.ajax({
+        url: '/ajx',
+        type: 'POST', // Le type de la requête HTTP, ici devenu POST
+        data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' +tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
+        dataType: 'html',
+        success: function (data) {
+            location.reload();
+        }
+    });
 }// addRSSFeedCategoryUser()
 
 function addFriend($idFriend) {
