@@ -108,7 +108,7 @@ class UserModel extends ModelPDO {
 
 
     public function request_password_change ($mail) {
-        de_log();
+        $this->de_log();
 
         $token = $this->getRandomToken();
 
