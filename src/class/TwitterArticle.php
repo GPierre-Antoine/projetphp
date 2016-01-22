@@ -10,14 +10,16 @@ class TwitterArticle {
 
     private $id;
     private $body;
+    private $source;
 
-    public function __construct($id,$body) {
+    public function __construct($id,$body,$source) {
         $this->id = $id;
         $this->body = $body;
+        $this->source = $source;
     }
 
     public function display() {
-        return $this->body;
+        return $this->body.' par : '.$this->source;
     }
 
 }

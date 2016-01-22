@@ -144,7 +144,8 @@ $(document).ready(function()
 		$("#leftSmallMenu .actu_btn").css("background-color", "#2980b9");
 		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
-		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
 	})
 
 	$('.blog_btn').click(function () {
@@ -152,6 +153,7 @@ $(document).ready(function()
 		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
 	})
 
 	$('.mail_btn').click(function () {
@@ -159,6 +161,7 @@ $(document).ready(function()
 		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
 	})
 
 	$('.blog_friend_btn').click(function () {
@@ -166,6 +169,15 @@ $(document).ready(function()
 		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
 	})
+
+    $('.twitter_btn').click(function () {
+        $("#leftSmallMenu .twitter_btn").css("background-color", "#2980b9");
+        $("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
+        $("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+    })
 });
 
