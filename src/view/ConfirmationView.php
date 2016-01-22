@@ -23,7 +23,6 @@ class ConfirmationView extends View {
 				</head>
 				<body>
 					<img class="logo" src="src/images/aaron_logo_1.png">
-					<p></p>
 				</body>
 			</html>
     	';

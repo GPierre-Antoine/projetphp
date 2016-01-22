@@ -9,4 +9,9 @@ class Controllerforgotpass extends Controller {
 	{$this->model->get($information1);
 	}// recupadr
 
+	public function update()
+    {
+
+    }
+
 }

@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+}
+
+body {
+    background-color: #3498db;
+}
+
+.logo {
+    position: absolute;
+    left: 49%;
+    top: 39%;
+    width: 159px;
+    height: 159px;
+    margin-left: -79.5px;
+    margin-top: -79.5px;
+}
