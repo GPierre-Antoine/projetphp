@@ -6,7 +6,7 @@
  * Time: 09:33
  */
 
-require "twitter_api/autoload.php";
+require "../vendor/twitter_api/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 //require_once ('/home/aaron-aaron/www/src/util/db/sql_access.php');
 
