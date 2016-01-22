@@ -108,14 +108,14 @@ class EmptyView extends View {
         }
 
         else if(isset($_POST['nameInformation']) && isset($_POST['emailInformation']) && isset($_POST['passwordInformation'])) {
-            if($_POST['nameInformation'] != "") {
+            if(POST('nameInformation') != "") {
                 $this->model->changeName(POST('nameInformation'));
             }
-            if($_POST['emailInformation'] != "") {
+            if(POST('emailInformation') != "") {
                 $this->model->changeEmail(POST('emailInformation'));
 
             }
-            if($_POST['passwordInformation'] != "") {
+            if(POST('passwordInformation') != "") {
                 $userModel = new UserModel();
                 $userModel->reset_password_with_id($_SESSION['ID'],POST('passwordInformation'));
             }

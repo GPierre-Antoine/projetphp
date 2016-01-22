@@ -61,4 +61,8 @@ class Twitter {
         }
     }
 
+    public function getTweets() {
+        return $this->articles;
+    }
+
 }
