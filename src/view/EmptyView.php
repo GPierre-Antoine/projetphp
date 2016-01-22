@@ -99,7 +99,7 @@ class EmptyView extends View {
 
         //Test if the url is an image
         else if(isset($_POST['imgToTest'])) {
-            echo "POST : " . $_POST['imgToTest'] . ' AND isImage : ' .isImageURL($_POST['imgToTest']). ' AND POST : '. POST('imgToTest').' AND isImage : '.isImageURL(POST('imgToTest'));
+            echo isImageURL(POST('imgToTest'));
         }
 
         //Disconnect

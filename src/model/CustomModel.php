@@ -52,19 +52,23 @@ class CustomModel extends ModelPDO {
     public function changeFavoriteRSSFeed($value, $idRSSFeed, $idCategory) {
         $sql = "null" ;
         if ($value == "on") {
-            $sql = 'UPDATE FLUX_ASSOC SET ISFAVORITE = 1 WHERE IDFLUX = ' . $idRSSFeed . ' AND IDCATE = '.$idCategory;
+            $sql = 'UPDATE FLUX_ASSOC SET ISFAVORITE = ? WHERE IDFLUX = ? AND IDCATE = ?';
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array(1,$idRSSFeed,$idCategory));
         }
         else {
-            $sql = 'UPDATE FLUX_ASSOC SET ISFAVORITE = 0 WHERE IDFLUX = ' . $idRSSFeed . ' AND IDCATE = '.$idCategory;
+            $sql = 'UPDATE FLUX_ASSOC SET ISFAVORITE = ? WHERE IDFLUX = ? AND IDCATE = ?';
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array(0,$idRSSFeed,$idCategory));
         }
-        $this->pdo->query($sql);
     } // changeFavoriteRSSFeed() : add or delete the current user list of his rss feed
 
     public function focusToThisRSSFeed($url) {
-        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT ID FROM FLUX WHERE URL = \''.$url.'\')';
-        $stmt = $this->pdo->query($sql);
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT ID FROM FLUX WHERE URL = ?)';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($url));
         $array = array();
-        while($result = $stmt->fetch()) {
+        while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
             $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
             array_push($array,$fluxArt->display());
         }

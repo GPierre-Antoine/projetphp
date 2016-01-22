@@ -9,18 +9,26 @@ class ResetController extends Controller {
 
 	public function update()
     {
-        if (isset($this->options[0]) && isset($_POST["password1"]) && isset($_POST["password2"]) && $password = POST("password1") === POST("password2"))
+        if (isset($this->options[0]))
         {
-            //there is a token set.
-            $token = $this->options[0];
-            $this->model->reset_password_with_validation ($token,$password);
+            //validation du token
 
 
-            $this->model->setStrategy(new ResetedStrategy($this->model));
+            if (isset($_POST["password1"]) && isset($_POST["password2"]) && $password = POST("password1") === POST("password2")) {
+                //there is a token set.
+                $this->model->setStrategy(new ResetedStrategy($this->model));
+                $token = $this->options[0];
+                $this->model->reset_password_with_validation($token, $password);
+
+            }
+            else {
+                $this->model->setStrategy(new RequestStrategy($this->model));
+            }
         }
         else {
             //user wants to request a new password
             if (isset($_POST["mail"])) {
+                $this->model->setStrategy(new ClickSurMailStrategy($this->model));
                 $mail = POST("mail");
                 $token = $this->model->request_password_change($mail);
 
@@ -42,7 +50,8 @@ TEXT;
 
             }
             else {
-                // no mail set
+                // no mail set ; need to display form
+                $this->model->setStrategy(new SetMailStrategy($this->model));
             }
         }
     }

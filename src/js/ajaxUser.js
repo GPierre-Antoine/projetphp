@@ -17,8 +17,7 @@ function addArticle($object) {
         data : 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'html',
         success:function(data) {
-            //continueArticle($object,tab,data);
-            alert(data);
+          continueArticle($object,tab,data);
         }
     });
 }
@@ -230,7 +229,7 @@ function searchTwitter($object) {
         data: 'searchTwitter='+ tab[0],
         dataType: 'html',
         success: function (data) {
-            location.refresh();
+            location.reload();
         }
     });
 
