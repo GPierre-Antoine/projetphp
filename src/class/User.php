@@ -16,6 +16,7 @@ class User extends ModelPDO
     private $categories;
     private $articles;
     private $mailbox;
+    private $twitters;
 
 	public function __construct($id,$email,$name,$enable) {
 		$this->id = $id;
@@ -73,6 +74,18 @@ class User extends ModelPDO
         }
     }
 
+    public function initializeTwitter() {
+        $this->twitters = array();
+        $sql = "SELECT * FROM TWITTER WHERE IDUSER = ".$this->id;
+        $stmt = $this->pdo->query($sql);
+        while($result = $stmt->fetch())
+        {
+            $newTwitterAcc = new Twitter($result['ID'],$this->id,$result['NAME']);
+            $newTwitterAcc->initializeTweets();
+            array_push($this->twitters,$newTwitterAcc);
+        }
+    }
+
     private function updateFollow() {
         $sqlFollows = "SELECT count(*) FROM FRIEND WHERE IDUSER = ".$this->id;
         $sqlFollowers = "SELECT count(*) FROM FRIEND WHERE IDFRIEND = ".$this->id;
@@ -118,6 +131,10 @@ class User extends ModelPDO
 
     public function getMailBox() {
         return $this->mailbox;
+    }
+
+    public function getTwitters() {
+        return $this->twitters;
     }
 
     public function getAvatar() {
