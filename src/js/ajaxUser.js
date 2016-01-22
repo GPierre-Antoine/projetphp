@@ -158,15 +158,31 @@ function addRSSFeedCategoryUser($object) {
         tabCategory.push($(this).val());
     });
 
-    $temp = "false";
+    $temp1 = "false";
+    $temp2 = "false";
 
     for($i = 0 ; $i < tabCategory.length ; ++$i) {
         if(tabCategory[$i] === tab[1]) {
-            $temp = "true";
+            $temp1 = tabCategory[$i];
         }
     }
 
-    if($temp === "true") {
+    var tabCategoryRSSIn = new Array();
+    $("#"+$temp1+"_panel .flux").each(function () {
+        tabCategoryRSSIn.push($(this).val());
+    });
+
+    for($i = 0 ; $i < tabCategoryRSSIn.length ; ++$i) {
+        if(tabCategoryRSSIn[$i] === tab[0]) {
+            $temp2 = tabCategory[$i];
+        }
+    }
+
+    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
+        $temp1 = "false";
+    }
+
+    if($temp1 !== "false" && $temp2 === "false") {
         $.ajax({
             url: '/ajx',
             type: 'POST', // Le type de la requête HTTP, ici devenu POST
@@ -178,11 +194,11 @@ function addRSSFeedCategoryUser($object) {
         });
     }
     else {
-        if(document.querySelector('.pop_add_flux').innerHTML.indexOf("Vous n'avez pas cette catégorie") != -1) {
+        if(document.querySelector('.pop_add_flux').innerHTML.indexOf("Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie") != -1) {
 
         }
         else {
-            document.querySelector('.pop_add_flux').innerHTML += "<span class='error_flux_name'>Vous n'avez pas cette catégorie</span>";
+            document.querySelector('.pop_add_flux').innerHTML += "<span class='error_flux_name'>Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie ou le format du nom n'est pas correct : 3 caractères alphanumériques au minimum</span>";
         }
     }
 }// addRSSFeedCategoryUser()
@@ -195,12 +211,6 @@ function addCategory($object) {
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
-
-    var tabCategory = new Array();
-    $("#categorie_panel .default_block_panel").each(function () {
-        tabCategory.push($(this).val());
-    });
-
 
     var tabCategory = new Array();
     $("#categorie_panel .default_block_panel").each(function () {
