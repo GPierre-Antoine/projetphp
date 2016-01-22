@@ -13,7 +13,5 @@ abstract class StrategyResetPassword {
         $this->model = $model;
     }
 
-    public function run() {
-        
-    }
+    public abstract function run();
 }
