@@ -16,7 +16,8 @@ class EmptyView extends View {
     }// UserView
 
     public function display() {
-        //////////////////////////////////////////////////////ADMIN//////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////ADMIN////////////////////////////////////////////////////////////////////////////////
+        //Enable or disable or delete a user
         if(isset($_POST['enableOrDisable'])) {
             $task = substr(POST('enableOrDisable'),0,3);  // ena ou dis
             $idUser = substr(POST('enableOrDisable'),3); // ex : 69
@@ -27,10 +28,22 @@ class EmptyView extends View {
                 $this->model->enableOrDisableUser($task,$idUser);
             }
         }
-        /////////////////////////////////////////////////////~ADMIN//////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////~ADMIN////////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////ADD//////////////////////////////////////////////////////
-        //Article
+        ////////////////////////////////////////////////////////////////////////////////FOR A USER/////////////////////////////////////////////////////////////////////////////
+        //Find a user
+        else if(isset($_POST['userToFind'])) {
+            $rep = $this->model->userToFindAndToDisplay(POST('userToFind'));
+            echo $rep;
+        }
+
+        //Test if the url is an image
+        else if(isset($_POST['imgToTest'])) {
+            echo isImageURL(POST('imgToTest'));
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////ARTICLE///////////////////////////////////////////////////////////////////////////////
+        //Add a article for a user
         else if(isset($_POST['titreArticle']) && isset($_POST['themeArticle']) && isset($_POST['urlImgArticle']) && isset($_POST['contentArticle'])) {
             $articleToAdd = array();
             array_push($articleToAdd,POST('titreArticle'));
@@ -40,15 +53,10 @@ class EmptyView extends View {
             $this->model->addArticle($articleToAdd);
         }
 
-        // Categorie
-        else if(isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
-            $tab = array();
-            array_push($tab,POST('nameCategorie'));
-            array_push($tab,POST('colorCategorie'));
-            $this->model->addCategory($tab);
-        }
+        /////////////////////////////////////////////////////////////////////////////////~ARTICLE///////////////////////////////////////////////////////////////////////////////
 
-        // change RSS feed favorite
+        ////////////////////////////////////////////////////////////////////////////////////RSS/////////////////////////////////////////////////////////////////////////////////
+        //Change favorite rss feed of a user
         else if(isset($_POST['linkImgFavorite']) && isset($_POST['idRSSFeed']) && isset($_POST['idCategory'])) {
             if(POST('linkImgFavorite') === "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png")
                 $value = "off";
@@ -57,54 +65,104 @@ class EmptyView extends View {
             $this->model->changeFavoriteRSSFeed($value,POST('idRSSFeed'),POST('idCategory'));
         }
 
-        // Add a RSS feed to a category for a user
+        //Focus on a RSS feed
+        else if(isset($_POST['urlToFocus'])) {
+            $rep = $this->model->focusToThisRSSFeed(POST('urlToFocus'));
+            echo $rep;
+        }
+
+        //RSS feed to delete in a category
+        else if (isset($_POST['idRSSFeedToDeleteOfACategory']) && isset($_POST['idCategory'])) {
+            $this->model->RSSFeedToDeleteOfACategory(POST('idRSSFeedToDeleteOfACategory'),POST('idCategory'));
+        }
+
+        //Add a RSS in a category
         else if(isset($_POST['nameFluxAdd']) && isset($_POST['nameCategorieToAdd']) && isset($_POST['urlFluxAdd'])) {
             $this->model->addRSSFeedCategoryUser(POST('nameFluxAdd'),POST('nameCategorieToAdd'),POST('urlFluxAdd'));
         }
 
-        // Add a user in friendlist
-        else if(isset($_POST['userToAddInFriend'])) {
-            $this->model->userToAddInFriend(POST('userToAddInFriend'));
-        }
-        /////////////////////////////////////////////////////~ADD//////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////~RSS/////////////////////////////////////////////////////////////////////////////////
 
-        //////////////////////////////////////////////////////OPTIONS//////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////CATEGORY///////////////////////////////////////////////////////////////////////////////
+        //Add a category
+        else if(isset($_POST['nameCategorie']) && isset($_POST['colorCategorie'])) {
+            $tab = array();
+            array_push($tab,POST('nameCategorie'));
+            array_push($tab,POST('colorCategorie'));
+            $this->model->addCategory($tab);
+        }
+
+        //Delete a Category
+        else if(isset($_POST['catToDelete'])) {
+            $rep = $this->model->catToDelete(POST('catToDelete'));
+        }
+
         //Display all categories
         else if(isset($_POST['allCategories'])) {
             $rep = $this->model->allCategories();
             echo $rep;
         }
 
-        //Focus to the specific rss feed
-        else if(isset($_POST['urlToFocus'])) {
-            $rep = $this->model->focusToThisRSSFeed(POST('urlToFocus'));
-            echo $rep;
-        }
+        ////////////////////////////////////////////////////////////////////////////////~CATEGORY///////////////////////////////////////////////////////////////////////////////
 
-        //Find the user
-        else if(isset($_POST['userToFind'])) {
-            $rep = $this->model->userToFindAndToDisplay(POST('userToFind'));
-            echo $rep;
-        }
-
+        //////////////////////////////////////////////////////////////////////////////////FRIEND////////////////////////////////////////////////////////////////////////////////
         //Focus on friend blog
         else if(isset($_POST['idFriendFocus'])) {
             $rep = $this->model->friendBlog(POST('idFriendFocus'));
             echo $rep;
         }
 
-
-        //Test if the url is an image
-        else if(isset($_POST['imgToTest'])) {
-            echo isImageURL(POST('imgToTest'));
+        //Delete a friend
+        else if(isset($_POST['idFriendDelete'])) {
+            $this->model->deleteOneFriend(POST('idFriendDelete'));
         }
 
-        //Disconnect
-        else if(isset($_POST['disconnectUser'])) {
-            session_destroy();
-            header('Location:http://aaron-aaron.alwaysdata.net');
+        // Add a user in friendlist
+        else if(isset($_POST['userToAddInFriend'])) {
+            $this->model->userToAddInFriend(POST('userToAddInFriend'));
         }
 
+        /////////////////////////////////////////////////////////////////////////////////~FRIEND////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////MAIL/////////////////////////////////////////////////////////////////////////////////
+        //Load current mail
+        else if(isset($_POST['loadMail'])) {
+            $res = $this->model->loadMail(POST('loadMail'));
+            echo $res;
+        }
+
+        //Add a mail
+        else if(isset($_POST['emailName']) && isset($_POST['emailPassword']) && isset($_POST['emailServer']) && isset($_POST['emailPort'])) {
+            $this->model->addMail(POST('emailName'),POST('emailPassword'),POST('emailServer'),POST('emailPort'));
+        }
+
+        //Delete mail
+        else if(isset($_POST['deleteMail'])) {
+            $this->model->deleteMail(POST('deleteMail'));
+        }
+        //////////////////////////////////////////////////////////////////////////////////~MAIL/////////////////////////////////////////////////////////////////////////////////
+
+        /////////////////////////////////////////////////////////////////////////////////TWITTER////////////////////////////////////////////////////////////////////////////////
+        //Follow a twitter user
+        else if(isset($_POST['searchTwitter'])) {
+            $this->model->searchTwitter(POST('searchTwitter'));
+        }
+
+        //Load twitter user
+        else if(isset($_POST['loadTwitter'])) {
+            $res = $this->model->loadTwitter(POST('loadTwitter'));
+            echo $res;
+        }
+
+        //Delete twitter user
+        else if(isset($_POST['deleteTwitter'])) {
+            $this->model->deleteTwitter(POST('deleteTwitter'));
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////~TWITTER/////////////////////////////////////////////////////////////////////////////////
+
+        /////////////////////////////////////////////////////////////////////////////////OPTIONS/////////////////////////////////////////////////////////////////////////////////
+        //Options for a user
         else if(isset($_POST['nameInformation']) && isset($_POST['emailInformation']) && isset($_POST['passwordInformation'])) {
             if(POST('nameInformation') != "") {
                 $this->model->changeName(POST('nameInformation'));
@@ -118,47 +176,16 @@ class EmptyView extends View {
                 $userModel->reset_password_with_id($_SESSION['ID'],POST('passwordInformation'));
             }
         }
-        /////////////////////////////////////////////////////~OPTIONS//////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////MAIL///////////////////////////////////////////////////////
-        else if(isset($_POST['loadMail'])) {
-            $res = $this->model->loadMail(POST('loadMail'));
-            echo $res;
-        }
-
-        else if(isset($_POST['emailName']) && isset($_POST['emailPassword']) && isset($_POST['emailServer']) && isset($_POST['emailPort'])) {
-            $this->model->addMail(POST('emailName'),POST('emailPassword'),POST('emailServer'),POST('emailPort'));
-        }
-        else if(isset($_POST['deleteMail'])) {
-            $this->model->deleteMail(POST('deleteMail'));
-        }
-        //////////////////////////////////////////////////////~MAIL///////////////////////////////////////////////////////
-
-        ///////////////////////////////////////////////////////TWITTER///////////////////////////////////////////////////////
-        else if(isset($_POST['searchTwitter'])) {
-            $this->model->searchTwitter(POST('searchTwitter'));
-        }
-        else if(isset($_POST['loadTwitter'])) {
-            $res = $this->model->loadTwitter(POST('loadTwitter'));
-            echo $res;
-        }
-        else if(isset($_POST['deleteTwitter'])) {
-            $this->model->deleteTwitter(POST('deleteTwitter'));
-        }
-        //////////////////////////////////////////////////////~TWITTER///////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////DELETE//////////////////////////////////////////////////////
-        else if(isset($_POST['catToDelete'])) {
-            $rep = $this->model->catToDelete(POST('catToDelete'));
+        //Disconnect
+        else if(isset($_POST['disconnectUser'])) {
+            session_destroy();
+            header('Location:http://aaron-aaron.alwaysdata.net');
         }
 
-        else if (isset($_POST['idRSSFeedToDeleteOfACategory']) && isset($_POST['idCategory'])) {
-            $this->model->RSSFeedToDeleteOfACategory(POST('idRSSFeedToDeleteOfACategory'),POST('idCategory'));
-        }
+        ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////
 
-        else if(isset($_POST['idFriendDelete'])) {
-            $this->model->deleteOneFriend(POST('idFriendDelete'));
-        }
-        ////////////////////////////////////////////////////~DELETE//////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////~FOR A USER//////////////////////////////////////////////////////////////////////////////
 
 
     }

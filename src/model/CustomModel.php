@@ -13,7 +13,7 @@ class CustomModel extends ModelPDO {
         parent::__construct();
     } // CustomModel
 
-    //////////////////////////ADMIN/////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////ADMIN///////////////////////////////////////////////////////////////////////
     public function enableOrDisableUser($enableOrDisable,$idUser) {
         if($enableOrDisable === "ena") {
             $sql = "UPDATE USERS SET ENABLE = ? WHERE ID = ?";
@@ -33,9 +33,9 @@ class CustomModel extends ModelPDO {
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($idUser));
     } // deleteUser() : delete a user of the database
-    //////////////////////////ADMIN/////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////~ADMIN///////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////////FOR A USER//////////////////////////////////
+    /////////////////////////////////////////////////////////////////////FOR A USER/////////////////////////////////////////////////////////////////////
 
     public function userToFindAndToDisplay($userToFind) {
         $sql = 'SELECT count(*) FROM FRIEND WHERE IDUSER = ? AND IDFRIEND IN (SELECT ID FROM USERS WHERE NAME = ?)';
@@ -168,7 +168,34 @@ class CustomModel extends ModelPDO {
 
     } // allCategories() : display all rss feed of a user
 
-    /////////////////////////////////////////////////////////////////////~CATEGORY///////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////~CATEGORY///////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////FRIEND/////////////////////////////////////////////////////////////////////////
+    public function friendBlog($idFriend) {
+        $array = array();
+        $sql = 'SELECT ARTICLE.*,EMAIL FROM ARTICLE, USERS WHERE IDUSER = ? AND IDUSER = USERS.ID';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($idFriend));
+        while ($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
+            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['URL'],$result['CONTENT'],$result['POSTED'],$result['EMAIL']);
+            array_push($array, $article->display());
+        }
+        return json_encode($array);
+    } // friendBlog() : display friend blog
+
+    public function deleteOneFriend($idFriend) {
+        $sql = 'DELETE FROM FRIEND WHERE IDUSER = ? AND IDFRIEND = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$idFriend));
+    } // deleteOneFriend() : delete a friend of current user
+
+    public function userToAddInFriend($idUserToAdd) {
+        $sql = 'INSERT INTO FRIEND (IDUSER,IDFRIEND) VALUES(?,?)';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$idUserToAdd));
+    } // userToAddInFriend() : add a user in the current user friendlist
+
+    //////////////////////////////////////////////////////////////////////~FRIEND/////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////MAIL////////////////////////////////////////////////////////////////////////
     public function addMail($nameE,$passwordE,$serverE,$portE) {
@@ -212,33 +239,6 @@ class CustomModel extends ModelPDO {
     } // deleteMail() : delete mail of the mail database
 
     ////////////////////////////////////////////////////////////////////////~MAIL/////////////////////////////////////////////////////////////////////////
-
-    ///////////////////////////////////////////////////////////////////////FRIEND/////////////////////////////////////////////////////////////////////////
-    public function friendBlog($idFriend) {
-        $array = array();
-        $sql = 'SELECT ARTICLE.*,EMAIL FROM ARTICLE, USERS WHERE IDUSER = ? AND IDUSER = USERS.ID';
-        $this->pdo->prepare($sql);
-        $this->pdo->execute(array($idFriend));
-        while ($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
-            $article = new Article($result['ID'],$result['TITLE'],$result['THEME'],$result['URL'],$result['CONTENT'],$result['POSTED'],$result['EMAIL']);
-            array_push($array, $article->display());
-        }
-        return json_encode($array);
-    } // friendBlog() : display friend blog
-
-    public function deleteOneFriend($idFriend) {
-        $sql = 'DELETE FROM FRIEND WHERE IDUSER = ? AND IDFRIEND = ?';
-        $this->pdo->prepare($sql);
-        $this->pdo->execute(array($_SESSION['ID'],$idFriend));
-    } // deleteOneFriend() : delete a friend of current user
-
-    public function userToAddInFriend($idUserToAdd) {
-        $sql = 'INSERT INTO FRIEND (IDUSER,IDFRIEND) VALUES(?,?)';
-        $this->pdo->prepare($sql);
-        $this->pdo->execute(array($_SESSION['ID'],$idUserToAdd));
-    } // userToAddInFriend() : add a user in the current user friendlist
-
-    //////////////////////////////////////////////////////////////////////~FRIEND/////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////////////TWITTER///////////////////////////////////////////////////////////////////////
     public function searchTwitter($name) {
