@@ -6,6 +6,14 @@
  * Time: 11:30
  */
 
-interface StrategyResetPassword {
-    public function run();
+abstract class StrategyResetPassword {
+    private $model;
+
+    public function __construct ($model) {
+        $this->model = $model;
+    }
+
+    public function run() {
+        
+    }
 }
