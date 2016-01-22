@@ -36,7 +36,7 @@ function isImageURL($url) {
     curl_setopt($ch, CURLOPT_FAILONERROR, 1);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     if(curl_exec($ch)!==FALSE)
-        return true;
+        return "true";
     else
-        return false;
+        return "false";
 }

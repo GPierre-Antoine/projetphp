@@ -93,12 +93,13 @@ class EmptyView extends View {
             echo $rep;
         }
 
+        else if(isset($_POST['searchTwitter'])) {
+            $this->model->searchTwitter(POST('searchTwitter'));
+        }
+
         //Test if the url is an image
         else if(isset($_POST['imgToTest'])) {
-            if(isImageURL(POST('imgToTest')))
-                echo "true";
-            else
-                echo "false";
+            echo "POST : " . $_POST['imgToTest'] . ' AND isImage : ' .isImageURL($_POST['imgToTest']). ' AND POST : '. POST('imgToTest').' AND isImage : '.isImageURL(POST('imgToTest'));
         }
 
         //Disconnect
