@@ -102,29 +102,38 @@ class CustomModel extends ModelPDO {
     } // RSSFeedToDeleteOfACategory() : delete a RSSFeed of a category of current user
 
     public function addRSSFeedCategoryUser($nameFluxAdd,$nameCategorieToAdd,$urlFluxAdd) {
-        $sql = "SELECT ID FROM CATEGORIE WHERE IDUSER = ".$_SESSION['ID']." AND NAME = \"".$nameCategorieToAdd."\"";
-        $resultCate = $this->pdo->query($sql)->fetch();
+        $sql = "SELECT ID FROM CATEGORIE WHERE IDUSER = ? AND NAME = ?";
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$nameCategorieToAdd));
+        $resultCate = $this->pdo->fetch(\PDO::FETCH_NUM);
         $idCate = $resultCate[0];
 
-        $sql = "SELECT COUNT(*) FROM FLUX WHERE URL = \"".$urlFluxAdd."\"";
-        $resultVerif = $this->pdo->query($sql)->fetch();
+        $sql = "SELECT COUNT(*) FROM FLUX WHERE URL = ?";
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($urlFluxAdd));
+        $resultVerif = $this->pdo->fetch(\PDO::FETCH_NUM);
         if($resultVerif[0] == 0) {
-            $sql = "INSERT INTO FLUX(URL) VALUES(\"".$urlFluxAdd."\")";
-            $this->pdo->query($sql);
+            $sql = "INSERT INTO FLUX(URL) VALUES(?)";
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($urlFluxAdd));
             $idFlux = $this->pdo->lastInsertId();
 
-            $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(".$idCate.",".$idFlux.",\"".$nameFluxAdd."\",0)";
-            $this->pdo->query($sql);
+            $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(?,?,?,?)";
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($idCate,$idFlux,$nameFluxAdd,0));
 
             $flux = new FluxUser($idFlux,$urlFluxAdd,$nameFluxAdd,0);
             $flux->refresh();
         } else {
-            $sql = "SELECT ID FROM FLUX WHERE URL = \"".$urlFluxAdd."\"";
-            $resultFlux = $this->pdo->query($sql)->fetch();
+            $sql = "SELECT ID FROM FLUX WHERE URL = ?";
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($urlFluxAdd));
+            $resultFlux = $this->pdo->fetch(\PDO::FETCH_NUM);
             $idFlux = $resultFlux[0];
 
-            $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(".$idCate.",".$idFlux.",\"".$nameFluxAdd."\",0)";
-            $this->pdo->query($sql);
+            $sql = "INSERT INTO FLUX_ASSOC(IDCATE,IDFLUX,NAME,ISFAVORITE) VALUES(?,?,?,?)";
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($idCate,$idFlux,$nameFluxAdd,0));
         }
     } // addRSSFeedCategoryUser() : Add a rss feed to a category for current user
 
@@ -148,9 +157,10 @@ class CustomModel extends ModelPDO {
 
     public function allCategories() {
         $array = array();
-        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDCATE IN (SELECT ID FROM CATEGORIE WHERE IDUSER='.$_SESSION['ID'].')) ORDER BY POSTED DESC';
-        $stmt = $this->pdo->query($sql);
-        while($result = $stmt->fetch()) {
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDCATE IN (SELECT ID FROM CATEGORIE WHERE IDUSER= ?)) ORDER BY POSTED DESC';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID']));
+        while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
             $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
             array_push($array,$fluxArt->display());
         }
@@ -162,26 +172,29 @@ class CustomModel extends ModelPDO {
 
     /////////////////////////////////////////////////////////////////////////MAIL////////////////////////////////////////////////////////////////////////
     public function addMail($nameE,$passwordE,$serverE,$portE) {
-        $sqlInsertEmail = 'INSERT INTO EMAIL (IDUSER,ADDRESS,PASSWORD) VALUES('.$_SESSION['ID'].',"'.$nameE.'","'.$passwordE.'")';
-        $this->pdo->query($sqlInsertEmail);
+        $sqlInsertEmail = 'INSERT INTO EMAIL (IDUSER,ADDRESS,PASSWORD) VALUES(?,?,?)';
+        $this->pdo->prepare($sqlInsertEmail);
+        $this->pdo->execute(array($_SESSION['ID'],$nameE,$passwordE));
         $id = "";
         $sql = 'SELECT * FROM EMAIL';
-        $stmt = $this->pdo->query($sql);
-        while ($result = $stmt->fetch()) {
+        $this->pdo->prepare($sql);
+        $this->pdo->execute();
+        while ($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
             if($result['ADDRESS'] === $nameE) {
                 $id = $result['ID'];
             }
         }
-        $stmt->setFetchMode(PDO::FETCH_OBJ);
-        $sqlInsertEmailConnection = 'INSERT INTO EMAIL_CONNECTION (IDMAIL,SERVER,PORT) VALUES ('.$id.',"'.$serverE.'",'.$portE.')' ;
-        $this->pdo->query($sqlInsertEmailConnection);
+        $sqlInsertEmailConnection = 'INSERT INTO EMAIL_CONNECTION (IDMAIL,SERVER,PORT) VALUES (?,?,?)' ;
+        $this->pdo->prepare($sqlInsertEmailConnection);
+        $this->pdo->execute(array($id,$serverE,$portE));
     } // addMail() : add the mail in database
 
     public function loadMail($mail) {
-        $sql = 'SELECT EMAIL.ID, ADDRESS, PASSWORD, SERVER, PORT FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = '.$_SESSION['ID'] .' AND ADDRESS = "'.$mail.'"';
-        $stmt = $this->pdo->query($sql);
+        $sql = 'SELECT EMAIL.ID, ADDRESS, PASSWORD, SERVER, PORT FROM EMAIL, EMAIL_CONNECTION WHERE EMAIL.ID = IDMAIL AND IDUSER = ? AND ADDRESS = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$mail));
         $array = array();
-        while ($result = $stmt->fetch()) {
+        while ($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
             $mail = new Email($result['ID'],$result['ADDRESS']);
             $mail->connect($result['SERVER'],$result['PORT'],$result['PASSWORD']);
             $mail->initializeMails();
@@ -214,8 +227,9 @@ class CustomModel extends ModelPDO {
     } // friendBlog() : display friend blog
 
     public function deleteOneFriend($idFriend) {
-        $sql = 'DELETE FROM FRIEND WHERE IDUSER ='.$_SESSION['ID'].' AND IDFRIEND ='.$idFriend;
-        $this->pdo->query($sql);
+        $sql = 'DELETE FROM FRIEND WHERE IDUSER = ? AND IDFRIEND = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$idFriend));
     } // deleteOneFriend() : delete a friend of current user
 
     public function userToAddInFriend($idUserToAdd) {
