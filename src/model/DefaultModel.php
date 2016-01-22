@@ -20,6 +20,7 @@ class DefaultModel extends ModelPDO {
         $this->user->initializeCategories();
         $this->user->initializeArticles();
         $this->user->initializeMailBox();
+        $this->user->initializeTwitter();
     }
 
     public function getUser() {

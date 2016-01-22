@@ -115,6 +115,7 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder friend_btn" type="button"></button>
 			    			<div class="menu_btn"></div>
 			    			<button class="menu_btn noborder actu_btn" type="button"></button>
+			    			<button class="menu_btn noborder twitter_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_friend_btn" type="button"></button>
 			    			<button class="menu_btn noborder mail_btn" type="button"></button>
@@ -236,7 +237,7 @@ class DefaultView extends View {
 			            	<div class="sep"></div>
 			            	<form id="F_twitter" method="post">
 			            		<input class="smallInput actionnable_tw" name="name" type="text" placeholder="Qui souhaitez-vous suivre sur Twitter?" required/>
-			            		<input class="smallInput" name="submit" type="button" onclick="searchOnTwitter(this)" value="Suivre"/>
+			            		<input class="smallInput" name="submit" type="button" onclick="searchTwitter(this)" value="Suivre"/>
 			            	</form>
 						</div>
 			        </div>
