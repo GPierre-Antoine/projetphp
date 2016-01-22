@@ -124,6 +124,7 @@ function focusToThisRSSFeed($url) {
         type: 'POST',
         data: 'urlToFocus='+$url,
         success: function (data) {
+            $( ".actu_btn" ).click();
             var displays =  JSON.parse(data);
             document.getElementById('content_flux').innerHTML = "";
             displays.forEach(function(entry) {
@@ -146,20 +147,44 @@ function deleteFlux($idRSSFeed,$idCategory) {
 } // deleteFlux()
 
 function addRSSFeedCategoryUser($object) {
+
     var tab = new Array();
     $("#F_flux .actionnable_fl").each(function () {
         tab.push($(this).val());
     });
 
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' +tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
+    var tabCategory = new Array();
+    $("#categorie_panel .default_block_panel").each(function () {
+        tabCategory.push($(this).val());
     });
+
+    $temp = "false";
+
+    for($i = 0 ; $i < tabCategory.length ; ++$i) {
+        if(tabCategory[$i] === tab[1]) {
+            $temp = "true";
+        }
+    }
+
+    if($temp === "true") {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        if(document.querySelector('.pop_add_flux').innerHTML.indexOf("Vous n'avez pas cette catégorie") != -1) {
+
+        }
+        else {
+            document.querySelector('.pop_add_flux').innerHTML += "<span class='error_flux_name'>Vous n'avez pas cette catégorie</span>";
+        }
+    }
 }// addRSSFeedCategoryUser()
 
 ///////////////////////////////////////////////////////////////////////////////////~RSS/////////////////////////////////////////////////////////////////////////////////
@@ -171,10 +196,33 @@ function addCategory($object) {
         tab.push($(this).val());
     });
 
-    if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
-        document.querySelector('.pop_add_categorie').innerHTML += "<span class='error_categorie_name'>Aide : Une catégorie ne contient pas d'espace au début et elle contient que des caractères alphanumériques</span>";
+    var tabCategory = new Array();
+    $("#categorie_panel .default_block_panel").each(function () {
+        tabCategory.push($(this).val());
+    });
+
+
+    var tabCategory = new Array();
+    $("#categorie_panel .default_block_panel").each(function () {
+        tabCategory.push($(this).val());
+    });
+
+    var temp = "";
+
+    for($i = 0 ; $i < tabCategory.length ; ++$i) {
+        if(tabCategory[$i] === tab[0]) {
+            temp = "<span class='error_categorie_name'>Vous avez déjà une catégorie de ce nom</span>"
+        }
     }
-    else {
+    if(temp != "") {
+        document.querySelector('.pop_add_categorie').innerHTML += temp;
+    }
+    else if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) &&
+        document.querySelector('.pop_add_categorie').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") == -1)  {
+        document.querySelector('.pop_add_categorie').innerHTML += "<span class='error_categorie_name'>Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères</span>";
+    }
+    else if(tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
+        document.querySelector('.pop_add_categorie').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") != -1) {
         $.ajax({
             url: '/ajx',
             type: 'POST', // Le type de la requête HTTP, ici devenu POST
@@ -184,6 +232,9 @@ function addCategory($object) {
                 location.reload();
             }
         });
+    }
+    else {
+
     }
 } // addCategory()
 
@@ -237,6 +288,7 @@ function allCategories() {
         type: 'POST',
         data: 'allCategories=true',
         success: function (data) {
+            $( ".actu_btn" ).click();
             var displays =  JSON.parse(data);
             document.getElementById('content_flux').innerHTML = "";
             displays.forEach(function(entry) {
@@ -256,11 +308,11 @@ function focusThisFriend($idFriendFocus) {
         type: 'POST',
         data: 'idFriendFocus='+$idFriendFocus,
         success: function (data) {
+            $(".blog_friend_btn").click();
             var displays =  JSON.parse(data);
             document.getElementById('content_friend_blog').innerHTML ="";
             displays.forEach(function(entry) {
                 document.getElementById('content_friend_blog').innerHTML += entry;
-                $( ".blog_friend_btn" ).click();
             });
         }
     });
