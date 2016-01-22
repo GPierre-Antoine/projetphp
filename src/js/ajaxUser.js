@@ -52,8 +52,9 @@ function continueArticle($object,tab,data) {
             data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
             dataType: 'html',
             success: function (data) {
-                closePopUpAddArticle("#overlay_blog",".popup_blog");
+                closePopUpAddArticle("#overlay_blog", ".popup_blog");
                 location.reload();
+                $( ".blog_btn" ).click();
             }
         });
     }
@@ -244,6 +245,7 @@ function focusThisFriend($idFriendFocus) {
             document.getElementById('content_friend_blog').innerHTML ="";
             displays.forEach(function(entry) {
                 document.getElementById('content_friend_blog').innerHTML += entry;
+                $( ".blog_friend_btn" ).click();
             });
         }
     });
