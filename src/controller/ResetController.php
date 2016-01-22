@@ -1,6 +1,6 @@
 <?php
 
-class Reset extends Controller {
+class ResetController extends Controller {
 	public function __construct(Model $model) {
 		parent::__construct($model);
 	}
