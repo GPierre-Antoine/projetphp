@@ -8,20 +8,17 @@
 
 require "src/vendor/twitter_api/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
-//require_once ('/home/aaron-aaron/www/src/util/db/sql_access.php');
 
 class Twitter {
 
     private $id;
-    private $iduser;
     private $name;
     private $twitter;
     private $articles;
     private $pdo;
 
-    public function __construct($id,$iduser,$name) {
+    public function __construct($id,$name) {
         $this->id = $id;
-        $this->iduser = $iduser;
         $this->name = $name;
         $this->pdo = new \db\db_handler();
     }
@@ -30,32 +27,38 @@ class Twitter {
         $oauth = new TwitterOAuth(\twitter\configuration::$consumerKey, \twitter\configuration::$consumerSecret);
         $accessToken = $oauth->oauth2('oauth2/token', ['grant_type' => 'client_credentials']);
         $this->twitter = new TwitterOAuth(\twitter\configuration::$consumerKey, \twitter\configuration::$consumerSecret, null, $accessToken->access_token);
-        $this->initializeTweets();
+        $this->update();
     }
 
-    private function initializeTweets() {
-        $this->articles = array();
+    private function update() {
         $tweets = $this->twitter->get('statuses/user_timeline', ['screen_name' => $this->name,
             'exclude_replies' => true,
             'include_rts' => false,
             'count' => 50 ]);
         foreach($tweets as $tweet) {
-            $date = date('Y-m-d H:i:s',strtotime($tweet->created_at));
-            $text = $tweet->text;
-            $from = $tweet->from_user;
-            $img = $tweet['user']['profile_image_url'];
-            $version = md5($text);
+            $tweetId = $tweet->id;
+            $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId]);
+            $html = $oembed->html;
+            $version = md5($html);
 
-            $newTweet = new TwitterArticle($this->id,$from,$text,$img,$date,$version);
-            array_push($this->articles,$newTweet);
-
-            $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_FLUX WHERE IDTWITTER = ? AND CHECKVERSION = ?");
-            $this->pdo->execute(array($this->id,$newTweet->getVersion()));
+            $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_FLUX WHERE IDTWITTER = ? AND VERSION = ?");
+            $this->pdo->execute(array($this->id,$version));
             $result = $this->pdo->fetch(\PDO::FETCH_NUM);
             if($result[0] == 0) {
-                $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,FROMT,MESSAGE,IMAGE,POSTED,CHECKVERSION) VALUES(?,?,?,?,?,?)");
-                $this->pdo->execute(array($this->id,$from,$text,$img,$date,$version));
+                $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,IDTWEET,DISPLAY,VERSION) VALUES(?,?,?)");
+                $this->pdo->execute(array($this->id,$tweetId,$html,$version));
             }
+        }
+    }
+
+    public function initializeTweets() {
+        $this->articles = array();
+        $this->pdo->prepare("SELECT * FROM TWEETER_ARTICLE WHERE IDTWEETER = ?");
+        $this->pdo->execute(array($this->id));
+        while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
+        {
+            $tweet = new TwitterArticle($result['IDTWEETER'],$result['IDTWEET'],$result['DISPLAY']);
+            array_push($this->articles,$tweet);
         }
     }
 

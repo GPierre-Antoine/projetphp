@@ -43,6 +43,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
 					<script type="text/javascript" src="/src/js/popup.js"></script>
 					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
+					<script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script>
 				</head>
 				<body>
 					<div id="top">

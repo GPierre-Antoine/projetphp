@@ -8,39 +8,18 @@
 
 class TwitterArticle {
 
-    private $id;
-    private $from;
-    private $body;
-    private $img;
-    private $date;
-    private $version;
+    private $idTweeter;
+    private $idTweet;
+    private $html;
 
-    public function __construct($id,$from,$body,$img,$date,$version) {
-        $this->id = $id;
-        $this->from = $from;
-        $this->body = $body;
-        $this->img = $img;
-        $this->date = $date;
-        $this->version = $version;
-    }
-
-    public function getVersion() {
-        return $this->version;
+    public function __construct($idTweeter,$idTweet,$html) {
+        $this->idTweeter = $idTweeter;
+        $this->idTweet = $idTweet;
+        $this->html = $html;
     }
 
     public function display() {
-        $display = '
-        <article>
-            <aside class="avatar">
-                <a href="http://twitter.com/'.$this->from.'" target="_blank">
-                    <img alt="'.$this->from.'" src="'.$this->img.'" />
-                </a>
-            </aside>
-            <p>'.$this->date.'</p>
-            <p>'.$this->body.'</p>
-        </article>
-        ';
-        return $display;
+        return $this->html;
     }
 
 }

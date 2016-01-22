@@ -76,13 +76,13 @@ class User extends ModelPDO
 
     public function initializeTwitter() {
         $this->twitters = array();
-        $sql = "SELECT * FROM TWITTER WHERE IDUSER = ".$this->id;
-        $stmt = $this->pdo->query($sql);
-        while($result = $stmt->fetch())
+        $this->pdo->prepare("SELECT NAME FROM TWITTER WHERE IDUSER = ?");
+        $this->pdo->execute(array($this->id));
+        while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
         {
-            $newTwitterAcc = new Twitter($result['ID'],$this->id,$result['NAME']);
-            $newTwitterAcc->refresh();
-            array_push($this->twitters,$newTwitterAcc);
+            $newTwitter = new Twitter($result['ID'],$result['NAME']);
+            $newTwitter->refresh();
+            array_push($this->twitters,$newTwitter);
         }
     }
 
