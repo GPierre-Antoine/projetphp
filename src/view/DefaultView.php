@@ -159,9 +159,9 @@ class DefaultView extends View {
 							echo '
 							</div>
 							<div id="content_twitter" class="content hide">';
-							foreach($this->user->getTwitters() as $twitterAcc) {
-                                foreach($twitterAcc->getTweets() as $tweet) {
-                                    echo $tweet->display();
+							foreach($this->user->getTwitters() as $twitter) {
+                                foreach($twitter->getTweets() as $tweet) {
+                                    //echo $tweet->display();
                                 }
                             }
 							echo '

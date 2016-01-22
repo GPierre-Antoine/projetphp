@@ -41,25 +41,26 @@ class Twitter {
             $html = $oembed->html;
             $version = md5($html);
 
-            $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_FLUX WHERE IDTWITTER = ? AND VERSION = ?");
+            $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_ARTICLE WHERE IDTWITTER = ? AND VERSION = ?");
             $this->pdo->execute(array($this->id,$version));
             $result = $this->pdo->fetch(\PDO::FETCH_NUM);
             if($result[0] == 0) {
-                $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,IDTWEET,DISPLAY,VERSION) VALUES(?,?,?)");
-                $this->pdo->execute(array($this->id,$tweetId,$html,$version));
+                $this->pdo->prepare("INSERT INTO TWITTER_ARTICLE(IDTWITTER,IDTWEET,VERSION) VALUES(?,?,?)");
+                $this->pdo->execute(array($this->id,$tweetId,$version));
             }
         }
     }
 
     public function initializeTweets() {
         $this->articles = array();
-        $this->pdo->prepare("SELECT * FROM TWEETER_ARTICLE WHERE IDTWEETER = ?");
+        $this->pdo->prepare("SELECT * FROM TWITTER_ARTICLE WHERE IDTWITTER = ?");
         $this->pdo->execute(array($this->id));
         while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
         {
-            $tweet = new TwitterArticle($result['IDTWEETER'],$result['IDTWEET'],$result['DISPLAY']);
+            $tweet = new TwitterArticle($result['IDTWITTER'],$result['IDTWEET']);
             array_push($this->articles,$tweet);
         }
+        //var_dump($this->articles);
     }
 
     public function getTweets() {
