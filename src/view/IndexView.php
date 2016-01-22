@@ -44,6 +44,7 @@ class IndexView extends View {
             });
                 </script>
                 <script type='text/javascript' src='../src/js/indexForm.js' ></script>
+
           </head>
           <body>
             <div id='fullpage'>
@@ -68,8 +69,8 @@ class IndexView extends View {
         			    			<input class='smallInput' name='mail' type='email' placeholder='Adresse Mail'/>
         			    			<input class='smallInput' name='pwd' type='password' placeholder='Mot de Passe'/>
         			    			<input id='submitIndex' name='action' type='submit' value='Rentrer sur Aaron'/>
+        			    			<input id='mdpLostIndex' type='button' name='mdpLost' value=\"Mot de passe perdu ?\" onclick=self.location.href='reset' />
         			    		</form>
-                                <a href='forgotpass.php' > Mot de Passe Perdu ? </a>
         			    	</div>
         		    	</div>
         		    </div>
@@ -88,22 +89,35 @@ class IndexView extends View {
 
                         </div>
                         <div class='section-right' data-ancor='propos' id='propos'>
-                            <table>
+                            <table >
                                 <tbody>
                                     <tr>
-                                        <td align='center'>
-                                            <img src='src/view/picturesIndex/picture_01.jpg'>
+                                        <td id='picture01'>
                                         </td>
-                                        <td align='center'>
-                                            <img src='src/view/picturesIndex/picture_02.jpg'>
+                                        <td id='picture02'>
+                                        </td>
+                                        <td id='picture03'>
                                         </td>
                                     </tr>
-
+                                    <tr>
+                                        <td id='picture04'>
+                                        </td>
+                                        <td id='picture05'>
+                                        </td>
+                                        <td id='picture06'>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id='picture07'>
+                                        </td>
+                                        <td id='picture08'>
+                                        </td>
+                                        <td id='picture09'>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-
                         </div>
-
         		    </div>
         		</div>
           </body>
