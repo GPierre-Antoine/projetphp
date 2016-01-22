@@ -76,7 +76,7 @@ class User extends ModelPDO
 
     public function initializeTwitter() {
         $this->twitters = array();
-        $this->pdo->prepare("SELECT * FROM TWITTER WHERE IDUSER = ?");
+        $this->pdo->prepare("SELECT * FROM TWITTER, TWITTER_ASSOC WHERE IDTWITTER = ID AND IDUSER = ?");
         $this->pdo->execute(array($this->id));
         while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
         {
