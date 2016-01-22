@@ -10,6 +10,7 @@ class ResetedStrategy extends StrategyResetPassword {
 
     public function run() {
 
+
     }
 
 }
