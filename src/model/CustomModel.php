@@ -181,6 +181,14 @@ class CustomModel extends ModelPDO {
         return json_encode($array);
 
     } // allCategories() : display all rss feed of a user
+
+    public function changeName($name) {
+        $sql = 'UPDATE USERS SET NAME "='.$name.'" WHERE ID = '.$_SESSION['ID'];
+    } // changeName() : change name of current user
+
+    public function changeEmail($email) {
+        $sql = 'UPDATE USERS SET EMAIL "='.$email.'" WHERE ID = '.$_SESSION['ID'];
+    } // changeEmail() : change email of current user
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
     public function refresh() {
