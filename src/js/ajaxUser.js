@@ -15,18 +15,24 @@ function searchUser($object) {
         data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType: 'html',
         success: function (data) {
+            document.getElementById('researchResult').innerHTML = "";
             if(data === "false") {
-
+                document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
             }
             else {
                 var displays = JSON.parse(data);
-                $("#researchResult").removeClass("hide");
-                document.getElementById('researchResult').innerHTML = "";
-                for (i = 0; i < displays.length; i += 3) {
-                    var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
-                    elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
-                    elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
-                    document.getElementById('researchResult').innerHTML += elm;
+                if(displays.length == 0) {
+                    document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                }
+                else {
+                    $("#researchResult").removeClass("hide");
+                    document.getElementById('researchResult').innerHTML = "";
+                    for (i = 0; i < displays.length; i += 3) {
+                        var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
+                        elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
+                        elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
+                        document.getElementById('researchResult').innerHTML += elm;
+                    }
                 }
             }
         }
@@ -189,7 +195,12 @@ function addRSSFeedCategoryUser($object) {
             data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
             dataType: 'html',
             success: function (data) {
-                location.reload();
+                if(data === "false") {
+
+                }
+                else {
+                    location.reload();
+                }
             }
         });
     }
@@ -375,14 +386,28 @@ function addEmail($object){
     $("#F_mail .actionnable_ma").each(function () {
         tab.push($(this).val());
     });
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3],
-        success: function (data) {
-            location.reload();
+
+    $temp = "true";
+    if(!tab[0].match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/) || tab[1].length != 0 || tab[2].length != 0 || tab[3].length != 0) {
+        $temp = "false";
+    }
+    if($temp === "true"){
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3],
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        if(document.querySelector('.pop_add_mail').innerHTML.indexOf("Le format du mail n'est pas correcte") != -1) {
+
         }
-    });
+        else
+            document.querySelector('.pop_add_mail').innerHTML += "<span class='error_mail_name'>Le format du mail n'est pas correcte ou il manque un champ à remplir</span>";
+    }
 } // addEmail()
 
 function deleteMail() {

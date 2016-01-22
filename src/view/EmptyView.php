@@ -78,7 +78,22 @@ class EmptyView extends View {
 
         //Add a RSS in a category
         else if(isset($_POST['nameFluxAdd']) && isset($_POST['nameCategorieToAdd']) && isset($_POST['urlFluxAdd'])) {
-            $this->model->addRSSFeedCategoryUser(POST('nameFluxAdd'),POST('nameCategorieToAdd'),POST('urlFluxAdd'));
+            $sValidator = 'http://feedvalidator.org/check.cgi?url=';
+            if( $sValidationResponse = @file_get_contents($sValidator . urlencode(POST('urlFluxAdd'))) ) {
+                if( stristr( $sValidationResponse , 'This is a valid RSS feed' ) !== false ) {
+                    $this->model->addRSSFeedCategoryUser(POST('nameFluxAdd'),POST('nameCategorieToAdd'),POST('urlFluxAdd'));
+                    return;
+                }
+                else {
+                    echo "false";
+                    return;
+                }
+            }
+            else
+            {
+                echo "false";
+                return;
+            }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////~RSS/////////////////////////////////////////////////////////////////////////////////
@@ -182,6 +197,8 @@ class EmptyView extends View {
             session_destroy();
             header('Location:http://aaron-aaron.alwaysdata.net');
         }
+
+        //Validate RSS Feed
 
         ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////
 
