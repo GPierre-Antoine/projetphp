@@ -9,11 +9,11 @@ class ResetController extends Controller {
 
 	public function update()
     {
-        if (isset($this->options[0]) && isset($_POST["mail1"]) && isset($_POST["mail2"]) && $mail = POST("mail1") === POST("mail2"))
+        if (isset($this->options[0]) && isset($_POST["password1"]) && isset($_POST["password2"]) && $password = POST("password1") === POST("password2"))
         {
             //there is a token set.
             $token = $this->options[0];
-            $this->model->reset_password_with_validation ($token,$mail);
+            $this->model->reset_password_with_validation ($token,$password);
 
 
 
