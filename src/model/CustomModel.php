@@ -24,27 +24,29 @@ class CustomModel extends ModelPDO {
             $sql = "UPDATE USERS SET ENABLE = ? WHERE ID = ?";
             $this->pdo->prepare($sql);
             $this->pdo->execute(array(1,$idUser));
+
         }
-        $this->pdo->prepare($sql);
-        $this->pdo->execute();
     } // enableOrDisableUser() : enable or disable a user of the database
 
     public function deleteUser($idUser) {
-        $sql = 'DELETE FROM USERS WHERE ID='.$idUser;
-        $this->pdo->query($sql);
+        $sql = 'DELETE FROM USERS WHERE ID = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($idUser));
     } // deleteUser() : delete a user of the database
     //////////////////////////ADMIN/////////////////////////////////
 
     //////////////////////////////////FOR A USER//////////////////////////////////
     public function addArticle($articleToAdd) {
-        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT,POSTED) VALUES (".$_SESSION['ID'].",'" . $articleToAdd[0]."','" . $articleToAdd[1]."','" . $articleToAdd[2] . "', '". $articleToAdd[3] ."','" . date('Y-m-d H:i:s'). "')";
-        $this->pdo->query($sql);
+        $sql = "INSERT INTO ARTICLE (IDUSER,TITLE,THEME,URL,CONTENT,POSTED) VALUES (?,?,?,?,?,?)";
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$articleToAdd[0],$articleToAdd[1],$articleToAdd[2],$articleToAdd[3],date('Y-m-d H:i:s')));
     } // addArticle() : add a article for the current user
 
     public function addCategory($categorieToAdd) {
         if(!isset($categorieToAdd[1]))return;
-        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES ('".$_SESSION['ID']."','" . $categorieToAdd[0]."','" . $categorieToAdd[1] . "')";
-        $this->pdo->query($sql);
+        $sql = "INSERT INTO CATEGORIE (IDUSER,NAME,COLOR) VALUES (?,?,?)";
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$categorieToAdd[0],$categorieToAdd[1]));
     } // addCategory() : add a category for the current user
 
     public function changeFavoriteRSSFeed($value, $idRSSFeed, $idCategory) {
@@ -186,6 +188,18 @@ class CustomModel extends ModelPDO {
         return json_encode($array);
 
     } // allCategories() : display all rss feed of a user
+
+    public function searchTwitter($name) {
+        $testName = 'SELECT COUNT(*) FROM TWITTER WHERE NAME = ? AND IDUSER = ?';
+        $this->pdo->prepare($testName);
+        $this->pdo->execute(array($name,$_SESSION['ID']));
+        $stmt = $this->pdo->fetch(\PDO::FETCH_NUM);
+        if($stmt[0] == 0) {
+            $sql = 'INSERT INTO TWITTER (IDUSER,NAME) VALUES(?,?)';
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($_SESSION['ID'], $name));
+        }
+    }
 
     public function changeName($name) {
         $sql = 'UPDATE USERS SET NAME "='.$name.'" WHERE ID = '.$_SESSION['ID'];

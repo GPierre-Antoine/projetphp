@@ -17,7 +17,8 @@ function addArticle($object) {
         data : 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType : 'html',
         success:function(data) {
-            continueArticle($object,tab,data);
+            //continueArticle($object,tab,data);
+            alert(data);
         }
     });
 }
@@ -216,6 +217,24 @@ function loadMail() {
         }
     });
 } // loadMail()
+
+function searchTwitter($object) {
+    var tab = new Array();
+    $("#F_twitter .actionnable_tw").each(function () {
+        tab.push($(this).val());
+    });
+
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'searchTwitter='+ tab[0],
+        dataType: 'html',
+        success: function (data) {
+            location.refresh();
+        }
+    });
+
+}
 ////////////////////////////~FLUX//////////////////////////////
 
 /////////////////////////FRIEND/////////////////////////
