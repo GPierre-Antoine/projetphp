@@ -235,6 +235,22 @@ function searchTwitter($object) {
     });
 
 }
+
+function loadTwitter() {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'loadTwitter='+$("#selector_twitter option:selected" ).text(),
+        dataType: 'html',
+        success: function (data) {
+            var displays =  JSON.parse(data);
+            document.getElementById('content_twitter').innerHTML = "";
+            displays.forEach(function(entry) {
+                document.getElementById('content_twitter').innerHTML += entry;
+            });
+        }
+    });
+}
 ////////////////////////////~FLUX//////////////////////////////
 
 /////////////////////////FRIEND/////////////////////////
@@ -245,14 +261,19 @@ function searchUser($object) {
         data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
         dataType: 'html',
         success: function (data) {
-            var displays =  JSON.parse(data);
-            $("#researchResult").removeClass("hide");
-            document.getElementById('researchResult').innerHTML = "";
-            for(i = 0 ; i < displays.length ; i += 3) {
-                var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="'+displays[i+2]+'">';
-                elm += '<span class="researchResult_friend_name">'+displays[i+1]+'</span>';
-                elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend('+displays[i]+')" type="button">Ajouter</button></div>';
-                document.getElementById('researchResult').innerHTML += elm;
+            if(data === "false") {
+
+            }
+            else {
+                var displays = JSON.parse(data);
+                $("#researchResult").removeClass("hide");
+                document.getElementById('researchResult').innerHTML = "";
+                for (i = 0; i < displays.length; i += 3) {
+                    var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
+                    elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
+                    elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
+                    document.getElementById('researchResult').innerHTML += elm;
+                }
             }
         }
     });
