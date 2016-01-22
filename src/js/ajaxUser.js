@@ -147,20 +147,44 @@ function deleteFlux($idRSSFeed,$idCategory) {
 } // deleteFlux()
 
 function addRSSFeedCategoryUser($object) {
+
     var tab = new Array();
     $("#F_flux .actionnable_fl").each(function () {
         tab.push($(this).val());
     });
 
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' +tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
+    var tabCategory = new Array();
+    $("#categorie_panel .default_block_panel").each(function () {
+        tabCategory.push($(this).val());
     });
+
+    $temp = "false";
+
+    for($i = 0 ; $i < tabCategory.length ; ++$i) {
+        if(tabCategory[$i] === tab[1]) {
+            $temp = "true";
+        }
+    }
+
+    if($temp === "true") {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        if(document.querySelector('.pop_add_flux').innerHTML.indexOf("Vous n'avez pas cette catégorie") != -1) {
+
+        }
+        else {
+            document.querySelector('.pop_add_flux').innerHTML += "<span class='error_flux_name'>Vous n'avez pas cette catégorie</span>";
+        }
+    }
 }// addRSSFeedCategoryUser()
 
 ///////////////////////////////////////////////////////////////////////////////////~RSS/////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +195,12 @@ function addCategory($object) {
     $("#F_categorie .actionnable_lb").each(function () {
         tab.push($(this).val());
     });
+
+    var tabCategory = new Array();
+    $("#categorie_panel .default_block_panel").each(function () {
+        tabCategory.push($(this).val());
+    });
+
 
     var tabCategory = new Array();
     $("#categorie_panel .default_block_panel").each(function () {
