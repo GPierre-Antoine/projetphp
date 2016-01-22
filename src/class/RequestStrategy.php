@@ -10,7 +10,6 @@ class RequestStrategy extends StrategyResetPassword{
 
     public function run()
     {
-
         echo <<<TEXT
 
         <p> Veuillez ajouter votre adresse mail afin d'obtenir un nouveau mot de passe</p>

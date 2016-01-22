@@ -25,7 +25,6 @@ class ResetView extends View {
 					<img class="logo" src="/src/images/aaron_logo_1.png">';
 
         $this->model->getStrategy()->run();
-        $this->model->getStrategy()->run();
 
 		echo '    </body>
 			</html>
