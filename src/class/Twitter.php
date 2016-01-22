@@ -57,7 +57,7 @@ class Twitter {
     }
 
     public function getTweets() {
-        return $this->articles;
+        return array_slice($this->articles,0,10);
     }
 
     public function getName() {

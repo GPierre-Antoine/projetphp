@@ -164,7 +164,7 @@ class DefaultView extends View {
 									<h1>Vos célébritées sont avec vous !</h1>
 									<select id="selector_twitter">';
 										foreach($this->user->getTwitters() as $twitter) {
-											echo '<option value="'.$twitter->getName().'">'.$twitter->getName().'</option>';
+											echo '<option value="'.$twitter.'">'.$twitter.'</option>';
 										}
 									echo '
 									</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>

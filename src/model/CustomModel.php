@@ -242,22 +242,33 @@ class CustomModel extends ModelPDO {
 
     ///////////////////////////////////////////////////////////////////////TWITTER///////////////////////////////////////////////////////////////////////
     public function searchTwitter($name) {
-        $testName = 'SELECT COUNT(*) FROM TWITTER WHERE NAME = ? AND IDUSER = ?';
-        $this->pdo->prepare($testName);
-        $this->pdo->execute(array($name,$_SESSION['ID']));
+        $this->pdo->prepare('SELECT COUNT(*) FROM TWITTER WHERE NAME = ?');
+        $this->pdo->execute(array($name));
         $stmt = $this->pdo->fetch(\PDO::FETCH_NUM);
         if($stmt[0] == 0) {
-            $sql = 'INSERT INTO TWITTER (IDUSER,NAME) VALUES(?,?)';
-            $this->pdo->prepare($sql);
-            $this->pdo->execute(array($_SESSION['ID'], $name));
-            $lastId = $this->pdo->lastInsertId();
-            $twitter = new Twitter($lastId,$name);
+            $this->pdo->prepare('INSERT INTO TWITTER (NAME) VALUES(?)');
+            $this->pdo->execute(array($name));
+
+            $this->pdo->prepare("SELECT ID FROM TWITTER WHERE NAME = ?");
+            $this->pdo->execute(array($name));
+            $result = $this->pdo->fetch(\PDO::FETCH_NUM);
+
+            $twitter = new Twitter($result[0],$name);
             $twitter->refresh();
+
+            $this->pdo->prepare("INSERT INTO TWITTER_ASSOC(IDTWITTER,IDUSER) VALUES(?,?)");
+            $this->pdo->execute(array($result[0],$_SESSION['ID']));
+        } else {
+            $this->pdo->prepare("SELECT ID FROM TWITTER WHERE NAME = ?");
+            $this->pdo->execute(array($name));
+            $twitter = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+            $this->pdo->prepare("INSERT INTO TWITTER_ASSOC(IDTWITTER,IDUSER) VALUES(?,?)");
+            $this->pdo->execute(array($twitter['ID'],$_SESSION['ID']));
         }
     } // searchTwitter() : search the $name twitter in twitter
 
     public function loadTwitter($nameTwitter) {
-        $sql = 'SELECT * FROM TWITTER WHERE IDUSER = ? AND NAME = ?';
+        $sql = 'SELECT * FROM TWITTER_ASSOC WHERE IDUSER = ? AND IDTWITTER = (SELECT ID FROM TWITTER WHERE NAME = ?)';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($_SESSION['ID'],$nameTwitter));
         $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);
