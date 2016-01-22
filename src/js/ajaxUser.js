@@ -54,6 +54,7 @@ function continueArticle($object,tab,data) {
             success: function (data) {
                 closePopUpAddArticle("#overlay_blog", ".popup_blog");
                 location.reload();
+                //Faire un cookie avec une action et du coup dans default view gérer le cookie
             }
         });
     }

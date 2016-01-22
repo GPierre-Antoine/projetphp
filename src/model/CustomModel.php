@@ -202,6 +202,9 @@ class CustomModel extends ModelPDO {
             $sql = 'INSERT INTO TWITTER (IDUSER,NAME) VALUES(?,?)';
             $this->pdo->prepare($sql);
             $this->pdo->execute(array($_SESSION['ID'], $name));
+            $lastId = $this->pdo->lastInsertId();
+            $twitter = new Twitter($lastId,$name);
+            $twitter->refresh();
         }
     }
 
