@@ -81,7 +81,7 @@ class User extends ModelPDO
         while($result = $stmt->fetch())
         {
             $newTwitterAcc = new Twitter($result['ID'],$this->id,$result['NAME']);
-            $newTwitterAcc->initializeTweets();
+            $newTwitterAcc->refresh();
             array_push($this->twitters,$newTwitterAcc);
         }
     }

@@ -422,6 +422,10 @@ body {
 	background: #f39c12 url(../images/actu_btn.png) center center no-repeat;
 }
 
+.twitter_btn {
+    background: #f39c12 url(../images/twitter_btn.png) center center no-repeat;
+}
+
 .mail_btn {
     background: #f39c12 url(../images/mail_btn.png) center center no-repeat;
 }
