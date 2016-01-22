@@ -22,7 +22,7 @@ class TwitterArticle {
         $oauth = new TwitterOAuth(\twitter\configuration::$consumerKey, \twitter\configuration::$consumerSecret);
         $accessToken = $oauth->oauth2('oauth2/token', ['grant_type' => 'client_credentials']);
         $twitter = new TwitterOAuth(\twitter\configuration::$consumerKey, \twitter\configuration::$consumerSecret, null, $accessToken->access_token);
-        $this->oembed = $twitter->get('statuses/oembed', ['id' => $this->idTweet]);
+        $this->oembed = $twitter->get('statuses/oembed', ['id' => $this->idTweet, 'omit_script' => true]);
     }
 
     public function display() {

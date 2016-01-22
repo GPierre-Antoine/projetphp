@@ -34,6 +34,7 @@ class DefaultView extends View {
 					<link rel="stylesheet" type="text/css" href="/src/style/flux.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/blog.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/mail.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/twitter.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
@@ -158,13 +159,16 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
-							<div id="content_twitter" class="content hide">';
-							foreach($this->user->getTwitters() as $twitter) {
-                                foreach($twitter->getTweets() as $tweet) {
-                                    //echo $tweet->display();
-                                }
-                            }
-							echo '
+							<div id="content_twitter" class="content hide">
+								<div class="content_twitter_select">
+									<h1>Vos célébritées sont avec vous !</h1>
+									<select id="selector_twitter">';
+										foreach($this->user->getTwitters() as $twitter) {
+											echo '<option value="'.$twitter->getName().'">'.$twitter->getName().'</option>';
+										}
+									echo '
+									</select><button onclick="loadTwitter()" class="content_twitter_load noborder" type="button">Charger</button>
+								</div>
 							</div>
 						</div>
 			    	</div>

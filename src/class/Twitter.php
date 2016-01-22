@@ -67,4 +67,8 @@ class Twitter {
         return $this->articles;
     }
 
+    public function getName() {
+        return $this->name;
+    }
+
 }
