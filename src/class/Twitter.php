@@ -39,28 +39,21 @@ class Twitter {
             $tweetId = $tweet->id;
             $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId]);
             $html = $oembed->html;
-            $version = md5($html);
 
-            $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_ARTICLE WHERE IDTWITTER = ? AND VERSION = ?");
-            $this->pdo->execute(array($this->id,$version));
-            $result = $this->pdo->fetch(\PDO::FETCH_NUM);
-            if($result[0] == 0) {
-                $this->pdo->prepare("INSERT INTO TWITTER_ARTICLE(IDTWITTER,IDTWEET,VERSION) VALUES(?,?,?)");
-                $this->pdo->execute(array($this->id,$tweetId,$version));
-            }
+            $this->pdo->prepare("INSERT INTO TWEET(IDTWITTER,IDTWEET,DISPLAY) VALUES(?,?,?,?)");
+            $this->pdo->execute(array($this->id,$tweetId,$html));
         }
     }
 
     public function initializeTweets() {
         $this->articles = array();
-        $this->pdo->prepare("SELECT * FROM TWITTER_ARTICLE WHERE IDTWITTER = ?");
+        $this->pdo->prepare("SELECT * FROM TWEET WHERE IDTWITTER = ?");
         $this->pdo->execute(array($this->id));
         while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
         {
             $tweet = new TwitterArticle($result['IDTWITTER'],$result['IDTWEET']);
             array_push($this->articles,$tweet);
         }
-        //var_dump($this->articles);
     }
 
     public function getTweets() {
