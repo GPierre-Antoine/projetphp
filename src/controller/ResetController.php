@@ -16,8 +16,7 @@ class ResetController extends Controller {
             $this->model->reset_password_with_validation ($token,$password);
 
 
-
-
+            $this->model->setState("reseted");
         }
         else {
             //user wants to request a new password

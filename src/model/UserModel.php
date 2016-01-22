@@ -4,6 +4,17 @@ include_once("ModelPDO.php");
 
 class UserModel extends ModelPDO {
 
+
+    private $state;
+
+    public function setStrategy($state) {
+        $this->state = $state;
+    }
+
+    public function getStrategy() {
+        return $this->state;
+    }
+
     private $joinlist;
 
     private function getRandomToken($nb = 64,&$crypto_strong = true) {
