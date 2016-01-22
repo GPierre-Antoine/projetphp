@@ -115,7 +115,7 @@ class UserModel extends ModelPDO {
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
-            return "";
+            throw new LoginException("Encountering non-unique token");
         }
 
         //mail exists,
