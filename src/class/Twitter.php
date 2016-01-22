@@ -39,24 +39,22 @@ class Twitter {
             'exclude_replies' => true,
             'count' => 50 ]);
         foreach($tweets as $tweet) {
-            $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,MESSAGE,POSTED) VALUES(?,?,?)");
-            $this->pdo->execute(array($this->id,$tweet->text,0));
+            $date = date('Y-m-d H:i:s',strtotime($tweet->created_at));
+            $text = $tweet->text;
+            $version = md5($text);
 
-            $newTweet = new TwitterArticle($this->id,$tweet->text,$this->name);
+            $newTweet = new TwitterArticle($this->id,$text,$this->name,$date,$version);
             array_push($this->articles,$newTweet);
+
+            $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_FLUX WHERE IDTWITTER = ? AND CHECKVERSION = ?");
+            $this->pdo->execute(array($this->id,$newTweet->getVersion()));
+            $result = $this->pdo->fetch(\PDO::FETCH_NUM);
+            if($result[0] == 0) {
+                $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,MESSAGE,POSTED,CHECKVERSION) VALUES(?,?,?,?)");
+                $this->pdo->execute(array($this->id,$text,$date,$version));
+            }
         }
     }
-
-    /*public function initializeTweets() {
-        $this->articles = array();
-        $this->pdo->prepare("SELECT * FROM TWITTER_FLUX WHERE IDTWITTER = ?");
-        $this->pdo->execute(array($this->id));
-        while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
-        {
-            $tweet = new TwitterArticle($result['ID'],$result['MESSAGE']);
-            array_push($this->articles,$tweet);
-        }
-    }*/
 
     public function getTweets() {
         return $this->articles;
