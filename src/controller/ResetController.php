@@ -39,7 +39,6 @@ class ResetController extends Controller {
            Ceci est un mail automatique, Merci de ne pas y répondre.
 TEXT;
 
-                echo $message;
                 mail($destinataire, $sujet, $message, $entete);
 
             }

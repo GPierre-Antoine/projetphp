@@ -82,7 +82,7 @@ class UserModel extends ModelPDO {
     }
 
     public function reset_password_with_id ($id,$password) {
-        $token = $this->getRandomToken(32);
+        $token = $this->getRandomToken();
         $this->pdo->prepare("SELECT * FROM USERS WHERE ID=? AS ID_P
                               LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
         $this->pdo->execute(array($_SESSION["ID"],encrypt($password,$token),$token));
@@ -110,7 +110,7 @@ class UserModel extends ModelPDO {
     public function request_password_change ($mail) {
         $this->de_log();
 
-        $token = $this->getRandomToken();
+        $token = $this->getRandomToken(32);
 
         $this->pdo->prepare("
             SELECT ID
