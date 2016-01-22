@@ -8,9 +8,10 @@
 
 class ResetedStrategy extends StrategyResetPassword {
 
-    public function run() {
-
-
+    public function run()
+    {
+        header("Refresh:5;URL=/");
+        die();
     }
 
 }
