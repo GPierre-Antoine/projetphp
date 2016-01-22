@@ -103,30 +103,37 @@ class CustomModel extends ModelPDO {
     } // addRSSFeedCategoryUser() : Add a rss feed to a category for current user
 
     public function userToFindAndToDisplay($userToFind) {
-        $sql = 'SELECT count(*) FROM FRIEND WHERE IDUSER = '.$_SESSION['ID'].' AND IDFRIEND IN (SELECT ID FROM USERS WHERE NAME = "'.$userToFind.'")';
-        $result = $this->pdo->query($sql)->fetch();
+        $sql = 'SELECT count(*) FROM FRIEND WHERE IDUSER = ? AND IDFRIEND IN (SELECT ID FROM USERS WHERE NAME = ?)';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$userToFind));
+        $test = $this->pdo->fetch(\PDO::FETCH_NUM);
         $array = array();
-        if ($result[0] == 0) {
-            $sql = 'SELECT USERS.ID, NAME, AVATAR FROM USERS, USER_INFORMATION WHERE USERS.ID = USER_INFORMATION.ID AND ENABLE = 1 AND USERS.ID <> ' . $_SESSION['ID'] . ' AND USERS.NAME = "' . $userToFind . '"';
-            $stmt = $this->pdo->query($sql);
-            while ($result = $stmt->fetch()) {
+        if ($test[0] == 0) {
+            $sql = 'SELECT USERS.ID, NAME, AVATAR FROM USERS, USER_INFORMATION WHERE USERS.ID = USER_INFORMATION.ID AND ENABLE = 1 AND USERS.ID <> ? AND USERS.NAME = ?';
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($_SESSION['ID'],$userToFind));
+            while ($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
                 array_push($array, $result['ID']);
                 array_push($array, $result['NAME']);
                 array_push($array, $result['AVATAR']);
             }
             return json_encode($array);
         }
+        else {
+            return "false";
+        }
     } // userToFindAndToDisplay() : return an array or users found
 
     public function userToAddInFriend($idUserToAdd) {
-        $sql = 'INSERT INTO FRIEND (IDUSER,IDFRIEND) VALUES('.$_SESSION['ID'].','.$idUserToAdd.')';
-        $this->pdo->query($sql);
+        $sql = 'INSERT INTO FRIEND (IDUSER,IDFRIEND) VALUES(?,?)';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$idUserToAdd));
     } // userToAddInFriend() : add a user in the current user friendlist
 
     public function catToDelete($idCatDelete) {
-        $sql = 'DELETE FROM CATEGORIE WHERE ID = '.$idCatDelete.' AND IDUSER=' . $_SESSION['ID'];
-        $this->pdo->query($sql);
-        return $sql;
+        $sql = 'DELETE FROM CATEGORIE WHERE ID = ? AND IDUSER = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($idCatDelete,$_SESSION['ID']));
     } // catToDelete() : delete a category of current user
 
     public function RSSFeedToDeleteOfACategory($idRSSFeed,$idCategory) {
@@ -206,6 +213,21 @@ class CustomModel extends ModelPDO {
             $twitter = new Twitter($lastId,$name);
             $twitter->refresh();
         }
+    }
+
+    public function loadTwitter($nameTwitter) {
+        $sql = 'SELECT * FROM TWITTER WHERE IDUSER = ? AND NAME = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($_SESSION['ID'],$nameTwitter));
+        $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+        $twitter = new Twitter($result['ID'],$result['NAME']);
+        $twitter->refresh();
+        $twitter->initializeTweets();
+        $tweets = array();
+        foreach($twitter->getTweets() as $tweet) {
+            array_push($tweets,$tweet->display());
+        }
+        return json_encode($tweets);
     }
 
     public function changeName($name) {

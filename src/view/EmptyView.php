@@ -93,6 +93,7 @@ class EmptyView extends View {
             echo $rep;
         }
 
+
         else if(isset($_POST['searchTwitter'])) {
             $this->model->searchTwitter(POST('searchTwitter'));
         }
@@ -134,10 +135,16 @@ class EmptyView extends View {
         }
         //////////////////////////////////////////////////////~MAIL///////////////////////////////////////////////////////
 
+        ///////////////////////////////////////////////////////TWITTER///////////////////////////////////////////////////////
+        //Twitter
+        else if(isset($_POST['loadTwitter'])) {
+            $res = $this->model->loadTwitter(POST('loadTwitter'));
+            echo $res;
+        }
+        //////////////////////////////////////////////////////~TWITTER///////////////////////////////////////////////////////
         //////////////////////////////////////////////////////DELETE//////////////////////////////////////////////////////
         else if(isset($_POST['catToDelete'])) {
-            $res = $rep = $this->model->catToDelete(POST('catToDelete'));
-            echo $res;
+            $rep = $this->model->catToDelete(POST('catToDelete'));
         }
 
         else if (isset($_POST['idRSSFeedToDeleteOfACategory']) && isset($_POST['idCategory'])) {
