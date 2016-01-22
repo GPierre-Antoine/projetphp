@@ -1,6 +1,6 @@
 <?php
 
-class Controllerforgotpass extends Controller {
+class Reset extends Controller {
 	public function __construct(Model $model) {
 		parent::__construct($model);
 	}
