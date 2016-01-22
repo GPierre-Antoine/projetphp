@@ -58,11 +58,16 @@ class DefaultView extends View {
 							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
 						<div id="categorie_panel" class="panel searchOn">';
-							foreach ($this->categories as $c) {
-							echo '
-								<button class="categorie default_block_panel noborder" type="button" style="background-color:'.$c->getColor().';" value="'.$c->getName().'">'.$c->getName().'</button>
-							';
-							}
+                            if(empty($this->categories)) {
+                                echo '<button id="add_categorie" class="no_categorie default_block_panel noborder">Vous n\'avez pas de catégorie, ajouter en une !</span>';
+                            } else {
+                                echo '<button id="all_categories" class="default_block_panel noborder" type = "button" value = "all" > Tout afficher </button >';
+                                foreach ($this->categories as $c) {
+                                    echo '
+                                    <button class="categorie default_block_panel noborder" type="button" style="background-color:' . $c->getColor() . ';" value="' . $c->getName() . '">' . $c->getName() . '</button>
+                                ';
+                                }
+                            }
 						echo '
 						</div>
 						<div id="friend_panel" class="panel searchOn hide"> ';

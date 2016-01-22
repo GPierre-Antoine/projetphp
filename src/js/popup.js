@@ -10,6 +10,17 @@ $(function() {
 		$("#popup_flux").fadeTo(200,1);
 	});
 
+    $("#add_categorie").click(function () {
+        $("#overlay_flux").css({"display":"block", opacity:0});
+        $("#overlay_flux").fadeTo(200,0.5);
+        $("#popup_flux").fadeTo(200,1);
+
+        $(".pop_add_flux").addClass("hide");
+        $(".pop_add_friend").addClass("hide");
+        $(".pop_add_mail").addClass("hide");
+        $(".pop_add_categorie").removeClass("hide");
+    });
+
 	$(".add_article_btn").click(function () {
 		$("#overlay_blog").css({"display":"block", opacity:0});
 		$("#overlay_blog").fadeTo(200,0.5);
