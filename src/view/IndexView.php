@@ -69,8 +69,8 @@ class IndexView extends View {
         			    			<input class='smallInput' name='mail' type='email' placeholder='Adresse Mail'/>
         			    			<input class='smallInput' name='pwd' type='password' placeholder='Mot de Passe'/>
         			    			<input id='submitIndex' name='action' type='submit' value='Rentrer sur Aaron'/>
+        			    			<input id='mdpLostIndex' type='button' name='mdpLost' value=\"Mot de passe perdu ?\" onclick=self.location.href='' />
         			    		</form>
-                                <a href='forgotpass.php' > Mot de Passe Perdu ? </a>
         			    	</div>
         		    	</div>
         		    </div>
