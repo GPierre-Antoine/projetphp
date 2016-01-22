@@ -218,6 +218,18 @@ function loadMail() {
     });
 } // loadMail()
 
+function deleteMail() {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'deleteMail='+$("#selector_mailbox option:selected" ).text(),
+        dataType: 'html',
+        success: function (data) {
+            location.reload();
+        }
+    });
+}
+
 function searchTwitter($object) {
     var tab = new Array();
     $("#F_twitter .actionnable_tw").each(function () {
@@ -248,6 +260,18 @@ function loadTwitter() {
             displays.forEach(function(entry) {
                 document.getElementById('content_twitter').innerHTML += entry;
             });
+        }
+    });
+}
+
+function deleteTwitter() {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'deleteTwitter='+$("#selector_twitter option:selected" ).text(),
+        dataType: 'html',
+        success: function (data) {
+           location.reload();
         }
     });
 }

@@ -94,10 +94,6 @@ class EmptyView extends View {
         }
 
 
-        else if(isset($_POST['searchTwitter'])) {
-            $this->model->searchTwitter(POST('searchTwitter'));
-        }
-
         //Test if the url is an image
         else if(isset($_POST['imgToTest'])) {
             echo isImageURL(POST('imgToTest'));
@@ -133,13 +129,21 @@ class EmptyView extends View {
         else if(isset($_POST['emailName']) && isset($_POST['emailPassword']) && isset($_POST['emailServer']) && isset($_POST['emailPort'])) {
             $this->model->addMail(POST('emailName'),POST('emailPassword'),POST('emailServer'),POST('emailPort'));
         }
+        else if(isset($_POST['deleteMail'])) {
+            $this->model->deleteMail(POST('deleteMail'));
+        }
         //////////////////////////////////////////////////////~MAIL///////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////TWITTER///////////////////////////////////////////////////////
-        //Twitter
+        else if(isset($_POST['searchTwitter'])) {
+            $this->model->searchTwitter(POST('searchTwitter'));
+        }
         else if(isset($_POST['loadTwitter'])) {
             $res = $this->model->loadTwitter(POST('loadTwitter'));
             echo $res;
+        }
+        else if(isset($_POST['deleteTwitter'])) {
+            $this->model->deleteTwitter(POST('deleteTwitter'));
         }
         //////////////////////////////////////////////////////~TWITTER///////////////////////////////////////////////////////
         //////////////////////////////////////////////////////DELETE//////////////////////////////////////////////////////
