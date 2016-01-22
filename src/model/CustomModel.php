@@ -169,6 +169,18 @@ class CustomModel extends ModelPDO {
         }
         return json_encode($array);
     } // friendBlog() : display friend blog
+
+    public function allCategories() {
+        $array = array();
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT IDFLUX FROM FLUX_ASSOC WHERE IDCATE IN (SELECT ID FROM CATEGORIE WHERE IDUSER='.$_SESSION['ID'].')) ORDER BY POSTED DESC';
+        $stmt = $this->pdo->query($sql);
+        while($result = $stmt->fetch()) {
+            $fluxArt = new FluxArticle($result['TITLE'],$result['POSTED'],$result['CONTENT'],$result['URL'],$result['MD5VERSION']);
+            array_push($array,$fluxArt->display());
+        }
+        return json_encode($array);
+
+    } // allCategories() : display all rss feed of a user
     //////////////////////////////////~FOR A USER//////////////////////////////////
 
     public function refresh() {
