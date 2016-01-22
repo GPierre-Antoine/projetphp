@@ -5,7 +5,6 @@ include_once("Route.php");
 class Router {
     private $table;
 
-
     public function __construct() {
         $this->table = array();
 

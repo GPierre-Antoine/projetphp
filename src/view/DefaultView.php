@@ -61,7 +61,7 @@ class DefaultView extends View {
                             if(empty($this->categories)) {
                                 echo '<button id="add_categorie" class="no_categorie default_block_panel noborder">Vous n\'avez pas de catégorie, ajouter en une !</span>';
                             } else {
-                                echo '<button id="all_categories" class="default_block_panel noborder" type = "button" value = "all" > Tout afficher </button >';
+                                echo '<button id="all_categories" onclick="allCategories()" class="default_block_panel noborder" type = "button" value = "all" > Tout afficher </button >';
                                 foreach ($this->categories as $c) {
                                     echo '
                                     <button class="categorie default_block_panel noborder" type="button" style="background-color:' . $c->getColor() . ';" value="' . $c->getName() . '">' . $c->getName() . '</button>
@@ -168,7 +168,7 @@ class DefaultView extends View {
 			    		<div class="user_information_rest">
 			    			<button class="actu_btn user_information_rest_btn noborder" type="button">Actualités</button>
 							<button class="blog_btn user_information_rest_btn noborder" type="button">Mon blog</button>
-							<button class="user_information_rest_btn noborder" type="button">Options personnelles</button>
+							<button class="user_information_rest_btn noborder" onclick="popUpInformation()" type="button">Options personnelles</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->

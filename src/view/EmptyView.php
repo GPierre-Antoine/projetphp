@@ -69,6 +69,12 @@ class EmptyView extends View {
         /////////////////////////////////////////////////////~ADD//////////////////////////////////////////////////////
 
         //////////////////////////////////////////////////////OPTIONS//////////////////////////////////////////////////////
+        //Display all categories
+        else if(isset($_POST['allCategories'])) {
+            $rep = $this->model->allCategories();
+            echo $rep;
+        }
+
         //Focus to the specific rss feed
         else if(isset($_POST['urlToFocus'])) {
             $rep = $this->model->focusToThisRSSFeed($_POST['urlToFocus']);
@@ -81,11 +87,13 @@ class EmptyView extends View {
             echo $rep;
         }
 
+        //Focus on friend blog
         else if(isset($_POST['idFriendFocus'])) {
             $rep = $this->model->friendBlog($_POST['idFriendFocus']);
             echo $rep;
         }
 
+        //Test if the url is an image
         else if(isset($_POST['imgToTest'])) {
             if(isImageURL($_POST['imgToTest']))
                 echo "true";
@@ -93,9 +101,22 @@ class EmptyView extends View {
                 echo "false";
         }
 
+        //Disconnect
         else if(isset($_POST['disconnectUser'])) {
             session_destroy();
             header('Location:http://aaron-aaron.alwaysdata.net');
+        }
+
+        else if(isset($_POST['nameInformation']) && isset($_POST['emailInformation']) && isset($_POST['passwordInformation'])) {
+            if($_POST['nameInformation'] != "") {
+                $this->model
+            }
+            if($_POST['emailInformation'] != "") {
+
+            }
+            if($_POST['passwordInformation'] != "") {
+
+            }
         }
         /////////////////////////////////////////////////////~OPTIONS//////////////////////////////////////////////////////
 

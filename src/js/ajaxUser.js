@@ -52,7 +52,7 @@ function continueArticle($object,tab,data) {
             data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
             dataType: 'html',
             success: function (data) {
-                closePopUpAddArticle("#overlay_blog",".popup_blog");
+                closePopUpAddArticle("#overlay_blog", ".popup_blog");
                 location.reload();
             }
         });
@@ -133,6 +133,22 @@ function addEmail($object){
 /////////////////////////////~ADD//////////////////////////////
 
 /////////////////////////////FLUX//////////////////////////////
+function allCategories() {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'allCategories=true',
+        success: function (data) {
+            var displays =  JSON.parse(data);
+            document.getElementById('content_flux').innerHTML = "";
+            displays.forEach(function(entry) {
+                document.getElementById('content_flux').innerHTML += entry;
+            });
+
+        }
+    });
+}
+
 function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,$blue) {
     $.ajax({
         url: '/ajx',
@@ -244,6 +260,7 @@ function focusThisFriend($idFriendFocus) {
             document.getElementById('content_friend_blog').innerHTML ="";
             displays.forEach(function(entry) {
                 document.getElementById('content_friend_blog').innerHTML += entry;
+                $( ".blog_friend_btn" ).click();
             });
         }
     });
@@ -303,6 +320,21 @@ function disconnect() {
         }
     });
 } // disconnect()
+
+function userInformation() {
+    var tab = new Array();
+    // value a recup $("#F_blog .actionnable_wr").each(function () {
+        //tab.push($(this).val());
+    //});
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'nameInformation=' + tab[0] + '&emailInformation=' + tab[1] +'&passwordInformation=' +tab[2],
+        success: function (data) {
+        }
+    });
+
+} // userInformation()
 
 ///////////////////////~OPTIONS IN MENU////////////////////////
 

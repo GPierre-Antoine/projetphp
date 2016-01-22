@@ -5,6 +5,6 @@ function encrypt ($password,$token) {
     return $result;
 }
 
-function random_string_token ($length,&$crypto_strong) {
+function random_string_token ($length,&$crypto_strong = true) {
     return bin2hex(openssl_random_pseudo_bytes($length,$crypto_strong));
 }
