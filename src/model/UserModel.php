@@ -81,7 +81,7 @@ class UserModel extends ModelPDO {
         $this->webserver_log_with_id($stmt["ID"]);
     }
 
-    public function reset_password_with_id ($validation,$password) {
+    public function reset_password_with_id ($id,$password) {
         $token = $this->getRandomToken();
         $this->pdo->prepare("SELECT * FROM USERS WHERE ID=? AS ID_P
                               LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
