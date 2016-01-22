@@ -6,20 +6,27 @@
  * Time: 10:20
  */
 
+require "src/vendor/twitter_api/autoload.php";
+use Abraham\TwitterOAuth\TwitterOAuth;
+
 class TwitterArticle {
 
-    private $idTweeter;
+    private $idTwitter;
     private $idTweet;
-    private $html;
+    private $oembed;
 
-    public function __construct($idTweeter,$idTweet,$html) {
-        $this->idTweeter = $idTweeter;
+    public function __construct($idTwitter,$idTweet) {
+        $this->idTwitter = $idTwitter;
         $this->idTweet = $idTweet;
-        $this->html = $html;
+
+        $oauth = new TwitterOAuth(\twitter\configuration::$consumerKey, \twitter\configuration::$consumerSecret);
+        $accessToken = $oauth->oauth2('oauth2/token', ['grant_type' => 'client_credentials']);
+        $twitter = new TwitterOAuth(\twitter\configuration::$consumerKey, \twitter\configuration::$consumerSecret, null, $accessToken->access_token);
+        $this->oembed = $twitter->get('statuses/oembed', ['id' => $this->idTweet]);
     }
 
     public function display() {
-        return $this->html;
+        return $this->oembed->html;
     }
 
 }
