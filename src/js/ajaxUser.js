@@ -189,7 +189,12 @@ function addRSSFeedCategoryUser($object) {
             data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
             dataType: 'html',
             success: function (data) {
-                location.reload();
+                if(data === "false") {
+
+                }
+                else {
+                    location.reload();
+                }
             }
         });
     }
