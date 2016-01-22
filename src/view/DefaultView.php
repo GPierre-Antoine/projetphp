@@ -148,7 +148,7 @@ class DefaultView extends View {
 											echo '<option value="'.$mailBox->getAddress().'">'.$mailBox->getAddress().'</option>';
 										}
 									echo '
-									</select><button onclick="loadMail()" class="content_mail_load noborder" type="button">Charger</button>
+									</select><button onclick="loadMail()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteMail()" class="content_action_btn noborder" type="button">Supprime ce compte</button>
 								</div>
 							</div>
 							<div id="content_friend_blog" class="content hide">';
@@ -167,7 +167,7 @@ class DefaultView extends View {
 											echo '<option value="'.$twitter->getName().'">'.$twitter->getName().'</option>';
 										}
 									echo '
-									</select><button onclick="loadTwitter()" class="content_twitter_load noborder" type="button">Charger</button>
+									</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>
 								</div>
 							</div>
 						</div>

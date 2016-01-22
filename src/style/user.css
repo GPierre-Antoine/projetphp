@@ -596,3 +596,18 @@ img[src="#"] {
 .no_categorie {
     color: #2980b9;
 }
+
+/* CONTENT ZONE */
+#content h1 {
+	display: block;
+}
+
+
+.content_action_btn {
+	width: 50%;
+	height: 25px;
+	margin-top: 2px;
+	background-color: #f39c12;
+	font-weight: bold;
+	border: 1px solid;
+}
