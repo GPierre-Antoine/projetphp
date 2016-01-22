@@ -6,7 +6,15 @@ class UserModel extends ModelPDO {
 
     private $joinlist;
 
-    private function log_with_id ($id) {
+    private function getRandomToken(&$crypto_strong = true) {
+        return random_string_token(64,$crypto_strong);
+    }
+
+    private function fetch(&$stmt,$style = \PDO::FETCH_ASSOC) {
+        $stmt = $this->pdo->fetch($style);
+    }
+
+    private function webserver_log_with_id ($id) {
         $_SESSION["logged"] = true;
         $_SESSION["ID"] = $id;
     }
@@ -14,6 +22,10 @@ class UserModel extends ModelPDO {
     private function de_log() {
         if ($_SESSION["logged"] === true)
             session_unset();
+    }
+
+    private function privilege_set ($privilege_type) {
+        $_SESSION["admin"] = $privilege_type;
     }
 
     public function __construct() {
@@ -31,7 +43,7 @@ class UserModel extends ModelPDO {
             WHERE USERS.EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $stmt = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+        $this->fetch($stmt);
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
@@ -49,7 +61,7 @@ class UserModel extends ModelPDO {
             return false;
         }
 
-        $this->log_with_id($stmt["ID"]);
+        $this->webserver_log_with_id($stmt["ID"]);
         return true;
     }
 
@@ -59,44 +71,39 @@ class UserModel extends ModelPDO {
         $this->pdo->prepare("CALL REQUEST_USER_FROM_TOKEN (?)");
         $this->pdo->execute(array($validation));
 
-        $stmt = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+        $this->fetch($stmt);
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this validation token
             return false;
         }
 
-        $this->log_with_id($stmt["ID"]);
+        $this->webserver_log_with_id($stmt["ID"]);
     }
 
     public function reset_password ($validation,$password) {
         $this->de_log();
 
-        $loop = false;
-        for (;!$loop;)
-            $token = random_string_token(64,$loop);
+        $token = $this->getRandomToken();
 
-        $this->pdo->prepare("SELECT * FROM USERS WHERE ID=(SELECT REPLACE_USER_PASSWORD(?,?,?) AS ID_P)");
+        $this->pdo->prepare("SELECT * FROM USERS WHERE ID=(SELECT REPLACE_USER_PASSWORD(?,?,?) AS ID_P
+                              LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
         $this->pdo->execute(array($validation,encrypt($password,$token),$token));
 
-        $stmt = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+        $this->fetch($stmt);
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this validation token
-            return false;
+            throw new LoginException("Encountering non-unique token");
         }
-        $this->log_with_id($stmt["ID"]);
+        $this->webserver_log_with_id($stmt["ID"]);
+        $this->privilege_set($stmt["PRIVILEGE"]);
     }
 
 
     public function request_password_change ($mail) {
-        if ($_SESSION["logged"] === true) {
-            return "";
-        }
-        $loop = true;
-        $token = random_string_token(20,$loop);
-        for (;!$loop;)
-            $token = random_string_token(20,$loop);
+        de_log();
 
+        $token = $this->getRandomToken();
 
         $this->pdo->prepare("
             SELECT ID
@@ -104,7 +111,7 @@ class UserModel extends ModelPDO {
             WHERE USERS.EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $stmt = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+        $this->fetch($stmt);
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
@@ -117,7 +124,7 @@ class UserModel extends ModelPDO {
         $this->pdo->prepare("UPDATE USERS SET TOKEN = ? WHERE ID=?");
         $this->pdo->execute(array($token,$stmt["ID"]));
 
-
+        //no connection, because it shouldn't
 
         return $token;
     }
@@ -125,8 +132,7 @@ class UserModel extends ModelPDO {
 
     public function create_new_user(User $user,$password,$key) {
 
-        $crypto_strong = true;
-        $token = random_string_token(64,$crypto_strong);
+        $token = $this->getRandomToken();
 
 
         $this->pdo->prepare("INSERT INTO `USERS` (`EMAIL`,`NAME`,`ENABLE`,`TOKEN`) VALUES (?,?,0,?)");
@@ -140,9 +146,10 @@ class UserModel extends ModelPDO {
         $passdb = new \db\db_handler();
         $passdb->prepare("INSERT INTO `PASSWORD` (`ID`,`PASSWORD`,`TOKEN`) VALUES (?,?,?)");
         $passdb->execute(array($id,$new_password,$token));
-
-
     }
+
+
+
 
     public function select () {
         $numarg = func_num_args();
