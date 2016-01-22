@@ -12,18 +12,23 @@ class ResetController extends Controller {
         if (isset($this->options[0]))
         {
             //validation du token
-            $this->model->setStrategy(new RequestStrategy($this->model));
+
+
             if (isset($_POST["password1"]) && isset($_POST["password2"]) && $password = POST("password1") === POST("password2")) {
                 //there is a token set.
+                $this->model->setStrategy(new ResetedStrategy($this->model));
                 $token = $this->options[0];
                 $this->model->reset_password_with_validation($token, $password);
 
+            }
+            else {
+                $this->model->setStrategy(new RequestStrategy($this->model));
             }
         }
         else {
             //user wants to request a new password
             if (isset($_POST["mail"])) {
-                $this->model->setStrategy(new RequestStrategy($this->model));
+                $this->model->setStrategy(new ClickSurMailStrategy($this->model));
                 $mail = POST("mail");
                 $token = $this->model->request_password_change($mail);
 
