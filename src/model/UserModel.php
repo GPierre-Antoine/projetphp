@@ -6,8 +6,8 @@ class UserModel extends ModelPDO {
 
     private $joinlist;
 
-    private function getRandomToken(&$crypto_strong = true) {
-        return random_string_token(64,$crypto_strong);
+    private function getRandomToken($nb = 64,&$crypto_strong = true) {
+        return random_string_token($nb,$crypto_strong);
     }
 
     private function fetch(&$stmt,$style = \PDO::FETCH_ASSOC) {
@@ -82,7 +82,7 @@ class UserModel extends ModelPDO {
     }
 
     public function reset_password_with_id ($id,$password) {
-        $token = $this->getRandomToken();
+        $token = $this->getRandomToken(32);
         $this->pdo->prepare("SELECT * FROM USERS WHERE ID=? AS ID_P
                               LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
         $this->pdo->execute(array($_SESSION["ID"],encrypt($password,$token),$token));

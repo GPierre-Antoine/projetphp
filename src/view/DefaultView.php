@@ -156,6 +156,14 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
+							<div id="content_twitter" class="content hide">';
+							foreach($this->user->getTwitters() as $twitterAcc) {
+                                foreach($twitterAcc->getTweets() as $tweet) {
+                                    echo $tweet->display();
+                                }
+                            }
+							echo '
+							</div>
 						</div>
 			    	</div>
 			    	<!-- END PAGE CONTENT -->
@@ -182,7 +190,8 @@ class DefaultView extends View {
 			        			<option value="pop_add_categorie">Une catégorie</option>
 			        			<option value="pop_add_flux">Un flux</option>
 			        			<option value="pop_add_mail">Un compte mail</option>
-			        			<option value="pop_add_friend">Suivre une personne</option>
+			        			<option value="pop_add_friend">Suivre une personne sur Aaron</option>
+			        			<option value="pop_add_twitter">Suivre une personne sur Twitter</option>
 			        		</select>
 			        		<div class="selector_button">
 			        			<button id="begin" type="button" class="noborder">Commencer</button><button id="end" type="button" class="noborder">Annuler</button>
@@ -218,10 +227,17 @@ class DefaultView extends View {
 						<div class="pop_add pop_add_friend hide">
 			            	<div class="sep"></div>
 			            	<form id="F_friend" method="post">
-			            		<input class="smallInput actionnable_fr" name="name" type="text" placeholder="Qui souhaitez-vous suivre ?" required/>
+			            		<input class="smallInput actionnable_fr" name="name" type="text" placeholder="Qui souhaitez-vous suivre sur Aaron ?" required/>
 			            		<input class="smallInput" name="submit" type="button" onclick="searchUser(this)" value="Chercher"/>
 			            	</form>
 			            	<div id="researchResult" class="pop_add_friend_result hide"></div>
+						</div>
+						<div class="pop_add pop_add_twitter hide">
+			            	<div class="sep"></div>
+			            	<form id="F_twitter" method="post">
+			            		<input class="smallInput actionnable_tw" name="name" type="text" placeholder="Qui souhaitez-vous suivre sur Twitter?" required/>
+			            		<input class="smallInput" name="submit" type="button" onclick="searchOnTwitter(this)" value="Suivre"/>
+			            	</form>
 						</div>
 			        </div>
 
