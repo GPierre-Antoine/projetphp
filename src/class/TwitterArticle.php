@@ -9,16 +9,17 @@
 class TwitterArticle {
 
     private $id;
+    private $from;
     private $body;
-    private $source;
+    private $img;
     private $date;
-
     private $version;
 
-    public function __construct($id,$body,$source,$date,$version) {
+    public function __construct($id,$from,$body,$img,$date,$version) {
         $this->id = $id;
+        $this->from = $from;
         $this->body = $body;
-        $this->source = $source;
+        $this->img = $img;
         $this->date = $date;
         $this->version = $version;
     }
@@ -28,7 +29,18 @@ class TwitterArticle {
     }
 
     public function display() {
-        return $this->body.' par : '.$this->source;
+        $display = '
+        <article>
+            <aside class="avatar">
+                <a href="http://twitter.com/'.$this->from.'" target="_blank">
+                    <img alt="'.$this->from.'" src="'.$this->img.'" />
+                </a>
+            </aside>
+            <p>'.$this->date.'</p>
+            <p>'.$this->body.'</p>
+        </article>
+        ';
+        return $display;
     }
 
 }

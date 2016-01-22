@@ -37,21 +37,24 @@ class Twitter {
         $this->articles = array();
         $tweets = $this->twitter->get('statuses/user_timeline', ['screen_name' => $this->name,
             'exclude_replies' => true,
+            'include_rts' => false,
             'count' => 50 ]);
         foreach($tweets as $tweet) {
             $date = date('Y-m-d H:i:s',strtotime($tweet->created_at));
             $text = $tweet->text;
+            $from = $tweet->from_user;
+            $img = $tweet['user']['profile_image_url'];
             $version = md5($text);
 
-            $newTweet = new TwitterArticle($this->id,$text,$this->name,$date,$version);
+            $newTweet = new TwitterArticle($this->id,$from,$text,$img,$date,$version);
             array_push($this->articles,$newTweet);
 
             $this->pdo->prepare("SELECT COUNT(*) FROM TWITTER_FLUX WHERE IDTWITTER = ? AND CHECKVERSION = ?");
             $this->pdo->execute(array($this->id,$newTweet->getVersion()));
             $result = $this->pdo->fetch(\PDO::FETCH_NUM);
             if($result[0] == 0) {
-                $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,MESSAGE,POSTED,CHECKVERSION) VALUES(?,?,?,?)");
-                $this->pdo->execute(array($this->id,$text,$date,$version));
+                $this->pdo->prepare("INSERT INTO TWITTER_FLUX(IDTWITTER,FROMT,MESSAGE,IMAGE,POSTED,CHECKVERSION) VALUES(?,?,?,?,?,?)");
+                $this->pdo->execute(array($this->id,$from,$text,$img,$date,$version));
             }
         }
     }
