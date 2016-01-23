@@ -6,7 +6,7 @@
  * Time: 09:33
  */
 
-require "src/vendor/twitter_api/autoload.php";
+require "/home/aaron-aaron/www/src/vendor/twitter_api/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 class Twitter {
