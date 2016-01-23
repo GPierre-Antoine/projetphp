@@ -26,7 +26,8 @@ TEXT;
 
         mail($destinataire, $sujet, $message, $entete);
 
-        echo $destinataire, $sujet, $message, $entete;
+        echo $mail;
+
     }
 
 
@@ -34,22 +35,15 @@ TEXT;
     {
 
         if ($_SESSION["logged"] === true) {
-            if (isset($_POST["password1"]) && isset($_POST["password2"])) {
+            if (isset($_POST["password1"]) && isset($_POST["password2"]) && POST("password1") === POST("password2")) {
                 //change password to new password
-                if (POST("password1") === POST("password2"))
-                {
-                    $this->model->reset_password_with_id($_SESSION["id"],POST("password1"));
-                    $this->model->setStrategy(new PasswordChangedStrategy($this->model));
-                }
-                else
-                {
-                    $this->model->setStrategy(new Not_to_easyStrategy($this->model));
-                }
+
+                $this->model->reset_password_with_id($_SESSION["id"], POST("password1"));
+                $this->model->setStrategy(new PasswordChangedStrategy());
             }
             else
             {
-                //re-enter password
-
+                $this->model->setStrategy(new Not_To_EasyStrategy());
             }
 
         }
@@ -66,28 +60,31 @@ TEXT;
 
                 if ($_SESSION['loggged'] === true) {
                     //is connected, now request a new password
-                    $this->model->setStrategy(new RequestStrategy($this->model));
+                    echo "ok";
+                    $this->model->setStrategy(new RequestStrategy());
 
                 } else {
                     //bad token, invalid ID;
-                    $this->model->setStrategy(new SetMailStrategy($this->model));
+                    $this->model->setStrategy(new SetMailStrategy());
 
                 }
 
 
             }
             else {
+
                 //user wants to request a new password
                 if (isset($_POST["mail"])) {
-                    $this->model->setStrategy(new ClickSurMailStrategy($this->model));
+
+                    $this->model->setStrategy(new ClickSurMailStrategy());
                     $mail = POST("mail");
                     $token = $this->model->request_password_change($mail);
 
-                    $this->send_mail_for_validation ($_SESSION["mail"],$token);
+                    $this->send_mail_for_validation ($mail,$token);
 
                 } else {
                     // no mail set ; need to display form
-                    $this->model->setStrategy(new SetMailStrategy($this->model));
+                    $this->model->setStrategy(new SetMailStrategy());
                 }
             }
         }

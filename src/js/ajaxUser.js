@@ -88,7 +88,10 @@ function addArticle($object) {
             data: 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
             dataType: 'html',
             success: function (data) {
-                continueArticle($object, tab, data);
+                if(data === "false") {}
+
+                else
+                    continueArticle($object, tab, data);
             }
         });
     }
@@ -96,8 +99,12 @@ function addArticle($object) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                continueArticle($object, tab, xhr.responseText);
+                if (xhr.responseText === "false") {
+                }
+                else
+                    continueArticle($object, tab, xhr.responseText);
             }
+
         };
 
         xhr.open("POST", "/ajx", true);
@@ -130,17 +137,34 @@ function continueArticle($object,tab,data) {
         }
     }
     else {
-        $.ajax({
-            url: '/ajx',
-            type: 'POST',
-            data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
-            dataType: 'html',
-            success: function (data) {
-                closePopUpAddArticle("#overlay_blog", ".popup_blog");
-                location.reload();
-                //Faire un cookie avec une action et du coup dans default view gérer le cookie
-            }
-        });
+        if (navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST',
+                data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
+                dataType: 'html',
+                success: function (data) {
+                    closePopUpAddArticle("#overlay_blog", ".popup_blog");
+                    location.reload();
+                    //Faire un cookie avec une action et du coup dans default view gérer le cookie
+                }
+            });
+        }
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    xhr.responseText;
+                    closePopUpAddArticle("#overlay_blog", ".popup_blog");
+                    location.reload();
+                }
+
+            };
+
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3]);
+        }
     }
 } // continueArticle()
 
@@ -148,99 +172,98 @@ function continueArticle($object,tab,data) {
 
 ////////////////////////////////////////////////////////////////////////////////////RSS/////////////////////////////////////////////////////////////////////////////////
 function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,$blue) {
-    event.stopPropagation();
-    alert('test');
-    if(true){
-
-    }
-    /*if (window.XMLHttpRequest || window.ActiveXObject) {
-        if (window.ActiveXObject) {
-            try {
-                xhr = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch(e) {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-        } else {
-            xhr = new XMLHttpRequest();
-        }
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
-                if ($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
-                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="' + $name + '" style="background-color:rgba(' + $red + ',' + $green + ',' + $blue + ',0.5);">' + $name + '</button>';
-                    document.getElementById('favorite_panel').innerHTML += newFavorite;
-                }
-                else {
-                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
-                    $("#favorite_panel .default_block_panel").each(function () {
-                        if ($(this).val() === $name) {
-                            this.remove();
-                        }
-                    });
-                }
-            }
-        };
-
-        xhr.open("POST", "/ajx", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send('linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory);
-    }*/
-    else {
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
         $.ajax({
             url: '/ajx',
             type: 'POST',
             data: 'linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory,
             success: function (data) {
-                if ($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
-                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="' + $name + '" style="background-color:rgba(' + $red + ',' + $green + ',' + $blue + ',0.5);">' + $name + '</button>';
-                    document.getElementById('favorite_panel').innerHTML += newFavorite;
-                }
-                else {
-                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
-                    $("#favorite_panel .default_block_panel").each(function () {
-                        if ($(this).val() === $name) {
-                            this.remove();
-                        }
-                    });
-                }
+                location.reload();
             }
         });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
+
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory);
+
     }
 
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'urlToFocus=' + $url,
+            success: function (data) {
+                $(".actu_btn").click();
+                var displays = JSON.parse(data);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                $(".actu_btn").click();
+                var displays = JSON.parse(xhr.responseText);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
+            }
 
-    alert('focus');
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'urlToFocus='+$url,
-        success: function (data) {
-            $( ".actu_btn" ).click();
-            var displays =  JSON.parse(data);
-            document.getElementById('content_flux').innerHTML = "";
-            displays.forEach(function(entry) {
-                document.getElementById('content_flux').innerHTML += entry;
-            });
-        }
-    });
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('urlToFocus=' + $url);
+    }
 } // focusToThisRSSFeed()
 
 function deleteFlux($idRSSFeed,$idCategory) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory, // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory);
+    }
 } // deleteFlux()
+
+//CONTINUE HERE
 
 function addRSSFeedCategoryUser($object) {
 
@@ -465,7 +488,7 @@ function loadMail() {
             var displays =  JSON.parse(data);
             document.getElementById("content_mail").childNodes[3].innerHTML = "";
             displays.forEach(function(entry) {
-                ocument.getElementById("content_mail").childNodes[3].innerHTML += entry;
+                document.getElementById("content_mail").childNodes[3].innerHTML += entry;
             });
         }
     });
