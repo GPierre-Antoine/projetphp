@@ -22,6 +22,7 @@ class DefaultModel extends ModelPDO {
             $this->user = build_user($_SESSION['ID']);
             $this->user->initializeFriends();
             $this->user->initializeCategories();
+            $this->user->initializeFlux();
             $this->user->initializeArticles();
             $this->user->initializeMailBox();
             $this->user->initializeTwitter();

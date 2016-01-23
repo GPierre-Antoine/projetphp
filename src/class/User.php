@@ -14,6 +14,7 @@ class User extends ModelPDO
 
     private $friends;
     private $categories;
+    private $flux;
     private $articles;
     private $mailbox;
     private $twitters;
@@ -49,6 +50,20 @@ class User extends ModelPDO
         {
             $newCategorie = new categorie($categorie['ID'], $categorie['NAME'], $categorie['COLOR']);
             array_push($this->categories, $newCategorie);
+        }
+    }
+
+    public function initializeFlux() {
+        $this->flux = array();
+        $sql = "SELECT FLUX_INFORMATION.TITLE, FLUX_INFORMATION.POSTED, FLUX_INFORMATION.CONTENT, FLUX_INFORMATION.URL, FLUX_INFORMATION.MD5VERSION
+                FROM CATEGORIE,FLUX_ASSOC,FLUX_INFORMATION
+                WHERE CATEGORIE.ID = IDCATE AND FLUX_ASSOC.IDFLUX = FLUX_INFORMATION.IDFLUX AND CATEGORIE.IDUSER = ".$this->id."
+                ORDER BY POSTED DESC";
+        $stmt = $this->pdo->query($sql);
+        while($result = $stmt->fetch())
+        {
+            $newFlux = new FluxArticle($result[0],$result[1],$result[2],$result[3],$result[4]);
+            array_push($this->flux,$newFlux);
         }
     }
 
@@ -121,6 +136,10 @@ class User extends ModelPDO
 
     public function getCategories() {
         return $this->categories;
+    }
+
+    public function getFlux() {
+        return $this->flux;
     }
 
     public function getArticles() {
