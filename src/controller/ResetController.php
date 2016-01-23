@@ -25,6 +25,8 @@ class ResetController extends Controller {
 TEXT;
 
         mail($destinataire, $sujet, $message, $entete);
+
+        echo $destinataire, $sujet, $message, $entete;
     }
 
 
@@ -42,8 +44,6 @@ TEXT;
                 else
                 {
                     $this->model->setStrategy(new Not_to_easyStrategy($this->model));
-
-
                 }
             }
             else
@@ -66,9 +66,11 @@ TEXT;
 
                 if ($_SESSION['loggged'] === true) {
                     //is connected, now request a new password
+                    $this->model->setStrategy(new RequestStrategy($this->model));
 
                 } else {
                     //bad token, invalid ID;
+                    $this->model->setStrategy(new SetMailStrategy($this->model));
 
                 }
 
