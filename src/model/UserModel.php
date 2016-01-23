@@ -90,26 +90,28 @@ class UserModel extends ModelPDO {
 
         $stmt = $this->fetch();
 
+        echo "<br/>";
+        echo $this->pdo->rowCount();
+        echo "<br />";
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this validation token
             return false;
         }
 
-        $this->webserver_log_with_id($stmt["ID"],$stmt["PRIVILEGE"]);
+        $this->webserver_log_with_id($stmt["ID"]);
+
     }
 
     public function reset_password_with_id ($id,$password) {
-        //connect to user
         // needs to be sure he is the right guy !
-        $this->pdo->prepare("SELECT * FROM USERS LEFT JOIN USERS_PRIVILEGES ON USERS.ID = USERS_PRIVILEGES.ID WHERE USERS.ID=?");
-        $this->pdo->execute(array($id));
-
-        $stmt = $this->pdo->fetch(\PDO::FETCH_ASSOC);
 
         //change user password
         $token = $this->getRandomToken();
+
+        $ar = array(encrypt($password,$token),$token,$id);
+
         $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=? , TOKEN=? WHERE ID=?");
-        $this->pdo->execute(array(encrypt($password,$token),$token,$id));
+        $this->pdo->execute($ar);
 
         //$this->privilege_set($stmt["PRIVILEGE"]);
 
