@@ -32,7 +32,7 @@ class ConfirmationModel extends ModelPDO {
         $query = $passdb->fetch(PDO::FETCH_ASSOC);
 
         if ($query['NUMBER'] === '1') {
-            $passdb->prepare("UPDATE USERS SET ENABLE = 1, TOKEN = '' WHERE TOKEN = ?");
+            $passdb->prepare("UPDATE USERS SET ENABLE = 1, TOKEN = null, VALID_TIME = null WHERE TOKEN = ?");
             $passdb->execute(array($other_key));
             echo "Votre compte a bien été crée !";
         }
