@@ -198,7 +198,7 @@ class DefaultView extends View {
 										foreach ($this->user->getTwitters() as $twitter) {
 											echo '<option value="' . $twitter . '">' . $twitter . '</option>';
 										}
-										echo '</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>';
+										echo '</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Filtrer</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>';
 									}
 								echo '</div>
 								<div class="content_twitter_rest"></div>
@@ -297,6 +297,15 @@ class DefaultView extends View {
 			        			</form>
 			        		</div>
 			        	</div>
+			        </div>
+
+			        <!-- POP-UP SETTING -->
+			        <div id="overlay_setting" class="overlay"></div>
+			        <div id="popup_setting" class="popup_setting popup">
+						TOUT LES SETTINGS ICI, ON PEUT FAIRE SOUS FAIRE DE FORMULAIRE AVEC TOUT DE PRET REMPLI COMME :
+						Mon email : <input type="email" name="email" value="'.$this->user->getEmail().'"/><br>
+						Mon avatar : <input type="text" name="avatar" value="'.$this->user->getAvatar().'"/><br>
+
 			        </div>
 
 			        <!-- POP-UP WARNING -->
