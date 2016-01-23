@@ -29,7 +29,7 @@ class UserModel extends ModelPDO {
     private function webserver_log_with_id ($id,$privi = null) {
         $_SESSION["logged"] = true;
         $_SESSION["ID"] = $id;
-        if (!is_null($privi))
+        if ($privi == null)
             $_SESSION["admin"]=$privi;
     }
 
