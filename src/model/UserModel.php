@@ -96,6 +96,8 @@ class UserModel extends ModelPDO {
         $token = $this->getRandomToken();
         $this->pdo->prepare("SELECT * FROM USERS WHERE ID=? AS ID_P
                               LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
+
+        /*$this->pdo->prepare("INSERT INTO PASSWORD (PASSWORD,TOKEN) VALUES (?,?)");*/
         $this->pdo->execute(array($_SESSION["ID"],encrypt($password,$token),$token));
     }
 
@@ -196,13 +198,13 @@ class UserModel extends ModelPDO {
     }
 
     public function isAdmin($id) {
-        $sql = 'SELECT COUNT(*) FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+        $sql = 'SELECT COUNT(*) FROM USERS_PRIVILEGES WHERE ID = (SELECT ID FROM USERS WHERE ID = ?)';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($id));
         $stmt = $this->pdo->fetch(\PDO::FETCH_NUM);
         $privi = "";
         if($stmt[0] != 0) {
-            $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+            $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID = (SELECT ID FROM USERS WHERE ID = ?)';
             $this->pdo->prepare($sql);
             $this->pdo->execute(array($id));
             $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);
