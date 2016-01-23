@@ -173,7 +173,7 @@ class CustomModel extends ModelPDO {
     ///////////////////////////////////////////////////////////////////////FRIEND/////////////////////////////////////////////////////////////////////////
     public function friendBlog($idFriend) {
         $array = array();
-        $sql = 'SELECT ARTICLE.*,EMAIL FROM ARTICLE, USERS WHERE IDUSER = ? AND IDUSER = USERS.ID';
+        $sql = 'SELECT ARTICLE.*,EMAIL FROM ARTICLE, USERS WHERE IDUSER = ? AND IDUSER = USERS.ID ORDER BY POSTED DESC';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($idFriend));
         while ($result = $this->pdo->fetch(\PDO::FETCH_ASSOC)) {
