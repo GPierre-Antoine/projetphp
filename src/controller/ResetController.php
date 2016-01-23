@@ -16,9 +16,13 @@ class ResetController extends Controller {
 
             if (isset($_POST["password1"]) && isset($_POST["password2"]) && $password = POST("password1") === POST("password2")) {
                 //there is a token set.
-                $this->model->setStrategy(new ResetedStrategy($this->model));
                 $token = $this->options[0];
-                $this->model->reset_password_with_validation($token, $password);
+                $this->model->login_with_validation($token);
+
+
+                $this->model->setStrategy(new ResetedStrategy($this->model));
+
+                $this->model->reset_password_with_id($_SESSION["ID"], $password);
 
             }
             else {
