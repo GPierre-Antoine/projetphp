@@ -31,7 +31,7 @@ class ConfirmationView extends View {
 			</html>
     	';
 
-            parent::redirect("/defaultLogged", 1);
+            parent::redirect("/", 1);
         }
     }
 
