@@ -103,7 +103,6 @@ class UserModel extends ModelPDO {
 
     public function reset_password_with_id ($id,$password) {
         // needs to be sure he is the right guy !
-        var_dump($id);
         //change user password
         $token = $this->getRandomToken();
 
