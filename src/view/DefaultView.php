@@ -36,6 +36,7 @@ class DefaultView extends View {
 					<link rel="stylesheet" type="text/css" href="/src/style/mail.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/twitter.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/perso.css">
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
@@ -99,6 +100,9 @@ class DefaultView extends View {
 					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_panel noborder" type="button" value="' . $in->getName() . '" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);">' . $in->getName() . '</button>';
 				}
 			}
+		echo ' </div>
+						<div id="friend_panel" class="panel searchOn hide">';
+
 
 			echo '</div>
 						<div id="LBBar">
@@ -120,6 +124,7 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_friend_btn" type="button"></button>
 			    			<button class="menu_btn noborder mail_btn" type="button"></button>
+			    			<button class="menu_btn noborder perso_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">
@@ -159,6 +164,14 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
+							<div id="content_perso" class="content hide">
+								<div class="content_perso_informations">
+									<h1>Vos Informations !</h1></br>';
+									echo '<h2> Nom : ' .$this->user->getName(). '</h2></br>
+										  <button class="switch_avatar_btn" type="button">Changer d\'avatar ?</button>'. '<button class="switch_password_btn" type="button">Changer de mot de passe ?</button>';
+								echo '</div>';
+							echo '
+							</div>
 							<div id="content_twitter" class="content hide">
 								<div class="content_twitter_select">
 									<h1>Vos célébritées sont avec vous !</h1>
@@ -171,6 +184,7 @@ class DefaultView extends View {
 								</div>
 								<div class="content_twitter_rest"></div>
 							</div>
+
 						</div>
 			    	</div>
 			    	<!-- END PAGE CONTENT -->
@@ -183,7 +197,7 @@ class DefaultView extends View {
 			    		<div class="user_information_rest">
 			    			<button class="actu_btn user_information_rest_btn noborder" type="button">Actualités</button>
 							<button class="blog_btn user_information_rest_btn noborder" type="button">Mon blog</button>
-							<button class="user_information_rest_btn noborder" onclick="popUpInformation()" type="button">Options personnelles</button>
+							<button class="perso_btn user_information_rest_btn noborder" type="button">Options personnelles</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
@@ -265,6 +279,23 @@ class DefaultView extends View {
 			        		</div>
 			        	</div>
 			        </div>
+
+			        <!-- POP-UP MODIF AVATAR -->
+			        <div id="overlay_modifava" class="overlay"></div>
+			        <div id="popup_modifava" class="popup_modifava popup">
+			        	<div id="writting_zone">
+			        		<div class="writting_zone_image">
+			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
+			        		</div>
+			        		<div class="writting_zone_text">
+			        			<form id="F_blog" method="post">
+			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
+			        				<button id="switch_avatar" class="action_btn noborder" type="button" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        			</form>
+			        		</div>
+			        	</div>
+			        </div>
+
 
 			        <!-- POP-UP WARNING -->
 			        <div id="overlay_warning" class="overlay"></div>

@@ -9,6 +9,7 @@ $(function () {
     var contentMail = false;
     var contentFriendBlog = false;
     var contentTwitter = false;
+    var contentPerso = false;
 
     $(".blog_btn").click(function() {
         if (!contentBlog) {
@@ -16,6 +17,7 @@ $(function () {
             $("#content_friend_blog").addClass("hide");
             $("#content_flux").addClass("hide");
             $("#content_twitter").addClass("hide");
+            $("#content_perso").addClass("hide");
             $("#content_blog").removeClass("hide");
 
             contentBlog = true;
@@ -23,8 +25,10 @@ $(function () {
             contentMail = false;
             contentFriendBlog = false;
             contentTwitter = false;
+            contentPerso = false;
         }
     })
+
 
     $(".blog_friend_btn").click(function() {
         if (!contentFriendBlog) {
@@ -32,6 +36,7 @@ $(function () {
             $("#content_flux").addClass("hide");
             $("#content_blog").addClass("hide");
             $("#content_twitter").addClass("hide");
+            $("#content_perso").addClass("hide");
             $("#content_friend_blog").removeClass("hide");
 
             contentFriendBlog = true;
@@ -39,6 +44,7 @@ $(function () {
             contentFlux = false;
             contentMail = false;
             contentTwitter = false;
+            contentPerso = false;
         }
     })
 
@@ -47,6 +53,7 @@ $(function () {
             $("#content_blog").addClass("hide");
             $("#content_friend_blog").addClass("hide");
             $("#content_mail").addClass("hide");
+            $("#content_perso").addClass("hide");
             $("#content_twitter").addClass("hide");
             $("#content_flux").removeClass("hide");
 
@@ -55,6 +62,7 @@ $(function () {
             contentMail = false;
             contentFriendBlog = false;
             contentTwitter = false;
+            contentPerso = false;
         }
     })
 
@@ -63,11 +71,13 @@ $(function () {
             $("#content_blog").addClass("hide");
             $("#content_friend_blog").addClass("hide");
             $("#content_flux").addClass("hide");
+            $("#content_perso").addClass("hide");
             $("#content_twitter").addClass("hide");
             $("#content_mail").removeClass("hide");
 
             contentMail = true;
             contentFlux = false;
+            contentPerso = false;
             contentBlog = false;
             contentFriendBlog = false;
             contentTwitter = false;
@@ -75,17 +85,36 @@ $(function () {
     })
 
     $(".twitter_btn").click(function() {
-        if (!contentMail) {
+        if (!contentTwitter) {
             $("#content_blog").addClass("hide");
             $("#content_friend_blog").addClass("hide");
             $("#content_flux").addClass("hide");
             $("#content_mail").addClass("hide");
+            $("#content_perso").addClass("hide");
             $("#content_twitter").removeClass("hide");
 
             contentTwitter = true;
             contentMail = false;
             contentFlux = false;
             contentBlog = false;
+            contentPerso = false;
+            contentFriendBlog = false;
+        }
+    })
+
+    $(".perso_btn").click(function () {
+        if (!contentPerso) {
+            $("#content_flux").addClass("hide");
+            $("#content_friend_blog").addClass("hide");
+            $("#content_mail").addClass("hide");
+            $("#content_twitter").addClass("hide");
+            $("#content_blog").addClass("hide");
+            $("#content_perso").removeClass("hide");
+
+            contentPerso = true;
+            contentBlog = false;
+            contentFlux = false;
+            contentMail = false;
             contentFriendBlog = false;
         }
     })
@@ -96,6 +125,7 @@ $(function () {
             $("#content_friend_blog").addClass("hide");
             $("#content_mail").addClass("hide");
             $("#content_twitter").addClass("hide");
+            $("#content_perso").addClass("hide");
             $("#content_blog").removeClass("hide");
 
             contentBlog = true;
@@ -103,6 +133,7 @@ $(function () {
             contentMail = false;
             contentFriendBlog = false;
             contentTwitter = false;
+            contentPerso = false;
         }
     });
 
