@@ -22,12 +22,14 @@ class UserModel extends ModelPDO {
     }
 
     private function fetch(&$stmt,$style = \PDO::FETCH_ASSOC) {
-        $stmt = $this->pdo->fetch($style);
+        $this->pdo->fetch($stmt,$style);
     }
 
-    private function webserver_log_with_id ($id) {
+    private function webserver_log_with_id ($id,$privi = null) {
         $_SESSION["logged"] = true;
         $_SESSION["ID"] = $id;
+        if (!is_null($privi))
+            $_SESSION["admin"]=$privi;
     }
 
     private function de_log() {
@@ -89,34 +91,33 @@ class UserModel extends ModelPDO {
             return false;
         }
 
-        $this->webserver_log_with_id($stmt["ID"]);
+        $this->webserver_log_with_id($stmt["ID"],$stmt["PRIVILEGE"]);
     }
 
     public function reset_password_with_id ($id,$password) {
-        $token = $this->getRandomToken();
-        $this->pdo->prepare("SELECT * FROM USERS WHERE ID=? AS ID_P
-                              LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
+        //connect to user // needs to be sure he is the right guy !
+        $this->pdo->prepare("SELECT * FROM USERS LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID WHERE ID=?)");
+        $this->pdo->execute(array($id));
 
-        /*$this->pdo->prepare("INSERT INTO PASSWORD (PASSWORD,TOKEN) VALUES (?,?)");*/
-        $this->pdo->execute(array($_SESSION["ID"],encrypt($password,$token),$token));
+
+        //change user password
+        $token = $this->getRandomToken();
+        $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=?,TOKEN=? WHERE ID=? )");
+        $this->pdo->execute(array($id,encrypt($password,$token),$token));
+
+        $this->fetch($stmt);
+
+        $this->webserver_log_with_id($stmt["ID"]);
+        $this->privilege_set($stmt["PRIVILEGE"]);
+
     }
 
     public function reset_password_with_validation ($validation,$password) {
         $this->de_log();
 
-        $token = $this->getRandomToken();
+        $this->login_with_validation($validation);
+        $this->reset_password_with_id($_SESSION["id"],$password);
 
-        $this->pdo->prepare("SELECT * FROM USERS WHERE ID=(SELECT REPLACE_USER_PASSWORD(?,?,?) AS ID_P
-                              LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
-        $this->pdo->execute(array($validation,encrypt($password,$token),$token));
-
-        $this->fetch($stmt);
-        if ($this->pdo->rowCount() !== 1) {
-            //error, un-existing or multi existing users with this validation token
-            throw new LoginException("Encountering non-unique token");
-        }
-        $this->webserver_log_with_id($stmt["ID"]);
-        $this->privilege_set($stmt["PRIVILEGE"]);
     }
 
 
