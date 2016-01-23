@@ -7,13 +7,25 @@ $(function() {
 	$(".add_source_btn").click(function () {
 		$("#overlay_flux").css({"display":"block", opacity:0});
 		$("#overlay_flux").fadeTo(200,0.5);
-		$("#popup_flux").fadeTo(200,1);
+		$("#popup_source").fadeTo(200,1);
 	});
+
+	$(".switch_avatar_btn").click(function () {
+		$("#overlay_modifava").css({"display":"block", opacity:0});
+		$("#overlay_modifava").fadeTo(200,0.5);
+		$("#popup_modifava").fadeTo(200,1);
+	})
+
+	$(".switch_password_btn").click(function () {
+		$("#overlay_modifpass").css({"display":"block", opacity:0});
+		$("#overlay_modifpass").fadeTo(200,0.5);
+		$("#popup_modifpass").fadeTo(200,1);
+	})
 
     $("#add_categorie").click(function () {
         $("#overlay_flux").css({"display":"block", opacity:0});
         $("#overlay_flux").fadeTo(200,0.5);
-        $("#popup_flux").fadeTo(200,1);
+        $("#popup_source").fadeTo(200,1);
 
         $(".pop_add_flux").addClass("hide");
         $(".pop_add_friend").addClass("hide");
@@ -27,20 +39,20 @@ $(function() {
 		$("#popup_blog").fadeTo(200,1);
 	});
 
-	/*$("#add_categorie").click(function () {
-		closePopUp("#overlay_flux",".popup_flux");
-	})*/
+	$("#F_cancelSA_btn").click(function () {
+		closePopUp("#overlay_modifava",".popup_modifava");
+	});
 
-	/*$("#add_article").click(function () {
-		closePopUp("#overlay_blog",".popup_blog");
-	});*/
+	$("#F_cancelSM_btn").click(function () {
+		closePopUp("#overlay_modifpass",".popup_modifpass");
+	})
 
 	$("#F_cancel_btn").click(function () {
 		closePopUp("#overlay_blog",".popup_blog");
 	});
 
 	$("#end").click(function() {
-		closePopUp("#overlay_flux",".popup_flux");
+		closePopUp("#overlay_flux",".popup_source");
 		$(".pop_add_flux").addClass("hide");
 		$(".pop_add_categorie").addClass("hide");
 		$(".pop_add_mail").addClass("hide");

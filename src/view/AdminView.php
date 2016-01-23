@@ -37,8 +37,10 @@ class AdminView extends View {
         echo'<table>';
     }
 
-    public function display() {
-      echo '
+    public function display()
+    {
+        if ($_SESSION['privilege'] === "ADMIN") {
+            echo '
         <html>
         <head>
           <title>Admin</title>
@@ -55,12 +57,20 @@ class AdminView extends View {
             <button onclick="disconnect()" class="top_deconnection_btn noborder" type="button"></button>
           </div>
           <div id="content">';
-      echo $this->affUsers();
-          echo '
+            echo $this->affUsers();
+            echo '
           </div>
         </body>
       </html>';
 
         }
+        else if($_SESSION['ID'] != null) {
+            header('Location:/user');
+        }
+        else {
+            header('Location:/');
+        }
+
+}
 
 }

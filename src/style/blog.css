@@ -1,13 +1,4 @@
-#content_blog .article, #content_friend_blog .article {
-    width: 50%;
-    height: 25%;
-    margin: auto;
-    margin-bottom: 2%;
-    position: relative;
-    left: -25%;
-    background-color: #ecf0f1;
-    border-top-right-radius: 20px;
-}
+
 
 .article_zone_img {
     width: 30%;

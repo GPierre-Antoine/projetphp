@@ -35,35 +35,37 @@ class Twitter {
             'exclude_replies' => true,
             'include_rts' => false,
             'count' => 20 ]);
-        foreach($tweets as $tweet) {
+        foreach(array_slice($tweets,0,10) as $tweet) {
             $tweetId = $tweet->id;
             $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId, 'omit_script' => true]);
             $html = $oembed->html;
             $version = md5($html);
+            $date = $tweet->created_at;
+            $date = date('Y-m-d H:i:s',strtotime($date));
 
             $this->pdo->prepare("SELECT COUNT(*) FROM TWEET WHERE VERSION = ?");
             $this->pdo->execute(array($version));
             $result = $this->pdo->fetch(\PDO::FETCH_NUM);
             if($result[0] == 0) {
-                $this->pdo->prepare("INSERT INTO TWEET(IDTWITTER,IDTWEET,DISPLAY,VERSION) VALUES(?,?,?,?)");
-                $this->pdo->execute(array($this->id,$tweetId,$html,$version));
+                $this->pdo->prepare("INSERT INTO TWEET(IDTWITTER,IDTWEET,DISPLAY,POSTED,VERSION) VALUES(?,?,?,?,?)");
+                $this->pdo->execute(array($this->id,$tweetId,$html,$date,$version));
             }
         }
     }
 
     public function initializeTweets() {
         $this->articles = array();
-        $this->pdo->prepare("SELECT * FROM TWEET WHERE IDTWITTER = ?");
+        $this->pdo->prepare("SELECT * FROM TWEET WHERE IDTWITTER = ? ORDER BY POSTED DESC");
         $this->pdo->execute(array($this->id));
         while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
         {
-            $tweet = new TwitterArticle($result['IDTWITTER'],$result['IDTWEET'],$result['DISPLAY'],$result['VERSION']);
+            $tweet = new TwitterArticle($result['IDTWITTER'],$result['IDTWEET'],$result['DISPLAY'],$result['POSTED'],$result['VERSION']);
             array_push($this->articles,$tweet);
         }
     }
 
     public function getTweets() {
-        return array_slice($this->articles,0,10);
+        return $this->articles;
     }
 
     public function getName() {

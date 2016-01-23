@@ -22,7 +22,7 @@ class EmailContent {
 
     public function display() {
         $display = '
-            <div class="content_mail_display">
+            <div class="content_mail_display display">
                 <span class="content_mail_addressfrom">Envoyé par : <a href="mailto:'.$this->fromaddress.'">'.$this->fromaddress.'</a></span><span class="content_mail_date"> le '.$this->date.'</span><br>
                 <span class="content_mail_subject">'.$this->subject.'</span><br>
                 <span class="content_mail_body">'.$this->body.'</span>

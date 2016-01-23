@@ -1,6 +1,6 @@
 <?php
 
-abstract class Flux
+class Flux
 {
     protected $id;
     protected $url;

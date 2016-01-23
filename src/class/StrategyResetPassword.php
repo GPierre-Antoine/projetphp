@@ -7,10 +7,13 @@
  */
 
 abstract class StrategyResetPassword {
-    private $model;
 
-    public function __construct ($model) {
-        $this->model = $model;
+    public function __construct () {
+    }
+
+    public function __toString()
+    {
+        return static::class;
     }
 
     public abstract function run();

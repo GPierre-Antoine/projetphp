@@ -9,6 +9,7 @@ class UserModel extends ModelPDO {
 
     public function setStrategy($state) {
         $this->state = $state;
+
     }
 
     public function getStrategy() {
@@ -21,18 +22,23 @@ class UserModel extends ModelPDO {
         return random_string_token($nb,$crypto_strong);
     }
 
-    private function fetch(&$stmt,$style = \PDO::FETCH_ASSOC) {
-        $stmt = $this->pdo->fetch($style);
+    private function fetch($style = \PDO::FETCH_ASSOC) {
+        return $this->pdo->fetch($style);
     }
 
-    private function webserver_log_with_id ($id) {
+    private function webserver_log_with_id ($id,$privi = null) {
         $_SESSION["logged"] = true;
         $_SESSION["ID"] = $id;
+        if ($privi == null)
+            $_SESSION["admin"]=$privi;
     }
 
     private function de_log() {
         if ($_SESSION["logged"] === true)
-            session_unset();
+        {
+            //session_unset();
+        }
+        $_SESSION["logged"] = false;
     }
 
     private function privilege_set ($privilege_type) {
@@ -54,7 +60,7 @@ class UserModel extends ModelPDO {
             WHERE USERS.EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
@@ -78,45 +84,36 @@ class UserModel extends ModelPDO {
 
     public function login_with_validation ($validation) {
         $this->de_log();
-
         $this->pdo->prepare("CALL REQUEST_USER_FROM_TOKEN (?)");
         $this->pdo->execute(array($validation));
 
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
 
+        echo "<br/>";
+        echo $this->pdo->rowCount();
+        echo "<br />";
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this validation token
             return false;
         }
 
         $this->webserver_log_with_id($stmt["ID"]);
+
     }
 
     public function reset_password_with_id ($id,$password) {
-        $token = $this->getRandomToken();
-        $this->pdo->prepare("SELECT * FROM USERS WHERE ID=? AS ID_P
-                              LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
-        $this->pdo->execute(array($_SESSION["ID"],encrypt($password,$token),$token));
-    }
-
-    public function reset_password_with_validation ($validation,$password) {
-        $this->de_log();
-
+        // needs to be sure he is the right guy !
+        //change user password
         $token = $this->getRandomToken();
 
-        $this->pdo->prepare("SELECT * FROM USERS WHERE ID=(SELECT REPLACE_USER_PASSWORD(?,?,?) AS ID_P
-                              LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID)");
-        $this->pdo->execute(array($validation,encrypt($password,$token),$token));
+        $ar = array(encrypt($password,$token),$token,$id);
 
-        $this->fetch($stmt);
-        if ($this->pdo->rowCount() !== 1) {
-            //error, un-existing or multi existing users with this validation token
-            throw new LoginException("Encountering non-unique token");
-        }
-        $this->webserver_log_with_id($stmt["ID"]);
-        $this->privilege_set($stmt["PRIVILEGE"]);
+        $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=? , TOKEN=? WHERE ID=?");
+        $this->pdo->execute($ar);
+
+        //$this->privilege_set($stmt["PRIVILEGE"]);
+
     }
-
 
     public function request_password_change ($mail) {
         $this->de_log();
@@ -129,7 +126,8 @@ class UserModel extends ModelPDO {
             WHERE USERS.EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
+
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
@@ -196,13 +194,13 @@ class UserModel extends ModelPDO {
     }
 
     public function isAdmin($id) {
-        $sql = 'SELECT COUNT(*) FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+        $sql = 'SELECT COUNT(*) FROM USERS_PRIVILEGES WHERE ID = (SELECT ID FROM USERS WHERE ID = ?)';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($id));
         $stmt = $this->pdo->fetch(\PDO::FETCH_NUM);
         $privi = "";
         if($stmt[0] != 0) {
-            $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+            $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID = (SELECT ID FROM USERS WHERE ID = ?)';
             $this->pdo->prepare($sql);
             $this->pdo->execute(array($id));
             $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);

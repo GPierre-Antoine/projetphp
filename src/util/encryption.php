@@ -1,7 +1,7 @@
 <?php
 
 function encrypt ($password,$token) {
-    $result = hash('sha512',$password);
+    $result = hash('sha512',$password.$token);
     return $result;
 }
 

@@ -56,7 +56,7 @@ class Email {
                 $fromaddress = utf8_decode(imap_utf7_encode($overview[0]->from));
                 $subject = mb_decode_mimeheader($overview[0]->subject);
                 $date = utf8_decode(imap_utf8($overview[0]->date));
-                //$date = date('Y-m-d H:i:s',$date);
+                $date = date('Y-m-d H:i:s',strtotime($date));
                 $key = md5($fromaddress.$subject.$body);
 
                 //save to MySQL

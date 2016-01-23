@@ -118,6 +118,25 @@ $(document).ready(function()
 		$(".favorite_btn").css("background-color", "#f39c12");
 	});
 
+	$('.perso_btn').click(function()
+	{
+		if (isMenuOpen == false)
+		{
+			openMenu();
+			$(".open_btn").fadeOut(1);
+			$(".close_btn").fadeIn(1);
+			isMenuOpen = true;
+		}
+
+		$("#categorie_panel").addClass("hide");
+		$("#favorite_panel").addClass("hide");
+		$("#friend_panel").removeClass("hide");
+
+		$(".perso_btn").css("background-color", "#2980b9");
+		$(".all_btn").css("background-color", "#f39c12");
+		$(".favorite_btn").css("background-color", "#f39c12");
+	});
+
 	$('.favorite_btn').click(function()
 	{
 		if (isMenuOpen == false)
@@ -140,12 +159,14 @@ $(document).ready(function()
 		$(".favorite_btn").css("background-color", "#2980b9");
 	});
 
+
 	$('.actu_btn').click(function () {
 		$("#leftSmallMenu .actu_btn").css("background-color", "#2980b9");
 		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .perso_btn").css("background-color", "#f39c12");
 	})
 
 	$('.blog_btn').click(function () {
@@ -154,6 +175,7 @@ $(document).ready(function()
 		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .perso_btn").css("background-color", "#f39c12");
 	})
 
 	$('.mail_btn').click(function () {
@@ -162,6 +184,7 @@ $(document).ready(function()
 		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .perso_btn").css("background-color", "#f39c12");
 	})
 
 	$('.blog_friend_btn').click(function () {
@@ -170,6 +193,7 @@ $(document).ready(function()
 		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
 		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .perso_btn").css("background-color", "#f39c12");
 	})
 
     $('.twitter_btn').click(function () {
@@ -178,6 +202,16 @@ $(document).ready(function()
         $("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
         $("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .perso_btn").css("background-color", "#f39c12");
     })
+
+	$('.perso_btn').click(function () {
+		$("#leftSmallMenu .perso_btn").css("background-color", "#2980b9");
+		$("#leftSmallMenu .mail_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .blog_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .actu_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .blog_friend_btn").css("background-color", "#f39c12");
+		$("#leftSmallMenu .twitter_btn").css("background-color", "#f39c12");
+	})
 });
 

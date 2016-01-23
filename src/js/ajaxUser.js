@@ -9,34 +9,68 @@ function closePopUpAddArticle(overlay,popup) {
 
 ////////////////////////////////////////////////////////////////////////////////FOR A USER/////////////////////////////////////////////////////////////////////////////
 function searchUser($object) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType: 'html',
-        success: function (data) {
-            document.getElementById('researchResult').innerHTML = "";
-            if(data === "false") {
-                document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
-            }
-            else {
-                var displays = JSON.parse(data);
-                if(displays.length == 0) {
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                document.getElementById('researchResult').innerHTML = "";
+                if(data === "false") {
                     document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
                 }
                 else {
-                    $("#researchResult").removeClass("hide");
-                    document.getElementById('researchResult').innerHTML = "";
-                    for (i = 0; i < displays.length; i += 3) {
-                        var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
-                        elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
-                        elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
-                        document.getElementById('researchResult').innerHTML += elm;
+                    var displays = JSON.parse(data);
+                    if(displays.length == 0) {
+                        document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                    }
+                    else {
+                        $("#researchResult").removeClass("hide");
+                        document.getElementById('researchResult').innerHTML = "";
+                        for (i = 0; i < displays.length; i += 3) {
+                            var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
+                            elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
+                            elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
+                            document.getElementById('researchResult').innerHTML += elm;
+                        }
                     }
                 }
             }
-        }
-    });
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                document.getElementById('researchResult').innerHTML = "";
+                if(xhr.responseText === "false") {
+                    document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                }
+                else {
+                    var displays = JSON.parse(xhr.responseText);
+                    if(displays.length == 0) {
+                        document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                    }
+                    else {
+                        $("#researchResult").removeClass("hide");
+                        document.getElementById('researchResult').innerHTML = "";
+                        for (i = 0; i < displays.length; i += 3) {
+                            var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
+                            elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
+                            elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
+                            document.getElementById('researchResult').innerHTML += elm;
+                        }
+                    }
+                }
+            }
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('userToFind=' + $("#F_friend .actionnable_fr").val());
+    }
 } // searchUser()
 
 //////////////////////////////////////////////////////////////////////////////////ARTICLE///////////////////////////////////////////////////////////////////////////////
@@ -47,16 +81,36 @@ function addArticle($object) {
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                if(data === "false") {}
 
-    $.ajax({
-        url : '/ajx',
-        type : 'POST', // Le type de la requête HTTP, ici devenu POST
-        data : 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType : 'html',
-        success:function(data) {
-            continueArticle($object,tab,data);
-        }
-    });
+                else
+                    continueArticle($object, tab, data);
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                if (xhr.responseText === "false") {
+                }
+                else
+                    continueArticle($object, tab, xhr.responseText);
+            }
+
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('imgToTest=' + url);
+    }
 }
 
 function continueArticle($object,tab,data) {
@@ -83,17 +137,34 @@ function continueArticle($object,tab,data) {
         }
     }
     else {
-        $.ajax({
-            url: '/ajx',
-            type: 'POST',
-            data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
-            dataType: 'html',
-            success: function (data) {
-                closePopUpAddArticle("#overlay_blog", ".popup_blog");
-                location.reload();
-                //Faire un cookie avec une action et du coup dans default view gérer le cookie
-            }
-        });
+        if (navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST',
+                data: 'titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3],
+                dataType: 'html',
+                success: function (data) {
+                    closePopUpAddArticle("#overlay_blog", ".popup_blog");
+                    location.reload();
+                    //Faire un cookie avec une action et du coup dans default view gérer le cookie
+                }
+            });
+        }
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    xhr.responseText;
+                    closePopUpAddArticle("#overlay_blog", ".popup_blog");
+                    location.reload();
+                }
+
+            };
+
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('titreArticle=' + tab[0] + '&themeArticle=' + tab[1] + '&urlImgArticle=' + tab[2] + '&contentArticle=' + tab[3]);
+        }
     }
 } // continueArticle()
 
@@ -101,56 +172,98 @@ function continueArticle($object,tab,data) {
 
 ////////////////////////////////////////////////////////////////////////////////////RSS/////////////////////////////////////////////////////////////////////////////////
 function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,$blue) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory,
-        success: function (data) {
-            if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
-                $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
-                document.getElementById('favorite_panel').innerHTML += newFavorite;
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory,
+            success: function (data) {
+                location.reload();
             }
-            else {
-                $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
-                $("#favorite_panel .default_block_panel").each(function () {
-                    if($(this).val() === $name) {
-                        this.remove();
-                    }
-                });
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
             }
-        }
-    });
+
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory);
+
+    }
 
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'urlToFocus='+$url,
-        success: function (data) {
-            $( ".actu_btn" ).click();
-            var displays =  JSON.parse(data);
-            document.getElementById('content_flux').innerHTML = "";
-            displays.forEach(function(entry) {
-                document.getElementById('content_flux').innerHTML += entry;
-            });
-        }
-    });
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'urlToFocus=' + $url,
+            success: function (data) {
+                $(".actu_btn").click();
+                var displays = JSON.parse(data);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                $(".actu_btn").click();
+                var displays = JSON.parse(xhr.responseText);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
+            }
+
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('urlToFocus=' + $url);
+    }
 } // focusToThisRSSFeed()
 
 function deleteFlux($idRSSFeed,$idCategory) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory, // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory);
+    }
 } // deleteFlux()
+
+//CONTINUE HERE
 
 function addRSSFeedCategoryUser($object) {
 
@@ -375,7 +488,7 @@ function loadMail() {
             var displays =  JSON.parse(data);
             document.getElementById("content_mail").childNodes[3].innerHTML = "";
             displays.forEach(function(entry) {
-                ocument.getElementById("content_mail").childNodes[3].innerHTML += entry;
+                document.getElementById("content_mail").childNodes[3].innerHTML += entry;
             });
         }
     });
@@ -388,7 +501,7 @@ function addEmail($object){
     });
 
     $temp = "true";
-    if(!tab[0].match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/) || tab[1].length != 0 || tab[2].length != 0 || tab[3].length != 0) {
+    if(!tab[0].match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/) || tab[1].length == 0 || tab[2].length == 0 || tab[3].length == 0) {
         $temp = "false";
     }
     if($temp === "true"){
@@ -451,7 +564,6 @@ function loadTwitter() {
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);
-            console.log("data : "+data);
             document.getElementById("content_twitter").childNodes[3].innerHTML = "";
             displays.forEach(function(entry) {
                 document.getElementById("content_twitter").childNodes[3].innerHTML += entry;

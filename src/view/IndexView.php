@@ -18,7 +18,7 @@ class IndexView extends View {
 
     public function display() {
         if($_SESSION['ID'] != null){
-            header('Location:/defaultLogged');
+            header('Location:/user');
         }
         else {
             echo "
@@ -47,7 +47,7 @@ class IndexView extends View {
                 $.fn.fullpage.reBuild();
             });
                 </script>
-                <script type='text/javascript' src='../src/js/indexForm.js' ></script>
+                <script type='text/javascript' src='/src/js/indexForm.js' ></script>
 
           </head>
           <body>
@@ -60,18 +60,18 @@ class IndexView extends View {
                             </div>
         			    	<div id='formRegister' class='form'>
         			    		<form action='register' method='post'>
-        			    			<input class='smallInput' name='fName' type='text' placeholder='Pr&eacute;nom'/>
-        			    			<input class='smallInput' name='lName' type='text' placeholder='Nom'/>
-        			    			<input class='smallInput' name='pwd0' type='password' placeholder='Mot de Passe'/>
-        			    			<input class='smallInput' name='pwd1' type='password' placeholder='Verification'/>
-        			    			<input class='bigInput' name='mail' type='email' placeholder='Adresse Mail'/><br/>
+        			    			<input class='smallInput' name='fName' type='text' placeholder='Pr&eacute;nom' required/>
+        			    			<input class='smallInput' name='lName' type='text' placeholder='Nom' required/>
+        			    			<input class='smallInput' name='pwd0' type='password' placeholder='Mot de Passe' required/>
+        			    			<input class='smallInput' name='pwd1' type='password' placeholder='Verification' required/>
+        			    			<input class='bigInput' name='mail' type='email' placeholder='Adresse Mail' required/><br/>
         			    			<input id='submitIndex' name='action' type='submit' value=\"S'inscrire sur Aaron\" />
         			    		</form>
         			    	</div>
         			    	<div id='formLogin' class='hide form'>
         			    		<form action='login' method='post'>
-        			    			<input class='smallInput' name='mail' type='email' placeholder='Adresse Mail'/>
-        			    			<input class='smallInput' name='pwd' type='password' placeholder='Mot de Passe'/>
+        			    			<input class='smallInput' name='mail' type='email' placeholder='Adresse Mail' required/>
+        			    			<input class='smallInput' name='pwd' type='password' placeholder='Mot de Passe' required/>
         			    			<input id='submitIndex' name='action' type='submit' value='Rentrer sur Aaron'/>
         			    			<input id='mdpLostIndex' type='button' name='mdpLost' value=\"Mot de passe perdu ?\" onclick=self.location.href='reset' />
         			    		</form>

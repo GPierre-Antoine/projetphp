@@ -36,6 +36,7 @@ class DefaultView extends View {
 					<link rel="stylesheet" type="text/css" href="/src/style/mail.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/twitter.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/perso.css">
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>
@@ -44,7 +45,6 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
 					<script type="text/javascript" src="/src/js/popup.js"></script>
 					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
-					<script id="twitter-wjs" type="text/javascript" async defer src="http://platform.twitter.com/widgets.js"></script>
 				</head>
 				<body>
 					<div id="top">
@@ -56,7 +56,7 @@ class DefaultView extends View {
 					<!-- LEFT SIDE -->
 					<div id="menu">
 			        	<div id="LTBar">
-							<input id="searchInput" name="search" type="search" placeholder="Recherche"/>
+							<input id="search" name="search" type="search" placeholder="Recherche"/>
 							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
 						<div id="categorie_panel" class="panel searchOn">';
@@ -87,7 +87,7 @@ class DefaultView extends View {
 				foreach ($c->getFlux() as $in) {
 					($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
 					$rgb = hex2rgb($c->getColor());
-					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_panel flux noborder" value="' . $in->getName() . '" type="button" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);"><span class="flux_name">' . $in->getName() . '</span><img onclick="deleteFlux(' . $in->getId() . ',' . $c->getId() . ')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,' . $in->getId() . ',' . $c->getId() . ',\'' . $in->getName() . '\',' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ')" class="flux_with_image" src="/src/images/favorite_' . $et . '.png"></button>';
+					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_flux flux noborder" value="' . $in->getName() . '" type="button" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);"><span class="flux_name">' . $in->getName() . '</span></button><div style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);" class="default_action_flux"><img onclick="deleteFlux(' . $in->getId() . ',' . $c->getId() . ')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,' . $in->getId() . ',' . $c->getId() . ',\'' . $in->getName() . '\',' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ')" class="flux_with_image" src="/src/images/favorite_' . $et . '.png"></div>';
 				}
 				echo '</div>';
 			}
@@ -100,6 +100,9 @@ class DefaultView extends View {
 					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_panel noborder" type="button" value="' . $in->getName() . '" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);">' . $in->getName() . '</button>';
 				}
 			}
+		echo ' </div>
+						<div id="friend_panel" class="panel searchOn hide">';
+
 
 			echo '</div>
 						<div id="LBBar">
@@ -121,6 +124,7 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_friend_btn" type="button"></button>
 			    			<button class="menu_btn noborder mail_btn" type="button"></button>
+			    			<button class="menu_btn noborder perso_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">
@@ -160,6 +164,14 @@ class DefaultView extends View {
 							}
 							echo '
 							</div>
+							<div id="content_perso" class="content hide">
+								<div class="content_perso_informations">
+									<h1>Vos Informations !</h1></br>';
+									echo '<h2> Nom : ' .$this->user->getName(). '</h2></br>
+										  <button class="switch_avatar_btn" type="button">Changer d\'avatar ?</button>'. '<button class="switch_password_btn" type="button">Changer de mot de passe ?</button>';
+								echo '</div>';
+							echo '
+							</div>
 							<div id="content_twitter" class="content hide">
 								<div class="content_twitter_select">
 									<h1>Vos célébritées sont avec vous !</h1>
@@ -172,6 +184,7 @@ class DefaultView extends View {
 								</div>
 								<div class="content_twitter_rest"></div>
 							</div>
+
 						</div>
 			    	</div>
 			    	<!-- END PAGE CONTENT -->
@@ -184,14 +197,14 @@ class DefaultView extends View {
 			    		<div class="user_information_rest">
 			    			<button class="actu_btn user_information_rest_btn noborder" type="button">Actualités</button>
 							<button class="blog_btn user_information_rest_btn noborder" type="button">Mon blog</button>
-							<button class="user_information_rest_btn noborder" onclick="popUpInformation()" type="button">Options personnelles</button>
+							<button class="perso_btn user_information_rest_btn noborder" type="button">Options personnelles</button>
                         </div>
 			    	</div>
 			    	<!-- END PREFERENCE -->
 			    	
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
-			        <div id="popup_flux" class="popup_flux">
+			        <div id="popup_source" class="popup_source popup">
 			        	<div class="pop_selector pop_add">
 			        		<h1>Selectionner un type d\'import </h1>
 			        		<select id="selector">
@@ -251,7 +264,7 @@ class DefaultView extends View {
 
 			        <!-- POP-UP WRITTING ARTICLE -->
 			        <div id="overlay_blog" class="overlay"></div>
-			        <div id="popup_blog" class="popup_blog">
+			        <div id="popup_blog" class="popup_blog popup">
 			        	<div id="writting_zone">
 			        		<div class="writting_zone_image">
 			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
@@ -267,9 +280,39 @@ class DefaultView extends View {
 			        	</div>
 			        </div>
 
+			        <!-- POP-UP MODIF AVATAR -->
+			        <div id="overlay_modifava" class="overlay"></div>
+			        <div id="popup_modifava" class="popup_modifava popup">
+			        	<div id="writting_zone">
+			        		<div class="writting_zone_image">
+			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
+			        		</div>
+			        		<div class="writting_zone_text">
+			        			<form id="F_blog" method="post">
+			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
+			        				<button id="switch_avatar" class="action_btn noborder" type="button" form="F_blog" onclick="">Modifier</button><button id="F_cancelSA_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        			</form>
+			        		</div>
+
+			        	</div>
+			        </div>
+
+			        <!-- POP-UP MODIF MDP -->
+			        <div id="overlay_modifpass" class="overlay"></div>
+			        <div id="popup_modifpass" class="popup_modifpass popup">
+			        		<div class="writting_zone_text">
+			        			<form id="F_blog" method="post">
+			        				<input class="small_input actionnable_wr" type="password" name="password1" placeholder="Mot de passe" required/><input class="small_input actionnable_wr" type="password" name="password2" placeholder="Verification Mot de Passe" required/>
+			        				<button id="switch_password" class="action_btn noborder" type="button" form="F_blog" onclick="">Modifier</button><button id="F_cancelSM_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        			</form>
+			        		</div>
+			        	</div>
+			        </div>
+
+
 			        <!-- POP-UP WARNING -->
 			        <div id="overlay_warning" class="overlay"></div>
-			        <div id="popup_warning" class="popup_warning">
+			        <div id="popup_warning" class="popup_warning popup">
 			        	<div id="warning_zone">
 			        		<h1>Attention, êtes-vous sur de ce que vous faites ?</h1>
 							<div class="warning_zone_categorie hide">
