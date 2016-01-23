@@ -37,7 +37,7 @@ class Twitter {
             'count' => 15 ]);
         foreach($tweets as $tweet) {
             $tweetId = $tweet->id;
-            $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId]);
+            $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId, 'omit_script' => true]);
             $html = $oembed->html;
             $version = md5($html);
 
