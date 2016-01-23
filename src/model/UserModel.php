@@ -35,7 +35,10 @@ class UserModel extends ModelPDO {
 
     private function de_log() {
         if ($_SESSION["logged"] === true)
-            session_unset();
+        {
+            //session_unset();
+        }
+        $_SESSION["logged"] = false;
     }
 
     private function privilege_set ($privilege_type) {

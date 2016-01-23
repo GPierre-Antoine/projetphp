@@ -45,7 +45,6 @@ TEXT;
 
         }
         else {
-            echo "5";
             /**not logged in waiting for either :
              * -input mail
              * -input validation
@@ -73,11 +72,9 @@ TEXT;
 
             }
             else {
-                echo "9";
 
                 //user wants to request a new password
                 if (isset($_POST["mail"])) {
-                    echo "A";
 
                     $this->model->setStrategy(new ClickSurMailStrategy());
                     $mail = POST("mail");
@@ -86,7 +83,6 @@ TEXT;
                     $this->send_mail_for_validation ($mail,$token);
 
                 } else {
-                    echo "B";
 
                     // no mail set ; need to display form
                     $this->model->setStrategy(new SetMailStrategy());
