@@ -20,6 +20,7 @@ class Categorie
 		$this->initializeFlux();
 	}
 
+
 	private function initializeFlux() {
 		$sql = "SELECT * FROM FLUX_ASSOC, FLUX WHERE ID = IDFLUX AND IDCATE = ".$this->id;
 		$stmt = $this->pdo->query($sql);
