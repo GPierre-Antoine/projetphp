@@ -17,7 +17,11 @@ class IndexView extends View {
     }// ViewIndex
 
     public function display() {
-        echo "
+        if($_SESSION['ID'] != null){
+            header('Location:/defaultLogged');
+        }
+        else {
+            echo "
         <html>
           <head>
         		<title>Aaron</title>
@@ -122,5 +126,6 @@ class IndexView extends View {
         		</div>
           </body>
         </html>";
+        }
     }// render
 }
