@@ -102,7 +102,7 @@ class UserModel extends ModelPDO {
 
         //change user password
         $token = $this->getRandomToken();
-        $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=?,TOKEN=? WHERE ID=? )");
+        $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=?,TOKEN=? WHERE ID=?");
         $this->pdo->execute(array($id,encrypt($password,$token),$token));
 
         $this->fetch($stmt);
