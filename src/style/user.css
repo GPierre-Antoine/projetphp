@@ -439,6 +439,7 @@ body {
 	margin-top: 2px;
 	color: white;
 	font-weight: bold;
+	z-index: 5;
 }
 
 .block_del_categorie {
@@ -483,6 +484,7 @@ body {
     vertical-align: middle;
     float: right;
     margin-right: 10px;
+	z-index: 1;
 }
 
 /* BLOG FORM */
