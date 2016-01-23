@@ -55,6 +55,7 @@ class LoginController extends Controller
                     echo "<p>Logged</p>";
                     $_SESSION['logged'] = true;
                     $_SESSION['ID'] = $this->model->getData('ID');
+                    $this->model->isAdmin($_SESSION['ID']);
 
                 }
                 else {
