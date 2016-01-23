@@ -536,11 +536,11 @@ img[src="#"] {
 	float: right;
 }
 
-#F_blog #F_cancel_btn  {
+#F_blog #F_cancel_btn, #F_blog #F_cancelSA_btn, #F_blog #F_cancelSM_btn  {
 	background-color: #2980b9;
 }
 
-#F_blog #add_article, #F_blog #switch_avatar  {
+#F_blog #add_article, #F_blog #switch_avatar, #F_blog #switch_password  {
 	background-color: #f39c12;
 }
 

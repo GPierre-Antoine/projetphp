@@ -17,9 +17,9 @@ $(function() {
 	})
 
 	$(".switch_password_btn").click(function () {
-		$("#overlay_blog").css({"display":"block", opacity:0});
-		$("#overlay_blog").fadeTo(200,0.5);
-		$("#popup_blog").fadeTo(200,1);
+		$("#overlay_modifpass").css({"display":"block", opacity:0});
+		$("#overlay_modifpass").fadeTo(200,0.5);
+		$("#popup_modifpass").fadeTo(200,1);
 	})
 
     $("#add_categorie").click(function () {
@@ -42,6 +42,10 @@ $(function() {
 	$("#F_cancelSA_btn").click(function () {
 		closePopUp("#overlay_modifava",".popup_modifava");
 	});
+
+	$("#F_cancelSM_btn").click(function () {
+		closePopUp("#overlay_modifpass",".popup_modifpass");
+	})
 
 	$("#F_cancel_btn").click(function () {
 		closePopUp("#overlay_blog",".popup_blog");
