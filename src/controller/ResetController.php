@@ -26,14 +26,11 @@ TEXT;
 
         mail($destinataire, $sujet, $message, $entete);
 
-        echo $mail;
-
     }
 
 
 	public function update()
     {
-
         if ($_SESSION["logged"] === true) {
             if (isset($_POST["password1"]) && isset($_POST["password2"]) && POST("password1") === POST("password2")) {
                 //change password to new password
@@ -48,22 +45,26 @@ TEXT;
 
         }
         else {
+            echo "5";
             /**not logged in waiting for either :
              * -input mail
              * -input validation
              *
             */
             if (isset($this->options[0])) {
+                echo "6";
                 //validation du token
 
                 $this->model->login_with_validation($this->options[0]);
 
-                if ($_SESSION['loggged'] === true) {
+                if ($_SESSION['logged'] === true) {
+                    echo "7";
                     //is connected, now request a new password
-                    echo "ok";
                     $this->model->setStrategy(new RequestStrategy());
 
-                } else {
+                }
+                else {
+                    echo "8";
                     //bad token, invalid ID;
                     $this->model->setStrategy(new SetMailStrategy());
 
@@ -72,9 +73,11 @@ TEXT;
 
             }
             else {
+                echo "9";
 
                 //user wants to request a new password
                 if (isset($_POST["mail"])) {
+                    echo "A";
 
                     $this->model->setStrategy(new ClickSurMailStrategy());
                     $mail = POST("mail");
@@ -83,6 +86,8 @@ TEXT;
                     $this->send_mail_for_validation ($mail,$token);
 
                 } else {
+                    echo "B";
+
                     // no mail set ; need to display form
                     $this->model->setStrategy(new SetMailStrategy());
                 }

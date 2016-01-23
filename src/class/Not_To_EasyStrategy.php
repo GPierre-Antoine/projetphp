@@ -13,6 +13,7 @@ class Not_To_EasyStrategy extends StrategyResetPassword
     {
         echo "<p>Les deux mots de passe entrés ne correspondent pas.</p>";
         $following = new RequestStrategy();
-        $following.run();
+        $following->run();
+
     }
 }

@@ -9,6 +9,7 @@ class UserModel extends ModelPDO {
 
     public function setStrategy($state) {
         $this->state = $state;
+
     }
 
     public function getStrategy() {
@@ -95,17 +96,22 @@ class UserModel extends ModelPDO {
     }
 
     public function reset_password_with_id ($id,$password) {
-        //connect to user // needs to be sure he is the right guy !
+        //connect to user
+        // needs to be sure he is the right guy !
         $this->pdo->prepare("SELECT * FROM USERS LEFT JOIN USERS_PRIVILEGES ON USERS.ID = USERS_PRIVILEGES.ID WHERE USERS.ID=?");
         $this->pdo->execute(array($id));
+
 
 
         //change user password
         $token = $this->getRandomToken();
         $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=?,TOKEN=? WHERE ID=?");
-        $this->pdo->execute(array($id,encrypt($password,$token),$token));
+        $this->pdo->execute(array(encrypt($password,$token),$token,$id));
 
         $stmt = $this->fetch();
+
+        echo 0;
+
 
         $this->webserver_log_with_id($stmt["ID"]);
         $this->privilege_set($stmt["PRIVILEGE"]);

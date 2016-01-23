@@ -11,5 +11,10 @@ abstract class StrategyResetPassword {
     public function __construct () {
     }
 
+    public function __toString()
+    {
+        return static::class;
+    }
+
     public abstract function run();
 }
