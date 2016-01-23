@@ -113,7 +113,7 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,
             }
             else {
                 $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
-                $("#favorite_panel .flux").each(function () {
+                $("#favorite_panel .default_block_panel").each(function () {
                     if($(this).val() === $name) {
                         this.remove();
                     }
