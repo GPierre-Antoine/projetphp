@@ -290,9 +290,10 @@ class DefaultView extends View {
 			        		<div class="writting_zone_text">
 			        			<form id="F_blog" method="post">
 			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
-			        				<button id="switch_avatar" class="action_btn noborder" type="button" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancel_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
+			        				<button id="switch_avatar" class="action_btn noborder" type="button" form="F_blog" onclick="addArticle(this)">Publier</button><button id="F_cancelSA_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
 			        			</form>
 			        		</div>
+
 			        	</div>
 			        </div>
 

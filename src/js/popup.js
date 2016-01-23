@@ -39,6 +39,10 @@ $(function() {
 		$("#popup_blog").fadeTo(200,1);
 	});
 
+	$("#F_cancelSA_btn").click(function () {
+		closePopUp("#overlay_modifava",".popup_modifava");
+	});
+
 	$("#F_cancel_btn").click(function () {
 		closePopUp("#overlay_blog",".popup_blog");
 	});
