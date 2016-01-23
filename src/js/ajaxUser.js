@@ -101,30 +101,73 @@ function continueArticle($object,tab,data) {
 
 ////////////////////////////////////////////////////////////////////////////////////RSS/////////////////////////////////////////////////////////////////////////////////
 function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,$blue) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory,
-        success: function (data) {
-            if($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
-                $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
-                var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="'+$name+'" style="background-color:rgba('+$red+','+$green+','+$blue+',0.5);">'+$name+'</button>';
-                document.getElementById('favorite_panel').innerHTML += newFavorite;
+    event.stopPropagation();
+    alert('test');
+    if(true){
+
+    }
+    /*if (window.XMLHttpRequest || window.ActiveXObject) {
+        if (window.ActiveXObject) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            else {
-                $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
-                $("#favorite_panel .default_block_panel").each(function () {
-                    if($(this).val() === $name) {
-                        this.remove();
-                    }
-                });
-            }
+        } else {
+            xhr = new XMLHttpRequest();
         }
-    });
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                if ($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
+                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
+                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="' + $name + '" style="background-color:rgba(' + $red + ',' + $green + ',' + $blue + ',0.5);">' + $name + '</button>';
+                    document.getElementById('favorite_panel').innerHTML += newFavorite;
+                }
+                else {
+                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
+                    $("#favorite_panel .default_block_panel").each(function () {
+                        if ($(this).val() === $name) {
+                            this.remove();
+                        }
+                    });
+                }
+            }
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send('linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory);
+    }*/
+    else {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'linkImgFavorite=' + $object.src + '&idRSSFeed=' + $idRSSFeed + '&idCategory=' + $idCategory,
+            success: function (data) {
+                if ($object.src == "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png") {
+                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_on.png";
+                    var newFavorite = '<button class="default_block_panel flux noborder" type="button" value="' + $name + '" style="background-color:rgba(' + $red + ',' + $green + ',' + $blue + ',0.5);">' + $name + '</button>';
+                    document.getElementById('favorite_panel').innerHTML += newFavorite;
+                }
+                else {
+                    $object.src = "http://aaron-aaron.alwaysdata.net/src/images/favorite_off.png";
+                    $("#favorite_panel .default_block_panel").each(function () {
+                        if ($(this).val() === $name) {
+                            this.remove();
+                        }
+                    });
+                }
+            }
+        });
+    }
 
 } // fluxFavorite()
 
 function focusToThisRSSFeed($url) {
+
+    alert('focus');
     $.ajax({
         url: '/ajx',
         type: 'POST',

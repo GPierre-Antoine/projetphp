@@ -18,7 +18,7 @@ class IndexView extends View {
 
     public function display() {
         if($_SESSION['ID'] != null){
-            header('Location:/defaultLogged');
+            header('Location:/user');
         }
         else {
             echo "
