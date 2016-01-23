@@ -53,7 +53,6 @@ class LoginController extends Controller
                     //password matches
                     //$_SESSION['user'] = build_user($this->model->getData("ID"));
                     echo "<p>Logged</p>";
-                    session_start();
                     $_SESSION['logged'] = true;
                     $_SESSION['ID'] = $this->model->getData('ID');
                     $testAdm = $this->model->isAdmin($_SESSION['ID']);
