@@ -52,6 +52,7 @@ class AdminView extends View {
           <div id="top">
             <img class="logo" src="/src/images/aaron_logo.png">
             <div id="TUser"><div id="TUserName"><strong> Panel Admin </strong></div></div>
+            <button onclick="disconnect()" class="top_deconnection_btn noborder" type="button"></button>
           </div>
           <div id="content">';
       echo $this->affUsers();

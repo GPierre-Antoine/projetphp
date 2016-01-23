@@ -69,3 +69,14 @@ function deleteUser($object) {
     xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr2.send("enableOrDisable="+$object.id);
 } // deleteUser()
+
+function disconnect() {
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'disconnectUser=ok',
+        success: function (data) {
+            window.location.replace("http://aaron-aaron.alwaysdata.net/");
+        }
+    });
+} // disconnect()

@@ -276,7 +276,7 @@ class CustomModel extends ModelPDO {
         foreach($twitter->getTweets() as $tweet) {
             array_push($tweets,$tweet->display());
         }
-        return json_encode($tweets);
+        return json_encode($tweets,JSON_NUMERIC_CHECK);
     } // loadTwitter() : load everything about $nameTwitter
 
     public function deleteTwitter($name) {
