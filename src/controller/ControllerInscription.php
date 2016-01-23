@@ -23,7 +23,15 @@ class ControllerInscription extends Controller {
 
                 return;
             }
-            $name = secure_strip($_POST['fName']);
+
+
+            if (!mail_check($mail))
+            {
+                $_SESSION['INSCRIPTION_FAILURE'] = "Adresse Email Non Valide !";
+                return;
+            }
+
+            $name = POST('fName');
 
             $crypt = true;
             $key = random_string_token(10,$crypt);
@@ -62,7 +70,7 @@ class ControllerInscription extends Controller {
             }
             else {
                 //mail already exists;
-                $_SESSION["INSCRIPTION_FAILURE"] = true;
+                $_SESSION["INSCRIPTION_FAILURE"] = "Cette adresse email existe déjà dans nos bases de données !";
 
             }
         }

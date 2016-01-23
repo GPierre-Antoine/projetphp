@@ -30,7 +30,7 @@ class ConfirmationView extends View {
 
             if (isset($_SESSION["INSCRIPTION_FAILURE"]))
             {
-                echo "<p>L'adresse mail est déjà dans notre base de donnée</p>";
+                echo "<p>Un probl&egrave;me est survenu lors de l'inscription : ".$_SESSION["INSCRIPTION_FAILURE"]." </p>";
             }
             echo '
 					<img class="logo" src="/src/images/aaron_logo_1.png">
