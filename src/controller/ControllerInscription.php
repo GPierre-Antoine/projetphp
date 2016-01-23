@@ -29,9 +29,6 @@ class ControllerInscription extends Controller {
             $key = random_string_token(10,$crypt);
 
 
-            $mail = $mail['mail'];
-
-
             $this->model->select_user_by_mail();
             $this->model->select($mail);
             $this->model->join('PASSWORD');
