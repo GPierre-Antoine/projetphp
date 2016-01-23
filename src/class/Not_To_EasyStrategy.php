@@ -6,7 +6,7 @@
  * Date: 23/01/16
  * Time: 14:14
  */
-class Not_to_easyStrategy extends StrategyResetPassword
+class Not_To_EasyStrategy extends StrategyResetPassword
 {
 
     public function run()

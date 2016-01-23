@@ -43,7 +43,7 @@ TEXT;
             }
             else
             {
-                $this->model->setStrategy(new Not_to_easyStrategy());
+                $this->model->setStrategy(new Not_To_EasyStrategy());
             }
 
         }
