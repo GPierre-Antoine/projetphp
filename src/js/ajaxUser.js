@@ -43,7 +43,6 @@ function searchUser($object) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 document.getElementById('researchResult').innerHTML = "";
                 if(xhr.responseText === "false") {
                     document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
@@ -154,7 +153,6 @@ function continueArticle($object,tab,data) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                    xhr.responseText;
                     closePopUpAddArticle("#overlay_blog", ".popup_blog");
                     location.reload();
                 }
@@ -186,7 +184,6 @@ function changeFavoriteRSSFeed($object,$idRSSFeed,$idCategory,$name,$red,$green,
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -220,7 +217,6 @@ function focusToThisRSSFeed($url) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 $(".actu_btn").click();
                 var displays = JSON.parse(xhr.responseText);
                 document.getElementById('content_flux').innerHTML = "";
@@ -322,8 +318,12 @@ function addRSSFeedCategoryUser($object) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                    xhr.responseText;
-                    location.reload();
+                    if (xhr.responseText === "false") {
+
+                    }
+                    else {
+                        location.reload();
+                    }
                 }
 
             };
@@ -388,7 +388,6 @@ function addCategory($object) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                    xhr.responseText;
                     location.reload();
                 }
 
@@ -439,7 +438,6 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                    xhr.responseText;
                     location.reload();
                 }
 
@@ -467,7 +465,6 @@ function deleteCategorieRSSFeedIn($idCatDelete) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -568,7 +565,6 @@ function deleteFriend($idFriendDelete) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -595,7 +591,6 @@ function addFriend($idFriend) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -669,7 +664,6 @@ function addEmail($object){
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                    xhr.responseText;
                     location.reload();
                 }
 
@@ -704,7 +698,6 @@ function deleteMail() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -739,7 +732,6 @@ function searchTwitter($object) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -801,7 +793,6 @@ function deleteTwitter() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 location.reload();
             }
 
@@ -832,7 +823,6 @@ function userInformation() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
             }
 
         };
@@ -860,7 +850,6 @@ function disconnect() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                xhr.responseText;
                 window.location.replace("http://aaron-aaron.alwaysdata.net/");
             }
 
