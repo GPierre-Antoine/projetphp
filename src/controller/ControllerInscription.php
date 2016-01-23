@@ -28,6 +28,7 @@ class ControllerInscription extends Controller {
             if (!mail_check($mail))
             {
                 $_SESSION['INSCRIPTION_FAILURE'] = "Adresse Email Non Valide !";
+                unset($_SESSION['INSCRIPTION_FAILURE']);
                 return;
             }
 
