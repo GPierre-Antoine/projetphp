@@ -9,34 +9,68 @@ function closePopUpAddArticle(overlay,popup) {
 
 ////////////////////////////////////////////////////////////////////////////////FOR A USER/////////////////////////////////////////////////////////////////////////////
 function searchUser($object) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType: 'html',
-        success: function (data) {
-            document.getElementById('researchResult').innerHTML = "";
-            if(data === "false") {
-                document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
-            }
-            else {
-                var displays = JSON.parse(data);
-                if(displays.length == 0) {
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                document.getElementById('researchResult').innerHTML = "";
+                if(data === "false") {
                     document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
                 }
                 else {
-                    $("#researchResult").removeClass("hide");
-                    document.getElementById('researchResult').innerHTML = "";
-                    for (i = 0; i < displays.length; i += 3) {
-                        var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
-                        elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
-                        elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
-                        document.getElementById('researchResult').innerHTML += elm;
+                    var displays = JSON.parse(data);
+                    if(displays.length == 0) {
+                        document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                    }
+                    else {
+                        $("#researchResult").removeClass("hide");
+                        document.getElementById('researchResult').innerHTML = "";
+                        for (i = 0; i < displays.length; i += 3) {
+                            var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
+                            elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
+                            elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
+                            document.getElementById('researchResult').innerHTML += elm;
+                        }
                     }
                 }
             }
-        }
-    });
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                document.getElementById('researchResult').innerHTML = "";
+                if(xhr.responseText === "false") {
+                    document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                }
+                else {
+                    var displays = JSON.parse(xhr.responseText);
+                    if(displays.length == 0) {
+                        document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                    }
+                    else {
+                        $("#researchResult").removeClass("hide");
+                        document.getElementById('researchResult').innerHTML = "";
+                        for (i = 0; i < displays.length; i += 3) {
+                            var elm = '<div class="researchResult_friend"><img class="researchResult_friend_img" src="' + displays[i + 2] + '">';
+                            elm += '<span class="researchResult_friend_name">' + displays[i + 1] + '</span>';
+                            elm += '<button id="researchResult_friend_add" class="noborder" onclick="addFriend(' + displays[i] + ')" type="button">Ajouter</button></div>';
+                            document.getElementById('researchResult').innerHTML += elm;
+                        }
+                    }
+                }
+            }
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('userToFind=' + $("#F_friend .actionnable_fr").val());
+    }
 } // searchUser()
 
 //////////////////////////////////////////////////////////////////////////////////ARTICLE///////////////////////////////////////////////////////////////////////////////
@@ -47,16 +81,29 @@ function addArticle($object) {
     $("#F_blog .actionnable_wr").each(function () {
         tab.push($(this).val());
     });
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST', // Le type de la requête HTTP, ici devenu POST
+            data: 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            dataType: 'html',
+            success: function (data) {
+                continueArticle($object, tab, data);
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                continueArticle($object, tab, xhr.responseText);
+            }
+        };
 
-    $.ajax({
-        url : '/ajx',
-        type : 'POST', // Le type de la requête HTTP, ici devenu POST
-        data : 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
-        dataType : 'html',
-        success:function(data) {
-            continueArticle($object,tab,data);
-        }
-    });
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('imgToTest=' + url);
+    }
 }
 
 function continueArticle($object,tab,data) {
@@ -431,7 +478,7 @@ function addEmail($object){
     });
 
     $temp = "true";
-    if(!tab[0].match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/) || tab[1].length != 0 || tab[2].length != 0 || tab[3].length != 0) {
+    if(!tab[0].match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/) || tab[1].length == 0 || tab[2].length == 0 || tab[3].length == 0) {
         $temp = "false";
     }
     if($temp === "true"){

@@ -84,7 +84,7 @@ class CustomModel extends ModelPDO {
     } // changeFavoriteRSSFeed() : add or delete the current user list of his rss feed
 
     public function focusToThisRSSFeed($url) {
-        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT ID FROM FLUX WHERE URL = ?)';
+        $sql = 'SELECT * FROM FLUX_INFORMATION WHERE IDFLUX IN (SELECT ID FROM FLUX WHERE URL = ?) ORDER BY POSTED DESC';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($url));
         $array = array();
