@@ -15,7 +15,11 @@ class ConfirmationView extends View {
     }// UserView
 
     public function display() {
-    	echo '
+        if($_SESSION['privilege'] !== ""){
+            header('Location:/admin');
+        }
+        else {
+            echo '
 			<html>
 				<head>
 					<title>Aaron</title>
@@ -27,7 +31,8 @@ class ConfirmationView extends View {
 			</html>
     	';
 
-        parent::redirect("/",1);
+            parent::redirect("/", 1);
+        }
     }
 
 }

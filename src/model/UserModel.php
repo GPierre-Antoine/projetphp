@@ -196,10 +196,19 @@ class UserModel extends ModelPDO {
     }
 
     public function isAdmin($id) {
-        $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+        $sql = 'SELECT COUNT(*) FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($id));
-        $this->pdo->fetch();
+        $stmt = $this->pdo->fetch(\PDO::FETCH_NUM);
+        $privi = "";
+        if($stmt[0] != 0) {
+            $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+            $this->pdo->prepare($sql);
+            $this->pdo->execute(array($id));
+            $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);
+            $privi = $result['LIBELLE'];
+        }
+        return $privi;
     }
 
     protected function getSpecific()
