@@ -773,7 +773,7 @@ function loadTwitter() {
         };
         xhr.open("POST", "/ajx", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send('searchTwitter=' + tab[0]);
+        xhr.send('loadTwitter=' + $("#selector_twitter option:selected").text());
     }
 } // loadTwitter()
 

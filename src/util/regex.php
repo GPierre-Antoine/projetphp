@@ -8,14 +8,12 @@ function POST ($field) {
     return htmlentities($_POST[$field],ENT_QUOTES | ENT_SUBSTITUTE);
 }
 
-function mail_strip($field) {
-    $field = strip_all ('/[^\w\-@._+]+/',$field);
-    $matches = array();
-    $result = preg_match("/^([^+@]+)([^@]+)?(@[^@.]+)(.[\w]+)$/",$field,$matches);
-
-    $return['mail'] = $matches[1] . $matches[3] . $matches [4];
-    $return['alias'] = $matches[2];
-    return $return;
+function mail_check($field) {
+    $result = preg_match("/^([^+@]+)([^@]+)?(@[^@.]+)(.[\w]+)$/",$field);
+    if ($result === 1)
+        return true;
+    else
+        return false;
 }
 
 function strip_all($pattern,$field) {
