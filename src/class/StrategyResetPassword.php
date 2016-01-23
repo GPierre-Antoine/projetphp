@@ -7,7 +7,7 @@
  */
 
 abstract class StrategyResetPassword {
-    private $model;
+    protected $model;
 
     public function __construct ($model) {
         $this->model = $model;

@@ -86,7 +86,7 @@ class DefaultView extends View {
 				foreach ($c->getFlux() as $in) {
 					($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
 					$rgb = hex2rgb($c->getColor());
-					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_panel flux noborder" value="' . $in->getName() . '" type="button" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);"><span class="flux_name">' . $in->getName() . '</span><img onclick="deleteFlux(' . $in->getId() . ',' . $c->getId() . ')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,' . $in->getId() . ',' . $c->getId() . ',\'' . $in->getName() . '\',' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ')" class="flux_with_image" src="/src/images/favorite_' . $et . '.png"></button>';
+					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_flux flux noborder" value="' . $in->getName() . '" type="button" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);"><span class="flux_name">' . $in->getName() . '</span></button><div style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);" class="default_action_flux"><img onclick="deleteFlux(' . $in->getId() . ',' . $c->getId() . ')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,' . $in->getId() . ',' . $c->getId() . ',\'' . $in->getName() . '\',' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ')" class="flux_with_image" src="/src/images/favorite_' . $et . '.png"></div>';
 				}
 				echo '</div>';
 			}
