@@ -12,8 +12,8 @@ function searchUser($object) {
     if (navigator.userAgent.indexOf("Chrome") != -1) {
         $.ajax({
             url: '/ajx',
-            type: 'POST', // Le type de la requête HTTP, ici devenu POST
-            data: 'userToFind=' + $("#F_friend .actionnable_fr").val(), // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            type: 'POST',
+            data: 'userToFind=' + $("#F_friend .actionnable_fr").val(),
             dataType: 'html',
             success: function (data) {
                 document.getElementById('researchResult').innerHTML = "";
@@ -84,8 +84,8 @@ function addArticle($object) {
     if (navigator.userAgent.indexOf("Chrome") != -1) {
         $.ajax({
             url: '/ajx',
-            type: 'POST', // Le type de la requête HTTP, ici devenu POST
-            data: 'imgToTest=' + url, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            type: 'POST',
+            data: 'imgToTest=' + url,
             dataType: 'html',
             success: function (data) {
                 if(data === "false") {}
@@ -241,8 +241,8 @@ function deleteFlux($idRSSFeed,$idCategory) {
     if (navigator.userAgent.indexOf("Chrome") != -1) {
         $.ajax({
             url: '/ajx',
-            type: 'POST', // Le type de la requête HTTP, ici devenu POST
-            data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory, // On fait passer nos variables, exactement comme en GET, au script more_com.php
+            type: 'POST',
+            data: 'idRSSFeedToDeleteOfACategory=' + $idRSSFeed + '&idCategory=' + $idCategory,
             dataType: 'html',
             success: function (data) {
                 location.reload();
@@ -302,20 +302,36 @@ function addRSSFeedCategoryUser($object) {
     }
 
     if($temp1 !== "false" && $temp2 === "false") {
-        $.ajax({
-            url: '/ajx',
-            type: 'POST', // Le type de la requête HTTP, ici devenu POST
-            data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2], // On fait passer nos variables, exactement comme en GET, au script more_com.php
-            dataType: 'html',
-            success: function (data) {
-                if(data === "false") {
+        if (navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST',
+                data: 'nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2],
+                dataType: 'html',
+                success: function (data) {
+                    if (data === "false") {
 
+                    }
+                    else {
+                        location.reload();
+                    }
                 }
-                else {
+            });
+        }
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    xhr.responseText;
                     location.reload();
                 }
-            }
-        });
+
+            };
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('nameFluxAdd=' + tab[0] + '&nameCategorieToAdd=' + tab[1] + '&urlFluxAdd=' + tab[2]);
+
+        }
     }
     else {
         if(document.querySelector('.pop_add_flux').innerHTML.indexOf("Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie") != -1) {
@@ -357,15 +373,31 @@ function addCategory($object) {
     }
     else if(tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         document.querySelector('.pop_add_categorie').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") != -1) {
-        $.ajax({
-            url: '/ajx',
-            type: 'POST', // Le type de la requête HTTP, ici devenu POST
-            data: 'nameCategorie=' + tab[0] + '&colorCategorie=' + tab[1], // On fait passer nos variables, exactement comme en GET, au script more_com.php
-            dataType: 'html',
-            success: function (data) {
-                location.reload();
-            }
-        });
+        if (navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST', // Le type de la requête HTTP, ici devenu POST
+                data: 'nameCategorie=' + tab[0] + '&colorCategorie=' + tab[1], // On fait passer nos variables, exactement comme en GET, au script more_com.php
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    xhr.responseText;
+                    location.reload();
+                }
+
+            };
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('nameCategorie=' + tab[0] + '&colorCategorie=' + tab[1]);
+
+        }
     }
     else {
 
@@ -393,6 +425,35 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
         document.getElementById("warning_zone").innerHTML += '<button class="action_btn" type="button" onclick="deleteCategorieRSSFeedIn('+$idCatDelete+')">Je suis sûr(e)</button><button class="action_btn" type="button" >Euh non</button>';
     } // If RSS Feed in my category
     else {
+        if (navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST',
+                data: 'catToDelete=' + $idCatDelete,
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    xhr.responseText;
+                    location.reload();
+                }
+
+            };
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('catToDelete=' + $idCatDelete);
+
+        }
+    }
+} // deleteCategorie()
+
+function deleteCategorieRSSFeedIn($idCatDelete) {
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
         $.ajax({
             url: '/ajx',
             type: 'POST',
@@ -402,96 +463,185 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
             }
         });
     }
-} // deleteCategorie()
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
 
-function deleteCategorieRSSFeedIn($idCatDelete) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'catToDelete='+$idCatDelete,
-        success: function (data) {
-            location.reload();
-        }
-    });
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('catToDelete=' + $idCatDelete);
+    }
 
 } // deleteCategorieRSSFeedIn()
 
 function allCategories() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'allCategories=true',
-        success: function (data) {
-            $( ".actu_btn" ).click();
-            var displays =  JSON.parse(data);
-            document.getElementById('content_flux').innerHTML = "";
-            displays.forEach(function(entry) {
-                document.getElementById('content_flux').innerHTML += entry;
-            });
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'allCategories=true',
+            success: function (data) {
+                $(".actu_btn").click();
+                var displays = JSON.parse(data);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
 
-        }
-    });
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                $(".actu_btn").click();
+                var displays = JSON.parse(xhr.responseText);
+                document.getElementById('content_flux').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_flux').innerHTML += entry;
+                });
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('allCategories=true');
+    }
 } // allCategories()
 
 ////////////////////////////////////////////////////////////////////////////////~CATEGORY///////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////FRIEND////////////////////////////////////////////////////////////////////////////////
 function focusThisFriend($idFriendFocus) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'idFriendFocus='+$idFriendFocus,
-        success: function (data) {
-            $(".blog_friend_btn").click();
-            var displays =  JSON.parse(data);
-            document.getElementById('content_friend_blog').innerHTML ="";
-            displays.forEach(function(entry) {
-                document.getElementById('content_friend_blog').innerHTML += entry;
-            });
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'idFriendFocus=' + $idFriendFocus,
+            success: function (data) {
+                $(".blog_friend_btn").click();
+                var displays = JSON.parse(data);
+                document.getElementById('content_friend_blog').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_friend_blog').innerHTML += entry;
+                });
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                $(".blog_friend_btn").click();
+                var displays = JSON.parse(xhr.responseText);
+                document.getElementById('content_friend_blog').innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById('content_friend_blog').innerHTML += entry;
+                });
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('idFriendFocus=' + $idFriendFocus);
+    }
 } // focusThisFriend()
 
 function deleteFriend($idFriendDelete) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'idFriendDelete='+$idFriendDelete,
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'idFriendDelete=' + $idFriendDelete,
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('idFriendDelete=' + $idFriendDelete);
+    }
 } // deleteFriend()
 
 function addFriend($idFriend) {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST', // Le type de la requête HTTP, ici devenu POST
-        data: 'userToAddInFriend=' + $idFriend,
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'userToAddInFriend=' + $idFriend,
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('userToAddInFriend=' + $idFriend);
+
+    }
 } // addFriend()
 
 /////////////////////////////////////////////////////////////////////////////////~FRIEND////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////MAIL/////////////////////////////////////////////////////////////////////////////////
 function loadMail() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'loadMail='+$("#selector_mailbox option:selected" ).text(),
-        dataType: 'html',
-        success: function (data) {
-            var displays =  JSON.parse(data);
-            document.getElementById("content_mail").childNodes[3].innerHTML = "";
-            displays.forEach(function(entry) {
-                document.getElementById("content_mail").childNodes[3].innerHTML += entry;
-            });
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'loadMail=' + $("#selector_mailbox option:selected").text(),
+            dataType: 'html',
+            success: function (data) {
+                var displays = JSON.parse(data);
+                document.getElementById("content_mail").childNodes[3].innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById("content_mail").childNodes[3].innerHTML += entry;
+                });
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                var displays = JSON.parse(xhr.responseText);
+                document.getElementById("content_mail").childNodes[3].innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById("content_mail").childNodes[3].innerHTML += entry;
+                });
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('loadMail=' + $("#selector_mailbox option:selected").text());
+    }
 } // loadMail()
 
 function addEmail($object){
@@ -505,14 +655,29 @@ function addEmail($object){
         $temp = "false";
     }
     if($temp === "true"){
-        $.ajax({
-            url: '/ajx',
-            type: 'POST',
-            data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3],
-            success: function (data) {
-                location.reload();
-            }
-        });
+        if(navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST',
+                data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3],
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        }
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    xhr.responseText;
+                    location.reload();
+                }
+
+            };
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3]);
+        }
     }
     else {
         if(document.querySelector('.pop_add_mail').innerHTML.indexOf("Le format du mail n'est pas correcte") != -1) {
@@ -524,15 +689,30 @@ function addEmail($object){
 } // addEmail()
 
 function deleteMail() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'deleteMail='+$("#selector_mailbox option:selected" ).text(),
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'deleteMail=' + $("#selector_mailbox option:selected").text(),
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('deleteMail=' + $("#selector_mailbox option:selected").text());
+    }
 } // deleteMail()
 
 //////////////////////////////////////////////////////////////////////////////////~MAIL/////////////////////////////////////////////////////////////////////////////////
@@ -544,44 +724,92 @@ function searchTwitter($object) {
         tab.push($(this).val());
     });
 
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'searchTwitter='+ tab[0],
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'searchTwitter=' + tab[0],
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('searchTwitter=' + tab[0]);
+    }
 
 } // searchTwitter()
 
 function loadTwitter() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'loadTwitter='+$("#selector_twitter option:selected" ).text(),
-        dataType: 'html',
-        success: function (data) {
-            var displays =  JSON.parse(data);
-            document.getElementById("content_twitter").childNodes[3].innerHTML = "";
-            displays.forEach(function(entry) {
-                document.getElementById("content_twitter").childNodes[3].innerHTML += entry;
-            });
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'loadTwitter=' + $("#selector_twitter option:selected").text(),
+            dataType: 'html',
+            success: function (data) {
+                var displays = JSON.parse(data);
+                document.getElementById("content_twitter").childNodes[3].innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById("content_twitter").childNodes[3].innerHTML += entry;
+                });
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                var displays = JSON.parse(xhr.responseText);
+                document.getElementById("content_twitter").childNodes[3].innerHTML = "";
+                displays.forEach(function (entry) {
+                    document.getElementById("content_twitter").childNodes[3].innerHTML += entry;
+                });
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('searchTwitter=' + tab[0]);
+    }
 } // loadTwitter()
 
 function deleteTwitter() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'deleteTwitter='+$("#selector_twitter option:selected" ).text(),
-        dataType: 'html',
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'deleteTwitter=' + $("#selector_twitter option:selected").text(),
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('deleteTwitter=' + $("#selector_twitter option:selected").text());
+    }
 } // deleteTwitter()
 ////////////////////////////////////////////////////////////////////////////////~TWITTER/////////////////////////////////////////////////////////////////////////////////
 
@@ -591,26 +819,56 @@ function userInformation() {
     // value a recup $("#F_blog .actionnable_wr").each(function () {
     //tab.push($(this).val());
     //});
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'nameInformation=' + tab[0] + '&emailInformation=' + tab[1] +'&passwordInformation=' +tab[2],
-        success: function (data) {
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'nameInformation=' + tab[0] + '&emailInformation=' + tab[1] + '&passwordInformation=' + tab[2],
+            success: function (data) {
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('nameInformation=' + tab[0] + '&emailInformation=' + tab[1] + '&passwordInformation=' + tab[2]);
+
+    }
 
 } // userInformation()
 
 
 function disconnect() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'disconnectUser=ok',
-        success: function (data) {
-            window.location.replace("http://aaron-aaron.alwaysdata.net/");
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'disconnectUser=ok',
+            success: function (data) {
+                window.location.replace("http://aaron-aaron.alwaysdata.net/");
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                xhr.responseText;
+                window.location.replace("http://aaron-aaron.alwaysdata.net/");
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('disconnectUser=ok');
+    }
 } // disconnect()
 
 ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////
