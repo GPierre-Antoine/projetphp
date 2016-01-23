@@ -44,7 +44,6 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
 					<script type="text/javascript" src="/src/js/popup.js"></script>
 					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
-					<script id="twitter-wjs" type="text/javascript" async defer src="http://platform.twitter.com/widgets.js"></script>
 				</head>
 				<body>
 					<div id="top">
@@ -56,7 +55,7 @@ class DefaultView extends View {
 					<!-- LEFT SIDE -->
 					<div id="menu">
 			        	<div id="LTBar">
-							<input id="searchInput" name="search" type="search" placeholder="Recherche"/>
+							<input id="search" name="search" type="search" placeholder="Recherche"/>
 							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
 						<div id="categorie_panel" class="panel searchOn">';
@@ -191,7 +190,7 @@ class DefaultView extends View {
 			    	
 					<!-- POP-UP FLUX -->
 					<div id="overlay_flux" class="overlay"></div>
-			        <div id="popup_flux" class="popup_flux">
+			        <div id="popup_source" class="popup_source popup">
 			        	<div class="pop_selector pop_add">
 			        		<h1>Selectionner un type d\'import </h1>
 			        		<select id="selector">
@@ -251,7 +250,7 @@ class DefaultView extends View {
 
 			        <!-- POP-UP WRITTING ARTICLE -->
 			        <div id="overlay_blog" class="overlay"></div>
-			        <div id="popup_blog" class="popup_blog">
+			        <div id="popup_blog" class="popup_blog popup">
 			        	<div id="writting_zone">
 			        		<div class="writting_zone_image">
 			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
@@ -269,7 +268,7 @@ class DefaultView extends View {
 
 			        <!-- POP-UP WARNING -->
 			        <div id="overlay_warning" class="overlay"></div>
-			        <div id="popup_warning" class="popup_warning">
+			        <div id="popup_warning" class="popup_warning popup">
 			        	<div id="warning_zone">
 			        		<h1>Attention, êtes-vous sur de ce que vous faites ?</h1>
 							<div class="warning_zone_categorie hide">

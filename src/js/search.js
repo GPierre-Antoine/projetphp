@@ -1,5 +1,5 @@
  $(function() {
-    $("#searchInput").on('input', function() {
+    $("#search").on('input', function() {
         var temp = $(this).val().toLowerCase();
         $("#menu div.searchOn button").each(function() {
             var value = $(this).attr("value");

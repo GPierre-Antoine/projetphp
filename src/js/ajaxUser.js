@@ -451,7 +451,6 @@ function loadTwitter() {
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);
-            console.log("data : "+data);
             document.getElementById("content_twitter").childNodes[3].innerHTML = "";
             displays.forEach(function(entry) {
                 document.getElementById("content_twitter").childNodes[3].innerHTML += entry;

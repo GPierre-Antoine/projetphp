@@ -1,14 +1,3 @@
-.content_mail_display {
-    width: 50%;
-    height: 25%;
-    margin: auto;
-    margin-bottom: 2%;
-    position: relative;
-    left: -25%;
-    background-color: #ecf0f1;
-    border-top-right-radius: 20px;
-}
-
 .content_mail_addressfrom {
     font-weight: bold;
     color: #2980b9;

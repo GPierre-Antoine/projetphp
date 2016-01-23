@@ -29,7 +29,7 @@ class Article
 
     public function display() {
         $display = '
-            <div class="article" >
+            <div class="article display" >
                 <div class="article_zone_img" >
                     <img class="article_img" src = "'.$this->imgUrl.'" />
                 </div >
