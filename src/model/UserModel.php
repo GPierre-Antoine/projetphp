@@ -62,9 +62,10 @@ class UserModel extends ModelPDO {
         $this->pdo->execute(array($mail));
         $stmt = $this->fetch();
 
+
         if ($this->pdo->rowCount() !== 1) {
-            //error, un-existing or multi existing users with this mail
-            return false;
+            //error, un-existing
+            return -1;
         }
 
         $token = $stmt["TOK"];
@@ -75,11 +76,13 @@ class UserModel extends ModelPDO {
         if ($hashed_pwd !== $stored_hashed_pwd)
         {
             //bad password
-            return false;
+            return 1;
         }
 
+        $this->pdo->prepare("UPDATE USER_INFORMATION SET NB_CONNECTION = NB_CONNECTION +1 WHERE ID=?");
+        $this->pdo->execute(array($stmt["ID"]));
         $this->webserver_log_with_id($stmt["ID"]);
-        return true;
+        return 0;
     }
 
     public function login_with_validation ($validation) {

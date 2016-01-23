@@ -20,52 +20,28 @@ class LoginController extends Controller
             $mail = POST('mail');
             $password = secure_strip(POST('pwd'));
 
-            $this->model->select_user_by_mail();
-            $this->model->select($mail);
-            $this->model->join('PASSWORD');
 
-            $this->model->update();
-
-
-
-            if ($this->model->rowCount() === 0) {
-                //user not found.
-                echo "<p>User not found</p>";
-
+            if (($val = $this->model->login_with_password($mail,$password)) !== 0)
+            {
+                if ($val === 1)
+                    $field = "Le mot de passe entré est éronné";
+                else
+                    $field = "L'adresse mail est inconnue";
+                echo<<<TEXT
+                <p>Une erreur est survenue : <br/>
+                {$field}
+                </p>
+TEXT;
+                return;
             }
-            else {
-                $this->model->next();
 
-                if ($this->model->getData('ENABLE') === '0')
-                    return;
-                $token = $this->model->getData('TOKEN');
-
-                $encoded = encrypt($password,$token);
-
-
-
-                //user exists
-                if ($encoded === $this->model->getData('PASSWORD')) {
-
-                    //password matches
-                    //$_SESSION['user'] = build_user($this->model->getData("ID"));
-                    echo "<p>Logged</p>";
-                    $_SESSION['logged'] = true;
-                    $_SESSION['ID'] = $this->model->getData('ID');
-                    $testAdm = $this->model->isAdmin($_SESSION['ID']);
-                    if($testAdm === 'ADMIN') {
-                        $_SESSION['privilege'] = $testAdm;
-                    }
-
-                }
-                else {
-                    //password does not match
-
-                    echo "<p>Oups ! Problem.</p>";
-                }
-
-
+            echo "<p>Logged</p>";
+            $_SESSION['ID'] = $this->model->getData('ID');
+            $testAdm = $this->model->isAdmin($_SESSION['ID']);
+            if($testAdm === 'ADMIN') {
+                $_SESSION['privilege'] = $testAdm;
             }
+
         }
         return;
     }
