@@ -13,16 +13,20 @@ class DefaultView extends View {
 
     private $user;
 	private $categories;
+	private $flux;
 	private $friends;
 	private $articles;
+	private $twitters;
 
 	public function __construct($model) {
         $this->model = $model;
 
         $this->user = $this->model->getUser();
         $this->categories = $this->user->getCategories();
+		$this->flux = $this->user->getFlux();
         $this->friends = $this->user->getFriends();
 		$this->articles = $this->user->getArticles();
+		$this->twitters = $this->user->getTwitters();
     }
 
     public function display() {
@@ -124,21 +128,22 @@ class DefaultView extends View {
 			    			<button class="menu_btn noborder blog_btn" type="button"></button>
 			    			<button class="menu_btn noborder blog_friend_btn" type="button"></button>
 			    			<button class="menu_btn noborder mail_btn" type="button"></button>
-			    			<button class="menu_btn noborder perso_btn" type="button"></button>
 			    		</div>
 
 						<div id="content">
 							<div id="content_flux" class="content">';
-			foreach ($this->categories as $category) {
-				foreach ($category->getFlux() as $f) {
-					foreach ($f->getFluxArticles() as $fa) {
-						echo $fa->display();
-					}
-				}
+							if(empty($this->flux)) {
+								echo 'Vous ne suivez pas flux actuellement';
+							}
+			foreach($this->flux as $article) {
+				echo $article->display();
 			}
 			echo '
 							</div>
 							<div id="content_blog" class="content hide">';
+							if(empty($this->articles)) {
+								echo 'Vous n\'avez pas encore publié d\'article';
+							}
 			foreach ($this->articles as $article) {
 				echo $article->display();
 			}
@@ -148,19 +153,30 @@ class DefaultView extends View {
 								<div class="content_mail_select">
 									<h1>Vos mails, partout avec vous !</h1>
 									<select id="selector_mailbox">';
-									foreach ($this->user->getMailBox() as $mailBox) {
-										echo '<option value="' . $mailBox->getAddress() . '">' . $mailBox->getAddress() . '</option>';
-									}
-									echo '
-									</select><button onclick="loadMail()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteMail()" class="content_action_btn noborder" type="button">Supprime ce compte</button>
-								</div>
+										if(empty($this->user->getMailBox())) {
+											echo '<option value="none">Aucune boite de réception</option></select>';
+										} else {
+											foreach ($this->user->getMailBox() as $mailBox) {
+												echo '<option value="' . $mailBox->getAddress() . '">' . $mailBox->getAddress() . '</option>';
+											}
+											echo '</select><button onclick="loadMail()" class="content_action_btn noborder" type="button">Afficher</button><button onclick="deleteMail()" class="content_action_btn noborder" type="button">Supprime ce compte</button>';
+										}
+								echo '</div>
 								<div class="content_mail_rest"></div>
 							</div>
 							<div id="content_friend_blog" class="content hide">';
+							if(empty($this->friends)) {
+								echo 'Vous ne suivez personne sur Aaron';
+							}
+							$nbArt = 0;
 							foreach ($this->friends as $friend) {
+								$nbArt = $nbArt + count($friend->getArticles());
 								foreach ($friend->getArticles() as $article) {
 									echo $article->display();
 								}
+							}
+							if(!empty($this->friends) && $nbArt == 0) {
+								echo 'Vos amis n\'ont pas publié d\'articles';
 							}
 							echo '
 							</div>
@@ -176,12 +192,15 @@ class DefaultView extends View {
 								<div class="content_twitter_select">
 									<h1>Vos célébritées sont avec vous !</h1>
 									<select id="selector_twitter">';
-									foreach ($this->user->getTwitters() as $twitter) {
-										echo '<option value="' . $twitter . '">' . $twitter . '</option>';
+									if(empty($this->twitters)) {
+										echo '<option value="none">Vous suivez personne sur Twitter</option></select>';
+									} else {
+										foreach ($this->user->getTwitters() as $twitter) {
+											echo '<option value="' . $twitter . '">' . $twitter . '</option>';
+										}
+										echo '</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>';
 									}
-									echo '
-									</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>
-								</div>
+								echo '</div>
 								<div class="content_twitter_rest"></div>
 							</div>
 
@@ -279,36 +298,6 @@ class DefaultView extends View {
 			        		</div>
 			        	</div>
 			        </div>
-
-			        <!-- POP-UP MODIF AVATAR -->
-			        <div id="overlay_modifava" class="overlay"></div>
-			        <div id="popup_modifava" class="popup_modifava popup">
-			        	<div id="writting_zone">
-			        		<div class="writting_zone_image">
-			        			<img id="preview_img_blog" class="preview_img_blog" src="#" />
-			        		</div>
-			        		<div class="writting_zone_text">
-			        			<form id="F_blog" method="post">
-			        				<input id="imgSelection" class="big_input actionnable_wr" type="text" name="title" placeholder="Lien de l\'image" required/>
-			        				<button id="switch_avatar" class="action_btn noborder" type="button" form="F_blog" onclick="">Modifier</button><button id="F_cancelSA_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
-			        			</form>
-			        		</div>
-
-			        	</div>
-			        </div>
-
-			        <!-- POP-UP MODIF MDP -->
-			        <div id="overlay_modifpass" class="overlay"></div>
-			        <div id="popup_modifpass" class="popup_modifpass popup">
-			        		<div class="writting_zone_text">
-			        			<form id="F_blog" method="post">
-			        				<input class="small_input actionnable_wr" type="password" name="password1" placeholder="Mot de passe" required/><input class="small_input actionnable_wr" type="password" name="password2" placeholder="Verification Mot de Passe" required/>
-			        				<button id="switch_password" class="action_btn noborder" type="button" form="F_blog" onclick="">Modifier</button><button id="F_cancelSM_btn" class="action_btn noborder" type="reset" form="F_blog">Annuler</button>
-			        			</form>
-			        		</div>
-			        	</div>
-			        </div>
-
 
 			        <!-- POP-UP WARNING -->
 			        <div id="overlay_warning" class="overlay"></div>
