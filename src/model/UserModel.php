@@ -84,7 +84,6 @@ class UserModel extends ModelPDO {
 
     public function login_with_validation ($validation) {
         $this->de_log();
-
         $this->pdo->prepare("CALL REQUEST_USER_FROM_TOKEN (?)");
         $this->pdo->execute(array($validation));
 
@@ -104,7 +103,7 @@ class UserModel extends ModelPDO {
 
     public function reset_password_with_id ($id,$password) {
         // needs to be sure he is the right guy !
-
+        var_dump($id);
         //change user password
         $token = $this->getRandomToken();
 
@@ -116,15 +115,6 @@ class UserModel extends ModelPDO {
         //$this->privilege_set($stmt["PRIVILEGE"]);
 
     }
-
-    public function reset_password_with_validation ($validation,$password) {
-        $this->de_log();
-
-        $this->login_with_validation($validation);
-        $this->reset_password_with_id($_SESSION["id"],$password);
-
-    }
-
 
     public function request_password_change ($mail) {
         $this->de_log();

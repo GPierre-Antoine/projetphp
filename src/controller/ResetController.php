@@ -35,7 +35,7 @@ TEXT;
             if (isset($_POST["password1"]) && isset($_POST["password2"]) && POST("password1") === POST("password2")) {
                 //change password to new password
 
-                $this->model->reset_password_with_id($_SESSION["id"], POST("password1"));
+                $this->model->reset_password_with_id($_SESSION["ID"], POST("password1"));
                 $this->model->setStrategy(new PasswordChangedStrategy());
             }
             else
@@ -54,7 +54,6 @@ TEXT;
                 //validation du token
 
                 $this->model->login_with_validation($this->options[0]);
-
                 if ($_SESSION['logged'] === true) {
                     //is connected, now request a new password
                     $this->model->setStrategy(new RequestStrategy());
