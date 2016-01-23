@@ -16,6 +16,7 @@ class PasswordChangedStrategy extends StrategyResetPassword
         <p>Votre mot de passe à été changé !<br/> Clickez sur ce <a href="/">lien</a> pour retourner à la page principale ou attendez 5 secondes pour être automatiquement redirigé. </p>
 TEXT;
         header("Refresh:5;URL=/");
+        die();
 
     }
 }
