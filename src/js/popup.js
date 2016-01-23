@@ -27,6 +27,12 @@ $(function() {
 		$("#popup_blog").fadeTo(200,1);
 	});
 
+	$(".perso_btn").click(function () {
+		$("#overlay_setting").css({"display":"block", opacity:0});
+		$("#overlay_setting").fadeTo(200,0.5);
+		$("#popup_setting").fadeTo(200,1);
+	});
+
 	$("#F_cancelSA_btn").click(function () {
 		closePopUp("#overlay_modifava",".popup_modifava");
 	});

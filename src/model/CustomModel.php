@@ -269,7 +269,6 @@ class CustomModel extends ModelPDO {
         $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);
 
         $twitter = new Twitter($result['ID'],$result['NAME']);
-        $twitter->refresh();
         $twitter->initializeTweets();
 
         $tweets = array();
