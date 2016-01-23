@@ -26,12 +26,19 @@ class ConfirmationView extends View {
 					<link rel="stylesheet" type="text/css" href="/src/style/confirmation.css" />
 				</head>
 				<body>
+				';
+
+            if (isset($_SESSION["INSCRIPTION_FAILURE"]))
+            {
+                echo "<p>L'adresse mail est déjà dans notre base de donnée</p>";
+            }
+            echo '
 					<img class="logo" src="/src/images/aaron_logo_1.png">
 				</body>
 			</html>
     	';
 
-            parent::redirect("/", 1);
+            parent::redirect("/", 3);
         }
     }
 

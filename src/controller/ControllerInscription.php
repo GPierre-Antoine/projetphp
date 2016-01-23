@@ -15,9 +15,9 @@ class ControllerInscription extends Controller {
 
         if (isset($_POST['mail']) && isset($_POST['pwd0'])) {
 
-            $mail = mail_strip($_POST['mail']);
-            $password = secure_strip($_POST['pwd0']);
-            if ($password !== secure_strip($_POST['pwd1'])) {
+            $mail = POST('mail');
+            $password = POST('pwd0');
+            if ($password !== POST('pwd1')) {
                 //do not match
 
 
@@ -65,6 +65,8 @@ class ControllerInscription extends Controller {
             }
             else {
                 //mail already exists;
+                $_SESSION["INSCRIPTION_FAILURE"] = true;
+
             }
         }
     }
