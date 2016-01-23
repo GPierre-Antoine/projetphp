@@ -111,9 +111,7 @@ class UserModel extends ModelPDO {
         $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=? , TOKEN=? WHERE ID=?");
         $this->pdo->execute(array(encrypt($password,$token),$token,$id));
 
-
-        $this->webserver_log_with_id($id);
-        $this->privilege_set($stmt["PRIVILEGE"]);
+        //$this->privilege_set($stmt["PRIVILEGE"]);
 
     }
 
