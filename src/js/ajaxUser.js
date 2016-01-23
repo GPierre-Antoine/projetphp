@@ -805,36 +805,6 @@ function deleteTwitter() {
 ////////////////////////////////////////////////////////////////////////////////~TWITTER/////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////OPTIONS/////////////////////////////////////////////////////////////////////////////////
-function userInformation() {
-    var tab = new Array();
-    // value a recup $("#F_blog .actionnable_wr").each(function () {
-    //tab.push($(this).val());
-    //});
-    if(navigator.userAgent.indexOf("Chrome") != -1) {
-        $.ajax({
-            url: '/ajx',
-            type: 'POST',
-            data: 'nameInformation=' + tab[0] + '&emailInformation=' + tab[1] + '&passwordInformation=' + tab[2],
-            success: function (data) {
-            }
-        });
-    }
-    else {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-            }
-
-        };
-        xhr.open("POST", "/ajx", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send('nameInformation=' + tab[0] + '&emailInformation=' + tab[1] + '&passwordInformation=' + tab[2]);
-
-    }
-
-} // userInformation()
-
-
 function disconnect() {
     if(navigator.userAgent.indexOf("Chrome") != -1) {
         $.ajax({
@@ -859,6 +829,38 @@ function disconnect() {
         xhr.send('disconnectUser=ok');
     }
 } // disconnect()
+
+function optionsChange() {
+    var tab = new Array();
+    $("#popup_setting .actionnable_ou").each(function () {
+        tab.push($(this).val());
+    });
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'imgToTest='+tab[1],
+        success: function (data) {
+            if(data === "false") {}
+
+            else {
+                alert("c'est bon");
+                continueoptionsChange(tab);
+            }
+        }
+    });
+} // optionsChange()
+
+function continueoptionsChange(tab) {
+    alert(tab[1]);
+    $.ajax({
+        url: '/ajx',
+        type: 'POST',
+        data: 'imgOption='+tab[1]+'&emailOption'+tab[0],
+        success: function (data) {
+            location.reload();
+        }
+    });
+} // continueoptionsChange()
 
 ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////
 
