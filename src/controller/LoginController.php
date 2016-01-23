@@ -17,11 +17,8 @@ class LoginController extends Controller
     public function update ()
     {
         if (isset($_POST['mail']) && isset($_POST['pwd'])) {
-
-            $mail = mail_strip(POST('mail'));
+            $mail = POST('mail');
             $password = secure_strip(POST('pwd'));
-
-            $mail = $mail['mail'];
 
             $this->model->select_user_by_mail();
             $this->model->select($mail);
