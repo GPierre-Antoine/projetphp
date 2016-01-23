@@ -23,10 +23,10 @@ class ConfirmationView extends View {
 			<html>
 				<head>
 					<title>Aaron</title>
-					<link rel="stylesheet" type="text/css" href="src/style/confirmation.css" />
+					<link rel="stylesheet" type="text/css" href="/src/style/confirmation.css" />
 				</head>
 				<body>
-					<img class="logo" src="src/images/aaron_logo_1.png">
+					<img class="logo" src="/src/images/aaron_logo_1.png">
 				</body>
 			</html>
     	';
