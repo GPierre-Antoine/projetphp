@@ -293,8 +293,14 @@ class CustomModel extends ModelPDO {
         $this->pdo->execute(array($name,$_SESSION['ID']));
     } // changeName() : change name of current user
 
+    public function changeImg($img) {
+        $sql = 'UPDATE USER_INFORMATION SET AVATAR = ? WHERE ID = ?';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($img,$_SESSION['ID']));
+    } // changeImg() : change img of current user
+
     public function changeEmail($email) {
-        $sql = 'UPDATE USERS SET EMAIL ? WHERE ID = ?';
+        $sql = 'UPDATE USERS SET EMAIL = ? WHERE ID = ?';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($email,$_SESSION['ID']));
     } // changeEmail() : change email of current user

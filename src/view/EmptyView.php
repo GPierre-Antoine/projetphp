@@ -198,7 +198,12 @@ class EmptyView extends View {
             header('Location:http://aaron-aaron.alwaysdata.net');
         }
 
-        //Validate RSS Feed
+        else if(isset($_POST['imgOption']) && isset($_POST['emailOption'])) {
+            $this->model->changeImg(POST('imgOption'));
+            if(POST('emailOption') === "") {}
+            else if(preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/',POST('emailOption')))
+                $this->model->changeEmail(POST('emailOption'));
+        }
 
         ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////
 

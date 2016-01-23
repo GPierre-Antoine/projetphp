@@ -303,8 +303,9 @@ class DefaultView extends View {
 			        <div id="overlay_setting" class="overlay"></div>
 			        <div id="popup_setting" class="popup_setting popup">
 						TOUT LES SETTINGS ICI, ON PEUT FAIRE SOUS FAIRE DE FORMULAIRE AVEC TOUT DE PRET REMPLI COMME :
-						Mon email : <input type="email" name="email" value="'.$this->user->getEmail().'"/><br>
-						Mon avatar : <input type="text" name="avatar" value="'.$this->user->getAvatar().'"/><br>
+						Mon email : <input type="email" class="actionnable_ou" name="email" value="'.$this->user->getEmail().'"/><br>
+						Mon avatar : <input type="text" class="actionnable_ou" name="avatar" value="'.$this->user->getAvatar().'"/><br>
+						<input onclick="optionsChange()" name="submit" type="button" value="Update">
 
 			        </div>
 
