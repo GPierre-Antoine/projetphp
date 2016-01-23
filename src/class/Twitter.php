@@ -34,7 +34,7 @@ class Twitter {
         $tweets = $this->twitter->get('statuses/user_timeline', ['screen_name' => $this->name,
             'exclude_replies' => true,
             'include_rts' => false,
-            'count' => 15 ]);
+            'count' => 20 ]);
         foreach($tweets as $tweet) {
             $tweetId = $tweet->id;
             $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId, 'omit_script' => true]);

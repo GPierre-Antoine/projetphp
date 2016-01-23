@@ -44,7 +44,7 @@ class DefaultView extends View {
 					<script type="text/javascript" src="/src/js/readUrl.js"></script>
 					<script type="text/javascript" src="/src/js/popup.js"></script>
 					<script type="text/javascript" src="/src/js/ajaxUser.js"></script>
-					<script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script>
+					<script id="twitter-wjs" type="text/javascript" async defer src="http://platform.twitter.com/widgets.js"></script>
 				</head>
 				<body>
 					<div id="top">
@@ -144,31 +144,33 @@ class DefaultView extends View {
 								<div class="content_mail_select">
 									<h1>Vos mails, partout avec vous !</h1>
 									<select id="selector_mailbox">';
-			foreach ($this->user->getMailBox() as $mailBox) {
-				echo '<option value="' . $mailBox->getAddress() . '">' . $mailBox->getAddress() . '</option>';
-			}
-			echo '
+									foreach ($this->user->getMailBox() as $mailBox) {
+										echo '<option value="' . $mailBox->getAddress() . '">' . $mailBox->getAddress() . '</option>';
+									}
+									echo '
 									</select><button onclick="loadMail()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteMail()" class="content_action_btn noborder" type="button">Supprime ce compte</button>
 								</div>
+								<div class="content_mail_rest"></div>
 							</div>
 							<div id="content_friend_blog" class="content hide">';
-			foreach ($this->friends as $friend) {
-				foreach ($friend->getArticles() as $article) {
-					echo $article->display();
-				}
-			}
-			echo '
+							foreach ($this->friends as $friend) {
+								foreach ($friend->getArticles() as $article) {
+									echo $article->display();
+								}
+							}
+							echo '
 							</div>
 							<div id="content_twitter" class="content hide">
 								<div class="content_twitter_select">
 									<h1>Vos célébritées sont avec vous !</h1>
 									<select id="selector_twitter">';
-			foreach ($this->user->getTwitters() as $twitter) {
-				echo '<option value="' . $twitter . '">' . $twitter . '</option>';
-			}
-			echo '
+									foreach ($this->user->getTwitters() as $twitter) {
+										echo '<option value="' . $twitter . '">' . $twitter . '</option>';
+									}
+									echo '
 									</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Charger</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>
 								</div>
+								<div class="content_twitter_rest"></div>
 							</div>
 						</div>
 			    	</div>
