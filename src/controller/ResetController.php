@@ -26,7 +26,6 @@ TEXT;
 
         mail($destinataire, $sujet, $message, $entete);
 
-        echo $destinataire, $sujet, $message, $entete;
     }
 
 
@@ -77,13 +76,15 @@ TEXT;
 
             }
             else {
+
                 //user wants to request a new password
                 if (isset($_POST["mail"])) {
+
                     $this->model->setStrategy(new ClickSurMailStrategy($this->model));
                     $mail = POST("mail");
                     $token = $this->model->request_password_change($mail);
 
-                    $this->send_mail_for_validation ($_SESSION["mail"],$token);
+                    $this->send_mail_for_validation ($mail,$token);
 
                 } else {
                     // no mail set ; need to display form

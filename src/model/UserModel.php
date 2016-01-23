@@ -21,8 +21,8 @@ class UserModel extends ModelPDO {
         return random_string_token($nb,$crypto_strong);
     }
 
-    private function fetch(&$stmt,$style = \PDO::FETCH_ASSOC) {
-        $this->pdo->fetch($stmt,$style);
+    private function fetch($style = \PDO::FETCH_ASSOC) {
+        return $this->pdo->fetch($style);
     }
 
     private function webserver_log_with_id ($id,$privi = null) {
@@ -56,7 +56,7 @@ class UserModel extends ModelPDO {
             WHERE USERS.EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
@@ -84,7 +84,7 @@ class UserModel extends ModelPDO {
         $this->pdo->prepare("CALL REQUEST_USER_FROM_TOKEN (?)");
         $this->pdo->execute(array($validation));
 
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this validation token
@@ -105,7 +105,7 @@ class UserModel extends ModelPDO {
         $this->pdo->prepare("UPDATE PASSWORD SET PASSWORD=?,TOKEN=? WHERE ID=?");
         $this->pdo->execute(array($id,encrypt($password,$token),$token));
 
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
 
         $this->webserver_log_with_id($stmt["ID"]);
         $this->privilege_set($stmt["PRIVILEGE"]);
@@ -132,7 +132,8 @@ class UserModel extends ModelPDO {
             WHERE USERS.EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $this->fetch($stmt);
+        $stmt = $this->fetch();
+
 
         if ($this->pdo->rowCount() !== 1) {
             //error, un-existing or multi existing users with this mail
