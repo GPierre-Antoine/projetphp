@@ -11,12 +11,14 @@ class TwitterArticle {
     private $idTwitter;
     private $idTweet;
     private $html;
+    private $date;
     private $version;
 
-    public function __construct($idTwitter,$idTweet,$html,$version) {
+    public function __construct($idTwitter,$idTweet,$html,$date,$version) {
         $this->idTwitter = $idTwitter;
         $this->idTweet = $idTweet;
         $this->html = $html;
+        $this->date = $date;
         $this->version = $version;
     }
 
