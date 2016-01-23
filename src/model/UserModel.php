@@ -195,6 +195,13 @@ class UserModel extends ModelPDO {
 
     }
 
+    public function isAdmin($id) {
+        $sql = 'SELECT * FROM USERS_PRIVILEGES WHERE ID IN (SELECT ID FROM USERS WHERE ID = ?)';
+        $this->pdo->prepare($sql);
+        $this->pdo->execute(array($id));
+        $this->pdo->fetch();
+    }
+
     protected function getSpecific()
     {
         return $this->joinlist;

@@ -373,9 +373,9 @@ function loadMail() {
         dataType: 'html',
         success: function (data) {
             var displays =  JSON.parse(data);
-            document.getElementById('content_mail').innerHTML = "";
+            document.getElementById("content_mail").childNodes[3].innerHTML = "";
             displays.forEach(function(entry) {
-                document.getElementById('content_mail').innerHTML += entry;
+                ocument.getElementById("content_mail").childNodes[3].innerHTML += entry;
             });
         }
     });
@@ -452,8 +452,9 @@ function loadTwitter() {
         success: function (data) {
             var displays =  JSON.parse(data);
             console.log("data : "+data);
+            document.getElementById("content_twitter").childNodes[3].innerHTML = "";
             displays.forEach(function(entry) {
-                document.getElementById('content_twitter').innerHTML += entry;
+                document.getElementById("content_twitter").childNodes[3].innerHTML += entry;
             });
         }
     });
