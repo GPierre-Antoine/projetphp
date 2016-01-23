@@ -11,12 +11,8 @@ class Not_to_easyStrategy extends StrategyResetPassword
 
     public function run()
     {
-        echo<<<TEST
-        <p>Les deux mots de passe entrés ne correspondent pas.</p>
-TEST;
-
-
-        $following = new RequestStrategy($this->model);
+        echo "<p>Les deux mots de passe entrés ne correspondent pas.</p>";
+        $following = new RequestStrategy();
         $following.run();
     }
 }

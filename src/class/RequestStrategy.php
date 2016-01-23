@@ -6,7 +6,7 @@
  * Time: 11:40
  */
 
-class RequestStrategy extends StrategyResetPassword{
+class RequestStrategy extends StrategyResetPassword {
 
     public function run()
     {
