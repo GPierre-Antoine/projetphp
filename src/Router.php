@@ -11,8 +11,7 @@ class Router {
 
         $this->table['default'] =           new Route ('IndexModel','IndexView','IndexController');
         $this->table['confirmation'] =      new Route ('ConfirmationModel','ConfirmationView', 'ConfirmationController');
-        $this->table['user'] =              new Route ('UserModel','UserView','UserController');
-        $this->table['defaultlogged'] =     new Route ('DefaultModel','DefaultView','DefaultController');
+        $this->table['user'] =              new Route ('DefaultModel','DefaultView','DefaultController');
         $this->table['login'] =             new Route ('UserModel','ConfirmationView','LoginController');
         $this->table['admin'] =             new Route ('AdminModel','AdminView','AdminController');
         $this->table['ajx'] =               new Route ('CustomModel','EmptyView','AjaxController');
@@ -31,7 +30,7 @@ class Router {
         else {
             //if the route not exist and you are logged, this line is returned
             if($_SESSION['logged'] === true)
-              return $this->table['defaultlogged'];
+              return $this->table['user'];
             return $this->table['default'];
 		}
 	}
