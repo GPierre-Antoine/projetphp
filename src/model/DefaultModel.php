@@ -15,12 +15,17 @@ class DefaultModel extends ModelPDO {
 
     public function __construct() {
         parent::__construct();
-        $this->user = build_user($_SESSION['ID']);
-        $this->user->initializeFriends();
-        $this->user->initializeCategories();
-        $this->user->initializeArticles();
-        $this->user->initializeMailBox();
-        $this->user->initializeTwitter();
+        if($_SESSION['ID'] == null) {
+            header('Location:/');
+        }
+        else {
+            $this->user = build_user($_SESSION['ID']);
+            $this->user->initializeFriends();
+            $this->user->initializeCategories();
+            $this->user->initializeArticles();
+            $this->user->initializeMailBox();
+            $this->user->initializeTwitter();
+        }
     }
 
     public function getUser() {

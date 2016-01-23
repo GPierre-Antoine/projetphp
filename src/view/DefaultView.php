@@ -26,10 +26,6 @@ class DefaultView extends View {
     }
 
     public function display() {
-		if($_SESSION['ID'] == null) {
-			header('Location:http://aaron-aaron.alwaysdata.net');
-		}
-		else {
 			echo '
     		<html>
 				<head>
@@ -286,6 +282,5 @@ class DefaultView extends View {
 
 
     	';
-		}
     }
 }
