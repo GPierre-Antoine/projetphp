@@ -363,6 +363,7 @@ body {
 	background: #f39c12 url(../images/favorite_btn.png) center center no-repeat;
 }
 
+
 .friend_btn {
 	background: #f39c12 url(../images/friends_btn.png) center center no-repeat;
 }
@@ -372,6 +373,10 @@ body {
 	height:30px;
 	width:30px;
 	float: right;
+}
+
+#leftSmallMenu .perso_btn {
+	background: #f39c12 url(../images/perso_btn.png) center center no-repeat;
 }
 
 #leftSmallMenu .blog_btn {
@@ -535,7 +540,7 @@ img[src="#"] {
 	background-color: #2980b9;
 }
 
-#F_blog #add_article  {
+#F_blog #add_article, #F_blog #switch_avatar  {
 	background-color: #f39c12;
 }
 

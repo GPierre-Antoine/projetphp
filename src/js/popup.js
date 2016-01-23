@@ -10,6 +10,18 @@ $(function() {
 		$("#popup_source").fadeTo(200,1);
 	});
 
+	$(".switch_avatar_btn").click(function () {
+		$("#overlay_modifava").css({"display":"block", opacity:0});
+		$("#overlay_modifava").fadeTo(200,0.5);
+		$("#popup_modifava").fadeTo(200,1);
+	})
+
+	$(".switch_password_btn").click(function () {
+		$("#overlay_blog").css({"display":"block", opacity:0});
+		$("#overlay_blog").fadeTo(200,0.5);
+		$("#popup_blog").fadeTo(200,1);
+	})
+
     $("#add_categorie").click(function () {
         $("#overlay_flux").css({"display":"block", opacity:0});
         $("#overlay_flux").fadeTo(200,0.5);
