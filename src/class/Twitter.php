@@ -39,9 +39,15 @@ class Twitter {
             $tweetId = $tweet->id;
             $oembed = $this->twitter->get('statuses/oembed', ['id' => $tweetId]);
             $html = $oembed->html;
+            $version = md5($html);
 
-            $this->pdo->prepare("INSERT INTO TWEET(IDTWITTER,IDTWEET,DISPLAY) VALUES(?,?,?)");
-            $this->pdo->execute(array($this->id,$tweetId,$html));
+            $this->pdo->prepare("SELECT COUNT(*) FROM TWEET WHERE VERSION = ?");
+            $this->pdo->execute(array($version));
+            $result = $this->pdo->fetch(\PDO::FETCH_NUM);
+            if($result[0] == 0) {
+                $this->pdo->prepare("INSERT INTO TWEET(IDTWITTER,IDTWEET,DISPLAY,VERSION) VALUES(?,?,?,?)");
+                $this->pdo->execute(array($this->id,$tweetId,$html,$version));
+            }
         }
     }
 
@@ -51,7 +57,7 @@ class Twitter {
         $this->pdo->execute(array($this->id));
         while($result = $this->pdo->fetch(\PDO::FETCH_ASSOC))
         {
-            $tweet = new TwitterArticle($result['IDTWITTER'],$result['IDTWEET'],$result['DISPLAY']);
+            $tweet = new TwitterArticle($result['IDTWITTER'],$result['IDTWEET'],$result['DISPLAY'],$result['VERSION']);
             array_push($this->articles,$tweet);
         }
     }
