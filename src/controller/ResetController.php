@@ -32,15 +32,22 @@ TEXT;
 	public function update()
     {
         if ($_SESSION["logged"] === true) {
-            if (isset($_POST["password1"]) && isset($_POST["password2"]) && POST("password1") === POST("password2")) {
+            if (isset($_POST["password1"]) && isset($_POST["password2"])) {
                 //change password to new password
 
-                $this->model->reset_password_with_id($_SESSION["ID"], POST("password1"));
-                $this->model->setStrategy(new PasswordChangedStrategy());
+                if (POST("password1") === POST("password2"))
+                {
+                    $this->model->reset_password_with_id($_SESSION["ID"], POST("password1"));
+                    $this->model->setStrategy(new PasswordChangedStrategy());
+                }
+                else
+                {
+                    $this->model->setStrategy(new Not_To_EasyStrategy());
+                }
             }
             else
             {
-                $this->model->setStrategy(new Not_To_EasyStrategy());
+                $this->model->setStrategy(new RequestStrategy());
             }
 
         }
