@@ -262,10 +262,10 @@ class CustomModel extends ModelPDO {
         }
     } // searchTwitter() : search the $name twitter in twitter
 
-    public function loadTwitter($nameTwitter) {
+    public function loadTwitter($name) {
         $sql = "SELECT * FROM TWITTER WHERE NAME = ?";
         $this->pdo->prepare($sql);
-        $this->pdo->execute(array($nameTwitter));
+        $this->pdo->execute(array($name));
         $result = $this->pdo->fetch(\PDO::FETCH_ASSOC);
 
         $twitter = new Twitter($result['ID'],$result['NAME']);
