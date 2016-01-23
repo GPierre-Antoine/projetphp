@@ -96,7 +96,7 @@ class UserModel extends ModelPDO {
 
     public function reset_password_with_id ($id,$password) {
         //connect to user // needs to be sure he is the right guy !
-        $this->pdo->prepare("SELECT * FROM USERS LEFT JOIN USERS_PRIVILEGES UP ON USERS.ID = UP.ID WHERE ID=?)");
+        $this->pdo->prepare("SELECT * FROM USERS LEFT JOIN USERS_PRIVILEGES ON USERS.ID = USERS_PRIVILEGES.ID WHERE USERS.ID=?");
         $this->pdo->execute(array($id));
 
 
