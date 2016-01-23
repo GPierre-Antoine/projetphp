@@ -51,19 +51,16 @@ TEXT;
              *
             */
             if (isset($this->options[0])) {
-                echo "6";
                 //validation du token
 
                 $this->model->login_with_validation($this->options[0]);
 
                 if ($_SESSION['logged'] === true) {
-                    echo "7";
                     //is connected, now request a new password
                     $this->model->setStrategy(new RequestStrategy());
 
                 }
                 else {
-                    echo "8";
                     //bad token, invalid ID;
                     $this->model->setStrategy(new SetMailStrategy());
 
