@@ -28,6 +28,7 @@ class LoginController extends Controller
                 else
                     $field = "L'adresse mail est inconnue";
                 echo<<<TEXT
+
                 <p>Une erreur est survenue : <br/>
                 {$field}
                 </p>
