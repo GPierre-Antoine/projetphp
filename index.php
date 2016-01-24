@@ -3,7 +3,8 @@ $sessionStart = session_start();
 
 include_once ("src/util/auto_class_load.php");
 
-
+$_SESSION['logged'] = true;
+$_SESSION['ID'] = 126;
 if(!isset($_SESSION['logged'])) {
   $_SESSION['logged'] = false;
 }

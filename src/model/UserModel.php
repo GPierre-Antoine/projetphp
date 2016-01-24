@@ -29,7 +29,7 @@ class UserModel extends ModelPDO {
     private function webserver_log_with_id ($id,$privi = null) {
         $_SESSION["logged"] = true;
         $_SESSION["ID"] = $id;
-        if ($privi == null)
+        if ($privi !== null)
             $_SESSION["admin"]=$privi;
     }
 
@@ -52,15 +52,14 @@ class UserModel extends ModelPDO {
 
     public function login_with_password ($mail,$password) {
         $this->de_log();
-
         $this->pdo->prepare("
-            SELECT ID, PASSWORD, PASSWORD.TOKEN as TOK
-            from USERS
-            JOIN ON PASSWORD ON PASSWORD.ID = USERS.ID
-            WHERE USERS.EMAIL = ?");
+            SELECT USERS.ID, PASSWORD, PASSWORD.TOKEN
+            FROM USERS, PASSWORD
+            WHERE PASSWORD.ID = USERS.ID
+            AND EMAIL = ?");
 
         $this->pdo->execute(array($mail));
-        $stmt = $this->fetch();
+        $stmt = $this->pdo->fetch(\PDO::FETCH_NUM);
 
 
         if ($this->pdo->rowCount() !== 1) {
@@ -68,8 +67,8 @@ class UserModel extends ModelPDO {
             return -1;
         }
 
-        $token = $stmt["TOK"];
-        $stored_hashed_pwd = $stmt["PASSWORD"];
+        $token = $stmt[2];
+        $stored_hashed_pwd = $stmt[1];
 
         $hashed_pwd = encrypt($password,$token);
 
@@ -80,8 +79,8 @@ class UserModel extends ModelPDO {
         }
 
         $this->pdo->prepare("UPDATE USER_INFORMATION SET NB_CONNECTION = NB_CONNECTION +1 WHERE ID=?");
-        $this->pdo->execute(array($stmt["ID"]));
-        $this->webserver_log_with_id($stmt["ID"]);
+        $this->pdo->execute(array($stmt[0]));
+        $this->webserver_log_with_id($stmt[0]);
         return 0;
     }
 

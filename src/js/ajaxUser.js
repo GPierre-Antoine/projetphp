@@ -338,7 +338,7 @@ function addRSSFeedCategoryUser($object) {
 
         }
         else {
-            document.querySelector('.pop_add_flux').innerHTML += "<span class='error_flux_name'>Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie ou le format du nom n'est pas correct : 3 caractères alphanumériques au minimum</span>";
+            document.querySelector('.pop_add_flux').innerHTML += "<span class='information'>Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie ou le format du nom n'est pas correct : 3 caractères alphanumériques au minimum</span>";
         }
     }
 }// addRSSFeedCategoryUser()
@@ -361,7 +361,7 @@ function addCategory($object) {
 
     for($i = 0 ; $i < tabCategory.length ; ++$i) {
         if(tabCategory[$i] === tab[0]) {
-            temp = "<span class='error_categorie_name'>Vous avez déjà une catégorie de ce nom</span>"
+            temp = "<span class='information'>Vous avez déjà une catégorie de ce nom</span>"
         }
     }
     if(temp != "") {
