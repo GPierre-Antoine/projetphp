@@ -37,13 +37,10 @@ TEXT;
             else
             {
                 echo "<p>Logged</p>";
-                //$_SESSION['ID'] = $this->model->getData('ID');
                 $testAdm = $this->model->isAdmin($_SESSION['ID']);
                 if ($testAdm === 'ADMIN') {
                     $_SESSION['privilege'] = $testAdm;
                 }
-
-                //var_dump($_SESSION['ID']);
             }
         }
         return;
