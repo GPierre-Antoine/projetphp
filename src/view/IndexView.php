@@ -22,11 +22,12 @@ class IndexView extends View {
         }
         else {
             echo "
+       <!DOCTYPE html>
         <html>
           <head>
         		<title>Aaron</title>
-                <meta name='description' content='Inscription & connexion sur Aaron' />
-				<meta name='keywords' content='aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article, connexion, inscription' />
+                <meta name='description' content='Inscription & connexion sur Aaron'>
+				<meta name='keywords' content='aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article, connexion, inscription'>
         		<link rel='stylesheet' type='text/css' href='/src/style/index.css' />
         		<link rel='stylesheet' type='text/css' href='/src/style/general.css' />
                 <link rel='shortcut icon' href='/src/images/favicon.ico' type='image/x-icon'>
@@ -65,15 +66,15 @@ class IndexView extends View {
         			    			<input class='smallInput' name='lName' type='text' placeholder='Nom' required/>
         			    			<input class='smallInput' name='pwd0' type='password' placeholder='Mot de Passe' required/>
         			    			<input class='smallInput' name='pwd1' type='password' placeholder='Verification' required/>
-        			    			<input class='bigInput' name='mail' type='email' placeholder='Adresse Mail' required/><br/>
-        			    			<input id='submitIndex' name='action' type='submit' value=\"S'inscrire sur Aaron\" />
+        			    			<input class='bigInput' name='mail' type='email' placeholder='Adresse Mail' required/>
+        			    			<input class='submitIndex' name='action' type='submit' value=\"S'inscrire sur Aaron\" />
         			    		</form>
         			    	</div>
         			    	<div id='formLogin' class='hide form'>
         			    		<form action='login' method='post'>
         			    			<input class='smallInput' name='mail' type='email' placeholder='Adresse Mail' required/>
         			    			<input class='smallInput' name='pwd' type='password' placeholder='Mot de Passe' required/>
-        			    			<input id='submitIndex' name='action' type='submit' value='Rentrer sur Aaron'/>
+        			    			<input class='submitIndex' name='action' type='submit' value='Rentrer sur Aaron'/>
         			    			<input id='mdpLostIndex' type='button' name='mdpLost' value=\"Mot de passe perdu ?\" onclick=self.location.href='reset' />
         			    		</form>
         			    	</div>
@@ -83,11 +84,11 @@ class IndexView extends View {
                         <div class='section-left' data-ancor='propos' id='propos'>
                             <p> Bienvenue sur Aaron-aaron, un site de suivis regroupant actualités,
                             blogs, mails, tout un contenu accesible et modifiable par tous.
-                            </br></br>
+                            <br/><br/>
 
                             Vous avez aimé un article sur un site, mais il n'est pas présent sur Aaron,
                             ajoutez-le et partagez-le afin que tous le monde puisse le voir.
-                            </br></br>
+                            <br/><br/>
 
                              Vous souhaitez suivre une célébrité ou une personne en particulier sur Twitter
                              et connaître ses activités ? Ajoutez son twitter.</p>

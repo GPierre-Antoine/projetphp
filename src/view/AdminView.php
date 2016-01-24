@@ -41,9 +41,12 @@ class AdminView extends View {
     {
         if ($_SESSION['privilege'] === "ADMIN") {
             echo '
+        <!DOCTYPE html>
         <html>
         <head>
           <title>Admin</title>
+          <meta name="description" content="Page de l\'admin de Aaaron" />
+		  <meta name="keywords" content="aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article, admin">
           <link rel="stylesheet" type="text/css" href="/src/style/admin.css" />
           <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
           <script type="text/javascript" src="/src/js/admin.js"></script>

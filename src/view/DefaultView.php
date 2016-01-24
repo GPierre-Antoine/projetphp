@@ -31,11 +31,12 @@ class DefaultView extends View {
 
     public function display() {
 			echo '
+			<!DOCTYPE html>
     		<html>
 				<head>
 					<title>Aaron - '.$this->user->getName().'</title>
-					<meta name="description" content="Page de l\'utilisateur de Aaaron" />
-					<meta name="keywords" content="aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article" />
+					<meta name="description" content="Page de l\'utilisateur de Aaaron">
+					<meta name="keywords" content="aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article">
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/perso.css">
