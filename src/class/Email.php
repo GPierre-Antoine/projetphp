@@ -76,7 +76,7 @@ class Email {
     }
 
     public function initializeMails() {
-        $sql = "SELECT * FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id;
+        $sql = "SELECT * FROM EMAIL_INFORMATION WHERE IDMAIL = ".$this->id." ORDER BY DATE DESC";
         $stmt = $this->pdo->query($sql);
         while($result = $stmt->fetch())
         {

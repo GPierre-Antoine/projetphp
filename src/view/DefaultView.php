@@ -34,11 +34,9 @@ class DefaultView extends View {
     		<html>
 				<head>
 					<title>Aaron</title>
+					<meta name="description" content="Page de l\'utilisateur de Aaaron" />
+					<meta name="keywords" content="aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article" />
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/flux.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/blog.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/mail.css" />
-					<link rel="stylesheet" type="text/css" href="/src/style/twitter.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/perso.css">
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -64,51 +62,42 @@ class DefaultView extends View {
 							<button class="imageButton search_btn noborder" type="button"></button>
 						</div>
 						<div id="categorie_panel" class="panel searchOn">';
-			if (empty($this->categories)) {
-				echo '<button id="add_categorie" class="no_categorie default_block_panel noborder">Vous n\'avez pas de catégorie, ajouter en une !</span>';
-			} else {
-				echo '<button id="all_categories" onclick="allCategories()" class="default_block_panel noborder" type = "button" value = "all" > Tout afficher </button >';
-				foreach ($this->categories as $c) {
-					echo '
-                                    <button class="categorie default_block_panel noborder" type="button" style="background-color:' . $c->getColor() . ';" value="' . $c->getName() . '">' . $c->getName() . '</button>
-                                ';
-				}
-			}
-			echo '
+							if (empty($this->categories)) {
+								echo '<button id="add_categorie" class="no_categorie default_block_panel noborder">Vous n\'avez pas de catégorie, ajouter en une !</span>';
+							} else {
+								echo '<button id="all_categories" onclick="allCategories()" class="default_block_panel noborder" type = "button" value = "all" > Tout afficher </button >';
+								foreach ($this->categories as $c) {
+									echo '<button class="categorie default_block_panel noborder" type="button" style="background-color:' . $c->getColor() . ';" value="' . $c->getName() . '">' . $c->getName() . '</button>';
+								}
+							}
+						echo '
 						</div>
 						<div id="friend_panel" class="panel searchOn hide"> ';
-			foreach ($this->friends as $f) {
-				echo '
-								<button onclick="focusThisFriend(' . $f->getId() . ')" class="friend default_block_panel noborder" value="' . $f->getName() . '" type="button">' . $f->getName() . '<img onclick="deleteFriend(' . $f->getId() . ')" class="flux_with_image" src="/src/images/del_btn.png"></button>
-							';
-			}
-			echo '
+							foreach ($this->friends as $f) {
+								echo '<button onclick="focusThisFriend(' . $f->getId() . ')" class="friend default_block_panel noborder" value="' . $f->getName() . '" type="button">' . $f->getName() . '<img onclick="deleteFriend(' . $f->getId() . ')" class="flux_with_image" src="/src/images/del_btn.png"></button>';
+							}echo '
 						</div>';
-			foreach ($this->categories as $c) {
-				echo '<div id="' . $c->getName() . '_panel" class="panel flux_Panel searchOn hide">
-									<button class="block_del_categorie noborder" onclick="deleteCategorie(' . $c->getId() . ',\'' . $c->getName() . '\')" type="button">Supprimer cette catégorie</button>
-							  		<button class="default_block_panel backflux_btn noborder"><span class="flux_name">Retour</span></button>';
-				foreach ($c->getFlux() as $in) {
-					($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
-					$rgb = hex2rgb($c->getColor());
-					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_flux flux noborder" value="' . $in->getName() . '" type="button" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);"><span class="flux_name">' . $in->getName() . '</span></button><div style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);" class="default_action_flux"><img onclick="deleteFlux(' . $in->getId() . ',' . $c->getId() . ')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,' . $in->getId() . ',' . $c->getId() . ',\'' . $in->getName() . '\',' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ')" class="flux_with_image" src="/src/images/favorite_' . $et . '.png"></div>';
-				}
-				echo '</div>';
-			}
-			echo '
+						foreach ($this->categories as $c) {
+							echo '<div id="' . $c->getName() . '_panel" class="panel flux_Panel searchOn hide">
+												<button class="block_del_categorie noborder" onclick="deleteCategorie(' . $c->getId() . ',\'' . $c->getName() . '\')" type="button">Supprimer cette catégorie</button>
+												<button class="default_block_panel backflux_btn noborder"><span class="flux_name">Retour</span></button>';
+							foreach ($c->getFlux() as $in) {
+								($in->isFavorite() == true) ? $et = 'on' : $et = 'off';
+								$rgb = hex2rgb($c->getColor());
+								echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_flux flux noborder" value="' . $in->getName() . '" type="button" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);"><span class="flux_name">' . $in->getName() . '</span></button><div style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);" class="default_action_flux"><img onclick="deleteFlux(' . $in->getId() . ',' . $c->getId() . ')" class="flux_with_image" src="src/images/del_btn.png"><img onclick="changeFavoriteRSSFeed(this,' . $in->getId() . ',' . $c->getId() . ',\'' . $in->getName() . '\',' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ')" class="flux_with_image" src="/src/images/favorite_' . $et . '.png"></div>';
+							}
+							echo '</div>';
+						}
+						echo '
 						<div id="favorite_panel" class="panel searchOn hide">';
-			foreach ($this->categories as $c) {
-				foreach ($c->getFlux() as $in) {
-					if ($in->isFavorite() == false) continue;
-					$rgb = hex2rgb($c->getColor());
-					echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_panel noborder" type="button" value="' . $in->getName() . '" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);">' . $in->getName() . '</button>';
-				}
-			}
-		echo ' </div>
-						<div id="friend_panel" class="panel searchOn hide">';
-
-
-			echo '</div>
+						foreach ($this->categories as $c) {
+							foreach ($c->getFlux() as $in) {
+								if ($in->isFavorite() == false) continue;
+								$rgb = hex2rgb($c->getColor());
+								echo '<button onclick="focusToThisRSSFeed(\'' . $in->getUrl() . '\')" class="default_block_panel flux noborder" type="button" value="' . $in->getName() . '" style="background-color:rgba(' . $rgb['red'] . ',' . $rgb['green'] . ',' . $rgb['blue'] . ',0.5);">' . $in->getName() . '</button>';
+							}
+						}
+						echo ' </div>
 						<div id="LBBar">
 							<button class="add_source_btn LBBar_btn noborder" type="button"></button><button class="add_article_btn LBBar_btn noborder" type="button"></button>
 						</div>
@@ -131,42 +120,54 @@ class DefaultView extends View {
 			    		</div>
 
 						<div id="content">
-							<div id="content_flux" class="content">';
+							<div id="content_flux" class="content">
+								<div id="topscroll"></div>';
 							if(empty($this->flux)) {
 								echo 'Vous ne suivez pas flux actuellement';
 							}
-			foreach($this->flux as $article) {
-				echo $article->display();
-			}
-			echo '
-							</div>
-							<div id="content_blog" class="content hide">';
-							if(empty($this->articles)) {
-								echo 'Vous n\'avez pas encore publié d\'article';
+							foreach($this->flux as $article) {
+								echo $article->display();
 							}
-			foreach ($this->articles as $article) {
-				echo $article->display();
-			}
-			echo '
+							echo '
+								<a class="scroll" href="#topscroll">Remonter</a>
 							</div>
+
+
+
+							<div id="content_blog" class="content hide">
+								<div id="topscrollb"></div>';
+								if(empty($this->articles)) {
+									echo 'Vous n\'avez pas encore publié d\'article';
+								}
+								foreach ($this->articles as $article) {
+									echo $article->display(true);
+								}
+								echo '<a class="scroll" href="#topscrollb">Remonter</a>
+							</div>
+
+
 							<div id="content_mail" class="content hide">
+								<div id="topscrollm"></div>
 								<div class="content_mail_select">
 									<h1>Vos mails, partout avec vous !</h1>
 									<select id="selector_mailbox">';
 										if(empty($this->user->getMailBox())) {
-											echo '<option value="none">Aucune boite de réception</option></select>';
+											echo '<option value="none">Aucune boite de réception</option></select>
+													<button id="add_mail" class="content_action_btn noborder">Ajouter</button>';
 										} else {
 											foreach ($this->user->getMailBox() as $mailBox) {
 												echo '<option value="' . $mailBox->getAddress() . '">' . $mailBox->getAddress() . '</option>';
 											}
 											echo '</select><button onclick="loadMail()" class="content_action_btn noborder" type="button">Afficher</button><button onclick="deleteMail()" class="content_action_btn noborder" type="button">Supprime ce compte</button>';
 										}
-								echo '</div>
-								<div class="content_mail_rest"></div>
+								echo '<span class="load_mail_information load_information"></span></div>
+								<div class="content_mail_rest"></div><a class="scroll" href="#topscrollm">Remonter</a>
 							</div>
-							<div id="content_friend_blog" class="content hide">';
+							<div id="content_friend_blog" class="content hide">
+								<div id="topscrollf"></div>';
 							if(empty($this->friends)) {
-								echo 'Vous ne suivez personne sur Aaron';
+								echo 'Vous ne suivez personne sur Aaron
+									<button id="add_friend" class="content_action_btn noborder">Ajouter</button>';
 							}
 							$nbArt = 0;
 							foreach ($this->friends as $friend) {
@@ -179,29 +180,24 @@ class DefaultView extends View {
 								echo 'Vos amis n\'ont pas publié d\'articles';
 							}
 							echo '
-							</div>
-							<div id="content_perso" class="content hide">
-								<div class="content_perso_informations">
-									<h1>Vos Informations !</h1></br>';
-									echo '<h2> Nom : ' .$this->user->getName(). '</h2></br>
-										  <button class="switch_avatar_btn" type="button">Changer d\'avatar ?</button>'. '<button class="switch_password_btn" type="button">Changer de mot de passe ?</button>';
-								echo '</div>';
-							echo '
-							</div>
+							<a class="scroll" href="#topscrollf">Remonter</a></div>
 							<div id="content_twitter" class="content hide">
+								<div id="topscrollt"></div>
 								<div class="content_twitter_select">
 									<h1>Vos célébritées sont avec vous !</h1>
 									<select id="selector_twitter">';
 									if(empty($this->twitters)) {
-										echo '<option value="none">Vous suivez personne sur Twitter</option></select>';
+										echo '<option value="none">Vous suivez personne sur Twitter</option></select>
+												<button id="add_twitter" class="content_action_btn noborder">Ajouter</button>';
 									} else {
 										foreach ($this->user->getTwitters() as $twitter) {
 											echo '<option value="' . $twitter . '">' . $twitter . '</option>';
 										}
 										echo '</select><button onclick="loadTwitter()" class="content_action_btn noborder" type="button">Filtrer</button><button onclick="deleteTwitter()" class="content_action_btn noborder" type="button">Ne plus suivre</button>';
 									}
-								echo '</div>
+								echo '<span class="load_twitter_information load_information"></span></div>
 								<div class="content_twitter_rest"></div>
+								<a class="scroll" href="#topscrollt">Remonter</a>
 							</div>
 
 						</div>
@@ -244,6 +240,7 @@ class DefaultView extends View {
 								<input class="smallInput actionnable_lb" name="color" type="color" placeholder="Couleur" required/>
 					    		<input id="add_categorie" class="smallInput" onclick ="addCategory(this)" name="submit" type="button" value="Créer"/><button id="btnCancel" class="smallInput" type="reset" form="F_categorie">Effacer</button>
 							</form>
+							<span class="category_information information"></span>
 			        	</div>
 			            <div class="pop_add pop_add_flux hide">
 			            	<div class="sep"></div>
@@ -253,6 +250,7 @@ class DefaultView extends View {
 					    		<input class="bigInput actionnable_fl" name="urlFlux" type="text" placeholder="Url du flux" required/>
 					    		<input class="smallInput" name="submit" type="button" onclick="addRSSFeedCategoryUser(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_flux">Effacer</button>
 							</form>
+							<span class="flux_information information"></span>
 						</div>
 						<div class="pop_add pop_add_mail hide">
 			            	<div class="sep"></div>
@@ -263,6 +261,7 @@ class DefaultView extends View {
 								<input class="smallInput actionnable_ma" name="port" type="number" placeholder="Port email" required/>
 					    		<input class="smallInput" name="submit" type="button" onclick="addEmail(this)" value="Ajouter"/><button id="btnCancel" class="smallInput" type="reset" form="F_mail">Effacer</button>
 							</form>
+							<span class="mail_information information"></span>
 						</div>
 						<div class="pop_add pop_add_friend hide">
 			            	<div class="sep"></div>
@@ -270,6 +269,7 @@ class DefaultView extends View {
 			            		<input class="smallInput actionnable_fr" name="name" type="text" placeholder="Qui souhaitez-vous suivre sur Aaron ?" required/>
 			            		<input class="smallInput" name="submit" type="button" onclick="searchUser(this)" value="Chercher"/>
 			            	</form>
+			            	<span class="friend_information information"></span>
 			            	<div id="researchResult" class="pop_add_friend_result hide"></div>
 						</div>
 						<div class="pop_add pop_add_twitter hide">
@@ -278,6 +278,7 @@ class DefaultView extends View {
 			            		<input class="smallInput actionnable_tw" name="name" type="text" placeholder="Qui souhaitez-vous suivre sur Twitter?" required/>
 			            		<input class="smallInput" name="submit" type="button" onclick="searchTwitter(this)" value="Suivre"/>
 			            	</form>
+			            	<span class="twitter_information information"></span>
 						</div>
 			        </div>
 
@@ -318,13 +319,9 @@ class DefaultView extends View {
 							</div>
 			        	</div>
 			        </div>
-
 			        <!-- END POP-UP -->
-
 				</body>
 			</html>
-
-
     	';
     }
 }

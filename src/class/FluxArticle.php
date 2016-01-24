@@ -45,7 +45,7 @@ class FluxArticle {
 
     function display() {
         $display = '
-            <div class="article">
+            <div class="flux_display display">
                 <span class="title">'.$this->title.'</span>
                 <span class="date">Publié le '.$this->date.'</span>
                 <span class="content">'.$this->content.'</span>

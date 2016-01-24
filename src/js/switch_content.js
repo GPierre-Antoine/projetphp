@@ -137,4 +137,12 @@ $(function () {
         }
     });
 
+    $(".flux").click(function () {
+        $(".actu_btn").click();
+    });
+
+    $("#all_categories").click(function () {
+        $(".actu_btn").click();
+    });
+
 })

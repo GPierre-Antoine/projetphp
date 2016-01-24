@@ -31,10 +31,10 @@ $(document).ready(function()
 		$("#content").clearQueue().animate({
 			left : '25%'
 		})
-		$(".article").clearQueue().animate({
+		$(".display").clearQueue().animate({
 			left : '-25%'
 		})
-		$(".content_mail_display").clearQueue().animate({
+		$(".twitter-tweet").clearQueue().animate({
 			left : '-25%'
 		})
 	}
@@ -49,10 +49,10 @@ $(document).ready(function()
 		$("#content").clearQueue().animate({
 			left : '0'
 		})
-		$(".article").clearQueue().animate({
+		$(".display").clearQueue().animate({
 			left : '0'
 		})
-		$(".content_mail_display").clearQueue().animate({
+		$(".twitter-tweet").clearQueue().animate({
 			left : '0'
 		})
 	}
