@@ -13,7 +13,7 @@ class ControllerInscription extends Controller {
 
     public function update() {
 
-        if($this->model->CheckMailAdress($_POST['mail']) == false)
+        if(mail_check(POST('mail')) === false)
         {
             echo 'Votre adresse est invalide';
         }
