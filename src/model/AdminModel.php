@@ -14,6 +14,9 @@ class AdminModel extends ModelPDO {
     private $users;
 
     public function __construct() {
+        if($_SESSION['ID'] != null) {
+            header('Location:/user');
+        }
         parent::__construct();
         $this->users = array();
         $sql = 'SELECT * FROM USERS';

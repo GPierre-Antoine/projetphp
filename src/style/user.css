@@ -848,3 +848,13 @@ img[src="#"] {
 	height: 30px;
 	margin-top: 30px;
 }
+
+/*Options*/
+
+#popup_setting td {
+	text-align: center;
+}
+
+#popup_setting h2 {
+	text-align: center;
+}

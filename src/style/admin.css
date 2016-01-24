@@ -61,6 +61,7 @@ td {
 	height: 100%;
 	width: 48px;
 	float: right;
+	border:none;
 }
 
 .myButton {

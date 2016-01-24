@@ -67,9 +67,6 @@ class AdminView extends View {
       </html>';
 
         }
-        else if($_SESSION['ID'] != null) {
-            header('Location:/user');
-        }
         else {
             header('Location:/');
         }

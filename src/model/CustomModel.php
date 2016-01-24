@@ -288,7 +288,7 @@ class CustomModel extends ModelPDO {
 
     ////////////////////////////////////////////////////////////////////////OPTIONS////////////////////////////////////////////////////////////////////////
     public function changeName($name) {
-        $sql = 'UPDATE USERS SET NAME ? WHERE ID = ?';
+        $sql = 'UPDATE USERS SET NAME = ? WHERE ID = ?';
         $this->pdo->prepare($sql);
         $this->pdo->execute(array($name,$_SESSION['ID']));
     } // changeName() : change name of current user

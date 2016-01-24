@@ -305,10 +305,45 @@ class DefaultView extends View {
 			        <!-- POP-UP SETTING -->
 			        <div id="overlay_setting" class="overlay"></div>
 			        <div id="popup_setting" class="popup_setting popup">
-						TOUT LES SETTINGS ICI, ON PEUT FAIRE SOUS FAIRE DE FORMULAIRE AVEC TOUT DE PRET REMPLI COMME :
-						Mon email : <input type="email" class="actionnable_ou" name="email" value="'.$this->user->getEmail().'"/><br>
-						Mon avatar : <input type="text" class="actionnable_ou" name="avatar" value="'.$this->user->getAvatar().'"/><br>
-						<input onclick="optionsChange()" name="submit" type="button" value="Update">
+
+						<h2>TOUT LES SETTINGS ICI, ON PEUT FAIRE SOUS FAIRE DE FORMULAIRE AVEC TOUT DE PRET REMPLI COMME :</h2><br/>
+						<table>
+						<tr>
+							<td>Mon nom : </td>
+							<td><input type="text" class="actionnable_ou" name="nom" value=""/></td>
+						</tr>
+						<tr>
+							<td>Mon email : </td>
+							<td><input type="email" class="actionnable_ou" name="email" value=""/></td>
+						</tr>
+						<tr>
+						<td>Mon avatar : </td>
+						<td><input type="text" class="actionnable_ou" name="avatar" value=""/><br/></td>
+						</tr>
+						<tr>
+						<td><input onclick="optionsChange()" name="submit" type="button" value="Update"><br/></td>
+						</tr>
+						<tr>
+						<td>Si vous laissez un champ vide, il ne sera pas mit à jour<br/></td>
+						</tr>
+						<tr>
+						<td>Changer de mot de passe :<br/></td>
+						</tr>
+						<form method="post" action="/reset">
+						<tr>
+						<td><input type=password" name="password1" placeholder="Nouveau mot de passe"/><br/></td>
+						</tr>
+						<tr>
+						<td><input type="password" name="password2"placeholder="Vérification"/><br/></td>
+						</tr>
+						<tr>
+						<td><input type="submit" name="Changer mot de passe" value="Changer mot de passe"/></td>
+						</tr>
+						<tr>
+						<td><input type="button" onclick="quitterOption()" name="Annuler" value="Annuler"/></td>
+						</tr>
+						</form>
+						</table>
 
 			        </div>
 

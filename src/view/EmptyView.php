@@ -178,17 +178,16 @@ class EmptyView extends View {
 
         /////////////////////////////////////////////////////////////////////////////////OPTIONS/////////////////////////////////////////////////////////////////////////////////
         //Options for a user
-        else if(isset($_POST['nameInformation']) && isset($_POST['emailInformation']) && isset($_POST['passwordInformation'])) {
-            if(POST('nameInformation') != "") {
+        else if(isset($_POST['nameInformation']) && isset($_POST['emailInformation']) && isset($_POST['imgInformation'])) {
+            if(POST('nameInformation') !== "false") {
                 $this->model->changeName(POST('nameInformation'));
             }
-            if(POST('emailInformation') != "") {
-                $this->model->changeEmail(POST('emailInformation'));
-
+            if(POST('emailInformation') !== "false") {
+                if(mail_check(POST('emailInformation')))
+                        $this->model->changeEmail(POST('emailOption'));
             }
-            if(POST('passwordInformation') != "") {
-                $userModel = new UserModel();
-                $userModel->reset_password_with_id($_SESSION['ID'],POST('passwordInformation'));
+            if(POST('imgInformation') !== "false") {
+                $this->model->changeImg(POST('imgInformation'));
             }
         }
 
@@ -196,13 +195,6 @@ class EmptyView extends View {
         else if(isset($_POST['disconnectUser'])) {
             session_destroy();
             header('Location:http://aaron-aaron.alwaysdata.net');
-        }
-
-        else if(isset($_POST['imgOption']) && isset($_POST['emailOption'])) {
-            $this->model->changeImg(POST('imgOption'));
-            if(POST('emailOption') === "") {}
-            else if(preg_match('/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/',POST('emailOption')))
-                $this->model->changeEmail(POST('emailOption'));
         }
 
         ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////

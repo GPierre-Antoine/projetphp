@@ -835,32 +835,83 @@ function optionsChange() {
     $("#popup_setting .actionnable_ou").each(function () {
         tab.push($(this).val());
     });
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'imgToTest='+tab[1],
-        success: function (data) {
-            if(data === "false") {}
+    if(tab[2] === "") {
+        tab[2] = "false";
+        alert("on sechappe");
+        continueoptionsChange(tab);
+    }
+    else {
+        if(navigator.userAgent.indexOf("Chrome") != -1) {
+            $.ajax({
+                url: '/ajx',
+                type: 'POST',
+                data: 'imgToTest=' + tab[2],
+                success: function (data) {
+                    if (data === "false") {
+                    }
 
-            else {
-                alert("c'est bon");
-                continueoptionsChange(tab);
-            }
+                    else {
+                        continueoptionsChange(tab);
+                    }
+                }
+            });
         }
-    });
+        else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    if (xhr.responseText === "false") {
+                    }
+
+                    else {
+                        continueoptionsChange(tab);
+                    }
+                }
+
+            };
+            xhr.open("POST", "/ajx", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('imgToTest=' + tab[2]);
+        }
+    }
+
 } // optionsChange()
 
 function continueoptionsChange(tab) {
-    alert(tab[1]);
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'imgOption='+tab[1]+'&emailOption'+tab[0],
-        success: function (data) {
-            location.reload();
-        }
-    });
+    if(tab[1] === "") {
+        tab[1] = "false";
+    }
+    if(tab[0] === "") {
+        tab[0] = "false";
+    }
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'imgInformation=' + tab[2] + '&emailInformation=' + tab[1] + '&nameInformation=' + tab[0],
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                location.reload();
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('imgInformation=' + tab[2] + '&emailInformation=' + tab[1] + '&nameInformation=' + tab[0]);
+
+    }
 } // continueoptionsChange()
+
+function quitterOption() {
+    closePopUpAddArticle('#overlay_setting','.popup_setting');
+} // quitterOption()
 
 ////////////////////////////////////////////////////////////////////////////////~OPTIONS/////////////////////////////////////////////////////////////////////////////////
 
