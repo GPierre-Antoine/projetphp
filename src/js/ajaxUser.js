@@ -17,13 +17,14 @@ function searchUser($object) {
             dataType: 'html',
             success: function (data) {
                 document.getElementById('researchResult').innerHTML = "";
+                document.querySelector('.friend_information').innerHTML = "";
                 if(data === "false") {
-                    document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                    document.querySelector('.friend_information').innerHTML = "Vous avez déjà cet utilisateur en ami ou cet utilisateur n'existe pas";
                 }
                 else {
                     var displays = JSON.parse(data);
                     if(displays.length == 0) {
-                        document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                        document.querySelector('.friend_information').innerHTML = "Vous avez déjà cet utilisateur en ami ou cet utilisateur n'existe pas";
                     }
                     else {
                         $("#researchResult").removeClass("hide");
@@ -44,13 +45,14 @@ function searchUser($object) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
                 document.getElementById('researchResult').innerHTML = "";
+                document.querySelector('.friend_information').innerHTML = "";
                 if(xhr.responseText === "false") {
-                    document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                    document.querySelector('.friend_information').innerHTML = "Vous avez déjà cet utilisateur en ami ou cet utilisateur n'existe pas";
                 }
                 else {
                     var displays = JSON.parse(xhr.responseText);
                     if(displays.length == 0) {
-                        document.getElementById('researchResult').innerHTML = "<span class='error_friend_name'>Vous avez déjà cet utilisateur en ami</span>";
+                        document.querySelector('.friend_information').innerHTML = "Vous avez déjà cet utilisateur en ami ou cet utilisateur n'existe pas";
                     }
                     else {
                         $("#researchResult").removeClass("hide");
@@ -87,8 +89,10 @@ function addArticle($object) {
             data: 'imgToTest=' + url,
             dataType: 'html',
             success: function (data) {
-                if(data === "false") {}
-
+                if(data === "false") {
+                    document.getElementById('F_blog').childNodes[4].value = "";
+                    document.getElementById('F_blog').childNodes[4].placeholder = "Lien invalide";
+                }
                 else
                     continueArticle($object, tab, data);
             }
@@ -99,6 +103,8 @@ function addArticle($object) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
                 if (xhr.responseText === "false") {
+                    document.getElementById('F_blog').childNodes[4].value = "";
+                    document.getElementById('F_blog').childNodes[4].placeholder = "Lien invalide";
                 }
                 else
                     continueArticle($object, tab, xhr.responseText);
@@ -112,10 +118,10 @@ function addArticle($object) {
     }
 }
 
-function continueArticle($object,tab,data) {
+function continueArticle($object,tab,$value) {
     if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ\' ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
         !tab[1].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ\' ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
-        data != "true" ||
+        $value != "true" ||
         !tab[3].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ\' ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
         if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ][a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/)) {
             document.getElementById('F_blog').childNodes[1].value = "";
@@ -125,7 +131,7 @@ function continueArticle($object,tab,data) {
             document.getElementById('F_blog').childNodes[2].value = "";
             document.getElementById('F_blog').childNodes[2].placeholder = "Mauvaise syntaxe (2 carac mini.)";
         }
-        if(data != "true") {
+        if($value != "true") {
             document.getElementById('F_blog').childNodes[4].value = "";
             document.getElementById('F_blog').childNodes[4].placeholder = "Lien invalide";
         }
@@ -166,6 +172,34 @@ function continueArticle($object,tab,data) {
     }
 } // continueArticle()
 
+function deleteArticle($id) {
+    if (navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'idArticleDelete='+$id,
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                location.reload();
+            }
+
+        };
+
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('idArticleDelete='+$id);
+    }
+
+}
+
 /////////////////////////////////////////////////////////////////////////////////~ARTICLE///////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////RSS/////////////////////////////////////////////////////////////////////////////////
@@ -204,7 +238,6 @@ function focusToThisRSSFeed($url) {
             type: 'POST',
             data: 'urlToFocus=' + $url,
             success: function (data) {
-                $(".actu_btn").click();
                 var displays = JSON.parse(data);
                 document.getElementById('content_flux').innerHTML = "";
                 displays.forEach(function (entry) {
@@ -217,7 +250,6 @@ function focusToThisRSSFeed($url) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                $(".actu_btn").click();
                 var displays = JSON.parse(xhr.responseText);
                 document.getElementById('content_flux').innerHTML = "";
                 displays.forEach(function (entry) {
@@ -298,6 +330,7 @@ function addRSSFeedCategoryUser($object) {
     }
 
     if($temp1 !== "false" && $temp2 === "false") {
+        document.querySelector('.flux_information').innerHTML = "Analyse du flux RSS ...";
         if (navigator.userAgent.indexOf("Chrome") != -1) {
             $.ajax({
                 url: '/ajx',
@@ -306,7 +339,8 @@ function addRSSFeedCategoryUser($object) {
                 dataType: 'html',
                 success: function (data) {
                     if (data === "false") {
-
+                        document.querySelector('.flux_information').innerHTML = "";
+                        document.querySelector('.flux_information').innerHTML = "Ce flux RSS n'est pas valide";
                     }
                     else {
                         location.reload();
@@ -334,11 +368,11 @@ function addRSSFeedCategoryUser($object) {
         }
     }
     else {
-        if(document.querySelector('.pop_add_flux').innerHTML.indexOf("Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie") != -1) {
+        if(document.querySelector('.flux_information').innerHTML.indexOf("Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie") != -1) {
 
         }
         else {
-            document.querySelector('.pop_add_flux').innerHTML += "<span class='information'>Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie ou le format du nom n'est pas correct : 3 caractères alphanumériques au minimum</span>";
+            document.querySelector('.flux_information').innerHTML += "Vous n'avez pas cette catégorie ou le flux existe déjà dans la catégorie ou le format du nom n'est pas correct : 3 caractères alphanumériques au minimum";
         }
     }
 }// addRSSFeedCategoryUser()
@@ -361,18 +395,18 @@ function addCategory($object) {
 
     for($i = 0 ; $i < tabCategory.length ; ++$i) {
         if(tabCategory[$i] === tab[0]) {
-            temp = "<span class='information'>Vous avez déjà une catégorie de ce nom</span>"
+            temp = "Vous avez déjà une catégorie de ce nom"
         }
     }
     if(temp != "") {
-        document.querySelector('.pop_add_categorie').innerHTML += temp;
+        document.querySelector('.category_information').innerHTML += temp;
     }
     else if(!tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) &&
-        document.querySelector('.pop_add_categorie').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") == -1)  {
-        document.querySelector('.pop_add_categorie').innerHTML += "<span class='error_categorie_name'>Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères</span>";
+        document.querySelector('.category_information').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") == -1)  {
+        document.querySelector('.category_information').innerHTML += "Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères";
     }
     else if(tab[0].match(/^[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+[a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]$/) ||
-        document.querySelector('.pop_add_categorie').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") != -1) {
+        document.querySelector('..category_information').innerHTML.indexOf("Aide : Une catégorie ne contient pas d'espace au début, elle contient que des caractères alphanumériques et fait au minimum une taille de deux caractères") != -1) {
         if (navigator.userAgent.indexOf("Chrome") != -1) {
             $.ajax({
                 url: '/ajx',
@@ -403,6 +437,9 @@ function addCategory($object) {
     }
 } // addCategory()
 
+function hideCancelDeleteCategory() {
+    closePopUpAddArticle("#overlay_warning",".popup_warning")
+} // hideCancelDeleteCategory()
 
 
 function deleteCategorie($idCatDelete,$nameCatDelete) {
@@ -421,7 +458,7 @@ function deleteCategorie($idCatDelete,$nameCatDelete) {
         for (i = 0; i < tab.length; ++i) {
             document.getElementById("warning_zone").childNodes[3].innerHTML += " - " +tab[i]+"<br/>";
         }
-        document.getElementById("warning_zone").innerHTML += '<button class="action_btn" type="button" onclick="deleteCategorieRSSFeedIn('+$idCatDelete+')">Je suis sûr(e)</button><button class="action_btn" type="button" >Euh non</button>';
+        document.getElementById("warning_zone").innerHTML += '<button class="action_btn" type="button" onclick="deleteCategorieRSSFeedIn('+$idCatDelete+')">Je suis sûr(e)</button><button id="cancel_delete_category" onclick="hideCancelDeleteCategory()"  class="action_btn" type="button" >Non</button>';
     } // If RSS Feed in my category
     else {
         if (navigator.userAgent.indexOf("Chrome") != -1) {
@@ -483,7 +520,6 @@ function allCategories() {
             type: 'POST',
             data: 'allCategories=true',
             success: function (data) {
-                $(".actu_btn").click();
                 var displays = JSON.parse(data);
                 document.getElementById('content_flux').innerHTML = "";
                 displays.forEach(function (entry) {
@@ -497,7 +533,6 @@ function allCategories() {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                $(".actu_btn").click();
                 var displays = JSON.parse(xhr.responseText);
                 document.getElementById('content_flux').innerHTML = "";
                 displays.forEach(function (entry) {
@@ -522,7 +557,6 @@ function focusThisFriend($idFriendFocus) {
             type: 'POST',
             data: 'idFriendFocus=' + $idFriendFocus,
             success: function (data) {
-                $(".blog_friend_btn").click();
                 var displays = JSON.parse(data);
                 document.getElementById('content_friend_blog').innerHTML = "";
                 displays.forEach(function (entry) {
@@ -535,7 +569,6 @@ function focusThisFriend($idFriendFocus) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                $(".blog_friend_btn").click();
                 var displays = JSON.parse(xhr.responseText);
                 document.getElementById('content_friend_blog').innerHTML = "";
                 displays.forEach(function (entry) {
@@ -607,6 +640,7 @@ function addFriend($idFriend) {
 ///////////////////////////////////////////////////////////////////////////////////MAIL/////////////////////////////////////////////////////////////////////////////////
 function loadMail() {
     if(navigator.userAgent.indexOf("Chrome") != -1) {
+        document.querySelector(".load_mail_information").innerHTML = "Chargement des mails en cours ...";
         $.ajax({
             url: '/ajx',
             type: 'POST',
@@ -614,21 +648,23 @@ function loadMail() {
             dataType: 'html',
             success: function (data) {
                 var displays = JSON.parse(data);
-                document.getElementById("content_mail").childNodes[3].innerHTML = "";
+                document.querySelector(".load_mail_information").innerHTML = "";
+                document.getElementById("content_mail").childNodes[5].innerHTML = "";
                 displays.forEach(function (entry) {
-                    document.getElementById("content_mail").childNodes[3].innerHTML += entry;
+                    document.getElementById("content_mail").childNodes[5].innerHTML += entry;
                 });
             }
         });
     }
     else {
+        document.getElementById("content_mail").childNodes[3].innerHTML = "Chargement des mails en cours ...";
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
                 var displays = JSON.parse(xhr.responseText);
-                document.getElementById("content_mail").childNodes[3].innerHTML = "";
+                document.getElementById("content_mail").childNodes[5].innerHTML = "";
                 displays.forEach(function (entry) {
-                    document.getElementById("content_mail").childNodes[3].innerHTML += entry;
+                    document.getElementById("content_mail").childNodes[5].innerHTML += entry;
                 });
             }
 
@@ -645,6 +681,7 @@ function addEmail($object){
         tab.push($(this).val());
     });
 
+
     $temp = "true";
     if(!tab[0].match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/) || tab[1].length == 0 || tab[2].length == 0 || tab[3].length == 0) {
         $temp = "false";
@@ -656,7 +693,10 @@ function addEmail($object){
                 type: 'POST',
                 data: 'emailName=' + tab[0] + '&emailPassword=' + tab[1] + '&emailServer=' + tab[2] + '&emailPort=' + tab[3],
                 success: function (data) {
-                    location.reload();
+                    if(data === "false")
+                        document.querySelector('.mail_information').innerHTML = "Vous avez déjà ce mail d'ajouté";
+                    else
+                        location.reload();
                 }
             });
         }
@@ -664,7 +704,10 @@ function addEmail($object){
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                    location.reload();
+                    if(xhr.responseText === "false")
+                        document.querySelector('.mail_information').innerHTML = "Vous avez déjà ce mail d'ajouté";
+                    else
+                        location.reload();
                 }
 
             };
@@ -674,11 +717,11 @@ function addEmail($object){
         }
     }
     else {
-        if(document.querySelector('.pop_add_mail').innerHTML.indexOf("Le format du mail n'est pas correcte") != -1) {
+        if(document.querySelector('.mail_information').innerHTML.indexOf("Le format du mail n'est pas correcte") != -1) {
 
         }
         else
-            document.querySelector('.pop_add_mail').innerHTML += "<span class='error_mail_name'>Le format du mail n'est pas correcte ou il manque un champ à remplir</span>";
+            document.querySelector('.mail_information').innerHTML += "Le format du mail n'est pas correcte ou il manque un (des) champ(s) à remplir";
     }
 } // addEmail()
 
@@ -745,6 +788,7 @@ function searchTwitter($object) {
 
 function loadTwitter() {
     if(navigator.userAgent.indexOf("Chrome") != -1) {
+        document.querySelector(".load_twitter_information").innerHTML =  "Chargement du compte Twitter en cours ...";
         $.ajax({
             url: '/ajx',
             type: 'POST',
@@ -752,21 +796,23 @@ function loadTwitter() {
             dataType: 'html',
             success: function (data) {
                 var displays = JSON.parse(data);
-                document.getElementById("content_twitter").childNodes[3].innerHTML = "";
+                document.querySelector(".load_twitter_information").innerHTML = "";
+                document.getElementById("content_twitter").childNodes[5].innerHTML = "";
                 displays.forEach(function (entry) {
-                    document.getElementById("content_twitter").childNodes[3].innerHTML += entry;
+                    document.getElementById("content_twitter").childNodes[5].innerHTML += entry;
                 });
             }
         });
     }
     else {
+        document.getElementById("content_twitter").childNodes[3].innerHTML = "Chargement du compte Twitter en cours ...";
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
                 var displays = JSON.parse(xhr.responseText);
-                document.getElementById("content_twitter").childNodes[3].innerHTML = "";
+                document.getElementById("content_twitter").childNodes[5].innerHTML = "";
                 displays.forEach(function (entry) {
-                    document.getElementById("content_twitter").childNodes[3].innerHTML += entry;
+                    document.getElementById("content_twitter").childNodes[5].innerHTML += entry;
                 });
             }
 

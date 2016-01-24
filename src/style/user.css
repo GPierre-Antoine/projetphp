@@ -27,13 +27,13 @@ body {
 
 .smallInput {
 	float: left;
-	width: 50%;
+	width: calc(50% - 4px);
 	height: 30px;
 	text-align: center;
 }
 
 .bigInput {
-	width: 100%;
+	width: calc(100% - 4px);
 	height: 30px;
 	text-align: center;
 }
@@ -52,8 +52,6 @@ body {
 	padding: 2px;
 	color: black;
 }
-
-
 
 /********************** POPUP **********************/
 
@@ -109,9 +107,9 @@ body {
 
 /* POPUP SOURCE */
 #popup_flux h1 {
-    text-align: center;
-    padding-bottom: 30px;
-    color: #27ae60;
+	text-align: center;
+	padding-bottom: 30px;
+	color: #27ae60;
 }
 
 .pop_add {
@@ -150,7 +148,7 @@ body {
 #top {
 	border-bottom: 2px solid #2980b9;
 	height: 50px;
-	background-color: #2980b9; 
+	background-color: #2980b9;
 	padding: 5px;
 }
 
@@ -183,21 +181,21 @@ body {
 
 /********************** USER_INFORMATION **********************/
 #user_information {
-    width: 20%;
-    height: 240px;
-    background-color: #bdc3c7;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    margin-left: -150px;
+	width: 20%;
+	height: 240px;
+	background-color: #bdc3c7;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	margin-left: -150px;
 }
 
 .user_information_top {
-    width: 100%;
-    height: 25%;
-    border-bottom: 1px solid #2980b9;
+	width: 100%;
+	height: 25%;
+	border-bottom: 1px solid #2980b9;
 }
 
 .user_information_top_btn {
@@ -231,8 +229,8 @@ body {
 }
 
 .user_information_rest {
-    width: 100%;
-    height: 75%;
+	width: 100%;
+	height: 75%;
 }
 
 .user_information_rest_btn {
@@ -253,12 +251,12 @@ body {
 }
 
 #search {
-    width: calc(100% - 30px);
-    height: 30px;
-    padding-left: 10px;
-    border: none;
-    float: left;
-    text-align: center;
+	width: calc(100% - 30px);
+	height: 30px;
+	padding-left: 10px;
+	border: none;
+	float: left;
+	text-align: center;
 }
 
 /* ADDING ZONE */
@@ -356,9 +354,9 @@ body {
 /* TOP BAR BUTTON */
 .top_deconnection_btn {
 	background: url(../images/logout_btn.png) center center no-repeat;
-    height: 100%;
-    width: 48px;
-    float: right;
+	height: 100%;
+	width: 48px;
+	float: right;
 }
 
 /* MENU BUTTON */
@@ -410,11 +408,11 @@ body {
 }
 
 .twitter_btn {
-    background: #f39c12 url(../images/twitter_btn.png) center center no-repeat;
+	background: #f39c12 url(../images/twitter_btn.png) center center no-repeat;
 }
 
 .mail_btn {
-    background: #f39c12 url(../images/mail_btn.png) center center no-repeat;
+	background: #f39c12 url(../images/mail_btn.png) center center no-repeat;
 }
 
 .blog_friend_btn {
@@ -447,7 +445,7 @@ body {
 }
 
 #all_categories {
-    background-color: #f39c12;
+	background-color: #f39c12;
 }
 
 .categorie {
@@ -505,7 +503,7 @@ body {
 }
 
 .backflux_btn {
-    background-color: #f39c12;
+	background-color: #f39c12;
 	color: black;
 	height: 5%;
 	border-bottom: 5px solid #2980b9
@@ -513,22 +511,22 @@ body {
 
 .flux {
 	background-color: transparent;
-    font-size: 22px;
-    display: inline;
-    vertical-align: middle;
+	font-size: 22px;
+	display: inline;
+	vertical-align: middle;
 }
 
 .flux_name {
-    font-size: 22px;
-    display: inline;
-    vertical-align: middle;
+	font-size: 22px;
+	display: inline;
+	vertical-align: middle;
 }
 
 .flux_with_image {
-    display: inline-block;
-    vertical-align: middle;
-    float: right;
-    margin-right: 10px;
+	display: inline-block;
+	vertical-align: middle;
+	float: right;
+	margin-right: 10px;
 }
 
 /* BLOG FORM */
@@ -557,14 +555,6 @@ img[src="#"] {
 	height: 100%;
 	width: calc(100% - 35%);
 	float: right;
-}
-
-#F_blog #F_cancel_btn, #F_blog #F_cancelSA_btn, #F_blog #F_cancelSM_btn  {
-	background-color: #2980b9;
-}
-
-#F_blog #add_article, #F_blog #switch_avatar, #F_blog #switch_password  {
-	background-color: #f39c12;
 }
 
 .writting_zone_text .small_input {
@@ -599,16 +589,16 @@ img[src="#"] {
 	font-weight: bold;
 }
 
+.no_categorie {
+	color: #2980b9;
+}
+
 .load_information {
 	margin-top: 5px;
 	display: inline-block;
 	font-size: 15px;
 	color: black;
 	font-weight: bold;
-}
-
-.no_categorie {
-    color: #2980b9;
 }
 
 /* CONTENT ZONE */
@@ -794,7 +784,7 @@ img[src="#"] {
 }
 
 .article_zone_content {
-	height: calc(100% - 40px);
+	height: calc(100% - 10px);
 	width: calc(70% - 10px);
 	float: left;
 	padding: 5px;
@@ -849,12 +839,24 @@ img[src="#"] {
 	margin-top: 30px;
 }
 
-/*Options*/
-
-#popup_setting td {
-	text-align: center;
+#F_blog {
+	height: 100%;
 }
 
-#popup_setting h2 {
-	text-align: center;
+#F_blog .small_input {
+	width: calc(50% - 4px);
+	height: calc(15% - 4px);
+	float: left;
 }
+
+#F_blog .big_input {
+	width: calc(100% - 4px);
+	height: calc(15% - 4px);
+}
+
+#F_blog .content_input {
+	width: calc(100% - 4px);
+	height: calc(55% - 4px);
+	float: left;
+}
+
