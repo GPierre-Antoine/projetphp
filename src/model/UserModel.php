@@ -212,6 +212,43 @@ class UserModel extends ModelPDO {
         return $privi;
     }
 
+    function CheckMailAdress($adresse)
+    {
+        //Adresse mail trop longue (254 octets max)
+        if(strlen($adresse)>254)
+        {
+            return '<p>Votre adresse est trop longue.</p>';
+        }
+
+        /*Caractères non-ASCII autorisés dans un nom de domaine .eu :
+
+        $nonASCII='ďđēĕėęěĝğġģĥħĩīĭįıĵķĺļľŀłńņňŉŋōŏőoeŕŗřśŝsťŧ';
+        $nonASCII.='ďđēĕėęěĝğġģĥħĩīĭįıĵķĺļľŀłńņňŉŋōŏőoeŕŗřśŝsťŧ';
+        $nonASCII.='ũūŭůűųŵŷźżztșțΐάέήίΰαβγδεζηθικλμνξοπρςστυφ';
+        $nonASCII.='χψωϊϋόύώабвгдежзийклмнопрстуфхцчшщъыьэюяt';
+        $nonASCII.='ἀἁἂἃἄἅἆἇἐἑἒἓἔἕἠἡἢἣἤἥἦἧἰἱἲἳἴἵἶἷὀὁὂὃὄὅὐὑὒὓὔ';
+        $nonASCII.='ὕὖὗὠὡὢὣὤὥὦὧὰάὲέὴήὶίὸόὺύὼώᾀᾁᾂᾃᾄᾅᾆᾇᾐᾑᾒᾓᾔᾕᾖᾗ';
+        $nonASCII.='ᾠᾡᾢᾣᾤᾥᾦᾧᾰᾱᾲᾳᾴᾶᾷῂῃῄῆῇῐῑῒΐῖῗῠῡῢΰῤῥῦῧῲῳῴῶῷ';
+        */
+
+        $messagerie = 'free';
+        $messagerie.= 'orange';
+        $messagerie.= 'gmail';
+        $messagerie.= 'hotmail';
+
+
+        $syntaxe="#^[\w-.]{1,64}@[$messagerie]{2,253}\.[[:alpha:].]{2,6}$#";
+
+        if(preg_match($syntaxe,$adresse))
+        {
+            return true ;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     protected function getSpecific()
     {
         return $this->joinlist;

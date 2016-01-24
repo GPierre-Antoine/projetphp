@@ -13,48 +13,52 @@ class ControllerInscription extends Controller {
 
     public function update() {
 
-        if (isset($_POST['mail']) && isset($_POST['pwd0'])) {
+        if($this->model->CheckMailAdress($_POST['mail']) == false)
+        {
+            echo 'Votre adresse est invalide';
+        }
+        else {
 
-            $mail = POST('mail');
-            $password = POST('pwd0');
-            if ($password !== POST('pwd1')) {
-                //do not match
+            if (isset($_POST['mail']) && isset($_POST['pwd0'])) {
+
+                $mail = POST('mail');
+                $password = POST('pwd0');
+                if ($password !== POST('pwd1')) {
+                    //do not match
+
+                    return;
+                }
+
+                /*if (!mail_check($mail))
+                {
+                    $_SESSION['INSCRIPTION_FAILURE'] = "Adresse Email Non Valide !";
+                    unset($_SESSION['INSCRIPTION_FAILURE']);
+                    return;
+                }*/
+
+                $name = POST('fName');
+
+                $crypt = true;
+                $key = random_string_token(10, $crypt);
 
 
-                return;
-            }
+                $this->model->select_user_by_mail();
+                $this->model->select($mail);
+                $this->model->join('PASSWORD');
 
+                $this->model->update();
 
-            if (!mail_check($mail))
-            {
-                $_SESSION['INSCRIPTION_FAILURE'] = "Adresse Email Non Valide !";
-                unset($_SESSION['INSCRIPTION_FAILURE']);
-                return;
-            }
+                if ($this->model->rowCount() === 0) {
+                    //user not found -> good case
 
-            $name = POST('fName');
+                    $user = new User('0', $mail, $name, 0);
 
-            $crypt = true;
-            $key = random_string_token(10,$crypt);
+                    $this->model->create_new_user($user, $password, $key);
 
-
-            $this->model->select_user_by_mail();
-            $this->model->select($mail);
-            $this->model->join('PASSWORD');
-
-            $this->model->update();
-
-            if ($this->model->rowCount() === 0) {
-                //user not found -> good case
-
-                $user = new User('0',$mail,$name,0);
-
-                $this->model->create_new_user($user,$password,$key);
-
-                $destinataire = $mail;
-                $sujet = "Activation de votre compte";
-                $entete = "From: Equipe@aaron-aaron.com";
-                $message = "Bienvenue sur Aaron,
+                    $destinataire = $mail;
+                    $sujet = "Activation de votre compte";
+                    $entete = "From: Equipe@aaron-aaron.com";
+                    $message = "Bienvenue sur Aaron,
 
                 Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
                 ou copier/coller dans votre navigateur internet.,
@@ -63,16 +67,16 @@ class ControllerInscription extends Controller {
                ---------------
                Ceci est un mail automatique, Merci de ne pas y répondre.";
 
-                mail($destinataire, $sujet, $message, $entete);
+                    mail($destinataire, $sujet, $message, $entete);
 
-                echo "Un mail vous a été envoyé sur votre adresse mail, veuillez suivre les indications pour
+                    echo "Un mail vous a été envoyé sur votre adresse mail, veuillez suivre les indications pour
                 continuer votre inscription.";
 
-            }
-            else {
-                //mail already exists;
-                $_SESSION["INSCRIPTION_FAILURE"] = "Cette adresse email existe déjà dans nos bases de données !";
+                } else {
+                    //mail already exists;
+                    //$_SESSION["INSCRIPTION_FAILURE"] = "Cette adresse email existe déjà dans nos bases de données !";
 
+                }
             }
         }
     }
