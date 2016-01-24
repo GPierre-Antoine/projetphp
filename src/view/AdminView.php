@@ -18,7 +18,7 @@ class AdminView extends View {
       $users = $this->model->getUsers();
         echo'<table>';
       foreach($users as $u) {
-
+          if($u->getID() == $_SESSION['ID']) continue;
           echo'<tr>';
          echo '<td>'.$u->getID() . '</td>';
          echo '<td>'.$u->getEmail() . '</td>';

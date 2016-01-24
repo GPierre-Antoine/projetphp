@@ -71,12 +71,26 @@ function deleteUser($object) {
 } // deleteUser()
 
 function disconnect() {
-    $.ajax({
-        url: '/ajx',
-        type: 'POST',
-        data: 'disconnectUser=ok',
-        success: function (data) {
-            window.location.replace("http://aaron-aaron.alwaysdata.net/");
-        }
-    });
+    if(navigator.userAgent.indexOf("Chrome") != -1) {
+        $.ajax({
+            url: '/ajx',
+            type: 'POST',
+            data: 'disconnectUser=ok',
+            success: function (data) {
+                window.location.replace("http://aaron-aaron.alwaysdata.net/");
+            }
+        });
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                window.location.replace("http://aaron-aaron.alwaysdata.net/");
+            }
+
+        };
+        xhr.open("POST", "/ajx", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send('disconnectUser=ok');
+    }
 } // disconnect()
