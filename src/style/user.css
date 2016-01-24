@@ -794,7 +794,7 @@ img[src="#"] {
 }
 
 .article_zone_content {
-	height: calc(100% - 10px);
+	height: calc(100% - 40px);
 	width: calc(70% - 10px);
 	float: left;
 	padding: 5px;

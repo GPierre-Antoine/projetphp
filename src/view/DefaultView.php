@@ -33,12 +33,13 @@ class DefaultView extends View {
 			echo '
     		<html>
 				<head>
-					<title>Aaron</title>
+					<title>Aaron - '.$this->user->getName().'</title>
 					<meta name="description" content="Page de l\'utilisateur de Aaaron" />
 					<meta name="keywords" content="aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article" />
 					<link rel="stylesheet" type="text/css" href="/src/style/user.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/general.css" />
 					<link rel="stylesheet" type="text/css" href="/src/style/perso.css">
+					<link rel="shortcut icon" href="/src/images/favicon.ico" type="image/x-icon">
 					<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 					<script type="text/javascript" src="/src/js/menu.js"></script>
 					<script type="text/javascript" src="/src/js/user_preference.js"></script>

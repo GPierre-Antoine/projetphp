@@ -25,10 +25,11 @@ class IndexView extends View {
         <html>
           <head>
         		<title>Aaron</title>
-                <meta name='google-signin-scope' content='profile email'>
+                <meta name='description' content='Inscription & connexion sur Aaron' />
+				<meta name='keywords' content='aaron, flux, source, données, blog, twitter, categorie, email, mail, rss, feed, article, connexion, inscription' />
         		<link rel='stylesheet' type='text/css' href='/src/style/index.css' />
         		<link rel='stylesheet' type='text/css' href='/src/style/general.css' />
-                <meta name='google-signin-client_id' content='465981179540-rtkpb0od5g1op6edd11gjt5kq9bcpsfj.apps.googleusercontent.com'>
+                <link rel='shortcut icon' href='/src/images/favicon.ico' type='image/x-icon'>
                 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
                 <script src='https://apis.google.com/js/platform.js?onload=renderButton' async defer></script>
                 <script type='text/javascript' src='/src/js/jquery.fullPage.js'></script>

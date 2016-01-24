@@ -30,10 +30,11 @@ class Article
     public function display($mine = false) {
         $delete = "";
         if ($mine === true) {
-            $delete = '<button onclick="deleteArticle('.$this->id.')" class="delete_article oborder">Supprimer</button>';
+            $delete = '<button class="noborder" style="width: 150px;height: 30px;" onclick="deleteArticle('.$this->id.')" class="delete_article oborder">Supprimer</button>';
         }
         $display = '
             <div class="article_display display" >
+                '.$delete.'
                 <div class="article_zone_img" >
                     <img class="article_img" src = "'.$this->imgUrl.'" />
                 </div >
@@ -41,7 +42,6 @@ class Article
                     <span class="article_content_inf"><span class="article_inf_title">'.$this->title.'</span> dans <span class="article_inf_theme">'.$this->theme.'</span></span><span class="article_inf_date">le '.$this->date.'</span><br/>
                     <span class="article_content_source">Par : '.$this->source.'</span>
                     <p class="article_content">'.$this->content.'</p>
-                    '.$delete.'
                 </div>
             </div>
         ';
