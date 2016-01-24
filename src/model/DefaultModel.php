@@ -18,6 +18,9 @@ class DefaultModel extends ModelPDO {
         if($_SESSION['ID'] == null) {
             header('Location:/');
         }
+        else if($_SESSION['admin'] == "admin") {
+            header('Location:/admin');
+        }
         else {
             $this->user = build_user($_SESSION['ID']);
             $this->user->initializeFriends();
