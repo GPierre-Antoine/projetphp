@@ -39,7 +39,7 @@ class AdminView extends View {
 
     public function display()
     {
-        if ($_SESSION['privilege'] === "admin") {
+        if ($_SESSION['admin'] === "admin") {
             echo '
         <!DOCTYPE html>
         <html>
