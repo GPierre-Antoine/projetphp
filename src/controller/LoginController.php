@@ -38,8 +38,8 @@ TEXT;
             {
                 echo "<p>Logged</p>";
                 $testAdm = $this->model->isAdmin($_SESSION['ID']);
-                if ($testAdm === 'ADMIN') {
-                    $_SESSION['privilege'] = $testAdm;
+                if ($testAdm === 'admin') {
+                    $_SESSION['admin'] = $testAdm;
                 }
             }
         }

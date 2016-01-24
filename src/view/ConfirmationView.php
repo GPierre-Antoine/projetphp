@@ -15,7 +15,7 @@ class ConfirmationView extends View {
     }// UserView
 
     public function display() {
-        if($_SESSION['privilege'] === "ADMIN"){
+        if($_SESSION['admin'] === "admin"){
             header('Location:/admin');
         }
         else {
