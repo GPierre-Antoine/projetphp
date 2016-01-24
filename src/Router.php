@@ -9,14 +9,14 @@ class Router {
         $this->table = array();
 
 
-        $this->table['default'] =           new Route ('IndexModel','IndexView','IndexController');
-        $this->table['confirmation'] =      new Route ('ConfirmationModel','ConfirmationView', 'ConfirmationController');
-        $this->table['user'] =              new Route ('DefaultModel','DefaultView','DefaultController');
-        $this->table['login'] =             new Route ('UserModel','ConfirmationView','LoginController');
-        $this->table['admin'] =             new Route ('AdminModel','AdminView','AdminController');
-        $this->table['ajx'] =               new Route ('CustomModel','EmptyView','AjaxController');
-        $this->table['register'] =          new Route ('UserModel','ConfirmationView','ControllerInscription');
-        $this->table['reset'] =             new Route ('UserModel','ResetView','ResetController');
+        $this->table['default'] =           new Route ('IndexModel'         ,'IndexView'        ,'IndexController');
+        $this->table['confirmation'] =      new Route ('ConfirmationModel'  ,'ConfirmationView' , 'ConfirmationController');
+        $this->table['user'] =              new Route ('DefaultModel'       ,'DefaultView'      ,'DefaultController');
+        $this->table['login'] =             new Route ('UserModel'          ,'ConfirmationView' ,'LoginController');
+        $this->table['admin'] =             new Route ('AdminModel'         ,'AdminView'        ,'AdminController');
+        $this->table['ajx'] =               new Route ('CustomModel'        ,'EmptyView'        ,'AjaxController');
+        $this->table['register'] =          new Route ('UserModel'          ,'ConfirmationView' ,'ControllerInscription');
+        $this->table['reset'] =             new Route ('UserModel'          ,'ResetView'        ,'ResetController');
 
     }
 
